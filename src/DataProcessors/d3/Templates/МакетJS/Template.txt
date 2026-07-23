@@ -1238,7 +1238,10 @@ function initWarehouse3D() {
         var distance = speedMetersPerSecond * dt;
         var moved = false;
         var now = new Date().getTime();
-        var forward = new THREE.Vector3(Math.sin(yaw), 0, Math.cos(yaw)).normalize();
+        var cosP = Math.cos(pitch);
+        var forward = new THREE.Vector3(
+            Math.sin(yaw) * cosP, Math.sin(pitch), Math.cos(yaw) * cosP
+        ).normalize();
         var right = new THREE.Vector3(
             Math.sin(yaw + Math.PI / 2), 0, Math.cos(yaw + Math.PI / 2)
         ).normalize();
