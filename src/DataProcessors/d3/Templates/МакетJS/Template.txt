@@ -3,6 +3,7 @@ function initWarehouse3D() {
     var viewport = document.getElementById('viewport');
     var statusEl = document.getElementById('status');
     var bridge = document.getElementById('pick-bridge');
+    var commandBridge = document.getElementById('scene-command-bridge');
     var errEl = document.getElementById('webgl-error');
     var dataEl = document.getElementById('scene-data');
 
@@ -52,18 +53,17 @@ function initWarehouse3D() {
     var objectById = {};
     var invalidCount = 0;
 
-    for (var oi = 0; oi < sourceObjects.length; oi++) {
-        var source = sourceObjects[oi] || {};
+    function normalizeObject(source) {
+        source = source || {};
         var id = String(source.id == null ? '' : source.id);
         var kind = String(source.kind == null ? '' : source.kind);
         var x = Number(source.x);
         var y = Number(source.y);
         var z = Number(source.z);
-        if (!id || !kind || !isFinite(x) || !isFinite(y) || !isFinite(z) || objectById[id]) {
-            invalidCount++;
-            continue;
+        if (!id || !kind || !isFinite(x) || !isFinite(y) || !isFinite(z)) {
+            return null;
         }
-        var obj = {
+        return {
             id: id,
             kind: kind,
             name: String(source.name || id),
@@ -78,7 +78,16 @@ function initWarehouse3D() {
             source: source,
             bounds: new THREE.Box3()
         };
-        objectById[id] = obj;
+    }
+
+    for (var oi = 0; oi < sourceObjects.length; oi++) {
+        var obj = normalizeObject(sourceObjects[oi]);
+        if (!obj || objectById[obj.id]) {
+            invalidCount++;
+            continue;
+        }
+        obj.objectIndex = objects.length;
+        objectById[obj.id] = obj;
         objects.push(obj);
     }
 
@@ -702,6 +711,7 @@ function initWarehouse3D() {
 
     // --- Совместимый с WebKit батчинг BufferGeometry ---
     var renderMeshes = [];
+    var objectBatchesByIndex = {};
     var MAX_BATCH_VERTICES = 60000;
 
     function GeometryBuilder() {
@@ -710,6 +720,7 @@ function initWarehouse3D() {
         this.indices = [];
         this.edgePositions = [];
         this.ranges = [];
+        this.objectIndexes = [];
         this.vertexCount = 0;
     }
 
@@ -770,6 +781,10 @@ function initWarehouse3D() {
                 endFace: faceEnd,
                 objectIndex: objectIndex
             });
+            if (!this.objectIndexes.length ||
+                    this.objectIndexes[this.objectIndexes.length - 1] !== objectIndex) {
+                this.objectIndexes.push(objectIndex);
+            }
         }
 
         if (!geometry.boundingBox) {
@@ -795,7 +810,7 @@ function initWarehouse3D() {
 
     GeometryBuilder.prototype.flush = function () {
         if (this.isEmpty()) {
-            return;
+            return null;
         }
         var geometry = new THREE.BufferGeometry();
         geometry.setAttribute('position', new THREE.Float32BufferAttribute(this.positions, 3));
@@ -808,6 +823,7 @@ function initWarehouse3D() {
             new THREE.MeshBasicMaterial({ vertexColors: true })
         );
         mesh.userData.ranges = this.ranges;
+        mesh.userData.objectIndexes = this.objectIndexes;
 
         var edgeGeometry = new THREE.BufferGeometry();
         edgeGeometry.setAttribute('position', new THREE.Float32BufferAttribute(this.edgePositions, 3));
@@ -819,6 +835,14 @@ function initWarehouse3D() {
         mesh.add(edges);
         scene.add(mesh);
         renderMeshes.push(mesh);
+        for (var i = 0; i < this.objectIndexes.length; i++) {
+            var objectIndex = this.objectIndexes[i];
+            if (!objectBatchesByIndex[objectIndex]) {
+                objectBatchesByIndex[objectIndex] = [];
+            }
+            objectBatchesByIndex[objectIndex].push(mesh);
+        }
+        return mesh;
     };
 
     function objectWorldMatrix(obj) {
@@ -829,34 +853,106 @@ function initWarehouse3D() {
         return new THREE.Matrix4().compose(position, rotation, new THREE.Vector3(1, 1, 1));
     }
 
-    var builder = new GeometryBuilder();
-    var renderedObjects = 0;
-    for (oi = 0; oi < objects.length; oi++) {
-        var obj = objects[oi];
-        var factory = objectFactories[obj.kind];
-        if (!factory) {
-            invalidCount++;
-            continue;
+    function disposeBatch(mesh) {
+        if (!mesh) {
+            return;
         }
-        var parts;
-        try {
-            parts = factory(obj);
-        } catch (factoryError) {
-            invalidCount++;
-            continue;
+        scene.remove(mesh);
+        var meshPosition = renderMeshes.indexOf(mesh);
+        if (meshPosition >= 0) {
+            renderMeshes.splice(meshPosition, 1);
         }
-        var objectMatrix = objectWorldMatrix(obj);
-        for (var pi = 0; pi < parts.length; pi++) {
-            var partMatrix = new THREE.Matrix4().multiplyMatrices(objectMatrix, parts[pi].matrix);
-            if (!builder.addPart(parts[pi], partMatrix, oi)) {
-                builder.flush();
-                builder = new GeometryBuilder();
-                builder.addPart(parts[pi], partMatrix, oi);
+        var indexes = mesh.userData.objectIndexes || [];
+        for (var i = 0; i < indexes.length; i++) {
+            var batches = objectBatchesByIndex[indexes[i]] || [];
+            var batchPosition = batches.indexOf(mesh);
+            if (batchPosition >= 0) {
+                batches.splice(batchPosition, 1);
+            }
+            if (!batches.length) {
+                delete objectBatchesByIndex[indexes[i]];
             }
         }
-        renderedObjects++;
+        for (i = 0; i < mesh.children.length; i++) {
+            if (mesh.children[i].geometry) {
+                mesh.children[i].geometry.dispose();
+            }
+            if (mesh.children[i].material) {
+                mesh.children[i].material.dispose();
+            }
+        }
+        mesh.geometry.dispose();
+        mesh.material.dispose();
     }
-    builder.flush();
+
+    function buildObjectBatches(indexes, countInvalid) {
+        var builder = new GeometryBuilder();
+        var builtObjects = 0;
+        for (var ii = 0; ii < indexes.length; ii++) {
+            var objectIndex = indexes[ii];
+            var obj = objects[objectIndex];
+            if (!obj) {
+                continue;
+            }
+            var factory = objectFactories[obj.kind];
+            if (!factory) {
+                if (countInvalid) {
+                    invalidCount++;
+                }
+                continue;
+            }
+            obj.bounds.makeEmpty();
+            var parts;
+            try {
+                parts = factory(obj);
+            } catch (factoryError) {
+                if (countInvalid) {
+                    invalidCount++;
+                }
+                continue;
+            }
+            var objectMatrix = objectWorldMatrix(obj);
+            for (var pi = 0; pi < parts.length; pi++) {
+                var partMatrix = new THREE.Matrix4().multiplyMatrices(objectMatrix, parts[pi].matrix);
+                if (!builder.addPart(parts[pi], partMatrix, objectIndex)) {
+                    builder.flush();
+                    builder = new GeometryBuilder();
+                    builder.addPart(parts[pi], partMatrix, objectIndex);
+                }
+            }
+            builtObjects++;
+        }
+        builder.flush();
+        return builtObjects;
+    }
+
+    function rebuildBatchesForObject(objectIndex) {
+        var oldBatches = (objectBatchesByIndex[objectIndex] || []).slice();
+        var rebuildIndexes = {};
+        for (var bi = 0; bi < oldBatches.length; bi++) {
+            var batchIndexes = oldBatches[bi].userData.objectIndexes || [];
+            for (var ji = 0; ji < batchIndexes.length; ji++) {
+                rebuildIndexes[batchIndexes[ji]] = true;
+            }
+        }
+        for (bi = 0; bi < oldBatches.length; bi++) {
+            disposeBatch(oldBatches[bi]);
+        }
+        var indexes = [];
+        for (var key in rebuildIndexes) {
+            if (Object.prototype.hasOwnProperty.call(rebuildIndexes, key) && objects[Number(key)]) {
+                indexes.push(Number(key));
+            }
+        }
+        indexes.sort(function (a, b) { return a - b; });
+        buildObjectBatches(indexes, false);
+    }
+
+    var initialIndexes = [];
+    for (oi = 0; oi < objects.length; oi++) {
+        initialIndexes.push(oi);
+    }
+    var renderedObjects = buildObjectBatches(initialIndexes, true);
 
     // --- Камера и выбор ---
     var selected = null;
@@ -977,6 +1073,161 @@ function initWarehouse3D() {
         needsRender = true;
         updateStatus();
         notify1C(obj);
+    }
+
+    function refreshSelectedObject() {
+        if (!selected || selected.bounds.isEmpty()) {
+            clearSelection();
+            updateStatus();
+            return;
+        }
+        var size = new THREE.Vector3();
+        var center = new THREE.Vector3();
+        selected.bounds.getSize(size);
+        selected.bounds.getCenter(center);
+        highlight.position.copy(center);
+        highlight.scale.set(size.x + 0.12, size.y + 0.12, size.z + 0.12);
+        highlight.visible = true;
+        needsRender = true;
+        updateStatus();
+    }
+
+    function addObject(source) {
+        var obj = normalizeObject(source);
+        if (!obj) {
+            throw new Error('Некорректные обязательные поля объекта.');
+        }
+        if (objectById[obj.id]) {
+            throw new Error('Объект с id "' + obj.id + '" уже существует.');
+        }
+        if (!objectFactories[obj.kind]) {
+            throw new Error('Неподдерживаемый kind "' + obj.kind + '".');
+        }
+        obj.objectIndex = objects.length;
+        objects.push(obj);
+        objectById[obj.id] = obj;
+        if (!buildObjectBatches([obj.objectIndex], false)) {
+            objects[obj.objectIndex] = null;
+            delete objectById[obj.id];
+            throw new Error('Не удалось построить геометрию объекта.');
+        }
+        renderedObjects++;
+        needsRender = true;
+        updateStatus();
+        return obj;
+    }
+
+    function removeObject(id) {
+        id = String(id == null ? '' : id);
+        var obj = objectById[id];
+        if (!obj) {
+            throw new Error('Объект с id "' + id + '" не найден.');
+        }
+        var objectIndex = obj.objectIndex;
+        var wasSelected = selected === obj;
+        objects[objectIndex] = null;
+        delete objectById[id];
+        rebuildBatchesForObject(objectIndex);
+        delete objectBatchesByIndex[objectIndex];
+        renderedObjects--;
+        if (wasSelected) {
+            clearSelection();
+        }
+        needsRender = true;
+        updateStatus();
+        return true;
+    }
+
+    function moveObject(id, x, y, z) {
+        id = String(id == null ? '' : id);
+        var obj = objectById[id];
+        x = Number(x);
+        y = Number(y);
+        z = Number(z);
+        if (!obj) {
+            throw new Error('Объект с id "' + id + '" не найден.');
+        }
+        if (!isFinite(x) || !isFinite(y) || !isFinite(z)) {
+            throw new Error('Координаты должны быть числами.');
+        }
+        obj.x = x;
+        obj.y = y;
+        obj.z = z;
+        obj.source.x = x;
+        obj.source.y = y;
+        obj.source.z = z;
+        rebuildBatchesForObject(obj.objectIndex);
+        if (selected === obj) {
+            refreshSelectedObject();
+        }
+        needsRender = true;
+        updateStatus();
+        return obj;
+    }
+
+    function applyCommand(command) {
+        command = command || {};
+        if (command.op === 'add') {
+            return addObject(command.object);
+        }
+        if (command.op === 'remove') {
+            return removeObject(command.id);
+        }
+        if (command.op === 'move') {
+            return moveObject(command.id, command.x, command.y, command.z);
+        }
+        throw new Error('Неизвестная операция "' + String(command.op || '') + '".');
+    }
+
+    function processBridgeCommand(event) {
+        if (event) {
+            if (event.preventDefault) {
+                event.preventDefault();
+            }
+            if (event.stopPropagation) {
+                event.stopPropagation();
+            }
+        }
+        if (!commandBridge) {
+            return false;
+        }
+        var sequence = commandBridge.getAttribute('data-seq') || '';
+        if (!sequence || sequence === processBridgeCommand.lastSequence) {
+            return false;
+        }
+        processBridgeCommand.lastSequence = sequence;
+        try {
+            var payload = commandBridge.getAttribute('data-payload') || '';
+            applyCommand(JSON.parse(payload));
+            commandBridge.setAttribute('data-error', '');
+        } catch (commandError) {
+            commandBridge.setAttribute('data-error', commandError.message || String(commandError));
+            if (window.console && typeof window.console.error === 'function') {
+                window.console.error(commandError);
+            }
+        }
+        commandBridge.setAttribute('data-ack', sequence);
+        return false;
+    }
+    processBridgeCommand.lastSequence = '';
+
+    window.warehouse3d = {
+        addObject: addObject,
+        removeObject: removeObject,
+        moveObject: moveObject,
+        applyCommand: applyCommand,
+        getObject: function (id) { return objectById[String(id)] || null; }
+    };
+
+    if (commandBridge) {
+        if (commandBridge.addEventListener) {
+            commandBridge.addEventListener('click', processBridgeCommand, false);
+        } else if (commandBridge.attachEvent) {
+            commandBridge.attachEvent('onclick', processBridgeCommand);
+        } else {
+            commandBridge.onclick = processBridgeCommand;
+        }
+        commandBridge.setAttribute('data-ready', 'true');
     }
 
     function findObjectIndex(ranges, faceIndex) {

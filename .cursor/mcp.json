@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "EDT MCP Server": {
+      "url": "http://localhost:8765/mcp"
+    }
+  }
+}
