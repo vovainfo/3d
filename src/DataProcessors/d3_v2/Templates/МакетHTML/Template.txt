@@ -7,7 +7,7 @@
 <body>
 <div id="stage">
   <div id="hud">
-    <div id="help">Клик по сцене · WASD — полёт · Q/E — вниз/вверх · ЛКМ — обзор · клик — выбор · колесо — зум</div>
+    <div id="help">Демо: тягач едет, клик по контейнеру — перекинуть · WASD — полёт · Q/E — высота · ЛКМ — обзор</div>
     <div id="status">Загрузка метрической сцены…</div>
   </div>
   <div id="controls">
@@ -16,6 +16,7 @@
   <div id="viewport"></div>
   <input id="key-trap" type="text" autocomplete="off" tabindex="0" aria-hidden="true" />
   <a id="pick-bridge" href="#pick" style="display:none">pick</a>
+  <a id="scene-command-bridge" href="#scene-command" data-ready="false" data-seq="" data-ack="" data-payload="" data-error="" style="display:none">command</a>
   <div id="webgl-error" style="display:none">WebGL недоступен в этом клиенте.</div>
 </div>
 <script type="application/json" id="scene-data">@SceneData</script>

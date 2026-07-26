@@ -3,6 +3,7 @@ function initWarehouse3D() {
     var viewport = document.getElementById('viewport');
     var statusEl = document.getElementById('status');
     var bridge = document.getElementById('pick-bridge');
+    var commandBridge = document.getElementById('scene-command-bridge');
     var errEl = document.getElementById('webgl-error');
     var dataEl = document.getElementById('scene-data');
 
@@ -52,18 +53,17 @@ function initWarehouse3D() {
     var objectById = {};
     var invalidCount = 0;
 
-    for (var oi = 0; oi < sourceObjects.length; oi++) {
-        var source = sourceObjects[oi] || {};
+    function normalizeObject(source) {
+        source = source || {};
         var id = String(source.id == null ? '' : source.id);
         var kind = String(source.kind == null ? '' : source.kind);
         var x = Number(source.x);
         var y = Number(source.y);
         var z = Number(source.z);
-        if (!id || !kind || !isFinite(x) || !isFinite(y) || !isFinite(z) || objectById[id]) {
-            invalidCount++;
-            continue;
+        if (!id || !kind || !isFinite(x) || !isFinite(y) || !isFinite(z)) {
+            return null;
         }
-        var obj = {
+        return {
             id: id,
             kind: kind,
             name: String(source.name || id),
@@ -75,17 +75,34 @@ function initWarehouse3D() {
             size: source.size || {},
             load: String(source.load || 'none'),
             loadColor: String(source.loadColor || '#1769aa'),
+            blockId: source.blockId == null ? '' : String(source.blockId),
+            row: source.row,
+            bay: source.bay,
+            tier: source.tier,
+            status: source.status == null ? '' : String(source.status),
+            observedAt: source.observedAt == null ? '' : String(source.observedAt),
             source: source,
-            bounds: new THREE.Box3()
+            bounds: new THREE.Box3(),
+            instanceLayer: null,
+            instanceIndex: -1
         };
-        objectById[id] = obj;
+    }
+
+    for (var oi = 0; oi < sourceObjects.length; oi++) {
+        var obj = normalizeObject(sourceObjects[oi]);
+        if (!obj || objectById[obj.id]) {
+            invalidCount++;
+            continue;
+        }
+        obj.objectIndex = objects.length;
+        objectById[obj.id] = obj;
         objects.push(obj);
     }
 
     var scene = new THREE.Scene();
     scene.background = new THREE.Color(0x1a1d24);
 
-    var camera = new THREE.PerspectiveCamera(60, 1, 0.1, Math.max(1000, site.width + site.length));
+    var camera = new THREE.PerspectiveCamera(60, 1, 0.5, Math.max(1000, site.width + site.length));
     var renderer;
     try {
         renderer = new THREE.WebGLRenderer({
@@ -700,9 +717,31 @@ function initWarehouse3D() {
         return parts;
     };
 
-    // --- Совместимый с WebKit батчинг BufferGeometry ---
+    // --- Совместимый с WebKit батчинг BufferGeometry (инфраструктура/техника) ---
     var renderMeshes = [];
+    var objectBatchesByIndex = {};
     var MAX_BATCH_VERTICES = 60000;
+    var buildStartedAt = (typeof performance !== 'undefined' && performance.now)
+        ? performance.now() : Date.now();
+    var buildMs = 0;
+    var lastDeltaMs = 0;
+    var fpsAccum = 0;
+    var fpsFrames = 0;
+    var fpsValue = 0;
+
+    var CONTAINER_SIZES = {
+        container20: { length: 6.058, width: 2.438, height: 2.591 },
+        container40: { length: 12.192, width: 2.438, height: 2.591 }
+    };
+
+    function isContainerKind(kind) {
+        return kind === 'container20' || kind === 'container40';
+    }
+
+    // InstancedMesh в WebKit ПолеHTMLДокумента часто не рисует экземпляры.
+    // По умолчанию — проверенный батчинг; instancing включается только явно.
+    var useInstancedContainers = !!(sceneData.flags && sceneData.flags.useInstancedContainers);
+    var containerRenderMode = useInstancedContainers ? 'instanced' : 'batched';
 
     function GeometryBuilder() {
         this.positions = [];
@@ -710,7 +749,9 @@ function initWarehouse3D() {
         this.indices = [];
         this.edgePositions = [];
         this.ranges = [];
+        this.objectIndexes = [];
         this.vertexCount = 0;
+        this.skipEdges = false;
     }
 
     GeometryBuilder.prototype.isEmpty = function () {
@@ -770,6 +811,10 @@ function initWarehouse3D() {
                 endFace: faceEnd,
                 objectIndex: objectIndex
             });
+            if (!this.objectIndexes.length ||
+                    this.objectIndexes[this.objectIndexes.length - 1] !== objectIndex) {
+                this.objectIndexes.push(objectIndex);
+            }
         }
 
         if (!geometry.boundingBox) {
@@ -778,15 +823,17 @@ function initWarehouse3D() {
         var partBounds = geometry.boundingBox.clone().applyMatrix4(worldMatrix);
         objects[objectIndex].bounds.union(partBounds);
 
-        var edgeGeometry = geometry.userData.meterEdges;
-        if (!edgeGeometry) {
-            edgeGeometry = new THREE.EdgesGeometry(geometry, 20);
-            geometry.userData.meterEdges = edgeGeometry;
-        }
-        var edgePosition = edgeGeometry.attributes.position;
-        for (i = 0; i < edgePosition.count; i++) {
-            vector.fromBufferAttribute(edgePosition, i).applyMatrix4(worldMatrix);
-            this.edgePositions.push(vector.x, vector.y, vector.z);
+        if (!this.skipEdges) {
+            var edgeGeometry = geometry.userData.meterEdges;
+            if (!edgeGeometry) {
+                edgeGeometry = new THREE.EdgesGeometry(geometry, 20);
+                geometry.userData.meterEdges = edgeGeometry;
+            }
+            var edgePosition = edgeGeometry.attributes.position;
+            for (i = 0; i < edgePosition.count; i++) {
+                vector.fromBufferAttribute(edgePosition, i).applyMatrix4(worldMatrix);
+                this.edgePositions.push(vector.x, vector.y, vector.z);
+            }
         }
 
         this.vertexCount += position.count;
@@ -795,7 +842,7 @@ function initWarehouse3D() {
 
     GeometryBuilder.prototype.flush = function () {
         if (this.isEmpty()) {
-            return;
+            return null;
         }
         var geometry = new THREE.BufferGeometry();
         geometry.setAttribute('position', new THREE.Float32BufferAttribute(this.positions, 3));
@@ -808,17 +855,28 @@ function initWarehouse3D() {
             new THREE.MeshBasicMaterial({ vertexColors: true })
         );
         mesh.userData.ranges = this.ranges;
+        mesh.userData.objectIndexes = this.objectIndexes;
 
-        var edgeGeometry = new THREE.BufferGeometry();
-        edgeGeometry.setAttribute('position', new THREE.Float32BufferAttribute(this.edgePositions, 3));
-        var edges = new THREE.LineSegments(
-            edgeGeometry,
-            new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.48 })
-        );
-        edges.raycast = function () {};
-        mesh.add(edges);
+        if (this.edgePositions.length) {
+            var edgeGeometry = new THREE.BufferGeometry();
+            edgeGeometry.setAttribute('position', new THREE.Float32BufferAttribute(this.edgePositions, 3));
+            var edges = new THREE.LineSegments(
+                edgeGeometry,
+                new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.48 })
+            );
+            edges.raycast = function () {};
+            mesh.add(edges);
+        }
         scene.add(mesh);
         renderMeshes.push(mesh);
+        for (var i = 0; i < this.objectIndexes.length; i++) {
+            var objectIndex = this.objectIndexes[i];
+            if (!objectBatchesByIndex[objectIndex]) {
+                objectBatchesByIndex[objectIndex] = [];
+            }
+            objectBatchesByIndex[objectIndex].push(mesh);
+        }
+        return mesh;
     };
 
     function objectWorldMatrix(obj) {
@@ -829,34 +887,420 @@ function initWarehouse3D() {
         return new THREE.Matrix4().compose(position, rotation, new THREE.Vector3(1, 1, 1));
     }
 
-    var builder = new GeometryBuilder();
-    var renderedObjects = 0;
-    for (oi = 0; oi < objects.length; oi++) {
-        var obj = objects[oi];
-        var factory = objectFactories[obj.kind];
-        if (!factory) {
-            invalidCount++;
-            continue;
+    function disposeBatch(mesh) {
+        if (!mesh) {
+            return;
         }
-        var parts;
-        try {
-            parts = factory(obj);
-        } catch (factoryError) {
-            invalidCount++;
-            continue;
+        scene.remove(mesh);
+        var meshPosition = renderMeshes.indexOf(mesh);
+        if (meshPosition >= 0) {
+            renderMeshes.splice(meshPosition, 1);
         }
-        var objectMatrix = objectWorldMatrix(obj);
-        for (var pi = 0; pi < parts.length; pi++) {
-            var partMatrix = new THREE.Matrix4().multiplyMatrices(objectMatrix, parts[pi].matrix);
-            if (!builder.addPart(parts[pi], partMatrix, oi)) {
-                builder.flush();
-                builder = new GeometryBuilder();
-                builder.addPart(parts[pi], partMatrix, oi);
+        var indexes = mesh.userData.objectIndexes || [];
+        for (var i = 0; i < indexes.length; i++) {
+            var batches = objectBatchesByIndex[indexes[i]] || [];
+            var batchPosition = batches.indexOf(mesh);
+            if (batchPosition >= 0) {
+                batches.splice(batchPosition, 1);
+            }
+            if (!batches.length) {
+                delete objectBatchesByIndex[indexes[i]];
             }
         }
-        renderedObjects++;
+        for (i = 0; i < mesh.children.length; i++) {
+            if (mesh.children[i].geometry) {
+                mesh.children[i].geometry.dispose();
+            }
+            if (mesh.children[i].material) {
+                mesh.children[i].material.dispose();
+            }
+        }
+        mesh.geometry.dispose();
+        mesh.material.dispose();
     }
-    builder.flush();
+
+    function buildObjectBatches(indexes, countInvalid, options) {
+        options = options || {};
+        var skipContainers = !!options.skipContainers;
+        var builder = new GeometryBuilder();
+        builder.skipEdges = !!options.skipEdges;
+        var builtObjects = 0;
+        for (var ii = 0; ii < indexes.length; ii++) {
+            var objectIndex = indexes[ii];
+            var obj = objects[objectIndex];
+            if (!obj) {
+                continue;
+            }
+            if (skipContainers && isContainerKind(obj.kind)) {
+                continue;
+            }
+            var factory = objectFactories[obj.kind];
+            if (!factory) {
+                if (countInvalid) {
+                    invalidCount++;
+                }
+                continue;
+            }
+            obj.bounds.makeEmpty();
+            var parts;
+            try {
+                parts = factory(obj);
+            } catch (factoryError) {
+                if (countInvalid) {
+                    invalidCount++;
+                }
+                continue;
+            }
+            // Для штабеля достаточно одного бокса — без дверей/рёбер.
+            if (isContainerKind(obj.kind) && parts.length) {
+                parts = [parts[0]];
+            }
+            var objectMatrix = objectWorldMatrix(obj);
+            for (var pi = 0; pi < parts.length; pi++) {
+                var partMatrix = new THREE.Matrix4().multiplyMatrices(objectMatrix, parts[pi].matrix);
+                if (!builder.addPart(parts[pi], partMatrix, objectIndex)) {
+                    builder.flush();
+                    builder = new GeometryBuilder();
+                    builder.skipEdges = !!options.skipEdges;
+                    builder.addPart(parts[pi], partMatrix, objectIndex);
+                }
+            }
+            builtObjects++;
+        }
+        builder.flush();
+        return builtObjects;
+    }
+
+    function rebuildBatchesForObject(objectIndex) {
+        var oldBatches = (objectBatchesByIndex[objectIndex] || []).slice();
+        var rebuildIndexes = {};
+        for (var bi = 0; bi < oldBatches.length; bi++) {
+            var batchIndexes = oldBatches[bi].userData.objectIndexes || [];
+            for (var ji = 0; ji < batchIndexes.length; ji++) {
+                rebuildIndexes[batchIndexes[ji]] = true;
+            }
+        }
+        for (bi = 0; bi < oldBatches.length; bi++) {
+            disposeBatch(oldBatches[bi]);
+        }
+        var indexes = [];
+        for (var key in rebuildIndexes) {
+            if (Object.prototype.hasOwnProperty.call(rebuildIndexes, key) && objects[Number(key)]) {
+                indexes.push(Number(key));
+            }
+        }
+        indexes.sort(function (a, b) { return a - b; });
+        var rebuildSkipEdges = false;
+        for (var ri = 0; ri < indexes.length; ri++) {
+            if (objects[indexes[ri]] && isContainerKind(objects[indexes[ri]].kind)) {
+                rebuildSkipEdges = true;
+                break;
+            }
+        }
+        buildObjectBatches(indexes, false, { skipEdges: rebuildSkipEdges });
+    }
+
+    // --- InstancedMesh слой контейнеров ---
+    var containerLayers = {};
+    var containerPickMeshes = [];
+    var _tmpMatrix = new THREE.Matrix4();
+    var _tmpPos = new THREE.Vector3();
+    var _tmpQuat = new THREE.Quaternion();
+    var _tmpScale = new THREE.Vector3();
+    var _tmpColor = new THREE.Color();
+    var _tmpBox = new THREE.Box3();
+    var _tmpSize = new THREE.Vector3();
+
+    function layerKey(kind, blockId) {
+        return kind + '|' + (blockId || '_');
+    }
+
+    function ensureContainerLayer(kind, blockId, minCapacity) {
+        var key = layerKey(kind, blockId);
+        var layer = containerLayers[key];
+        var capacity = Math.max(64, minCapacity || 64);
+        if (layer && layer.capacity >= capacity) {
+            return layer;
+        }
+        if (layer) {
+            capacity = Math.max(capacity, layer.capacity * 2);
+            scene.remove(layer.mesh);
+            var idx = containerPickMeshes.indexOf(layer.mesh);
+            if (idx >= 0) {
+                containerPickMeshes.splice(idx, 1);
+            }
+            layer.mesh.geometry.dispose();
+            layer.mesh.material.dispose();
+        }
+        var size = CONTAINER_SIZES[kind];
+        var geometry = new THREE.BoxGeometry(1, 1, 1);
+        var material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        var mesh = new THREE.InstancedMesh(geometry, material, capacity);
+        // Локальная геометрия — unit-box; без отключения culling весь слой
+        // отсекается, т.к. bounding sphere остаётся у начала координат.
+        mesh.frustumCulled = false;
+        if (THREE.DynamicDrawUsage != null) {
+            mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+        }
+        mesh.count = 0;
+        mesh.userData.layerKey = key;
+        mesh.userData.kind = kind;
+        scene.add(mesh);
+        containerPickMeshes.push(mesh);
+
+        var idByIndex = layer ? layer.idByIndex.slice() : [];
+        var freeList = layer ? layer.freeList.slice() : [];
+        while (idByIndex.length < capacity) {
+            idByIndex.push(null);
+        }
+        // Hide unused slots.
+        _tmpScale.set(0, 0, 0);
+        _tmpPos.set(0, -10000, 0);
+        _tmpQuat.identity();
+        _tmpMatrix.compose(_tmpPos, _tmpQuat, _tmpScale);
+        var start = layer ? layer.capacity : 0;
+        for (var i = start; i < capacity; i++) {
+            mesh.setMatrixAt(i, _tmpMatrix);
+            if (typeof mesh.setColorAt === 'function') {
+                mesh.setColorAt(i, _tmpColor.set('#607d8b'));
+            }
+        }
+        mesh.instanceMatrix.needsUpdate = true;
+        if (mesh.instanceColor) {
+            mesh.instanceColor.needsUpdate = true;
+        }
+        if (layer) {
+            // Copy previous instance matrices/colors.
+            for (i = 0; i < layer.capacity; i++) {
+                layer.mesh.getMatrixAt(i, _tmpMatrix);
+                mesh.setMatrixAt(i, _tmpMatrix);
+                if (layer.mesh.instanceColor && mesh.instanceColor) {
+                    layer.mesh.getColorAt(i, _tmpColor);
+                    mesh.setColorAt(i, _tmpColor);
+                }
+            }
+            mesh.count = layer.mesh.count;
+            mesh.instanceMatrix.needsUpdate = true;
+            if (mesh.instanceColor) {
+                mesh.instanceColor.needsUpdate = true;
+            }
+        }
+
+        layer = {
+            key: key,
+            kind: kind,
+            blockId: blockId || '',
+            mesh: mesh,
+            idByIndex: idByIndex,
+            freeList: freeList,
+            capacity: capacity,
+            size: size
+        };
+        containerLayers[key] = layer;
+        return layer;
+    }
+
+    function updateContainerBounds(obj) {
+        var size = CONTAINER_SIZES[obj.kind];
+        if (!size) {
+            return;
+        }
+        _tmpPos.set(obj.x, obj.z + size.height / 2, obj.y);
+        _tmpQuat.setFromEuler(new THREE.Euler(0, -obj.rotation * Math.PI / 180, 0));
+        _tmpScale.set(size.length, size.height, size.width);
+        _tmpMatrix.compose(_tmpPos, _tmpQuat, _tmpScale);
+        obj.bounds.makeEmpty();
+        _tmpBox.setFromCenterAndSize(
+            _tmpPos,
+            _tmpSize.set(size.length, size.height, size.width)
+        );
+        // Approximate AABB without full OBB for highlight.
+        var halfL = size.length * 0.5;
+        var halfW = size.width * 0.5;
+        var halfH = size.height * 0.5;
+        var cosR = Math.cos(-obj.rotation * Math.PI / 180);
+        var sinR = Math.sin(-obj.rotation * Math.PI / 180);
+        var extX = Math.abs(cosR) * halfL + Math.abs(sinR) * halfW;
+        var extZ = Math.abs(sinR) * halfL + Math.abs(cosR) * halfW;
+        obj.bounds.min.set(_tmpPos.x - extX, obj.z, _tmpPos.z - extZ);
+        obj.bounds.max.set(_tmpPos.x + extX, obj.z + size.height, _tmpPos.z + extZ);
+    }
+
+    function writeContainerMatrix(layer, index, obj) {
+        var size = layer.size;
+        _tmpPos.set(obj.x, obj.z + size.height / 2, obj.y);
+        _tmpQuat.setFromEuler(new THREE.Euler(0, -obj.rotation * Math.PI / 180, 0));
+        _tmpScale.set(size.length, size.height, size.width);
+        _tmpMatrix.compose(_tmpPos, _tmpQuat, _tmpScale);
+        layer.mesh.setMatrixAt(index, _tmpMatrix);
+        if (typeof layer.mesh.setColorAt === 'function') {
+            layer.mesh.setColorAt(index, colorValue(obj.color, '#607d8b'));
+        }
+        updateContainerBounds(obj);
+    }
+
+    function hideContainerSlot(layer, index) {
+        _tmpPos.set(0, -10000, 0);
+        _tmpQuat.identity();
+        _tmpScale.set(0, 0, 0);
+        _tmpMatrix.compose(_tmpPos, _tmpQuat, _tmpScale);
+        layer.mesh.setMatrixAt(index, _tmpMatrix);
+    }
+
+    function allocateContainerSlot(layer) {
+        if (layer.freeList.length) {
+            return layer.freeList.pop();
+        }
+        if (layer.mesh.count < layer.capacity) {
+            var index = layer.mesh.count;
+            layer.mesh.count = index + 1;
+            return index;
+        }
+        var grown = ensureContainerLayer(layer.kind, layer.blockId, layer.capacity * 2);
+        return allocateContainerSlot(grown);
+    }
+
+    function addContainerInstance(obj) {
+        var estimated = 1;
+        var layer = ensureContainerLayer(obj.kind, obj.blockId, estimated);
+        // Grow eagerly when first filling a large block.
+        if (layer.mesh.count + 1 > layer.capacity * 0.9) {
+            layer = ensureContainerLayer(obj.kind, obj.blockId, layer.capacity + 1024);
+        }
+        var index = allocateContainerSlot(layer);
+        // allocate may have swapped layer reference after grow
+        layer = containerLayers[layerKey(obj.kind, obj.blockId)];
+        layer.idByIndex[index] = obj.id;
+        obj.instanceLayer = layer.key;
+        obj.instanceIndex = index;
+        writeContainerMatrix(layer, index, obj);
+        layer.mesh.instanceMatrix.needsUpdate = true;
+        if (layer.mesh.instanceColor) {
+            layer.mesh.instanceColor.needsUpdate = true;
+        }
+        return obj;
+    }
+
+    function removeContainerInstance(obj) {
+        if (!obj.instanceLayer || obj.instanceIndex < 0) {
+            return;
+        }
+        var layer = containerLayers[obj.instanceLayer];
+        if (!layer) {
+            return;
+        }
+        hideContainerSlot(layer, obj.instanceIndex);
+        layer.idByIndex[obj.instanceIndex] = null;
+        layer.freeList.push(obj.instanceIndex);
+        layer.mesh.instanceMatrix.needsUpdate = true;
+        obj.instanceLayer = null;
+        obj.instanceIndex = -1;
+        obj.bounds.makeEmpty();
+    }
+
+    function moveContainerInstance(obj) {
+        if (!obj.instanceLayer || obj.instanceIndex < 0) {
+            addContainerInstance(obj);
+            return;
+        }
+        var layer = containerLayers[obj.instanceLayer];
+        writeContainerMatrix(layer, obj.instanceIndex, obj);
+        layer.mesh.instanceMatrix.needsUpdate = true;
+        if (layer.mesh.instanceColor) {
+            layer.mesh.instanceColor.needsUpdate = true;
+        }
+    }
+
+    function buildContainerLayers() {
+        var counts = {};
+        var oi;
+        for (oi = 0; oi < objects.length; oi++) {
+            var obj = objects[oi];
+            if (!obj || !isContainerKind(obj.kind)) {
+                continue;
+            }
+            var key = layerKey(obj.kind, obj.blockId);
+            counts[key] = (counts[key] || 0) + 1;
+        }
+        for (var ck in counts) {
+            if (!Object.prototype.hasOwnProperty.call(counts, ck)) {
+                continue;
+            }
+            var parts = ck.split('|');
+            ensureContainerLayer(parts[0], parts[1] === '_' ? '' : parts[1], counts[ck] + 64);
+        }
+        var built = 0;
+        for (oi = 0; oi < objects.length; oi++) {
+            obj = objects[oi];
+            if (!obj || !isContainerKind(obj.kind)) {
+                continue;
+            }
+            addContainerInstance(obj);
+            built++;
+        }
+        for (ck in containerLayers) {
+            if (!Object.prototype.hasOwnProperty.call(containerLayers, ck)) {
+                continue;
+            }
+            var builtLayer = containerLayers[ck];
+            builtLayer.mesh.instanceMatrix.needsUpdate = true;
+            if (builtLayer.mesh.instanceColor) {
+                builtLayer.mesh.instanceColor.needsUpdate = true;
+            }
+            // На части WebKit computeBoundingSphere у InstancedMesh ломается —
+            // оставляем frustumCulled=false и явный большой радиус.
+            if (builtLayer.mesh.boundingSphere) {
+                builtLayer.mesh.boundingSphere.center.set(
+                    site.width / 2, 20, site.length / 2);
+                builtLayer.mesh.boundingSphere.radius =
+                    Math.max(site.width, site.length);
+            }
+        }
+        return built;
+    }
+
+    var renderedEquipment = 0;
+    var renderedContainers = 0;
+    if (useInstancedContainers) {
+        var equipmentIndexes = [];
+        for (oi = 0; oi < objects.length; oi++) {
+            if (!isContainerKind(objects[oi].kind)) {
+                equipmentIndexes.push(oi);
+            }
+        }
+        renderedEquipment = buildObjectBatches(equipmentIndexes, true, { skipContainers: true });
+        try {
+            renderedContainers = buildContainerLayers();
+            if (!renderedContainers) {
+                useInstancedContainers = false;
+                containerRenderMode = 'batched-fallback';
+            }
+        } catch (instancedError) {
+            useInstancedContainers = false;
+            containerRenderMode = 'batched-fallback';
+            if (window.console && typeof window.console.error === 'function') {
+                window.console.error(instancedError);
+            }
+        }
+    }
+    if (!useInstancedContainers) {
+        var nonContainerIndexes = [];
+        var containerIndexes = [];
+        for (oi = 0; oi < objects.length; oi++) {
+            if (isContainerKind(objects[oi].kind)) {
+                containerIndexes.push(oi);
+            } else {
+                nonContainerIndexes.push(oi);
+            }
+        }
+        // Сначала техника с рёбрами, затем контейнеры без рёбер.
+        renderedEquipment = buildObjectBatches(nonContainerIndexes, true, { skipContainers: true });
+        renderedContainers = buildObjectBatches(containerIndexes, true, { skipEdges: true });
+    }
+    var renderedObjects = renderedEquipment + renderedContainers;
+    var nowEnd = (typeof performance !== 'undefined' && performance.now)
+        ? performance.now() : Date.now();
+    buildMs = Math.round(nowEnd - buildStartedAt);
 
     // --- Камера и выбор ---
     var selected = null;
@@ -917,7 +1361,16 @@ function initWarehouse3D() {
         if (!statusEl) {
             return;
         }
-        var text = 'Объектов: ' + renderedObjects + ' · FOV: ' + camera.fov.toFixed(0) + '°';
+        var text = 'Объектов: ' + renderedObjects +
+            ' (конт. ' + renderedContainers + ', ' + containerRenderMode +
+            ') · сборка ' + buildMs + ' мс';
+        if (fpsValue > 0) {
+            text += ' · FPS~' + fpsValue;
+        }
+        if (lastDeltaMs > 0) {
+            text += ' · Δ ' + lastDeltaMs + ' мс';
+        }
+        text += ' · FOV: ' + camera.fov.toFixed(0) + '°';
         if (renderScale < 0.999) {
             text += ' · Рендер: ' + Math.round(renderScale * 100) + '%';
         }
@@ -925,9 +1378,11 @@ function initWarehouse3D() {
             text += ' · Пропущено: ' + invalidCount;
         }
         if (selected) {
-            text += ' · ' + selected.name + ' [' + selected.kind + '] (' +
-                selected.x.toFixed(3) + ', ' + selected.y.toFixed(3) + ', ' +
-                selected.z.toFixed(3) + ' м)';
+            text += ' · ' + selected.name + ' [' + selected.kind + ']';
+            if (selected.blockId) {
+                text += ' ' + selected.blockId +
+                    '/' + selected.row + '/' + selected.bay + '/' + selected.tier;
+            }
         } else {
             text += ' · Выбрано: —';
         }
@@ -979,6 +1434,270 @@ function initWarehouse3D() {
         notify1C(obj);
     }
 
+    function refreshSelectedObject() {
+        if (!selected || selected.bounds.isEmpty()) {
+            clearSelection();
+            updateStatus();
+            return;
+        }
+        var size = new THREE.Vector3();
+        var center = new THREE.Vector3();
+        selected.bounds.getSize(size);
+        selected.bounds.getCenter(center);
+        highlight.position.copy(center);
+        highlight.scale.set(size.x + 0.12, size.y + 0.12, size.z + 0.12);
+        highlight.visible = true;
+        needsRender = true;
+        updateStatus();
+    }
+
+    function addObject(source) {
+        var obj = normalizeObject(source);
+        if (!obj) {
+            throw new Error('Некорректные обязательные поля объекта.');
+        }
+        if (objectById[obj.id]) {
+            throw new Error('Объект с id "' + obj.id + '" уже существует.');
+        }
+        if (!objectFactories[obj.kind] && !isContainerKind(obj.kind)) {
+            throw new Error('Неподдерживаемый kind "' + obj.kind + '".');
+        }
+        obj.objectIndex = objects.length;
+        objects.push(obj);
+        objectById[obj.id] = obj;
+        if (isContainerKind(obj.kind) && useInstancedContainers) {
+            addContainerInstance(obj);
+            renderedContainers++;
+        } else if (!buildObjectBatches([obj.objectIndex], false, {
+            skipEdges: isContainerKind(obj.kind)
+        })) {
+            objects[obj.objectIndex] = null;
+            delete objectById[obj.id];
+            throw new Error('Не удалось построить геометрию объекта.');
+        } else if (isContainerKind(obj.kind)) {
+            renderedContainers++;
+        } else {
+            renderedEquipment++;
+        }
+        renderedObjects = renderedEquipment + renderedContainers;
+        needsRender = true;
+        updateStatus();
+        return obj;
+    }
+
+    function removeObject(id) {
+        id = String(id == null ? '' : id);
+        var obj = objectById[id];
+        if (!obj) {
+            throw new Error('Объект с id "' + id + '" не найден.');
+        }
+        var objectIndex = obj.objectIndex;
+        var wasSelected = selected === obj;
+        if (isContainerKind(obj.kind) && useInstancedContainers) {
+            removeContainerInstance(obj);
+            renderedContainers--;
+        } else {
+            if (isContainerKind(obj.kind)) {
+                renderedContainers--;
+            } else {
+                renderedEquipment--;
+            }
+            objects[objectIndex] = null;
+            delete objectById[id];
+            rebuildBatchesForObject(objectIndex);
+            delete objectBatchesByIndex[objectIndex];
+            renderedObjects = renderedEquipment + renderedContainers;
+            if (wasSelected) {
+                clearSelection();
+            }
+            needsRender = true;
+            updateStatus();
+            return true;
+        }
+        objects[objectIndex] = null;
+        delete objectById[id];
+        renderedObjects = renderedEquipment + renderedContainers;
+        if (wasSelected) {
+            clearSelection();
+        }
+        needsRender = true;
+        updateStatus();
+        return true;
+    }
+
+    function moveObject(id, x, y, z) {
+        id = String(id == null ? '' : id);
+        var obj = objectById[id];
+        x = Number(x);
+        y = Number(y);
+        z = Number(z);
+        if (!obj) {
+            throw new Error('Объект с id "' + id + '" не найден.');
+        }
+        if (!isFinite(x) || !isFinite(y) || !isFinite(z)) {
+            throw new Error('Координаты должны быть числами.');
+        }
+        obj.x = x;
+        obj.y = y;
+        obj.z = z;
+        obj.source.x = x;
+        obj.source.y = y;
+        obj.source.z = z;
+        if (isContainerKind(obj.kind) && useInstancedContainers) {
+            moveContainerInstance(obj);
+        } else {
+            rebuildBatchesForObject(obj.objectIndex);
+        }
+        if (selected === obj) {
+            refreshSelectedObject();
+        }
+        needsRender = true;
+        updateStatus();
+        return obj;
+    }
+
+    function focusObject(id) {
+        id = String(id == null ? '' : id);
+        var obj = objectById[id];
+        if (!obj) {
+            throw new Error('Объект с id "' + id + '" не найден.');
+        }
+        selectObject(obj);
+        var center = new THREE.Vector3();
+        obj.bounds.getCenter(center);
+        camera.position.set(center.x - 40, center.y + 35, center.z - 40);
+        lookAtPoint(center.x, center.y, center.z);
+        needsRender = true;
+        return obj;
+    }
+
+    function applyDelta(delta) {
+        delta = delta || {};
+        var started = (typeof performance !== 'undefined' && performance.now)
+            ? performance.now() : Date.now();
+        var moves = delta.moves instanceof Array ? delta.moves : [];
+        var upserts = delta.upserts instanceof Array ? delta.upserts : [];
+        var removed = delta.removed instanceof Array ? delta.removed : [];
+        var mi;
+        for (mi = 0; mi < moves.length; mi++) {
+            var move = moves[mi] || {};
+            moveObject(move.id, move.x, move.y, move.z);
+        }
+        for (mi = 0; mi < upserts.length; mi++) {
+            var item = upserts[mi] || {};
+            if (objectById[String(item.id)]) {
+                var existing = objectById[String(item.id)];
+                existing.x = Number(item.x);
+                existing.y = Number(item.y);
+                existing.z = Number(item.z);
+                if (item.rotation != null) {
+                    existing.rotation = numberOr(item.rotation, existing.rotation);
+                }
+                if (item.color) {
+                    existing.color = String(item.color);
+                }
+                if (isContainerKind(existing.kind) && useInstancedContainers) {
+                    moveContainerInstance(existing);
+                } else {
+                    rebuildBatchesForObject(existing.objectIndex);
+                }
+            } else {
+                addObject(item);
+            }
+        }
+        for (mi = 0; mi < removed.length; mi++) {
+            removeObject(removed[mi]);
+        }
+        var ended = (typeof performance !== 'undefined' && performance.now)
+            ? performance.now() : Date.now();
+        lastDeltaMs = Math.round(ended - started);
+        needsRender = true;
+        updateStatus();
+        return { moves: moves.length, upserts: upserts.length, removed: removed.length, ms: lastDeltaMs };
+    }
+
+    function applyCommand(command) {
+        command = command || {};
+        if (command.op === 'add') {
+            return addObject(command.object);
+        }
+        if (command.op === 'remove') {
+            return removeObject(command.id);
+        }
+        if (command.op === 'move') {
+            return moveObject(command.id, command.x, command.y, command.z);
+        }
+        if (command.op === 'applyDelta') {
+            return applyDelta(command.delta);
+        }
+        if (command.op === 'focus') {
+            return focusObject(command.id);
+        }
+        throw new Error('Неизвестная операция "' + String(command.op || '') + '".');
+    }
+
+    function processBridgeCommand(event) {
+        if (event) {
+            if (event.preventDefault) {
+                event.preventDefault();
+            }
+            if (event.stopPropagation) {
+                event.stopPropagation();
+            }
+        }
+        if (!commandBridge) {
+            return false;
+        }
+        var sequence = commandBridge.getAttribute('data-seq') || '';
+        if (!sequence || sequence === processBridgeCommand.lastSequence) {
+            return false;
+        }
+        processBridgeCommand.lastSequence = sequence;
+        try {
+            var payload = commandBridge.getAttribute('data-payload') || '';
+            applyCommand(JSON.parse(payload));
+            commandBridge.setAttribute('data-error', '');
+        } catch (commandError) {
+            commandBridge.setAttribute('data-error', commandError.message || String(commandError));
+            if (window.console && typeof window.console.error === 'function') {
+                window.console.error(commandError);
+            }
+        }
+        commandBridge.setAttribute('data-ack', sequence);
+        return false;
+    }
+    processBridgeCommand.lastSequence = '';
+
+    window.warehouse3d = {
+        addObject: addObject,
+        removeObject: removeObject,
+        moveObject: moveObject,
+        applyCommand: applyCommand,
+        applyDelta: applyDelta,
+        focusObject: focusObject,
+        getObject: function (id) { return objectById[String(id)] || null; },
+        getMetrics: function () {
+            return {
+                buildMs: buildMs,
+                lastDeltaMs: lastDeltaMs,
+                renderedObjects: renderedObjects,
+                renderedContainers: renderedContainers,
+                fps: fpsValue
+            };
+        }
+    };
+
+    if (commandBridge) {
+        if (commandBridge.addEventListener) {
+            commandBridge.addEventListener('click', processBridgeCommand, false);
+        } else if (commandBridge.attachEvent) {
+            commandBridge.attachEvent('onclick', processBridgeCommand);
+        } else {
+            commandBridge.onclick = processBridgeCommand;
+        }
+        commandBridge.setAttribute('data-ready', 'true');
+    }
+
     function findObjectIndex(ranges, faceIndex) {
         var low = 0;
         var high = ranges.length - 1;
@@ -1007,13 +1726,24 @@ function initWarehouse3D() {
         pointer.x = ((clientX - rect.left) / rect.width) * 2 - 1;
         pointer.y = -((clientY - rect.top) / rect.height) * 2 + 1;
         raycaster.setFromCamera(pointer, camera);
-        var hits = raycaster.intersectObjects(renderMeshes, false);
+        var pickList = renderMeshes.concat(containerPickMeshes);
+        var hits = raycaster.intersectObjects(pickList, false);
         if (!hits.length) {
             clearSelection();
             updateStatus();
             return;
         }
         var hit = hits[0];
+        if (hit.object.isInstancedMesh && hit.instanceId != null) {
+            var layer = containerLayers[hit.object.userData.layerKey];
+            if (layer) {
+                var pickedId = layer.idByIndex[hit.instanceId];
+                if (pickedId && objectById[pickedId]) {
+                    selectObject(objectById[pickedId]);
+                    return;
+                }
+            }
+        }
         var objectIndex = findObjectIndex(hit.object.userData.ranges || [], hit.faceIndex);
         if (objectIndex >= 0) {
             selectObject(objects[objectIndex]);
@@ -1286,6 +2016,16 @@ function initWarehouse3D() {
         if (needsRender || moved) {
             renderer.render(scene, camera);
             needsRender = false;
+            if (moved && dt > 0) {
+                fpsAccum += 1 / dt;
+                fpsFrames++;
+                if (fpsFrames >= 20) {
+                    fpsValue = Math.round(fpsAccum / fpsFrames);
+                    fpsAccum = 0;
+                    fpsFrames = 0;
+                    updateStatus();
+                }
+            }
         }
     }
     animate();

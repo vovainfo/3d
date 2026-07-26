@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="04ebf026-dbad-4818-a1f1-4de913be3f5f">
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="aaf7ea40-9895-4275-b63d-f46ca34f214d">
   <producedTypes>
-    <objectType typeId="b2a71250-d6bd-4a15-96f1-8dd27e88d107" valueTypeId="8cc0b752-e55d-44d1-bad6-00b6ac78f3ab"/>
-    <managerType typeId="b4d40147-ecb9-482e-abd7-7f56ccb26fc8" valueTypeId="d2ae76bf-e796-4c93-90ab-c72f8da0540e"/>
+    <objectType typeId="01a95967-dddb-40bd-a602-f8274fdae5d3" valueTypeId="f1b3aadd-604c-4029-9e51-1445109fc52c"/>
+    <managerType typeId="584a4ab7-77b8-4235-a80e-5a0fe0034443" valueTypeId="86a66ebc-b60e-40af-8c23-97cf42a560b0"/>
   </producedTypes>
   <name>d3_v2</name>
   <synonym>
@@ -11,7 +11,7 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.d3_v2.Form.Форма</defaultForm>
-  <forms uuid="ed7b12d3-7a39-4a19-aece-92ac1452b9f9">
+  <forms uuid="8283db13-93b8-4a37-a11f-91d1c8f56677">
     <name>Форма</name>
     <synonym>
       <key>ru</key>
@@ -20,7 +20,7 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <templates uuid="1d6f7cf4-a239-4278-99ef-e98f684efbbc">
+  <templates uuid="36343301-8795-46a3-9584-30774d036f58">
     <name>МакетHTML</name>
     <synonym>
       <key>ru</key>
@@ -28,7 +28,7 @@
     </synonym>
     <templateType>TextDocument</templateType>
   </templates>
-  <templates uuid="8230adea-0f58-47ae-a1ea-83d3945420ec">
+  <templates uuid="4d738505-3b3f-4278-89fb-c8eecc3a4063">
     <name>МакетCSS</name>
     <synonym>
       <key>ru</key>
@@ -36,7 +36,7 @@
     </synonym>
     <templateType>TextDocument</templateType>
   </templates>
-  <templates uuid="7ffac9f3-a7c8-49ec-95e8-f141398a6ec2">
+  <templates uuid="edb3d875-624e-4fee-a5c5-ed4935fb28ee">
     <name>МакетJS</name>
     <synonym>
       <key>ru</key>
@@ -44,7 +44,7 @@
     </synonym>
     <templateType>TextDocument</templateType>
   </templates>
-  <templates uuid="3ff76196-1b08-4ed5-8e7f-a091b1b29fb4">
+  <templates uuid="9937cfb1-17b6-4a69-a76e-c1c988d7fc81">
     <name>МакетThree</name>
     <synonym>
       <key>ru</key>
