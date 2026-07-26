@@ -39,5 +39,7 @@
     </synonym>
     <languageCode>ru</languageCode>
   </languages>
+  <commonForms>CommonForm.Стартовая</commonForms>
   <dataProcessors>DataProcessor.d3</dataProcessors>
+  <dataProcessors>DataProcessor.d3_v2</dataProcessors>
 </mdclass:Configuration>
