@@ -1,0 +1,1299 @@
+<script>
+function initWarehouse3D() {
+    var viewport = document.getElementById('viewport');
+    var statusEl = document.getElementById('status');
+    var bridge = document.getElementById('pick-bridge');
+    var errEl = document.getElementById('webgl-error');
+    var dataEl = document.getElementById('scene-data');
+
+    function showError(text) {
+        if (errEl) {
+            errEl.style.display = 'flex';
+            errEl.textContent = text;
+        }
+    }
+
+    if (!viewport || typeof THREE === 'undefined') {
+        showError('Three.js не загружен.');
+        return;
+    }
+
+    var sceneData;
+    try {
+        var jsonText = dataEl ? (dataEl.textContent || dataEl.innerText || '') : '';
+        sceneData = JSON.parse(jsonText);
+    } catch (parseError) {
+        showError('Ошибка JSON сцены: ' + parseError.message);
+        return;
+    }
+
+    if (!sceneData || Number(sceneData.version) !== 1 || sceneData.units !== 'm') {
+        showError('Неподдерживаемая версия или единицы сцены.');
+        return;
+    }
+
+    function numberOr(value, fallback) {
+        var n = Number(value);
+        return isFinite(n) ? n : fallback;
+    }
+
+    function positiveOr(value, fallback) {
+        var n = numberOr(value, fallback);
+        return n > 0 ? n : fallback;
+    }
+
+    var site = sceneData.site || {};
+    site.width = positiveOr(site.width, 100);
+    site.length = positiveOr(site.length, 100);
+    site.gridStep = positiveOr(site.gridStep, 1);
+
+    var sourceObjects = sceneData.objects instanceof Array ? sceneData.objects : [];
+    var objects = [];
+    var objectById = {};
+    var invalidCount = 0;
+
+    for (var oi = 0; oi < sourceObjects.length; oi++) {
+        var source = sourceObjects[oi] || {};
+        var id = String(source.id == null ? '' : source.id);
+        var kind = String(source.kind == null ? '' : source.kind);
+        var x = Number(source.x);
+        var y = Number(source.y);
+        var z = Number(source.z);
+        if (!id || !kind || !isFinite(x) || !isFinite(y) || !isFinite(z) || objectById[id]) {
+            invalidCount++;
+            continue;
+        }
+        var obj = {
+            id: id,
+            kind: kind,
+            name: String(source.name || id),
+            x: x,
+            y: y,
+            z: z,
+            rotation: numberOr(source.rotation, 0),
+            color: String(source.color || '#607d8b'),
+            size: source.size || {},
+            load: String(source.load || 'none'),
+            loadColor: String(source.loadColor || '#1769aa'),
+            source: source,
+            bounds: new THREE.Box3()
+        };
+        objectById[id] = obj;
+        objects.push(obj);
+    }
+
+    var scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x1a1d24);
+
+    var camera = new THREE.PerspectiveCamera(60, 1, 0.1, Math.max(1000, site.width + site.length));
+    var renderer;
+    try {
+        renderer = new THREE.WebGLRenderer({
+            antialias: true,
+            alpha: false,
+            failIfMajorPerformanceCaveat: false
+        });
+    } catch (rendererError) {
+        showError('WebGL недоступен в этом клиенте.');
+        return;
+    }
+    renderer.setPixelRatio(1);
+    renderer.setClearColor(0x1a1d24, 1);
+    renderer.domElement.tabIndex = 0;
+    viewport.appendChild(renderer.domElement);
+
+    // На встроенной графике стоимость кадра в первую очередь зависит от площади
+    // framebuffer. На экранах выше Full HD рендерим в меньшем внутреннем
+    // разрешении, оставляя CSS-размер canvas равным размеру окна.
+    var MAX_RENDER_PIXELS = 1920 * 1080;
+    var renderScale = 1;
+
+    // --- Площадка в метрах ---
+    var ground = new THREE.Mesh(
+        new THREE.PlaneGeometry(site.width, site.length),
+        new THREE.MeshBasicMaterial({ color: 0x2e3544 })
+    );
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.set(site.width / 2, 0, site.length / 2);
+    scene.add(ground);
+
+    function createMeterGrid() {
+        var points = [];
+        var x;
+        var y;
+        for (x = 0; x <= site.width + 0.0001; x += site.gridStep) {
+            points.push(x, 0.01, 0, x, 0.01, site.length);
+        }
+        for (y = 0; y <= site.length + 0.0001; y += site.gridStep) {
+            points.push(0, 0.01, y, site.width, 0.01, y);
+        }
+        var geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
+        return new THREE.LineSegments(
+            geometry,
+            new THREE.LineBasicMaterial({ color: 0x465168, transparent: true, opacity: 0.55 })
+        );
+    }
+    scene.add(createMeterGrid());
+
+    // --- Примитивы процедурных моделей ---
+    var UNIT_BOX = new THREE.BoxGeometry(1, 1, 1);
+    var UNIT_CYLINDER = new THREE.CylinderGeometry(1, 1, 1, 8, 1, false);
+
+    function createGableGeometry() {
+        var geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute([
+            -0.5, 0, -0.5,  -0.5, 0, 0.5,  -0.5, 1, 0,
+             0.5, 0, -0.5,   0.5, 0, 0.5,   0.5, 1, 0
+        ], 3));
+        geometry.setIndex([
+            0, 1, 2,  3, 5, 4,
+            0, 3, 4,  0, 4, 1,
+            1, 4, 5,  1, 5, 2,
+            2, 5, 3,  2, 3, 0
+        ]);
+        geometry.computeVertexNormals();
+        return geometry;
+    }
+    var UNIT_GABLE = createGableGeometry();
+
+    function colorValue(value, fallback) {
+        try {
+            return new THREE.Color(value || fallback);
+        } catch (ignore) {
+            return new THREE.Color(fallback);
+        }
+    }
+
+    function shadeColor(value, factor) {
+        var c = colorValue(value, '#607d8b');
+        c.r = Math.min(1, Math.max(0, c.r * factor));
+        c.g = Math.min(1, Math.max(0, c.g * factor));
+        c.b = Math.min(1, Math.max(0, c.b * factor));
+        return '#' + c.getHexString();
+    }
+
+    function makePart(geometry, sx, sy, sz, px, py, pz, color, rx, ry, rz) {
+        var position = new THREE.Vector3(px || 0, py || 0, pz || 0);
+        var rotation = new THREE.Euler(rx || 0, ry || 0, rz || 0, 'XYZ');
+        var scale = new THREE.Vector3(sx, sy, sz);
+        var quaternion = new THREE.Quaternion().setFromEuler(rotation);
+        var matrix = new THREE.Matrix4();
+        matrix.compose(position, quaternion, scale);
+        return { geometry: geometry, matrix: matrix, color: color };
+    }
+
+    function boxPart(length, height, width, x, y, z, color, rx, ry, rz) {
+        return makePart(UNIT_BOX, length, height, width, x, y, z, color, rx, ry, rz);
+    }
+
+    function cylinderPart(radius, length, x, y, z, color, rx, ry, rz) {
+        return makePart(UNIT_CYLINDER, radius, length, radius, x, y, z, color, rx, ry, rz);
+    }
+
+    function addContainerParts(parts, length, width, height, baseY, color, offsetX, offsetZ) {
+        var x = offsetX || 0;
+        var z = offsetZ || 0;
+        parts.push(boxPart(length, height, width, x, baseY + height / 2, z, color));
+        var door = shadeColor(color, 0.58);
+        parts.push(boxPart(0.035, height * 0.86, width / 2 - 0.04,
+            x + length / 2 - 0.02, baseY + height * 0.5, z - width / 4, door));
+        parts.push(boxPart(0.035, height * 0.86, width / 2 - 0.04,
+            x + length / 2 - 0.02, baseY + height * 0.5, z + width / 4, door));
+    }
+
+    var objectFactories = {};
+
+    objectFactories.container20 = function (obj) {
+        var parts = [];
+        addContainerParts(parts, 6.058, 2.438, 2.591, 0, obj.color, 0, 0);
+        return parts;
+    };
+
+    objectFactories.container40 = function (obj) {
+        var parts = [];
+        addContainerParts(parts, 12.192, 2.438, 2.591, 0, obj.color, 0, 0);
+        return parts;
+    };
+
+    objectFactories.warehouse = function (obj) {
+        var length = positiveOr(obj.size.length, 30);
+        var width = positiveOr(obj.size.width, 18);
+        var height = positiveOr(obj.size.height, 8);
+        var wallHeight = height * 0.76;
+        var roofHeight = height - wallHeight;
+        var wallColor = obj.color;
+        var roofColor = shadeColor(obj.color, 1.25);
+        var doorColor = shadeColor(obj.color, 0.42);
+        return [
+            boxPart(length, wallHeight, width, 0, wallHeight / 2, 0, wallColor),
+            makePart(UNIT_GABLE, length, roofHeight, width,
+                0, wallHeight, 0, roofColor),
+            boxPart(0.08, wallHeight * 0.68, Math.min(6, width * 0.45),
+                length / 2 - 0.05, wallHeight * 0.34, 0, doorColor)
+        ];
+    };
+
+    objectFactories.craneRtg = function (obj) {
+        var span = positiveOr(obj.size.span, 24);
+        var length = positiveOr(obj.size.length, 15);
+        var height = positiveOr(obj.size.height, 18);
+        var color = obj.color;
+        var dark = shadeColor(color, 0.55);
+        var parts = [];
+        var legX = length * 0.42;
+        var legZ = span * 0.47;
+        // Опоры доходят до верхних поперечных балок без воздушного зазора.
+        var legH = height;
+        var braceWidth = legX * 2;
+        var braceLength = Math.sqrt(braceWidth * braceWidth + legH * legH);
+        var braceAngle = Math.atan2(legH, braceWidth);
+        var ix;
+        var iz;
+        for (ix = -1; ix <= 1; ix += 2) {
+            for (iz = -1; iz <= 1; iz += 2) {
+                parts.push(boxPart(0.95, legH, 0.95, ix * legX, legH / 2, iz * legZ, color));
+                parts.push(cylinderPart(0.75, 0.5, ix * legX, 0.75, iz * legZ,
+                    0x222831, Math.PI / 2, 0, 0));
+            }
+            // Диагональные фермы на обеих боковых рамах.
+            parts.push(boxPart(braceLength, 0.42, 0.35,
+                0, legH / 2, ix * legZ, dark, 0, 0, braceAngle));
+            parts.push(boxPart(braceLength, 0.42, 0.35,
+                0, legH / 2, ix * legZ, dark, 0, 0, -braceAngle));
+        }
+        parts.push(boxPart(1.2, 1.35, span + 2.0, -legX, height, 0, color));
+        parts.push(boxPart(1.2, 1.35, span + 2.0, legX, height, 0, color));
+        parts.push(boxPart(length, 1.0, 1.15, 0, height + 1.25, 0, dark));
+        parts.push(boxPart(2.1, 0.7, 1.8, 0, height + 0.25, 0, '#334155'));
+        parts.push(boxPart(2.4, 1.8, 2.0, -2.8, height - 0.45, 0, '#38546a'));
+        parts.push(boxPart(0.08, 1.15, 1.72, -1.56, height - 0.35, 0, '#8ec5df'));
+        parts.push(cylinderPart(0.35, 0.8, -legX, height + 2.1, 0, '#ff3030'));
+        parts.push(cylinderPart(0.35, 0.8, legX, height + 2.1, 0, '#ff3030'));
+        var cableLength = height * 0.49;
+        var cableY = height * 0.73;
+        for (ix = -1; ix <= 1; ix += 2) {
+            for (iz = -1; iz <= 1; iz += 2) {
+                parts.push(boxPart(0.07, cableLength, 0.07,
+                    ix * 2.2, cableY, iz * 0.9, '#20242c'));
+            }
+        }
+        parts.push(boxPart(5.8, 0.25, 2.5, 0, height * 0.48, 0, '#d9c43b'));
+        parts.push(boxPart(0.35, 0.45, 3.2, -2.65, height * 0.46, 0, '#b69f24'));
+        parts.push(boxPart(0.35, 0.45, 3.2, 2.65, height * 0.46, 0, '#b69f24'));
+        // Галерея обслуживания с ограждением.
+        parts.push(boxPart(length * 0.78, 0.14, 1.0,
+            0, height + 1.85, -span * 0.34, '#69727d'));
+        parts.push(boxPart(length * 0.78, 0.1, 0.1,
+            0, height + 2.65, -span * 0.72 / 2, '#d7dde3'));
+        for (ix = -2; ix <= 2; ix++) {
+            parts.push(boxPart(0.09, 0.85, 0.09,
+                ix * length * 0.16, height + 2.25, -span * 0.34, '#d7dde3'));
+        }
+        // Лестница на одной из опор.
+        parts.push(boxPart(0.08, height * 0.68, 0.08,
+            -legX - 0.52, height * 0.34, legZ + 0.42, '#c8cdd3'));
+        parts.push(boxPart(0.08, height * 0.68, 0.08,
+            -legX - 0.52, height * 0.34, legZ - 0.42, '#c8cdd3'));
+        for (var rungY = 1.0; rungY < height * 0.68; rungY += 1.25) {
+            parts.push(boxPart(0.08, 0.08, 0.9,
+                -legX - 0.52, rungY, legZ, '#c8cdd3'));
+        }
+        return parts;
+    };
+
+    objectFactories.craneReachStacker = function (obj) {
+        var color = obj.color;
+        var dark = shadeColor(color, 0.48);
+        var parts = [
+            boxPart(6.8, 1.0, 3.1, 0, 1.1, 0, dark),
+            boxPart(2.2, 2.5, 2.7, -1.7, 2.3, 0, color),
+            boxPart(1.8, 1.25, 2.55, 1.9, 1.75, 0, '#334155'),
+            // Шарнир, основная и выдвижная секции единой стрелы.
+            boxPart(1.4, 1.3, 1.45, -0.4, 2.55, 0, shadeColor(color, 0.7)),
+            cylinderPart(0.4, 1.25, -0.4, 3.0, 0, '#242932', Math.PI / 2, 0, 0),
+            boxPart(7.8, 0.55, 0.75, 3.16, 4.59, 0, color, 0, 0, 0.42),
+            boxPart(4.5, 0.36, 0.5, 8.77, 7.10, 0,
+                shadeColor(color, 1.2), 0, 0, 0.42),
+            // Гидроцилиндр поддерживает стрелу снизу.
+            boxPart(5.2, 0.22, 0.3, 2.2, 3.75, 0, '#b8bec5', 0, 0, 0.36),
+            // Спредер присоединён к концу выдвижной секции.
+            boxPart(0.35, 0.65, 0.35, 10.82, 7.72, 0, '#30363d'),
+            boxPart(1.25, 0.3, 3.2, 10.82, 7.45, 0, '#d9c43b'),
+            boxPart(0.08, 1.25, 2.2, -0.56, 2.5, 0, '#8ec5df'),
+            boxPart(1.25, 1.0, 2.8, -2.85, 1.75, 0, shadeColor(color, 0.72)),
+            boxPart(0.3, 0.42, 3.5, 10.3, 7.34, 0, '#b69f24'),
+            boxPart(0.3, 0.42, 3.5, 11.34, 7.34, 0, '#b69f24')
+        ];
+        var wheelX = [-2.3, 2.2];
+        for (var i = 0; i < wheelX.length; i++) {
+            parts.push(cylinderPart(0.72, 3.3, wheelX[i], 0.72, 0,
+                '#20242c', Math.PI / 2, 0, 0));
+            parts.push(cylinderPart(0.27, 3.38, wheelX[i], 0.72, 0,
+                '#8b949e', Math.PI / 2, 0, 0));
+            parts.push(boxPart(1.65, 0.18, 3.15,
+                wheelX[i], 1.42, 0, '#2e343b'));
+        }
+        // Фары, зеркала, ступени и сигнальная разметка стрелы.
+        parts.push(cylinderPart(0.16, 0.12, 3.42, 1.45, -0.85,
+            '#fff2a8', 0, 0, Math.PI / 2));
+        parts.push(cylinderPart(0.16, 0.12, 3.42, 1.45, 0.85,
+            '#fff2a8', 0, 0, Math.PI / 2));
+        parts.push(boxPart(0.18, 0.34, 0.52, -0.48, 3.25, -1.58, '#30363d'));
+        parts.push(boxPart(0.18, 0.34, 0.52, -0.48, 3.25, 1.58, '#30363d'));
+        parts.push(boxPart(0.8, 0.14, 0.55, -0.62, 1.1, 1.55, '#b8bec5'));
+        parts.push(boxPart(0.16, 0.72, 0.55, -0.62, 1.48, 1.55, '#b8bec5'));
+        for (var mark = 0; mark < 3; mark++) {
+            parts.push(boxPart(0.32, 0.59, 0.79,
+                1.2 + mark * 1.45, 3.75 + mark * 0.65, 0,
+                '#262b31', 0, 0, 0.42));
+        }
+        return parts;
+    };
+
+    objectFactories.craneMobile = function (obj) {
+        var color = obj.color;
+        var parts = [
+            boxPart(8.6, 0.9, 3.0, 0, 1.05, 0, shadeColor(color, 0.55)),
+            boxPart(2.3, 2.0, 2.7, -2.5, 2.25, 0, color),
+            boxPart(0.08, 1.0, 2.2, -1.31, 2.55, 0, '#8ec5df'),
+            cylinderPart(1.2, 0.55, 0.8, 1.8, 0, '#3b414d'),
+            boxPart(1.5, 1.6, 1.5, 0.2, 2.65, 0, shadeColor(color, 0.72)),
+            cylinderPart(0.42, 1.1, -0.15, 2.75, 0, '#242932', Math.PI / 2, 0, 0),
+            // Основная и телескопическая секции имеют общий угол и стыкуются торцами.
+            boxPart(10.5, 0.55, 0.7, 4.3, 5.5, 0, color, 0, 0, 0.55),
+            boxPart(5.5, 0.35, 0.45, 11.11, 9.68, 0,
+                shadeColor(color, 1.15), 0, 0, 0.55),
+            boxPart(5.8, 0.18, 0.18, 0, 0.3, 2.5, '#4b5563'),
+            boxPart(5.8, 0.18, 0.18, 0, 0.3, -2.5, '#4b5563'),
+            boxPart(0.7, 0.18, 5.2, -2.5, 0.3, 0, '#4b5563'),
+            boxPart(0.7, 0.18, 5.2, 2.5, 0.3, 0, '#4b5563'),
+            boxPart(0.7, 0.28, 0.7, -2.5, 0.14, 2.5, '#242932'),
+            boxPart(0.7, 0.28, 0.7, -2.5, 0.14, -2.5, '#242932'),
+            boxPart(0.7, 0.28, 0.7, 2.5, 0.14, 2.5, '#242932'),
+            boxPart(0.7, 0.28, 0.7, 2.5, 0.14, -2.5, '#242932'),
+            // Трос начинается точно в конце выдвижной секции.
+            boxPart(0.06, 6.0, 0.06, 13.45, 8.1, 0, '#20242c'),
+            boxPart(0.35, 0.45, 0.35, 13.45, 5.0, 0, '#d9c43b')
+        ];
+        var wheelX = [-2.8, 0.2, 2.8];
+        for (var i = 0; i < wheelX.length; i++) {
+            parts.push(cylinderPart(0.67, 3.25, wheelX[i], 0.67, 0,
+                '#20242c', Math.PI / 2, 0, 0));
+            parts.push(cylinderPart(0.25, 3.33, wheelX[i], 0.67, 0,
+                '#8b949e', Math.PI / 2, 0, 0));
+            parts.push(boxPart(1.55, 0.16, 3.12,
+                wheelX[i], 1.3, 0, '#2e343b'));
+        }
+        parts.push(boxPart(1.55, 1.25, 2.75, 2.9, 2.05, 0, shadeColor(color, 0.42)));
+        parts.push(boxPart(0.15, 0.8, 2.2, -3.68, 2.05, 0, '#242932'));
+        parts.push(cylinderPart(0.16, 0.12, -4.35, 1.4, -0.85,
+            '#fff2a8', 0, 0, Math.PI / 2));
+        parts.push(cylinderPart(0.16, 0.12, -4.35, 1.4, 0.85,
+            '#fff2a8', 0, 0, Math.PI / 2));
+        parts.push(boxPart(0.18, 0.35, 0.5, -1.25, 3.15, -1.55, '#30363d'));
+        parts.push(boxPart(0.18, 0.35, 0.5, -1.25, 3.15, 1.55, '#30363d'));
+        return parts;
+    };
+
+    objectFactories.containerTruck = function (obj) {
+        var has40 = obj.load === 'container40';
+        var has20 = obj.load === 'container20';
+        var trailerLength = has20 ? 7.4 : 13.2;
+        var totalLength = trailerLength + 4.8;
+        var tractorX = -totalLength / 2 + 2.2;
+        var trailerX = tractorX + 2.4 + trailerLength / 2;
+        var parts = [
+            boxPart(4.5, 0.8, 2.5, tractorX, 1.0, 0, shadeColor(obj.color, 0.58)),
+            boxPart(2.3, 2.5, 2.45, tractorX - 0.8, 2.35, 0, obj.color),
+            boxPart(0.08, 1.05, 2.0, tractorX + 0.37, 2.65, 0, '#8ec5df'),
+            boxPart(0.16, 0.55, 2.15, tractorX - 2.03, 1.8, 0, '#222831'),
+            boxPart(0.18, 0.22, 2.55, tractorX - 2.18, 0.75, 0, '#cbd5e1'),
+            boxPart(trailerLength, 0.35, 2.5, trailerX, 1.15, 0, '#4b5563'),
+            boxPart(0.18, 1.1, 0.18, trailerX - trailerLength * 0.28, 0.55, 1.0, '#374151'),
+            boxPart(0.18, 1.1, 0.18, trailerX - trailerLength * 0.28, 0.55, -1.0, '#374151'),
+            cylinderPart(0.42, 1.4, tractorX + 0.55, 1.1, 1.55,
+                '#a9b0b7', Math.PI / 2, 0, 0),
+            boxPart(0.16, 2.4, 0.16, tractorX + 0.75, 2.5, -1.05, '#303640')
+        ];
+        var wheelXs = [tractorX - 1.2, tractorX + 1.2, trailerX + trailerLength * 0.35];
+        for (var i = 0; i < wheelXs.length; i++) {
+            parts.push(cylinderPart(0.55, 2.8, wheelXs[i], 0.55, 0,
+                '#20242c', Math.PI / 2, 0, 0));
+            parts.push(cylinderPart(0.21, 2.88, wheelXs[i], 0.55, 0,
+                '#8b949e', Math.PI / 2, 0, 0));
+            parts.push(boxPart(1.35, 0.14, 2.72,
+                wheelXs[i], 1.08, 0, '#30363d'));
+        }
+        // Переднее и боковое остекление кабины.
+        parts.push(boxPart(0.08, 1.0, 2.0,
+            tractorX - 1.96, 2.65, 0, '#8ec5df'));
+        parts.push(boxPart(1.35, 0.88, 0.06,
+            tractorX - 0.85, 2.7, -1.24, '#76abc5'));
+        parts.push(boxPart(1.35, 0.88, 0.06,
+            tractorX - 0.85, 2.7, 1.24, '#76abc5'));
+        // Зеркала, фары, бампер и задние фонари полуприцепа.
+        parts.push(boxPart(0.18, 0.32, 0.5,
+            tractorX - 1.55, 3.18, -1.52, '#30363d'));
+        parts.push(boxPart(0.18, 0.32, 0.5,
+            tractorX - 1.55, 3.18, 1.52, '#30363d'));
+        parts.push(cylinderPart(0.15, 0.12, tractorX - 2.12, 1.32, -0.82,
+            '#fff2a8', 0, 0, Math.PI / 2));
+        parts.push(cylinderPart(0.15, 0.12, tractorX - 2.12, 1.32, 0.82,
+            '#fff2a8', 0, 0, Math.PI / 2));
+        parts.push(boxPart(0.16, 0.22, 2.7,
+            trailerX + trailerLength / 2 + 0.08, 1.1, 0, '#c7cdd3'));
+        parts.push(boxPart(0.08, 0.22, 0.28,
+            trailerX + trailerLength / 2 + 0.18, 1.2, -0.9, '#d62f2f'));
+        parts.push(boxPart(0.08, 0.22, 0.28,
+            trailerX + trailerLength / 2 + 0.18, 1.2, 0.9, '#d62f2f'));
+        if (has20 || has40) {
+            var loadLength = has20 ? 6.058 : 12.192;
+            addContainerParts(parts, loadLength, 2.438, 2.591,
+                1.35, obj.loadColor, trailerX, 0);
+            var ribColor = shadeColor(obj.loadColor, 0.72);
+            for (var rib = -2; rib <= 2; rib++) {
+                parts.push(boxPart(0.045, 2.35, 2.47,
+                    trailerX + rib * loadLength / 5, 1.35 + 2.591 / 2, 0, ribColor));
+            }
+        }
+        return parts;
+    };
+
+    // --- Железнодорожные объекты ---
+    objectFactories.railway = function (obj) {
+        var length = positiveOr(obj.size.length, 100);
+        var gauge = positiveOr(obj.size.gauge, 1.52);
+        var sleeperStep = positiveOr(obj.size.sleeperStep, 0.82);
+        var curveOffset = numberOr(obj.size.curveOffset, 0);
+        var segmentCount = Math.max(8, Math.ceil(length / 2));
+        var segmentLength = length / segmentCount;
+        var parts = [];
+
+        function curveAt(t) {
+            var x = -length / 2 + t * length;
+            var z = curveOffset * Math.sin(Math.PI * t);
+            var slope = curveOffset * Math.PI / length * Math.cos(Math.PI * t);
+            var angle = Math.atan(slope);
+            return {
+                x: x,
+                z: z,
+                angle: angle,
+                normalX: -Math.sin(angle),
+                normalZ: Math.cos(angle)
+            };
+        }
+
+        // Балласт и рельсы собираются из коротких секций по касательной к кривой.
+        for (var segment = 0; segment < segmentCount; segment++) {
+            var point = curveAt((segment + 0.5) / segmentCount);
+            parts.push(boxPart(segmentLength * 1.06, 0.08, 3.2,
+                point.x, 0.04, point.z, '#4b5563', 0, -point.angle, 0));
+            for (var side = -1; side <= 1; side += 2) {
+                var railOffset = side * gauge / 2;
+                parts.push(boxPart(segmentLength * 1.06, 0.16, 0.09,
+                    point.x + point.normalX * railOffset,
+                    0.25,
+                    point.z + point.normalZ * railOffset,
+                    '#aeb5bd', 0, -point.angle, 0));
+            }
+        }
+
+        var sleeperCount = Math.floor(length / sleeperStep);
+        for (var i = 0; i < sleeperCount; i++) {
+            var sleeperPoint = curveAt((i + 0.5) / sleeperCount);
+            parts.push(boxPart(0.18, 0.16, 2.65,
+                sleeperPoint.x, 0.12, sleeperPoint.z,
+                '#5b3a29', 0, -sleeperPoint.angle, 0));
+        }
+        return parts;
+    };
+
+    function addRailWheelset(parts, x) {
+        parts.push(cylinderPart(0.5, 2.8, x, 0.55, 0,
+            '#20242c', Math.PI / 2, 0, 0));
+        parts.push(cylinderPart(0.22, 2.88, x, 0.55, 0,
+            '#9aa2aa', Math.PI / 2, 0, 0));
+    }
+
+    function addWagonChassis(parts, length, color) {
+        parts.push(boxPart(length, 0.42, 2.75, 0, 1.0, 0, color));
+        parts.push(boxPart(length - 0.8, 0.22, 0.28, 0, 0.72, -1.05, '#3b4148'));
+        parts.push(boxPart(length - 0.8, 0.22, 0.28, 0, 0.72, 1.05, '#3b4148'));
+        addRailWheelset(parts, -length * 0.32);
+        addRailWheelset(parts, length * 0.32);
+        parts.push(boxPart(0.75, 0.16, 0.18, -length / 2 - 0.36, 0.82, 0, '#30343a'));
+        parts.push(boxPart(0.75, 0.16, 0.18, length / 2 + 0.36, 0.82, 0, '#30343a'));
+        // Тормозная площадка и торцевое ограждение.
+        parts.push(boxPart(0.85, 0.12, 2.35,
+            length / 2 - 0.45, 1.32, 0, '#5f6872'));
+        parts.push(boxPart(0.08, 1.0, 0.08,
+            length / 2 - 0.08, 1.82, -1.05, '#d1d6dc'));
+        parts.push(boxPart(0.08, 1.0, 0.08,
+            length / 2 - 0.08, 1.82, 1.05, '#d1d6dc'));
+        parts.push(boxPart(0.08, 0.08, 2.18,
+            length / 2 - 0.08, 2.3, 0, '#d1d6dc'));
+    }
+
+    objectFactories.dieselLocomotive = function (obj) {
+        var color = obj.color;
+        var dark = shadeColor(color, 0.48);
+        var parts = [
+            boxPart(17.0, 0.55, 3.1, 0, 1.2, 0, dark),
+            boxPart(6.0, 3.6, 2.9, -3.3, 3.0, 0, color),
+            boxPart(8.0, 2.2, 2.65, 3.7, 2.3, 0, shadeColor(color, 0.82)),
+            boxPart(2.3, 3.0, 2.75, -7.0, 2.7, 0, color),
+            boxPart(0.09, 1.05, 2.25, -0.25, 3.65, 0, '#8ec5df'),
+            boxPart(0.09, 0.75, 2.15, -8.18, 3.2, 0, '#8ec5df'),
+            boxPart(0.12, 1.2, 2.5, 7.73, 2.45, 0, '#242932'),
+            cylinderPart(0.28, 1.4, 1.5, 4.6, 0, '#33383f'),
+            cylinderPart(0.24, 1.0, 3.0, 4.45, 0, '#33383f'),
+            boxPart(0.35, 0.35, 2.75, 8.35, 1.15, 0, '#d8dde3')
+        ];
+        var wheelXs = [-6.2, -4.2, 3.2, 5.3];
+        for (var i = 0; i < wheelXs.length; i++) {
+            addRailWheelset(parts, wheelXs[i]);
+        }
+        // Боковые вентиляционные решётки и поручни обходной площадки.
+        for (var vent = 0; vent < 5; vent++) {
+            parts.push(boxPart(0.14, 0.95, 0.08,
+                1.0 + vent * 1.2, 2.45, -1.36, '#252a30'));
+            parts.push(boxPart(0.14, 0.95, 0.08,
+                1.0 + vent * 1.2, 2.45, 1.36, '#252a30'));
+        }
+        parts.push(boxPart(15.0, 0.08, 0.08, 0, 2.0, -1.65, '#d7dde3'));
+        parts.push(boxPart(15.0, 0.08, 0.08, 0, 2.0, 1.65, '#d7dde3'));
+        for (var railX = -7; railX <= 7; railX += 2) {
+            parts.push(boxPart(0.08, 0.8, 0.08, railX, 1.65, -1.65, '#d7dde3'));
+            parts.push(boxPart(0.08, 0.8, 0.08, railX, 1.65, 1.65, '#d7dde3'));
+        }
+        parts.push(cylinderPart(0.48, 0.16, 2.0, 4.55, 0, '#242932'));
+        parts.push(cylinderPart(0.48, 0.16, 4.2, 4.55, 0, '#242932'));
+        parts.push(cylinderPart(0.18, 0.15, -8.4, 2.6, -0.85, '#fff2a8', 0, 0, Math.PI / 2));
+        parts.push(cylinderPart(0.18, 0.15, -8.4, 2.6, 0.85, '#fff2a8', 0, 0, Math.PI / 2));
+        return parts;
+    };
+
+    objectFactories.wagonFlatcar = function (obj) {
+        var length = positiveOr(obj.size.length, 14.2);
+        var parts = [];
+        addWagonChassis(parts, length, obj.color);
+        parts.push(boxPart(length - 0.4, 0.16, 2.5, 0, 1.28, 0, '#626a73'));
+        var lockX = [-length * 0.38, -length * 0.12, length * 0.12, length * 0.38];
+        for (var i = 0; i < lockX.length; i++) {
+            parts.push(boxPart(0.16, 0.18, 0.16, lockX[i], 1.46, -1.05, '#e5b82e'));
+            parts.push(boxPart(0.16, 0.18, 0.16, lockX[i], 1.46, 1.05, '#e5b82e'));
+        }
+        parts.push(boxPart(length - 1.0, 0.35, 0.16, 0, 0.72, -1.38, '#353b42'));
+        parts.push(boxPart(length - 1.0, 0.35, 0.16, 0, 0.72, 1.38, '#353b42'));
+        parts.push(boxPart(0.16, 1.2, 0.16, -length / 2 + 0.35, 1.75, -1.15, '#d1d6dc'));
+        parts.push(boxPart(0.16, 1.2, 0.16, -length / 2 + 0.35, 1.75, 1.15, '#d1d6dc'));
+        if (obj.load === 'container20' || obj.load === 'container40') {
+            var containerLength = obj.load === 'container20' ? 6.058 : 12.192;
+            addContainerParts(parts, containerLength, 2.438, 2.591,
+                1.42, obj.loadColor, 0, 0);
+        }
+        return parts;
+    };
+
+    objectFactories.wagonGondola = function (obj) {
+        var length = positiveOr(obj.size.length, 13.9);
+        var width = positiveOr(obj.size.width, 3.05);
+        var wallHeight = positiveOr(obj.size.height, 2.4);
+        var parts = [];
+        addWagonChassis(parts, length, shadeColor(obj.color, 0.58));
+        parts.push(boxPart(length - 0.4, 0.18, width - 0.25, 0, 1.28, 0, darkenForRail(obj.color)));
+        parts.push(boxPart(length, wallHeight, 0.18, 0, 1.3 + wallHeight / 2,
+            -width / 2, obj.color));
+        parts.push(boxPart(length, wallHeight, 0.18, 0, 1.3 + wallHeight / 2,
+            width / 2, obj.color));
+        parts.push(boxPart(0.18, wallHeight, width, -length / 2, 1.3 + wallHeight / 2,
+            0, obj.color));
+        parts.push(boxPart(0.18, wallHeight, width, length / 2, 1.3 + wallHeight / 2,
+            0, obj.color));
+        for (var x = -length * 0.38; x <= length * 0.38; x += length * 0.19) {
+            parts.push(boxPart(0.09, wallHeight + 0.25, 0.24,
+                x, 1.3 + wallHeight / 2, -width / 2 - 0.04, '#d7dde3'));
+            parts.push(boxPart(0.09, wallHeight + 0.25, 0.24,
+                x, 1.3 + wallHeight / 2, width / 2 + 0.04, '#d7dde3'));
+        }
+        parts.push(boxPart(length + 0.15, 0.12, 0.16,
+            0, 1.3 + wallHeight, -width / 2 - 0.08, '#d7dde3'));
+        parts.push(boxPart(length + 0.15, 0.12, 0.16,
+            0, 1.3 + wallHeight, width / 2 + 0.08, '#d7dde3'));
+        parts.push(boxPart(0.1, wallHeight * 0.85, 0.1,
+            -length / 2 + 0.25, 1.3 + wallHeight * 0.5, width / 2 + 0.18, '#d7dde3'));
+        for (var stepY = 1.55; stepY < 1.3 + wallHeight; stepY += 0.45) {
+            parts.push(boxPart(0.08, 0.08, 0.65,
+                -length / 2 + 0.25, stepY, width / 2 + 0.18, '#d7dde3'));
+        }
+        return parts;
+    };
+
+    function darkenForRail(color) {
+        return shadeColor(color, 0.38);
+    }
+
+    objectFactories.wagonCovered = function (obj) {
+        var length = positiveOr(obj.size.length, 14.7);
+        var width = positiveOr(obj.size.width, 3.15);
+        var height = positiveOr(obj.size.height, 3.4);
+        var parts = [];
+        addWagonChassis(parts, length, shadeColor(obj.color, 0.52));
+        parts.push(boxPart(length, height, width, 0, 1.3 + height / 2, 0, obj.color));
+        parts.push(makePart(UNIT_GABLE, length, 0.55, width,
+            0, 1.3 + height, 0, shadeColor(obj.color, 1.22)));
+        parts.push(boxPart(3.2, height * 0.82, 0.08,
+            0, 1.3 + height * 0.48, width / 2 + 0.05, shadeColor(obj.color, 0.58)));
+        parts.push(boxPart(0.12, height * 0.86, 0.12,
+            -1.6, 1.3 + height * 0.48, width / 2 + 0.1, '#d5d9de'));
+        parts.push(boxPart(0.12, height * 0.86, 0.12,
+            1.6, 1.3 + height * 0.48, width / 2 + 0.1, '#d5d9de'));
+        for (var ribX = -length * 0.4; ribX <= length * 0.4; ribX += length * 0.2) {
+            parts.push(boxPart(0.1, height * 0.92, 0.12,
+                ribX, 1.3 + height / 2, -width / 2 - 0.05, '#d5d9de'));
+            parts.push(boxPart(0.1, height * 0.92, 0.12,
+                ribX, 1.3 + height / 2, width / 2 + 0.05, '#d5d9de'));
+        }
+        parts.push(boxPart(0.08, height * 0.82, 0.08,
+            -length / 2 + 0.25, 1.3 + height * 0.48, width / 2 + 0.15, '#d5d9de'));
+        for (var coveredStep = 1.55; coveredStep < 1.3 + height; coveredStep += 0.5) {
+            parts.push(boxPart(0.08, 0.08, 0.65,
+                -length / 2 + 0.25, coveredStep, width / 2 + 0.15, '#d5d9de'));
+        }
+        return parts;
+    };
+
+    objectFactories.wagonTank = function (obj) {
+        var length = positiveOr(obj.size.length, 12.0);
+        var radius = positiveOr(obj.size.radius, 1.38);
+        var tankY = 1.45 + radius;
+        var parts = [];
+        addWagonChassis(parts, length + 1.0, '#3c4249');
+        parts.push(cylinderPart(radius, length, 0, tankY, 0,
+            obj.color, 0, 0, Math.PI / 2));
+        parts.push(cylinderPart(radius + 0.05, 0.16, -length * 0.32, tankY, 0,
+            shadeColor(obj.color, 0.55), 0, 0, Math.PI / 2));
+        parts.push(cylinderPart(radius + 0.05, 0.16, length * 0.32, tankY, 0,
+            shadeColor(obj.color, 0.55), 0, 0, Math.PI / 2));
+        parts.push(cylinderPart(0.32, 0.55, 0, tankY + radius + 0.25, 0,
+            '#444b52'));
+        parts.push(boxPart(3.4, 0.12, 0.45, 0, tankY + radius + 0.52, 0, '#59616a'));
+        // Верхняя площадка, ограждение и боковая лестница цистерны.
+        parts.push(boxPart(4.0, 0.08, 0.08,
+            0, tankY + radius + 1.05, -0.35, '#d1d6dc'));
+        parts.push(boxPart(4.0, 0.08, 0.08,
+            0, tankY + radius + 1.05, 0.35, '#d1d6dc'));
+        for (var tankRail = -1.8; tankRail <= 1.8; tankRail += 0.9) {
+            parts.push(boxPart(0.08, 0.55, 0.08,
+                tankRail, tankY + radius + 0.78, -0.35, '#d1d6dc'));
+            parts.push(boxPart(0.08, 0.55, 0.08,
+                tankRail, tankY + radius + 0.78, 0.35, '#d1d6dc'));
+        }
+        parts.push(boxPart(0.08, radius * 1.75, 0.08,
+            -length * 0.28, tankY, radius + 0.18, '#d1d6dc'));
+        for (var tankStep = tankY - radius * 0.65;
+                tankStep < tankY + radius * 0.75; tankStep += 0.42) {
+            parts.push(boxPart(0.08, 0.08, 0.7,
+                -length * 0.28, tankStep, radius + 0.18, '#d1d6dc'));
+        }
+        return parts;
+    };
+
+    // --- Совместимый с WebKit батчинг BufferGeometry ---
+    var renderMeshes = [];
+    var MAX_BATCH_VERTICES = 60000;
+
+    function GeometryBuilder() {
+        this.positions = [];
+        this.colors = [];
+        this.indices = [];
+        this.edgePositions = [];
+        this.ranges = [];
+        this.vertexCount = 0;
+    }
+
+    GeometryBuilder.prototype.isEmpty = function () {
+        return this.vertexCount === 0;
+    };
+
+    GeometryBuilder.prototype.addPart = function (part, worldMatrix, objectIndex) {
+        var geometry = part.geometry;
+        var position = geometry.attributes.position;
+        var normal = geometry.attributes.normal;
+        var index = geometry.index;
+        if (!position || !normal) {
+            return false;
+        }
+        if (this.vertexCount + position.count > MAX_BATCH_VERTICES && !this.isEmpty()) {
+            return false;
+        }
+
+        var baseVertex = this.vertexCount;
+        var vector = new THREE.Vector3();
+        var normalVector = new THREE.Vector3();
+        var normalMatrix = new THREE.Matrix3().getNormalMatrix(worldMatrix);
+        var baseColor = colorValue(part.color, '#607d8b');
+
+        for (var i = 0; i < position.count; i++) {
+            vector.fromBufferAttribute(position, i).applyMatrix4(worldMatrix);
+            this.positions.push(vector.x, vector.y, vector.z);
+
+            normalVector.fromBufferAttribute(normal, i).applyMatrix3(normalMatrix).normalize();
+            var factor = normalVector.y > 0.5 ? 1.28 :
+                (normalVector.x > 0.35 ? 0.72 :
+                (normalVector.z > 0.35 ? 0.82 : 0.58));
+            this.colors.push(
+                Math.min(1, baseColor.r * factor),
+                Math.min(1, baseColor.g * factor),
+                Math.min(1, baseColor.b * factor)
+            );
+        }
+
+        var faceStart = this.indices.length / 3;
+        if (index) {
+            for (i = 0; i < index.count; i++) {
+                this.indices.push(baseVertex + index.getX(i));
+            }
+        } else {
+            for (i = 0; i < position.count; i++) {
+                this.indices.push(baseVertex + i);
+            }
+        }
+        var faceEnd = this.indices.length / 3;
+        var previous = this.ranges.length ? this.ranges[this.ranges.length - 1] : null;
+        if (previous && previous.objectIndex === objectIndex && previous.endFace === faceStart) {
+            previous.endFace = faceEnd;
+        } else {
+            this.ranges.push({
+                startFace: faceStart,
+                endFace: faceEnd,
+                objectIndex: objectIndex
+            });
+        }
+
+        if (!geometry.boundingBox) {
+            geometry.computeBoundingBox();
+        }
+        var partBounds = geometry.boundingBox.clone().applyMatrix4(worldMatrix);
+        objects[objectIndex].bounds.union(partBounds);
+
+        var edgeGeometry = geometry.userData.meterEdges;
+        if (!edgeGeometry) {
+            edgeGeometry = new THREE.EdgesGeometry(geometry, 20);
+            geometry.userData.meterEdges = edgeGeometry;
+        }
+        var edgePosition = edgeGeometry.attributes.position;
+        for (i = 0; i < edgePosition.count; i++) {
+            vector.fromBufferAttribute(edgePosition, i).applyMatrix4(worldMatrix);
+            this.edgePositions.push(vector.x, vector.y, vector.z);
+        }
+
+        this.vertexCount += position.count;
+        return true;
+    };
+
+    GeometryBuilder.prototype.flush = function () {
+        if (this.isEmpty()) {
+            return;
+        }
+        var geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(this.positions, 3));
+        geometry.setAttribute('color', new THREE.Float32BufferAttribute(this.colors, 3));
+        geometry.setIndex(new THREE.Uint16BufferAttribute(this.indices, 1));
+        geometry.computeBoundingSphere();
+
+        var mesh = new THREE.Mesh(
+            geometry,
+            new THREE.MeshBasicMaterial({ vertexColors: true })
+        );
+        mesh.userData.ranges = this.ranges;
+
+        var edgeGeometry = new THREE.BufferGeometry();
+        edgeGeometry.setAttribute('position', new THREE.Float32BufferAttribute(this.edgePositions, 3));
+        var edges = new THREE.LineSegments(
+            edgeGeometry,
+            new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.48 })
+        );
+        edges.raycast = function () {};
+        mesh.add(edges);
+        scene.add(mesh);
+        renderMeshes.push(mesh);
+    };
+
+    function objectWorldMatrix(obj) {
+        var position = new THREE.Vector3(obj.x, obj.z, obj.y);
+        var rotation = new THREE.Quaternion().setFromEuler(
+            new THREE.Euler(0, -obj.rotation * Math.PI / 180, 0)
+        );
+        return new THREE.Matrix4().compose(position, rotation, new THREE.Vector3(1, 1, 1));
+    }
+
+    var builder = new GeometryBuilder();
+    var renderedObjects = 0;
+    for (oi = 0; oi < objects.length; oi++) {
+        var obj = objects[oi];
+        var factory = objectFactories[obj.kind];
+        if (!factory) {
+            invalidCount++;
+            continue;
+        }
+        var parts;
+        try {
+            parts = factory(obj);
+        } catch (factoryError) {
+            invalidCount++;
+            continue;
+        }
+        var objectMatrix = objectWorldMatrix(obj);
+        for (var pi = 0; pi < parts.length; pi++) {
+            var partMatrix = new THREE.Matrix4().multiplyMatrices(objectMatrix, parts[pi].matrix);
+            if (!builder.addPart(parts[pi], partMatrix, oi)) {
+                builder.flush();
+                builder = new GeometryBuilder();
+                builder.addPart(parts[pi], partMatrix, oi);
+            }
+        }
+        renderedObjects++;
+    }
+    builder.flush();
+
+    // --- Камера и выбор ---
+    var selected = null;
+    var highlight = new THREE.Mesh(
+        UNIT_BOX,
+        new THREE.MeshBasicMaterial({ color: 0xffcc33, wireframe: true })
+    );
+    highlight.visible = false;
+    scene.add(highlight);
+
+    var keys = {};
+    var keyLeaseUntil = {};
+    // WebKit 1С иногда теряет keyup/blur. Автоповтор keydown продлевает аренду.
+    var KEY_LEASE_MS = 1500;
+    var yaw = 0;
+    var pitch = -0.4;
+    var speedMetersPerSecond = Math.max(12, Math.min(site.width, site.length) * 0.15);
+    var looking = false;
+    var lookLast = null;
+    var pointerDown = null;
+    var DRAG_THRESHOLD = 4;
+    var clock = new THREE.Clock();
+    var needsRender = true;
+
+    function applyLook() {
+        var cosP = Math.cos(pitch);
+        var dirX = Math.sin(yaw) * cosP;
+        var dirY = Math.sin(pitch);
+        var dirZ = Math.cos(yaw) * cosP;
+        camera.up.set(0, 1, 0);
+        camera.lookAt(
+            camera.position.x + dirX,
+            camera.position.y + dirY,
+            camera.position.z + dirZ
+        );
+    }
+
+    function lookAtPoint(tx, ty, tz) {
+        var dx = tx - camera.position.x;
+        var dy = ty - camera.position.y;
+        var dz = tz - camera.position.z;
+        yaw = Math.atan2(dx, dz);
+        pitch = Math.atan2(dy, Math.sqrt(dx * dx + dz * dz));
+        applyLook();
+    }
+
+    function resetCamera() {
+        var maxSize = Math.max(site.width, site.length);
+        camera.position.set(site.width * 0.05, Math.max(30 * 2.591, maxSize * 0.3), site.length * 0.05);
+        camera.fov = 60;
+        camera.updateProjectionMatrix();
+        lookAtPoint(site.width / 2, 0, site.length / 2);
+        needsRender = true;
+    }
+    resetCamera();
+
+    function updateStatus() {
+        if (!statusEl) {
+            return;
+        }
+        var text = 'Объектов: ' + renderedObjects + ' · FOV: ' + camera.fov.toFixed(0) + '°';
+        if (renderScale < 0.999) {
+            text += ' · Рендер: ' + Math.round(renderScale * 100) + '%';
+        }
+        if (invalidCount) {
+            text += ' · Пропущено: ' + invalidCount;
+        }
+        if (selected) {
+            text += ' · ' + selected.name + ' [' + selected.kind + '] (' +
+                selected.x.toFixed(3) + ', ' + selected.y.toFixed(3) + ', ' +
+                selected.z.toFixed(3) + ' м)';
+        } else {
+            text += ' · Выбрано: —';
+        }
+        statusEl.textContent = text;
+    }
+
+    function clearSelection() {
+        selected = null;
+        highlight.visible = false;
+        needsRender = true;
+    }
+
+    function notify1C(obj) {
+        if (!bridge) {
+            return;
+        }
+        bridge.setAttribute('href', '#pick:' + encodeURIComponent(obj.id));
+        bridge.setAttribute('data-event', 'pick');
+        bridge.setAttribute('data-id', obj.id);
+        bridge.setAttribute('data-kind', obj.kind);
+        bridge.setAttribute('data-x', JSON.stringify(obj.x));
+        bridge.setAttribute('data-y', JSON.stringify(obj.y));
+        bridge.setAttribute('data-z', JSON.stringify(obj.z));
+        if (typeof bridge.click === 'function') {
+            bridge.click();
+        } else {
+            var evt = document.createEvent('MouseEvents');
+            evt.initEvent('click', true, true);
+            bridge.dispatchEvent(evt);
+        }
+    }
+
+    function selectObject(obj) {
+        clearSelection();
+        if (!obj || obj.bounds.isEmpty()) {
+            updateStatus();
+            return;
+        }
+        selected = obj;
+        var size = new THREE.Vector3();
+        var center = new THREE.Vector3();
+        obj.bounds.getSize(size);
+        obj.bounds.getCenter(center);
+        highlight.position.copy(center);
+        highlight.scale.set(size.x + 0.12, size.y + 0.12, size.z + 0.12);
+        highlight.visible = true;
+        needsRender = true;
+        updateStatus();
+        notify1C(obj);
+    }
+
+    function findObjectIndex(ranges, faceIndex) {
+        var low = 0;
+        var high = ranges.length - 1;
+        while (low <= high) {
+            var middle = (low + high) >> 1;
+            var range = ranges[middle];
+            if (faceIndex < range.startFace) {
+                high = middle - 1;
+            } else if (faceIndex >= range.endFace) {
+                low = middle + 1;
+            } else {
+                return range.objectIndex;
+            }
+        }
+        return -1;
+    }
+
+    var raycaster = new THREE.Raycaster();
+    var pointer = new THREE.Vector2();
+
+    function pickAt(clientX, clientY) {
+        var rect = renderer.domElement.getBoundingClientRect();
+        if (!rect.width || !rect.height) {
+            return;
+        }
+        pointer.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+        pointer.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+        raycaster.setFromCamera(pointer, camera);
+        var hits = raycaster.intersectObjects(renderMeshes, false);
+        if (!hits.length) {
+            clearSelection();
+            updateStatus();
+            return;
+        }
+        var hit = hits[0];
+        var objectIndex = findObjectIndex(hit.object.userData.ranges || [], hit.faceIndex);
+        if (objectIndex >= 0) {
+            selectObject(objects[objectIndex]);
+        }
+    }
+
+    function resize() {
+        var width = viewport.clientWidth || window.innerWidth || 800;
+        var height = viewport.clientHeight || window.innerHeight || 600;
+        if (width < 1 || height < 1) {
+            return;
+        }
+        var pixelCount = width * height;
+        renderScale = pixelCount > MAX_RENDER_PIXELS
+            ? Math.sqrt(MAX_RENDER_PIXELS / pixelCount)
+            : 1;
+        var renderWidth = Math.max(1, Math.round(width * renderScale));
+        var renderHeight = Math.max(1, Math.round(height * renderScale));
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(renderWidth, renderHeight, false);
+        renderer.domElement.style.width = width + 'px';
+        renderer.domElement.style.height = height + 'px';
+        needsRender = true;
+        updateStatus();
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    if (typeof ResizeObserver !== 'undefined') {
+        new ResizeObserver(resize).observe(viewport);
+    }
+
+    // --- Клавиатура в WebKit ПолеHTMLДокумента ---
+    var keyTrap = document.getElementById('key-trap');
+
+    function resolveKeyCode(e) {
+        if (e.code) { return e.code; }
+        var key = (e.key || '').toLowerCase();
+        if (key === 'w' || key === 'ц') { return 'KeyW'; }
+        if (key === 'a' || key === 'ф') { return 'KeyA'; }
+        if (key === 's' || key === 'ы') { return 'KeyS'; }
+        if (key === 'd' || key === 'в') { return 'KeyD'; }
+        if (key === 'q' || key === 'й') { return 'KeyQ'; }
+        if (key === 'e' || key === 'у') { return 'KeyE'; }
+        if (key === ' ') { return 'Space'; }
+        if (key === 'arrowup') { return 'ArrowUp'; }
+        if (key === 'arrowdown') { return 'ArrowDown'; }
+        if (key === 'arrowleft') { return 'ArrowLeft'; }
+        if (key === 'arrowright') { return 'ArrowRight'; }
+        if (key === 'control') { return 'ControlLeft'; }
+        var code = e.keyCode || e.which || 0;
+        var map = {
+            87: 'KeyW', 65: 'KeyA', 83: 'KeyS', 68: 'KeyD',
+            81: 'KeyQ', 69: 'KeyE', 32: 'Space',
+            38: 'ArrowUp', 40: 'ArrowDown', 37: 'ArrowLeft',
+            39: 'ArrowRight', 17: 'ControlLeft'
+        };
+        return map[code] || '';
+    }
+
+    function onKeyDown(e) {
+        var code = resolveKeyCode(e);
+        if (!code) { return; }
+        keys[code] = true;
+        keyLeaseUntil[code] = new Date().getTime() + KEY_LEASE_MS;
+        if (e.preventDefault) { e.preventDefault(); }
+        return false;
+    }
+
+    function onKeyUp(e) {
+        var code = resolveKeyCode(e);
+        if (!code) { return; }
+        keys[code] = false;
+        keyLeaseUntil[code] = 0;
+        if (e.preventDefault) { e.preventDefault(); }
+        return false;
+    }
+
+    function clearInputState() {
+        var code;
+        for (code in keys) {
+            if (Object.prototype.hasOwnProperty.call(keys, code)) {
+                keys[code] = false;
+                keyLeaseUntil[code] = 0;
+            }
+        }
+        looking = false;
+        lookLast = null;
+        pointerDown = null;
+        viewport.classList.remove('looking');
+    }
+
+    function isKeyPressed(code, now) {
+        if (!keys[code]) {
+            return false;
+        }
+        if (!keyLeaseUntil[code] || keyLeaseUntil[code] < now) {
+            keys[code] = false;
+            keyLeaseUntil[code] = 0;
+            return false;
+        }
+        return true;
+    }
+
+    function focusKeyTrap() {
+        if (!keyTrap) { return; }
+        try {
+            // При возврате фокуса из 1С старое состояние клавиш недостоверно.
+            if (document.activeElement && document.activeElement !== keyTrap) {
+                clearInputState();
+            }
+            keyTrap.focus();
+            setTimeout(function () {
+                try { keyTrap.focus(); } catch (ignore2) {}
+            }, 0);
+        } catch (ignore) {}
+    }
+
+    function bindKeys(target) {
+        if (!target) { return; }
+        if (target.addEventListener) {
+            target.addEventListener('keydown', onKeyDown, false);
+            target.addEventListener('keyup', onKeyUp, false);
+        } else if (target.attachEvent) {
+            target.attachEvent('onkeydown', onKeyDown);
+            target.attachEvent('onkeyup', onKeyUp);
+        }
+    }
+
+    bindKeys(window);
+    bindKeys(document);
+    bindKeys(document.body);
+    bindKeys(keyTrap);
+    bindKeys(renderer.domElement);
+    // Capture получает keyup раньше элементов документа и снижает шанс его потери.
+    if (window.addEventListener) {
+        window.addEventListener('keyup', onKeyUp, true);
+        window.addEventListener('blur', clearInputState, false);
+        window.addEventListener('focus', clearInputState, false);
+        window.addEventListener('pagehide', clearInputState, false);
+    } else if (window.attachEvent) {
+        window.attachEvent('onblur', clearInputState);
+        window.attachEvent('onfocus', clearInputState);
+    }
+    if (document.addEventListener) {
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden !== false) {
+                clearInputState();
+            }
+        }, false);
+    }
+    if (keyTrap) {
+        keyTrap.onkeydown = onKeyDown;
+        keyTrap.onkeyup = onKeyUp;
+        keyTrap.oninput = function () { keyTrap.value = ''; };
+    }
+
+    renderer.domElement.addEventListener('mousedown', function (e) {
+        if (e.button !== 0) { return; }
+        looking = true;
+        lookLast = { x: e.clientX, y: e.clientY };
+        pointerDown = { x: e.clientX, y: e.clientY, moved: false };
+        viewport.classList.add('looking');
+        focusKeyTrap();
+        e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', function (e) {
+        if (!looking || !lookLast) { return; }
+        var dx = e.clientX - lookLast.x;
+        var dy = e.clientY - lookLast.y;
+        lookLast = { x: e.clientX, y: e.clientY };
+        if (pointerDown) {
+            var totalX = e.clientX - pointerDown.x;
+            var totalY = e.clientY - pointerDown.y;
+            if (totalX * totalX + totalY * totalY > DRAG_THRESHOLD * DRAG_THRESHOLD) {
+                pointerDown.moved = true;
+            }
+        }
+        yaw -= dx * 0.005;
+        pitch -= dy * 0.005;
+        var limit = Math.PI / 2 - 0.05;
+        pitch = Math.max(-limit, Math.min(limit, pitch));
+        applyLook();
+        needsRender = true;
+    });
+
+    window.addEventListener('mouseup', function (e) {
+        if (e.button !== 0) { return; }
+        var wasClick = pointerDown && !pointerDown.moved;
+        var clickX = e.clientX;
+        var clickY = e.clientY;
+        looking = false;
+        lookLast = null;
+        pointerDown = null;
+        viewport.classList.remove('looking');
+        focusKeyTrap();
+        if (wasClick) { pickAt(clickX, clickY); }
+    });
+
+    renderer.domElement.addEventListener('wheel', function (e) {
+        e.preventDefault();
+        var next = camera.fov + (e.deltaY > 0 ? 3 : -3);
+        next = Math.max(20, Math.min(90, next));
+        if (next !== camera.fov) {
+            camera.fov = next;
+            camera.updateProjectionMatrix();
+            needsRender = true;
+            updateStatus();
+        }
+    }, { passive: false });
+
+    var btnReset = document.getElementById('btn-reset');
+    if (btnReset) {
+        btnReset.addEventListener('click', function () {
+            resetCamera();
+            focusKeyTrap();
+        });
+    }
+
+    function moveCamera(dt) {
+        var distance = speedMetersPerSecond * dt;
+        var moved = false;
+        var now = new Date().getTime();
+        var cosP = Math.cos(pitch);
+        var forward = new THREE.Vector3(
+            Math.sin(yaw) * cosP, Math.sin(pitch), Math.cos(yaw) * cosP
+        ).normalize();
+        var right = new THREE.Vector3(
+            Math.sin(yaw + Math.PI / 2), 0, Math.cos(yaw + Math.PI / 2)
+        ).normalize();
+        if (isKeyPressed('KeyW', now) || isKeyPressed('ArrowUp', now)) {
+            camera.position.addScaledVector(forward, distance);
+            moved = true;
+        }
+        if (isKeyPressed('KeyS', now) || isKeyPressed('ArrowDown', now)) {
+            camera.position.addScaledVector(forward, -distance);
+            moved = true;
+        }
+        // A/D и стрелки оставлены в выбранной пользователем обратной схеме.
+        if (isKeyPressed('KeyA', now) || isKeyPressed('ArrowLeft', now)) {
+            camera.position.addScaledVector(right, distance);
+            moved = true;
+        }
+        if (isKeyPressed('KeyD', now) || isKeyPressed('ArrowRight', now)) {
+            camera.position.addScaledVector(right, -distance);
+            moved = true;
+        }
+        if (isKeyPressed('KeyE', now) || isKeyPressed('Space', now)) {
+            camera.position.y += distance;
+            moved = true;
+        }
+        if (isKeyPressed('KeyQ', now) ||
+                isKeyPressed('ControlLeft', now) ||
+                isKeyPressed('ControlRight', now)) {
+            camera.position.y -= distance;
+            moved = true;
+        }
+        if (moved) {
+            applyLook();
+        }
+        return moved;
+    }
+
+    updateStatus();
+    function animate() {
+        requestAnimationFrame(animate);
+        var dt = Math.min(clock.getDelta(), 0.1);
+        var moved = moveCamera(dt);
+        if (needsRender || moved) {
+            renderer.render(scene, camera);
+            needsRender = false;
+        }
+    }
+    animate();
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initWarehouse3D);
+} else {
+    initWarehouse3D();
+}
+</script>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="04ebf026-dbad-4818-a1f1-4de913be3f5f">
+  <producedTypes>
+    <objectType typeId="b2a71250-d6bd-4a15-96f1-8dd27e88d107" valueTypeId="8cc0b752-e55d-44d1-bad6-00b6ac78f3ab"/>
+    <managerType typeId="b4d40147-ecb9-482e-abd7-7f56ccb26fc8" valueTypeId="d2ae76bf-e796-4c93-90ab-c72f8da0540e"/>
+  </producedTypes>
+  <name>d3_v2</name>
+  <synonym>
+    <key>ru</key>
+    <value>D3 v2</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.d3_v2.Form.Форма</defaultForm>
+  <forms uuid="ed7b12d3-7a39-4a19-aece-92ac1452b9f9">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <templates uuid="1d6f7cf4-a239-4278-99ef-e98f684efbbc">
+    <name>МакетHTML</name>
+    <synonym>
+      <key>ru</key>
+      <value>Макет HTML</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="8230adea-0f58-47ae-a1ea-83d3945420ec">
+    <name>МакетCSS</name>
+    <synonym>
+      <key>ru</key>
+      <value>Макет CSS</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="7ffac9f3-a7c8-49ec-95e8-f141398a6ec2">
+    <name>МакетJS</name>
+    <synonym>
+      <key>ru</key>
+      <value>Макет JS</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="3ff76196-1b08-4ed5-8e7f-a091b1b29fb4">
+    <name>МакетThree</name>
+    <synonym>
+      <key>ru</key>
+      <value>Макет Three</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+</mdclass:DataProcessor>
