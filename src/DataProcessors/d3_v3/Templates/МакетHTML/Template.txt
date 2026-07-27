@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+@CSS
+</head>
+<body>
+<div id="stage">
+  <div id="hud">
+    <div id="help">2D план · море сверху · ЛКМ — pan · колесо — zoom · клик — ячейка/техника</div>
+    <div id="legend">Ярусность: <span class="lg0">0</span> <span class="lg1">1</span> <span class="lg2">2</span> <span class="lg3">3</span> <span class="lg4">4</span> <span class="lg5">5+</span></div>
+    <div id="equip-legend">суда · STS · RTG · ричстакер · мобильный кран · тягач · тепловоз · вагоны · склад</div>
+    <div id="status">Загрузка плана…</div>
+  </div>
+  <div id="controls">
+    <button type="button" id="btn-reset" title="Сбросить вид">Сброс</button>
+  </div>
+  <div id="viewport"><canvas id="plan-canvas"></canvas></div>
+  <a id="pick-bridge" href="#pick" style="display:none">pick</a>
+  <a id="scene-command-bridge" href="#scene-command" data-ready="false" data-seq="" data-ack="" data-payload="" data-error="" style="display:none">command</a>
+  <div id="plan-error" style="display:none">Не удалось инициализировать план.</div>
+</div>
+<script type="application/json" id="scene-data">@SceneData</script>
+@JS
+</body>
+</html>

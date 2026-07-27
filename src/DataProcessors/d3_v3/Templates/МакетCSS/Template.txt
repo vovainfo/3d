@@ -1,0 +1,129 @@
+<style>
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #1a1d24;
+    font-family: Segoe UI, Tahoma, sans-serif;
+}
+
+#stage {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: linear-gradient(180deg, #2a3140 0%, #1a1d24 100%);
+}
+
+#viewport {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#plan-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    cursor: grab;
+    background: #1e2430;
+}
+
+#viewport.panning #plan-canvas {
+    cursor: grabbing;
+}
+
+#hud {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    max-width: calc(100% - 120px);
+    pointer-events: none;
+}
+
+#help,
+#legend,
+#equip-legend,
+#status {
+    font-size: 12px;
+    color: #e8ecf2;
+    background: rgba(20, 24, 32, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
+    padding: 6px 10px;
+    margin-bottom: 6px;
+}
+
+#equip-legend {
+    color: #cbd5e1;
+    font-size: 11px;
+}
+
+#legend span {
+    display: inline-block;
+    min-width: 18px;
+    text-align: center;
+    margin-left: 4px;
+    padding: 1px 4px;
+    border-radius: 2px;
+    color: #111;
+    font-weight: 600;
+}
+
+.lg0 { background: #4a3f3f; color: #d8d0d0; }
+.lg1 { background: #f0a090; }
+.lg2 { background: #e87868; }
+.lg3 { background: #d45040; color: #fff; }
+.lg4 { background: #b83228; color: #fff; }
+.lg5 { background: #8f2018; color: #fff; }
+
+#controls {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+}
+
+#controls button {
+    height: 32px;
+    padding: 0 12px;
+    border: 1px solid #6b778c;
+    background: #2c3444;
+    color: #e8ecf2;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#controls button:hover {
+    background: #3a4558;
+}
+
+#plan-error {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #f5d0d0;
+    font-size: 16px;
+    background: #1a1d24;
+    z-index: 3;
+    text-align: center;
+    padding-top: 40%;
+}
+</style>
