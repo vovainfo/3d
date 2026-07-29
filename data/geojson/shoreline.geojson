@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "shoreline",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32652" } },
+"xy_coordinate_resolution": 0.01,
+"features": [
+{"type":"Feature","properties":{"id":"shore-1","type":"coast"},"geometry":{"type":"LineString","coordinates":[[735131.23,4776492.76],[734764.72,4776183.19],[734756.43,4776181.45],[734620.03,4776081.07],[734610.41,4776068.37],[734549.79,4775838.0],[734630.79,4775587.45],[734523.66,4775266.05],[734440.99,4775205.9],[734385.05,4775039.63],[734330.18,4774872.61],[734402.49,4774851.29]]}}
+]
+}

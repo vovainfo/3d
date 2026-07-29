@@ -74,30 +74,259 @@ function initTerminalPlan2D() {
         blockById[String(blocks[bi].id)] = blocks[bi];
     }
 
+    function slotWorld(block, row, bay) {
+        var ang = numberOr(block.rotationDeg, 0) * Math.PI / 180;
+        var cosA = Math.cos(ang);
+        var sinA = Math.sin(ang);
+        var rowPitch = numberOr(block.rowPitch, 2.75);
+        var bayPitch = numberOr(block.bayPitch, 6.25);
+        var lx = bay * bayPitch;
+        var ly = row * rowPitch;
+        return {
+            x: numberOr(block.originX, 0) + lx * cosA - ly * sinA,
+            y: numberOr(block.originY, 0) + lx * sinA + ly * cosA,
+            rotation: numberOr(block.rotationDeg, 0)
+        };
+    }
+
     var cells = [];
     var cellById = {};
-    var sourceCells = sceneData.cells instanceof Array ? sceneData.cells : [];
-    for (var ci = 0; ci < sourceCells.length; ci++) {
-        var sc = sourceCells[ci] || {};
-        var cellId = String(sc.id == null ? '' : sc.id);
-        if (!cellId || cellById[cellId]) {
-            continue;
+    function ensureCell(block, row, bay) {
+        var id = String(block.id) + ':' + row + ':' + bay;
+        var existing = cellById[id];
+        if (existing) {
+            return existing;
         }
+        var pos = slotWorld(block, row, bay);
         var cell = {
-            id: cellId,
+            id: id,
             kind: 'cell',
-            blockId: String(sc.blockId || ''),
-            row: numberOr(sc.row, 0),
-            bay: numberOr(sc.bay, 0),
-            count: Math.max(0, numberOr(sc.count, 0)),
-            maxTier: Math.max(1, numberOr(sc.maxTier, 7)),
-            x: numberOr(sc.x, 0),
-            y: numberOr(sc.y, 0),
-            rotation: numberOr(sc.rotation, 0)
+            blockId: String(block.id),
+            row: row,
+            bay: bay,
+            count: 0,
+            maxTier: Math.max(1, numberOr(block.maxTier, 7)),
+            x: pos.x,
+            y: pos.y,
+            rotation: pos.rotation
         };
         cells.push(cell);
-        cellById[cellId] = cell;
+        cellById[id] = cell;
+        return cell;
     }
+
+    // Сетку 6000 ячеек не материализуем заранее — только слоты из placements.
+    var placements = [];
+    var placementById = {};
+    var topPlacementList = [];
+    // cellId|tier -> placementId
+    var occupancy = {};
+
+    function occupancyKey(cellId, tier) {
+        return String(cellId) + '|' + String(tier);
+    }
+
+    function recomputeCellCounts() {
+        var ci;
+        for (ci = 0; ci < cells.length; ci++) {
+            cells[ci].count = 0;
+        }
+        var pi;
+        for (pi = 0; pi < placements.length; pi++) {
+            var pl = placements[pi];
+            var ids = pl.cellIds || [];
+            var ii;
+            for (ii = 0; ii < ids.length; ii++) {
+                var cell = cellById[String(ids[ii])];
+                if (cell && pl.tier > cell.count) {
+                    cell.count = pl.tier;
+                }
+            }
+        }
+        rebuildTopPlacementList();
+    }
+
+    function rebuildTopPlacementList() {
+        topPlacementList = [];
+        var seen = {};
+        var pi;
+        for (pi = 0; pi < placements.length; pi++) {
+            var pl = placements[pi];
+            var cell = cellById[pl.cellIds[0]];
+            if (!cell || cell.count !== pl.tier) {
+                continue;
+            }
+            // верхнее, если на якорной ячейке это max tier
+            if (seen[pl.id]) {
+                continue;
+            }
+            seen[pl.id] = true;
+            topPlacementList.push(pl);
+        }
+    }
+
+    function normalizePlacement(raw) {
+        raw = raw || {};
+        var blockId = String(raw.blockId || '');
+        var blockRef = blockById[blockId];
+        var row = numberOr(raw.row, 0);
+        var bay = numberOr(raw.bay, 0);
+        var tier = Math.max(1, numberOr(raw.tier, 1));
+        var lengthFt = numberOr(raw.lengthFt, 20) >= 40 ? 40 : 20;
+        var span = lengthFt === 40 ? 2 : 1;
+        var id = String(raw.id == null || raw.id === ''
+            ? ('P-' + blockId + '-' + row + '-' + bay + '-T' + tier + '-' + lengthFt)
+            : raw.id);
+        var cellIds = [];
+        if (raw.cellIds instanceof Array && raw.cellIds.length) {
+            var cii;
+            for (cii = 0; cii < raw.cellIds.length; cii++) {
+                cellIds.push(String(raw.cellIds[cii]));
+            }
+        } else {
+            cellIds.push(blockId + ':' + row + ':' + bay);
+            if (span === 2) {
+                cellIds.push(blockId + ':' + row + ':' + (bay + 1));
+            }
+        }
+        if (blockRef) {
+            var si;
+            for (si = 0; si < span; si++) {
+                ensureCell(blockRef, row, bay + si);
+            }
+        }
+        var anchor = cellById[cellIds[0]];
+        var pos = anchor || { x: 0, y: 0, rotation: 0 };
+        if (span === 2 && cellById[cellIds[1]]) {
+            pos = {
+                x: (cellById[cellIds[0]].x + cellById[cellIds[1]].x) / 2,
+                y: (cellById[cellIds[0]].y + cellById[cellIds[1]].y) / 2,
+                rotation: cellById[cellIds[0]].rotation
+            };
+        }
+        return {
+            id: id,
+            kind: 'placement',
+            name: id,
+            blockId: blockId,
+            row: row,
+            bay: bay,
+            tier: tier,
+            lengthFt: lengthFt,
+            spanCells: span,
+            cellIds: cellIds,
+            x: pos.x,
+            y: pos.y,
+            rotation: pos.rotation,
+            z: 0
+        };
+    }
+
+    function clearOccupancyFor(pl) {
+        var i;
+        for (i = 0; i < pl.cellIds.length; i++) {
+            delete occupancy[occupancyKey(pl.cellIds[i], pl.tier)];
+        }
+    }
+
+    function markOccupancy(pl) {
+        var i;
+        for (i = 0; i < pl.cellIds.length; i++) {
+            occupancy[occupancyKey(pl.cellIds[i], pl.tier)] = pl.id;
+        }
+    }
+
+    function bumpCellCounts(pl) {
+        var i;
+        for (i = 0; i < pl.cellIds.length; i++) {
+            var cell = cellById[String(pl.cellIds[i])];
+            if (cell && pl.tier > cell.count) {
+                cell.count = pl.tier;
+            }
+        }
+    }
+
+    function upsertPlacement(raw, deferRebuild) {
+        var pl = normalizePlacement(raw);
+        var old = placementById[pl.id];
+        if (old) {
+            clearOccupancyFor(old);
+        } else {
+            placements.push(pl);
+            placementById[pl.id] = pl;
+        }
+        if (old) {
+            old.blockId = pl.blockId;
+            old.row = pl.row;
+            old.bay = pl.bay;
+            old.tier = pl.tier;
+            old.lengthFt = pl.lengthFt;
+            old.spanCells = pl.spanCells;
+            old.cellIds = pl.cellIds;
+            old.x = pl.x;
+            old.y = pl.y;
+            old.rotation = pl.rotation;
+            pl = old;
+        }
+        markOccupancy(pl);
+        if (deferRebuild) {
+            bumpCellCounts(pl);
+        } else {
+            recomputeCellCounts();
+            needsDraw = true;
+        }
+        return pl;
+    }
+
+    function removePlacement(id, deferRebuild) {
+        id = String(id == null ? '' : id);
+        var pl = placementById[id];
+        if (!pl) {
+            return false;
+        }
+        clearOccupancyFor(pl);
+        var idx = -1;
+        var i;
+        for (i = 0; i < placements.length; i++) {
+            if (placements[i].id === id) {
+                idx = i;
+                break;
+            }
+        }
+        if (idx >= 0) {
+            placements.splice(idx, 1);
+        }
+        delete placementById[id];
+        if (selected && selected.id === id) {
+            selected = null;
+        }
+        if (!deferRebuild) {
+            recomputeCellCounts();
+            needsDraw = true;
+        }
+        return true;
+    }
+
+    function topPlacementForCell(cellId) {
+        var cell = cellById[String(cellId)];
+        if (!cell || cell.count <= 0) {
+            return null;
+        }
+        var t;
+        for (t = cell.count; t >= 1; t--) {
+            var pid = occupancy[occupancyKey(cell.id, t)];
+            if (pid && placementById[pid]) {
+                return placementById[pid];
+            }
+        }
+        return null;
+    }
+
+    var sourcePlacements = sceneData.placements instanceof Array ? sceneData.placements : [];
+    for (var spi = 0; spi < sourcePlacements.length; spi++) {
+        upsertPlacement(sourcePlacements[spi], true);
+    }
+    recomputeCellCounts();
 
     var objects = [];
     var objectById = {};
@@ -106,7 +335,7 @@ function initTerminalPlan2D() {
         var so = sourceObjects[oi] || {};
         var oid = String(so.id == null ? '' : so.id);
         var kind = String(so.kind == null ? '' : so.kind);
-        if (!oid || !kind || objectById[oid] || kind === 'cell') {
+        if (!oid || !kind || objectById[oid] || kind === 'cell' || kind === 'placement') {
             continue;
         }
         var obj = {
@@ -335,7 +564,7 @@ function initTerminalPlan2D() {
 
     function drawCell(cell) {
         var block = blockById[cell.blockId];
-        var w = block ? numberOr(block.bayPitch, 12.5) * 0.92 : 11;
+        var w = block ? numberOr(block.bayPitch, 6.25) * 0.92 : 5.5;
         var h = block ? numberOr(block.rowPitch, 2.75) * 0.85 : 2.3;
         var ang = cell.rotation * Math.PI / 180;
         var p = worldToScreen(cell.x, cell.y);
@@ -344,23 +573,55 @@ function initTerminalPlan2D() {
         ctx.rotate(ang);
         var sw = w * view.scale;
         var sh = h * view.scale;
-        ctx.fillStyle = colorForCount(cell.count, cell.maxTier);
+        // пустая сетка 20 ft; занятость рисуется placements
+        ctx.fillStyle = colorForCount(0, cell.maxTier);
         ctx.fillRect(-sw / 2, -sh / 2, sw, sh);
-        if (selected && selected.id === cell.id) {
-            ctx.strokeStyle = '#ffcc33';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(-sw / 2, -sh / 2, sw, sh);
-        } else if (view.scale > 2.5) {
-            ctx.strokeStyle = 'rgba(0,0,0,0.25)';
+        if (view.scale > 2.5) {
+            ctx.strokeStyle = 'rgba(0,0,0,0.2)';
             ctx.lineWidth = 1;
             ctx.strokeRect(-sw / 2, -sh / 2, sw, sh);
         }
-        if (view.scale > 4 && cell.count > 0) {
+        ctx.restore();
+    }
+
+    function drawPlacement(pl) {
+        var block = blockById[pl.blockId];
+        var bayPitch = block ? numberOr(block.bayPitch, 6.25) : 6.25;
+        var rowPitch = block ? numberOr(block.rowPitch, 2.75) : 2.75;
+        var w = bayPitch * pl.spanCells * 0.94;
+        var h = rowPitch * 0.88;
+        var ang = pl.rotation * Math.PI / 180;
+        var p = worldToScreen(pl.x, pl.y);
+        var stackH = 0;
+        var i;
+        for (i = 0; i < pl.cellIds.length; i++) {
+            var cell = cellById[pl.cellIds[i]];
+            if (cell && cell.count > stackH) {
+                stackH = cell.count;
+            }
+        }
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(ang);
+        var sw = w * view.scale;
+        var sh = h * view.scale;
+        ctx.fillStyle = colorForCount(stackH, 7);
+        ctx.fillRect(-sw / 2, -sh / 2, sw, sh);
+        ctx.strokeStyle = pl.lengthFt === 40 ? '#1f0a08' : 'rgba(0,0,0,0.35)';
+        ctx.lineWidth = pl.lengthFt === 40 ? Math.max(1.5, view.scale * 0.2) : 1;
+        ctx.strokeRect(-sw / 2, -sh / 2, sw, sh);
+        if (selected && (selected.id === pl.id ||
+                (selected.kind === 'cell' && pl.cellIds.indexOf(selected.id) >= 0))) {
+            ctx.strokeStyle = '#ffcc33';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(-sw / 2 - 1, -sh / 2 - 1, sw + 2, sh + 2);
+        }
+        if (view.scale > 3) {
             ctx.fillStyle = '#fff';
-            ctx.font = Math.max(9, Math.min(14, 5 * view.scale)) + 'px Segoe UI, sans-serif';
+            ctx.font = Math.max(8, Math.min(12, 3.2 * view.scale)) + 'px Segoe UI, sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText(String(cell.count), 0, 0);
+            ctx.fillText(pl.lengthFt + "'/" + stackH, 0, 0);
         }
         ctx.restore();
     }
@@ -1073,13 +1334,13 @@ function initTerminalPlan2D() {
         drawRoundedSite();
 
         var i;
-        for (i = 0; i < cells.length; i++) {
-            drawCell(cells[i]);
+        // Только занятые верхние footprints — без 6000 пустых fillRect.
+        for (i = 0; i < topPlacementList.length; i++) {
+            drawPlacement(topPlacementList[i]);
         }
         for (i = 0; i < blocks.length; i++) {
             drawBlockOutline(blocks[i]);
         }
-        // суда под STS и остальной техникой
         for (i = 0; i < objects.length; i++) {
             if (objects[i].kind === 'vessel') {
                 drawEquipment(objects[i]);
@@ -1098,10 +1359,14 @@ function initTerminalPlan2D() {
         if (!statusEl) {
             return;
         }
-        var text = 'Ячеек: ' + cells.length + ' · объектов: ' + objects.length +
+        var text = 'Размещений: ' + placements.length +
+            ' · объектов: ' + objects.length +
             ' · масштаб: ' + view.scale.toFixed(2) + ' px/м';
         if (selected) {
-            if (selected.kind === 'cell') {
+            if (selected.kind === 'placement') {
+                text += ' · ' + selected.id + ' ' + selected.lengthFt +
+                    " ft · tier " + selected.tier;
+            } else if (selected.kind === 'cell') {
                 text += ' · ' + selected.id + ' count=' + selected.count +
                     '/' + selected.maxTier;
             } else {
@@ -1109,6 +1374,36 @@ function initTerminalPlan2D() {
             }
         }
         statusEl.textContent = text;
+    }
+
+    function hitTestCellFromWorld(world) {
+        var bi;
+        for (bi = 0; bi < blocks.length; bi++) {
+            var block = blocks[bi];
+            var ang = numberOr(block.rotationDeg, 0) * Math.PI / 180;
+            var cosA = Math.cos(ang);
+            var sinA = Math.sin(ang);
+            var dx = world.x - numberOr(block.originX, 0);
+            var dy = world.y - numberOr(block.originY, 0);
+            var lx = dx * cosA + dy * sinA;
+            var ly = -dx * sinA + dy * cosA;
+            var bayPitch = numberOr(block.bayPitch, 6.25);
+            var rowPitch = numberOr(block.rowPitch, 2.75);
+            var bay = Math.round(lx / bayPitch);
+            var row = Math.round(ly / rowPitch);
+            var rowsN = Math.max(1, numberOr(block.rows, 1));
+            var baysN = Math.max(1, numberOr(block.bays, 1));
+            if (row < 0 || bay < 0 || row >= rowsN || bay >= baysN) {
+                continue;
+            }
+            var localX = bay * bayPitch;
+            var localY = row * rowPitch;
+            if (Math.abs(lx - localX) > bayPitch * 0.5 || Math.abs(ly - localY) > rowPitch * 0.5) {
+                continue;
+            }
+            return ensureCell(block, row, bay);
+        }
+        return null;
     }
 
     function hitTest(sx, sy) {
@@ -1127,27 +1422,33 @@ function initTerminalPlan2D() {
                 return obj;
             }
         }
-        var best = null;
-        var bestDist = 1e9;
-        for (i = 0; i < cells.length; i++) {
-            var cell = cells[i];
-            var block = blockById[cell.blockId];
-            var hw = (block ? numberOr(block.bayPitch, 12.5) : 12) * 0.5;
-            var hh = (block ? numberOr(block.rowPitch, 2.75) : 2.75) * 0.5;
-            var cAng = cell.rotation * Math.PI / 180;
-            var cCos = Math.cos(cAng);
-            var cSin = Math.sin(cAng);
-            var clx = (world.x - cell.x) * cCos + (world.y - cell.y) * cSin;
-            var cly = -(world.x - cell.x) * cSin + (world.y - cell.y) * cCos;
-            if (Math.abs(clx) <= hw && Math.abs(cly) <= hh) {
-                var d = clx * clx + cly * cly;
-                if (d < bestDist) {
-                    bestDist = d;
-                    best = cell;
+
+        var bestPl = null;
+        var bestPlDist = 1e9;
+        for (i = 0; i < topPlacementList.length; i++) {
+            var top = topPlacementList[i];
+            var block = blockById[top.blockId];
+            var bayPitch = block ? numberOr(block.bayPitch, 6.25) : 6.25;
+            var rowPitch = block ? numberOr(block.rowPitch, 2.75) : 2.75;
+            var hw = bayPitch * top.spanCells * 0.5;
+            var hh = rowPitch * 0.5;
+            var pAng = top.rotation * Math.PI / 180;
+            var pCos = Math.cos(pAng);
+            var pSin = Math.sin(pAng);
+            var plx = (world.x - top.x) * pCos + (world.y - top.y) * pSin;
+            var ply = -(world.x - top.x) * pSin + (world.y - top.y) * pCos;
+            if (Math.abs(plx) <= hw && Math.abs(ply) <= hh) {
+                var pd = plx * plx + ply * ply;
+                if (pd < bestPlDist) {
+                    bestPlDist = pd;
+                    bestPl = top;
                 }
             }
         }
-        return best;
+        if (bestPl) {
+            return bestPl;
+        }
+        return hitTestCellFromWorld(world);
     }
 
     function notify1C(target) {
@@ -1166,6 +1467,14 @@ function initTerminalPlan2D() {
             bridge.setAttribute('data-block', target.blockId);
             bridge.setAttribute('data-row', JSON.stringify(target.row));
             bridge.setAttribute('data-bay', JSON.stringify(target.bay));
+        }
+        if (target.kind === 'placement') {
+            bridge.setAttribute('data-lengthft', JSON.stringify(target.lengthFt));
+            bridge.setAttribute('data-tier', JSON.stringify(target.tier));
+            bridge.setAttribute('data-block', target.blockId);
+            bridge.setAttribute('data-row', JSON.stringify(target.row));
+            bridge.setAttribute('data-bay', JSON.stringify(target.bay));
+            bridge.setAttribute('data-cells', (target.cellIds || []).join(','));
         }
         if (typeof bridge.click === 'function') {
             bridge.click();
@@ -1187,7 +1496,20 @@ function initTerminalPlan2D() {
 
     function focusObject(id) {
         id = String(id == null ? '' : id);
-        var target = cellById[id] || objectById[id];
+        var target = placementById[id] || cellById[id] || objectById[id];
+        if (!target && cellById[id]) {
+            target = topPlacementForCell(id) || cellById[id];
+        }
+        if (!target) {
+            // поиск ячейки, входящей в placement
+            var pi;
+            for (pi = 0; pi < placements.length; pi++) {
+                if (placements[pi].cellIds && placements[pi].cellIds.indexOf(id) >= 0) {
+                    target = placements[pi];
+                    break;
+                }
+            }
+        }
         if (!target) {
             throw new Error('Объект с id "' + id + '" не найден.');
         }
@@ -1215,6 +1537,7 @@ function initTerminalPlan2D() {
     }
 
     function upsertCell(data) {
+        // Неструктурные метаданные ячейки; count/занятость — только через placements.
         data = data || {};
         var id = String(data.id == null ? '' : data.id);
         if (!id) {
@@ -1222,32 +1545,10 @@ function initTerminalPlan2D() {
         }
         var cell = cellById[id];
         if (!cell) {
-            cell = {
-                id: id,
-                kind: 'cell',
-                blockId: String(data.blockId || ''),
-                row: numberOr(data.row, 0),
-                bay: numberOr(data.bay, 0),
-                count: 0,
-                maxTier: numberOr(data.maxTier, 7),
-                x: numberOr(data.x, 0),
-                y: numberOr(data.y, 0),
-                rotation: numberOr(data.rotation, 0)
-            };
-            cells.push(cell);
-            cellById[id] = cell;
-        }
-        if (data.count != null) {
-            cell.count = Math.max(0, numberOr(data.count, cell.count));
+            throw new Error('Ячейка "' + id + '" не найдена (сетка строится из topology).');
         }
         if (data.maxTier != null) {
             cell.maxTier = Math.max(1, numberOr(data.maxTier, cell.maxTier));
-        }
-        if (data.x != null) {
-            cell.x = numberOr(data.x, cell.x);
-        }
-        if (data.y != null) {
-            cell.y = numberOr(data.y, cell.y);
         }
         needsDraw = true;
         return cell;
@@ -1258,11 +1559,28 @@ function initTerminalPlan2D() {
         var started = (typeof performance !== 'undefined' && performance.now)
             ? performance.now() : Date.now();
         var moves = delta.moves instanceof Array ? delta.moves : [];
+        var placementUpserts = delta.placementUpserts instanceof Array
+            ? delta.placementUpserts : [];
+        var placementRemoved = delta.placementRemoved instanceof Array
+            ? delta.placementRemoved : [];
         var cellUpserts = delta.cellUpserts instanceof Array ? delta.cellUpserts : [];
         var mi;
         for (mi = 0; mi < moves.length; mi++) {
             var m = moves[mi] || {};
             moveObject(m.id, m.x, m.y, m.z);
+        }
+        for (mi = 0; mi < placementRemoved.length; mi++) {
+            var rid = placementRemoved[mi];
+            if (rid && typeof rid === 'object') {
+                rid = rid.id;
+            }
+            removePlacement(rid, true);
+        }
+        for (mi = 0; mi < placementUpserts.length; mi++) {
+            upsertPlacement(placementUpserts[mi], true);
+        }
+        if (placementRemoved.length || placementUpserts.length) {
+            recomputeCellCounts();
         }
         for (mi = 0; mi < cellUpserts.length; mi++) {
             upsertCell(cellUpserts[mi]);
@@ -1272,6 +1590,8 @@ function initTerminalPlan2D() {
         needsDraw = true;
         return {
             moves: moves.length,
+            placementUpserts: placementUpserts.length,
+            placementRemoved: placementRemoved.length,
             cellUpserts: cellUpserts.length,
             ms: Math.round(ended - started)
         };
@@ -1290,6 +1610,12 @@ function initTerminalPlan2D() {
         }
         if (command.op === 'upsertCell') {
             return upsertCell(command.cell);
+        }
+        if (command.op === 'upsertPlacement') {
+            return upsertPlacement(command.placement);
+        }
+        if (command.op === 'removePlacement') {
+            return removePlacement(command.id);
         }
         throw new Error('Неизвестная операция "' + String(command.op || '') + '".');
     }
@@ -1327,6 +1653,7 @@ function initTerminalPlan2D() {
         applyCommand: applyCommand,
         focusObject: focusObject,
         getCell: function (id) { return cellById[String(id)] || null; },
+        getPlacement: function (id) { return placementById[String(id)] || null; },
         getObject: function (id) { return objectById[String(id)] || null; }
     };
 

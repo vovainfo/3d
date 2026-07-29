@@ -1,0 +1,16 @@
+{
+"type": "FeatureCollection",
+"name": "block_origins",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32652" } },
+"xy_coordinate_resolution": 0.01,
+"features": [
+{"type":"Feature","properties":{"block_id":"MR-1"},"geometry":{"type":"Point","coordinates":[734663.19,4776055.24]}},
+{"type":"Feature","properties":{"block_id":"MR-2"},"geometry":{"type":"Point","coordinates":[734746.86,4776116.58]}},
+{"type":"Feature","properties":{"block_id":"PR"},"geometry":{"type":"Point","coordinates":[734677.51,4776019.55]}},
+{"type":"Feature","properties":{"block_id":"BR"},"geometry":{"type":"Point","coordinates":[734745.82,4776019.29]}},
+{"type":"Feature","properties":{"block_id":"O-2"},"geometry":{"type":"Point","coordinates":[734930.09,4776095.94]}},
+{"type":"Feature","properties":{"block_id":"O-1"},"geometry":{"type":"Point","coordinates":[734922.68,4776104.22]}},
+{"type":"Feature","properties":{"block_id":"LM"},"geometry":{"type":"Point","coordinates":[735032.2,4776290.62]}},
+{"type":"Feature","properties":{"block_id":"L"},"geometry":{"type":"Point","coordinates":[735211.27,4776335.31]}}
+]
+}

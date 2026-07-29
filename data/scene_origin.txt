@@ -1,0 +1,6 @@
+﻿crs=EPSG:32652
+originEasting=734444.70
+originNorthing=4774763.40
+rotationDeg=0
+note=SW corner of terminal fence
+
