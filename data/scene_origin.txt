@@ -1,6 +1,5 @@
 ﻿crs=EPSG:32652
 originEasting=734444.70
 originNorthing=4774763.40
-rotationDeg=0
-note=SW corner of terminal fence
-
+rotationDeg=50
+note=SW corner of terminal fence; rotationDeg aligns O-1/O-2 bay axis to +X

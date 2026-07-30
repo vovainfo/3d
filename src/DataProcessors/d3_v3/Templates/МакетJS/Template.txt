@@ -49,22 +49,47 @@ function initTerminalPlan2D() {
     site.width = numberOr(site.width, 720);
     site.length = numberOr(site.length, 620);
     site.quayWidth = Math.max(0, numberOr(site.quayWidth, 12));
-    var rawShore = (site.shoreline instanceof Array) ? site.shoreline.slice() : [];
-    site.shoreline = [];
-    var si;
-    for (si = 0; si < rawShore.length; si++) {
-        var sp = rawShore[si] || {};
-        site.shoreline.push({
-            x: numberOr(sp.x, 0),
-            y: numberOr(sp.y, 0)
-        });
+    function normalizePointRing(raw) {
+        var out = [];
+        var i;
+        if (!(raw instanceof Array)) {
+            return out;
+        }
+        for (i = 0; i < raw.length; i++) {
+            var pt = raw[i] || {};
+            out.push({
+                x: numberOr(pt.x, 0),
+                y: numberOr(pt.y, 0)
+            });
+        }
+        return out;
     }
+
+    var rawShore = (site.shoreline instanceof Array) ? site.shoreline.slice() : [];
+    site.shoreline = normalizePointRing(rawShore);
     if (site.shoreline.length < 2) {
         var fallbackDepth = Math.max(0, numberOr(site.seaDepth, 100));
         site.shoreline = [
             { x: 0, y: fallbackDepth },
             { x: site.width, y: fallbackDepth }
         ];
+    }
+
+    // site.water: одно кольцо [{x,y},…] или массив колец [[{x,y},…], …]
+    site.waterRings = [];
+    var rawWater = site.water;
+    if (rawWater instanceof Array && rawWater.length > 0) {
+        if (rawWater[0] && rawWater[0].x != null) {
+            site.waterRings.push(normalizePointRing(rawWater));
+        } else {
+            var wi;
+            for (wi = 0; wi < rawWater.length; wi++) {
+                var ring = normalizePointRing(rawWater[wi]);
+                if (ring.length >= 3) {
+                    site.waterRings.push(ring);
+                }
+            }
+        }
     }
 
     var blocks = (sceneData.topology && sceneData.topology.blocks instanceof Array)
@@ -80,8 +105,8 @@ function initTerminalPlan2D() {
         var sinA = Math.sin(ang);
         var rowPitch = numberOr(block.rowPitch, 2.75);
         var bayPitch = numberOr(block.bayPitch, 6.25);
-        var lx = bay * bayPitch;
-        var ly = row * rowPitch;
+        var lx = (bay - 1) * bayPitch;
+        var ly = (row - 1) * rowPitch;
         return {
             x: numberOr(block.originX, 0) + lx * cosA - ly * sinA,
             y: numberOr(block.originY, 0) + lx * sinA + ly * cosA,
@@ -169,8 +194,8 @@ function initTerminalPlan2D() {
         raw = raw || {};
         var blockId = String(raw.blockId || '');
         var blockRef = blockById[blockId];
-        var row = numberOr(raw.row, 0);
-        var bay = numberOr(raw.bay, 0);
+        var row = Math.max(1, numberOr(raw.row, 1));
+        var bay = Math.max(1, numberOr(raw.bay, 1));
         var tier = Math.max(1, numberOr(raw.tier, 1));
         var lengthFt = numberOr(raw.lengthFt, 20) >= 40 ? 40 : 20;
         var span = lengthFt === 40 ? 2 : 1;
@@ -388,14 +413,15 @@ function initTerminalPlan2D() {
     function worldToScreen(x, y) {
         return {
             x: view.offsetX + x * view.scale,
-            y: view.offsetY + y * view.scale
+            // Геодезический Y (Northing) растёт к северу, экранный Y — вниз.
+            y: view.offsetY + (site.length - y) * view.scale
         };
     }
 
     function screenToWorld(sx, sy) {
         return {
             x: (sx - view.offsetX) / view.scale,
-            y: (sy - view.offsetY) / view.scale
+            y: site.length - (sy - view.offsetY) / view.scale
         };
     }
 
@@ -428,7 +454,25 @@ function initTerminalPlan2D() {
         needsDraw = true;
     }
 
+    function ringCentroid(ring) {
+        var i;
+        var sx = 0;
+        var sy = 0;
+        var n = ring ? ring.length : 0;
+        for (i = 0; i < n; i++) {
+            sx += ring[i].x;
+            sy += ring[i].y;
+        }
+        return {
+            x: sx / Math.max(1, n),
+            y: sy / Math.max(1, n)
+        };
+    }
+
     function shorelineCentroid() {
+        if (site.waterRings && site.waterRings.length > 0) {
+            return ringCentroid(site.waterRings[0]);
+        }
         var shore = site.shoreline;
         var i;
         var sx = 0;
@@ -443,7 +487,32 @@ function initTerminalPlan2D() {
         };
     }
 
-    function beginSeaPolygon() {
+    function beginWaterPolygons() {
+        var rings = site.waterRings;
+        var ri;
+        var i;
+        var p;
+        if (!(rings && rings.length > 0)) {
+            return false;
+        }
+        ctx.beginPath();
+        for (ri = 0; ri < rings.length; ri++) {
+            var ring = rings[ri];
+            for (i = 0; i < ring.length; i++) {
+                p = worldToScreen(ring[i].x, ring[i].y);
+                if (i === 0) {
+                    ctx.moveTo(p.x, p.y);
+                } else {
+                    ctx.lineTo(p.x, p.y);
+                }
+            }
+            ctx.closePath();
+        }
+        return true;
+    }
+
+    // Fallback для stub без site.water: замыкание shoreline с нижней кромкой.
+    function beginSeaPolygonFallback() {
         var shore = site.shoreline;
         var i;
         var p;
@@ -475,55 +544,72 @@ function initTerminalPlan2D() {
     }
 
     function drawRoundedSite() {
-        var p0 = worldToScreen(0, 0);
+        var p0 = worldToScreen(0, site.length);
         var sw = site.width * view.scale;
         var sh = site.length * view.scale;
         var shore = site.shoreline;
         var quayW = site.quayWidth;
+        var hasWater = site.waterRings && site.waterRings.length > 0;
+        var i;
 
         // суша
         ctx.fillStyle = '#2a3140';
         ctx.fillRect(p0.x, p0.y, sw, sh);
 
-        // море — полигон: верх сцены + береговая линия
-        beginSeaPolygon();
+        // море: явный полигон water, иначе legacy-эвристика по shoreline
+        if (hasWater) {
+            beginWaterPolygons();
+        } else {
+            beginSeaPolygonFallback();
+        }
         ctx.fillStyle = '#1a6a9a';
         ctx.fill();
 
         ctx.save();
-        beginSeaPolygon();
+        if (hasWater) {
+            beginWaterPolygons();
+        } else {
+            beginSeaPolygonFallback();
+        }
         ctx.clip();
         ctx.fillStyle = '#2280b5';
         ctx.fillRect(p0.x, p0.y, sw, Math.max(20, 42 * view.scale));
-        // рябь внутри полигона
         ctx.strokeStyle = 'rgba(180, 230, 255, 0.22)';
         ctx.lineWidth = Math.max(1, view.scale * 0.35);
         var wy;
         var step = Math.max(6, 7 * view.scale);
         var maxSeaY = 0;
-        var i;
-        for (i = 0; i < shore.length; i++) {
-            if (shore[i].y > maxSeaY) {
-                maxSeaY = shore[i].y;
+        var minSeaY = site.length;
+        var rippleSource = hasWater ? site.waterRings[0] : shore;
+        for (i = 0; i < rippleSource.length; i++) {
+            if (rippleSource[i].y > maxSeaY) {
+                maxSeaY = rippleSource[i].y;
+            }
+            if (rippleSource[i].y < minSeaY) {
+                minSeaY = rippleSource[i].y;
             }
         }
-        for (wy = step * 0.6; wy < maxSeaY * view.scale - 2; wy += step) {
+        var yTopScreen = worldToScreen(0, maxSeaY).y;
+        var yBotScreen = worldToScreen(0, minSeaY).y;
+        var rippleMin = Math.min(yTopScreen, yBotScreen);
+        var rippleMax = Math.max(yTopScreen, yBotScreen);
+        for (wy = rippleMin + step * 0.6; wy < rippleMax - 2; wy += step) {
             ctx.beginPath();
             var wx;
             for (wx = 0; wx <= site.width; wx += 8) {
                 var sx = p0.x + wx * view.scale;
                 var amp = Math.sin((wx + wy) * 0.08) * 1.6 * view.scale;
                 if (wx === 0) {
-                    ctx.moveTo(sx, p0.y + wy + amp);
+                    ctx.moveTo(sx, wy + amp);
                 } else {
-                    ctx.lineTo(sx, p0.y + wy + amp);
+                    ctx.lineTo(sx, wy + amp);
                 }
             }
             ctx.stroke();
         }
         ctx.restore();
 
-        // причал вдоль полигона берега
+        // причал вдоль shoreline (обводка, не заливка)
         if (quayW > 0 && shore.length >= 2) {
             beginShorePolyline();
             ctx.strokeStyle = '#5c6578';
@@ -535,7 +621,6 @@ function initTerminalPlan2D() {
             ctx.strokeStyle = '#9aa3b5';
             ctx.lineWidth = Math.max(1, view.scale * 0.35);
             ctx.stroke();
-            // кранцы на вершинах
             ctx.fillStyle = '#3d4658';
             for (i = 0; i < shore.length; i++) {
                 var bp = worldToScreen(shore[i].x, shore[i].y);
@@ -570,7 +655,7 @@ function initTerminalPlan2D() {
         var p = worldToScreen(cell.x, cell.y);
         ctx.save();
         ctx.translate(p.x, p.y);
-        ctx.rotate(ang);
+        ctx.rotate(-ang);
         var sw = w * view.scale;
         var sh = h * view.scale;
         // пустая сетка 20 ft; занятость рисуется placements
@@ -602,7 +687,7 @@ function initTerminalPlan2D() {
         }
         ctx.save();
         ctx.translate(p.x, p.y);
-        ctx.rotate(ang);
+        ctx.rotate(-ang);
         var sw = w * view.scale;
         var sh = h * view.scale;
         ctx.fillStyle = colorForCount(stackH, 7);
@@ -1269,7 +1354,7 @@ function initTerminalPlan2D() {
         var kind = obj.kind || '';
         ctx.save();
         ctx.translate(p.x, p.y);
-        ctx.rotate(ang);
+        ctx.rotate(-ang);
 
         if (kind === 'warehouse') {
             drawWarehouseIcon(obj, s);
@@ -1389,15 +1474,15 @@ function initTerminalPlan2D() {
             var ly = -dx * sinA + dy * cosA;
             var bayPitch = numberOr(block.bayPitch, 6.25);
             var rowPitch = numberOr(block.rowPitch, 2.75);
-            var bay = Math.round(lx / bayPitch);
-            var row = Math.round(ly / rowPitch);
+            var bay = Math.round(lx / bayPitch) + 1;
+            var row = Math.round(ly / rowPitch) + 1;
             var rowsN = Math.max(1, numberOr(block.rows, 1));
             var baysN = Math.max(1, numberOr(block.bays, 1));
-            if (row < 0 || bay < 0 || row >= rowsN || bay >= baysN) {
+            if (row < 1 || bay < 1 || row > rowsN || bay > baysN) {
                 continue;
             }
-            var localX = bay * bayPitch;
-            var localY = row * rowPitch;
+            var localX = (bay - 1) * bayPitch;
+            var localY = (row - 1) * rowPitch;
             if (Math.abs(lx - localX) > bayPitch * 0.5 || Math.abs(ly - localY) > rowPitch * 0.5) {
                 continue;
             }
@@ -1517,7 +1602,7 @@ function initTerminalPlan2D() {
         var width = viewport.clientWidth || 800;
         var height = viewport.clientHeight || 600;
         view.offsetX = width / 2 - target.x * view.scale;
-        view.offsetY = height / 2 - target.y * view.scale;
+        view.offsetY = height / 2 - (site.length - target.y) * view.scale;
         needsDraw = true;
         return target;
     }
@@ -1694,7 +1779,7 @@ function initTerminalPlan2D() {
         var factor = delta > 0 ? 0.9 : 1.1;
         view.scale = Math.max(0.05, Math.min(20, view.scale * factor));
         view.offsetX = sx - before.x * view.scale;
-        view.offsetY = sy - before.y * view.scale;
+        view.offsetY = sy - (site.length - before.y) * view.scale;
         needsDraw = true;
         return false;
     }

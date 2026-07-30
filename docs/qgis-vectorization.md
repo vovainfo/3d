@@ -118,7 +118,7 @@ terminal_topology.gpkg
 - поля:
   - `id`;
   - `name`;
-  - `rotation` — угол блока в градусах (единственный источник угла для экспорта в `rotationDeg`);
+  - `rotation` — азимут оси `bay` в градусах: от севера по часовой стрелке (единственный источник угла);
   - `rows`;
   - `bays`;
   - `max_tier`;
@@ -132,7 +132,7 @@ terminal_topology.gpkg
 - поля:
   - `block_id` — соответствует `yard_blocks.id`.
 
-Точка — угол слота `row=0, bay=0`. Поля `rotation`, `first_row`, `first_bay` в этом слое **не храним**: нумерация всегда от нуля, угол при экспорте берётся из `yard_blocks.rotation` по `block_id`.
+Точка — угол слота `row=1, bay=1`. Поля `rotation`, `first_row`, `first_bay` в этом слое **не храним**: нумерация всегда с единицы, угол при экспорте берётся из `yard_blocks.rotation` по `block_id`. При сборке snapshot угол точки автоматически сдвигается к центру первой ячейки, который ожидает viewer.
 
 ### Дороги
 
@@ -204,7 +204,11 @@ terminal_topology.gpkg
 
 Аналогично создайте полигон `water`.
 
-Вода может быть большим внешним полигоном вокруг территории порта. Следите, чтобы полигоны не перекрывались и между ними не оставалось щелей.
+Вода — **источник заливки** акватории в d3_v3. Без `water.geojson` viewer откатывается к устаревшей эвристике по `shoreline` (может залить сушу). Экспортируйте `data/geojson/water.geojson` (EPSG:32652).
+
+В репозитории может лежать bootstrap-полигон, построенный смещением береговой линии; для продакшена замените его ручной оцифровкой по спутнику/плану.
+
+Вода может быть большим внешним полигоном вокруг причала. Следите, чтобы полигон не перекрывал контейнерные блоки.
 
 ## 9. Оцифровать контейнерные блоки
 
@@ -220,9 +224,15 @@ terminal_topology.gpkg
 
 Для точных размеров используйте панель **Дополнительная оцифровка**. Она позволяет задавать длину сегмента и угол с клавиатуры.
 
-Контур блока сам по себе недостаточен: необходимо определить точку начала нумерации рядов и бэев. Её хранят в слое `block_origins` (см. выше): одна точка на блок в углу слота `row=0, bay=0`, с полем `block_id`.
+Контур блока сам по себе недостаточен: необходимо определить точку начала нумерации рядов и бэев. Её хранят в слое `block_origins` (см. выше): одна точка на блок в углу слота `row=1, bay=1`, с полем `block_id`.
 
-Угол блока задаётся только в `yard_blocks.rotation`. В `block_origins` угол и смещения нумерации не храним — при сборке `topology.blocks` берут `originX`/`originY` из точки и `rotationDeg` из `yard_blocks`.
+Угол блока задаётся только в `yard_blocks.rotation`. В `block_origins` угол и смещения нумерации не храним. При сборке `topology.blocks`:
+
+```text
+rotationDeg = (90 - yard_blocks.rotation) mod 360
+```
+
+Координаты точки из `block_origins` сдвигаются внутрь блока на половину `bay_pitch` и половину `row_pitch`, потому что `topology.blocks.originX/originY` задают центр ячейки `row=1, bay=1`. Нумерация `row`/`bay` в snapshot — с **1**.
 
 ## 10. Оцифровать остальные объекты
 
@@ -272,27 +282,37 @@ terminal_topology.gpkg
 
 ## 13. Создать локальную систему координат сцены
 
-Выберите контрольную точку `Origin`, например юго-западный угол терминала.
-
-Запишите:
+Выберите контрольную точку `Origin`, например юго-западный угол терминала. Параметры храните в `data/scene_origin.txt`:
 
 ```text
-originEasting
-originNorthing
-rotationDeg
-crs
+crs=EPSG:32652
+originEasting=...
+originNorthing=...
+rotationDeg=38
+note=...
 ```
 
-Координаты сцены вычисляются адаптером:
+`rotationDeg` — математический угол (от востока, против часовой) в **локальных** координатах до поворота сцены; после экспорта это направление становится осью +X (горизонталь на плане). Ориентир для Владивостокского терминала: ось `bay` длинных блоков O-1/O-2 (≈ 38° после перевода азимута QGIS).
+
+Координаты сцены вычисляются конвертером `tools/build_topology_from_geojson.py`:
 
 ```text
-sceneX = easting - originEasting
-sceneY = northing - originNorthing
+x0 = easting - originEasting
+y0 = northing - originNorthing
+θ = -rotationDeg
+sceneX = x0·cosθ - y0·sinθ
+sceneY = x0·sinθ + y0·cosθ
 ```
 
-Если площадка должна быть повёрнута относительно CRS, после вычитания origin применяется поворот.
+Для блоков:
 
-Лучше сохранять исходные геодезические координаты в GeoPackage, а локальные координаты вычислять при экспорте. Это позволит позднее уточнить origin без повторной векторизации.
+```text
+block.rotationDeg = (qgisAzimuthToScene(yard_blocks.rotation) - scene_origin.rotationDeg) mod 360
+```
+
+В данных `sceneY` растёт к «северу» повёрнутой сцены. Canvas viewer при выводе инвертирует экранную ось Y, поэтому верх экрана соответствует большим `sceneY`.
+
+Лучше сохранять исходные геодезические координаты в GeoPackage, а локальные координаты и поворот сцены вычислять при экспорте. Это позволит уточнить origin/`rotationDeg` без повторной векторизации.
 
 ## 14. Экспортировать GeoJSON
 
@@ -319,7 +339,66 @@ railways.geojson
 buildings.geojson
 ```
 
-При сборке snapshot: координаты origin — из `block_origins`, угол — из `yard_blocks.rotation` (join по `block_id` = `id`).
+**Вода:** заливка в viewer идёт из `water.geojson` → `site.water` (полигон акватории). `shoreline` — только обводка берега/причала, её **не** замыкают для заливки моря.
+
+При сборке snapshot:
+
+- азимут оси `bay` — из `yard_blocks.rotation`;
+- угол первой ячейки — из `block_origins` (join по `block_id` = `id`);
+- конвертер переводит азимут QGIS в `rotationDeg`, вычитает `scene_origin.rotationDeg`, сдвигает угол ячейки к центру;
+- `site.water` — вершины полигона воды в локальных метрах.
+
+## 14.1. Запуск `build_topology_from_geojson.py`
+
+Конвертер собирает локальный snapshot из GeoJSON + `scene_origin.txt` и вшивает топологию в stub `d3_v3`.
+
+### Входные файлы
+
+```text
+data/scene_origin.txt
+data/geojson/shoreline.geojson
+data/geojson/water.geojson          # желательно; без него — legacy-заливка по shoreline
+data/geojson/yard_blocks.geojson
+data/geojson/block_origins.geojson
+```
+
+### Команда
+
+Из корня репозитория (`c:\1c\d3`):
+
+```powershell
+python tools/build_topology_from_geojson.py
+```
+
+Полезные опции:
+
+```powershell
+# только JSON, без правки ObjectModule.bsl
+python tools/build_topology_from_geojson.py --no-patch-bsl
+
+# другой каталог data /
+python tools/build_topology_from_geojson.py --data-dir data
+```
+
+Нужен Python 3 (стандартная библиотека, без pip-зависимостей).
+
+### Что перезаписывается
+
+| Файл | Назначение |
+|------|------------|
+| `data/topology_snapshot.json` | полный snapshot (site + topology + meta) |
+| `data/topology_snapshot.bsl.txt` | фрагмент BSL для справки |
+| `src/DataProcessors/d3_v3/ObjectModule.bsl` | блок `СгенерироватьДемоСцену` (shoreline, water, blocks) |
+
+После запуска: **обновить конфигурацию БД** в EDT и **полностью закрыть/открыть** форму V3 — HTML/snapshot собираются при создании формы.
+
+### Когда запускать снова
+
+- изменили GeoJSON в QGIS;
+- поправили `originEasting` / `originNorthing` / `rotationDeg` в `scene_origin.txt`;
+- нужно синхронизировать stub 1С с картой.
+
+Подкрутка горизонтали сцены — правьте `rotationDeg` в `scene_origin.txt` (±2–3°) и снова запускайте скрипт.
 
 ## 15. Финальная проверка
 

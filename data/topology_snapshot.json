@@ -1,0 +1,280 @@
+{
+  "version": 3,
+  "units": "m",
+  "view": "top",
+  "meta": {
+    "sourceCrs": "EPSG:32652",
+    "sceneOrigin": {
+      "easting": 734444.7,
+      "northing": 4774763.4,
+      "rotationDeg": 50.0,
+      "note": "SW corner of terminal fence; rotationDeg aligns O-1/O-2 bay axis to +X"
+    },
+    "effectiveOrigin": {
+      "easting": 734208.26,
+      "northing": 4774720.26,
+      "note": "после scene rotation; сдвиг, чтобы локальные x/y были >= margin"
+    },
+    "marginM": 20.0
+  },
+  "site": {
+    "width": 2070.23,
+    "length": 1049.44,
+    "gridStep": 2,
+    "quayWidth": 14,
+    "shoreline": [
+      {
+        "x": 2002.5,
+        "y": 628.84
+      },
+      {
+        "x": 1529.77,
+        "y": 710.61
+      },
+      {
+        "x": 1523.11,
+        "y": 715.85
+      },
+      {
+        "x": 1358.53,
+        "y": 755.81
+      },
+      {
+        "x": 1342.62,
+        "y": 755.02
+      },
+      {
+        "x": 1127.18,
+        "y": 653.38
+      },
+      {
+        "x": 987.32,
+        "y": 430.28
+      },
+      {
+        "x": 672.25,
+        "y": 305.75
+      },
+      {
+        "x": 573.03,
+        "y": 330.42
+      },
+      {
+        "x": 409.7,
+        "y": 266.39
+      },
+      {
+        "x": 246.49,
+        "y": 201.07
+      },
+      {
+        "x": 276.64,
+        "y": 131.97
+      }
+    ],
+    "water": [
+      {
+        "x": 2002.5,
+        "y": 628.84
+      },
+      {
+        "x": 1529.77,
+        "y": 710.61
+      },
+      {
+        "x": 1523.11,
+        "y": 715.85
+      },
+      {
+        "x": 1358.53,
+        "y": 755.81
+      },
+      {
+        "x": 1342.62,
+        "y": 755.02
+      },
+      {
+        "x": 1127.18,
+        "y": 653.38
+      },
+      {
+        "x": 987.32,
+        "y": 430.28
+      },
+      {
+        "x": 672.25,
+        "y": 305.75
+      },
+      {
+        "x": 573.03,
+        "y": 330.42
+      },
+      {
+        "x": 409.7,
+        "y": 266.39
+      },
+      {
+        "x": 246.49,
+        "y": 201.07
+      },
+      {
+        "x": 276.64,
+        "y": 131.97
+      },
+      {
+        "x": 20.0,
+        "y": 20.0
+      },
+      {
+        "x": 47.49,
+        "y": 398.05
+      },
+      {
+        "x": 306.59,
+        "y": 526.71
+      },
+      {
+        "x": 531.51,
+        "y": 607.32
+      },
+      {
+        "x": 606.63,
+        "y": 577.96
+      },
+      {
+        "x": 817.31,
+        "y": 652.76
+      },
+      {
+        "x": 938.28,
+        "y": 860.06
+      },
+      {
+        "x": 1229.26,
+        "y": 1011.04
+      },
+      {
+        "x": 1417.92,
+        "y": 1029.44
+      },
+      {
+        "x": 1594.56,
+        "y": 986.58
+      },
+      {
+        "x": 1579.77,
+        "y": 986.11
+      },
+      {
+        "x": 2050.23,
+        "y": 904.75
+      },
+      {
+        "x": 2002.5,
+        "y": 628.84
+      }
+    ]
+  },
+  "topology": {
+    "blocks": [
+      {
+        "id": "BR",
+        "originX": 1395.43,
+        "originY": 620.32,
+        "rotationDeg": 346.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 4,
+        "bays": 14,
+        "maxTier": 6
+      },
+      {
+        "id": "L",
+        "originX": 1936.57,
+        "originY": 467.41,
+        "rotationDeg": 355.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 11,
+        "bays": 5,
+        "maxTier": 6
+      },
+      {
+        "id": "LM",
+        "originX": 1787.33,
+        "originY": 575.52,
+        "rotationDeg": 349.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 10,
+        "bays": 7,
+        "maxTier": 6
+      },
+      {
+        "id": "MR-1",
+        "originX": 1369.86,
+        "originY": 706.67,
+        "rotationDeg": 345.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 8,
+        "bays": 4,
+        "maxTier": 6
+      },
+      {
+        "id": "MR-2",
+        "originX": 1470.64,
+        "originY": 682.0,
+        "rotationDeg": 345.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 8,
+        "bays": 4,
+        "maxTier": 6
+      },
+      {
+        "id": "O-1",
+        "originX": 1574.15,
+        "originY": 539.54,
+        "rotationDeg": 348.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 6,
+        "bays": 56,
+        "maxTier": 6
+      },
+      {
+        "id": "O-2",
+        "originX": 1572.57,
+        "originY": 528.55,
+        "rotationDeg": 348.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 2,
+        "bays": 56,
+        "maxTier": 6
+      },
+      {
+        "id": "PR",
+        "originX": 1351.74,
+        "originY": 672.7,
+        "rotationDeg": 344.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 8,
+        "bays": 18,
+        "maxTier": 6
+      }
+    ]
+  },
+  "placements": [],
+  "objects": []
+}

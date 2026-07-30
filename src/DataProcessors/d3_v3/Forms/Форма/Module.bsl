@@ -302,8 +302,8 @@
 	Радианы = Угол * 3.141592653589793 / 180;
 	CosУ = Cos(Радианы);
 	SinУ = Sin(Радианы);
-	ЛокX = Bay * Блок.bayPitch;
-	ЛокY = Row * Блок.rowPitch;
+	ЛокX = (Bay - 1) * Блок.bayPitch;
+	ЛокY = (Row - 1) * Блок.rowPitch;
 	Возврат Новый Структура("x,y,rotation",
 		Блок.originX + ЛокX * CosУ - ЛокY * SinУ,
 		Блок.originY + ЛокX * SinУ + ЛокY * CosУ,
