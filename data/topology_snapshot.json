@@ -178,6 +178,54 @@
   "topology": {
     "blocks": [
       {
+        "id": "A1",
+        "originX": 399.56,
+        "originY": 107.37,
+        "rotationDeg": 22.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 7,
+        "bays": 2,
+        "maxTier": 6
+      },
+      {
+        "id": "A2",
+        "originX": 422.79,
+        "originY": 116.87,
+        "rotationDeg": 22.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 7,
+        "bays": 4,
+        "maxTier": 6
+      },
+      {
+        "id": "A3",
+        "originX": 458.58,
+        "originY": 126.95,
+        "rotationDeg": 20.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 8,
+        "bays": 17,
+        "maxTier": 6
+      },
+      {
+        "id": "B",
+        "originX": 373.63,
+        "originY": 152.24,
+        "rotationDeg": 20.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 8,
+        "bays": 40,
+        "maxTier": 6
+      },
+      {
         "id": "BR",
         "originX": 1395.43,
         "originY": 620.32,
@@ -187,6 +235,90 @@
         "tierPitch": 2.591,
         "rows": 4,
         "bays": 14,
+        "maxTier": 6
+      },
+      {
+        "id": "C1",
+        "originX": 350.58,
+        "originY": 206.62,
+        "rotationDeg": 20.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 7,
+        "bays": 5,
+        "maxTier": 6
+      },
+      {
+        "id": "C2",
+        "originX": 397.5,
+        "originY": 224.64,
+        "rotationDeg": 20.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 7,
+        "bays": 11,
+        "maxTier": 6
+      },
+      {
+        "id": "C3",
+        "originX": 499.68,
+        "originY": 264.3,
+        "rotationDeg": 20.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 7,
+        "bays": 7,
+        "maxTier": 6
+      },
+      {
+        "id": "E1",
+        "originX": 783.19,
+        "originY": 265.51,
+        "rotationDeg": 22.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 8,
+        "bays": 2,
+        "maxTier": 6
+      },
+      {
+        "id": "E2",
+        "originX": 770.01,
+        "originY": 257.88,
+        "rotationDeg": 330.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 4,
+        "bays": 3,
+        "maxTier": 6
+      },
+      {
+        "id": "F",
+        "originX": 630.42,
+        "originY": 261.62,
+        "rotationDeg": 36.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 6,
+        "bays": 4,
+        "maxTier": 6
+      },
+      {
+        "id": "J",
+        "originX": 1149.1,
+        "originY": 499.62,
+        "rotationDeg": 306.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 2,
+        "bays": 17,
         "maxTier": 6
       },
       {
@@ -238,6 +370,18 @@
         "maxTier": 6
       },
       {
+        "id": "N",
+        "originX": 1141.82,
+        "originY": 587.55,
+        "rotationDeg": 306.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 4,
+        "bays": 5,
+        "maxTier": 6
+      },
+      {
         "id": "O-1",
         "originX": 1574.15,
         "originY": 539.54,
@@ -262,6 +406,18 @@
         "maxTier": 6
       },
       {
+        "id": "P",
+        "originX": 648.51,
+        "originY": 252.18,
+        "rotationDeg": 336.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 4,
+        "bays": 2,
+        "maxTier": 6
+      },
+      {
         "id": "PR",
         "originX": 1351.74,
         "originY": 672.7,
@@ -271,6 +427,162 @@
         "tierPitch": 2.591,
         "rows": 8,
         "bays": 18,
+        "maxTier": 6
+      },
+      {
+        "id": "Q",
+        "originX": 1052.82,
+        "originY": 394.98,
+        "rotationDeg": 24.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 9,
+        "bays": 20,
+        "maxTier": 6
+      },
+      {
+        "id": "R",
+        "originX": 851.24,
+        "originY": 228.66,
+        "rotationDeg": 20.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 11,
+        "bays": 32,
+        "maxTier": 6
+      },
+      {
+        "id": "R1",
+        "originX": 803.1,
+        "originY": 216.89,
+        "rotationDeg": 21.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 8,
+        "bays": 7,
+        "maxTier": 6
+      },
+      {
+        "id": "R2",
+        "originX": 1072.2,
+        "originY": 323.42,
+        "rotationDeg": 39.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 10,
+        "bays": 11,
+        "maxTier": 6
+      },
+      {
+        "id": "RF-1",
+        "originX": 1166.02,
+        "originY": 428.07,
+        "rotationDeg": 34.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 8,
+        "bays": 14,
+        "maxTier": 6
+      },
+      {
+        "id": "RF-2",
+        "originX": 1126.86,
+        "originY": 379.78,
+        "rotationDeg": 33.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 4,
+        "bays": 7,
+        "maxTier": 6
+      },
+      {
+        "id": "S",
+        "originX": 1101.87,
+        "originY": 416.7,
+        "rotationDeg": 25.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 4,
+        "bays": 18,
+        "maxTier": 6
+      },
+      {
+        "id": "T1",
+        "originX": 716.72,
+        "originY": 284.57,
+        "rotationDeg": 21.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 5,
+        "bays": 9,
+        "maxTier": 6
+      },
+      {
+        "id": "T2",
+        "originX": 792.78,
+        "originY": 315.65,
+        "rotationDeg": 20.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 5,
+        "bays": 14,
+        "maxTier": 6
+      },
+      {
+        "id": "T3",
+        "originX": 896.25,
+        "originY": 357.63,
+        "rotationDeg": 20.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 5,
+        "bays": 7,
+        "maxTier": 6
+      },
+      {
+        "id": "T4",
+        "originX": 961.81,
+        "originY": 383.78,
+        "rotationDeg": 22.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 5,
+        "bays": 6,
+        "maxTier": 6
+      },
+      {
+        "id": "X",
+        "originX": 795.07,
+        "originY": 270.62,
+        "rotationDeg": 20.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 8,
+        "bays": 40,
+        "maxTier": 6
+      },
+      {
+        "id": "Y",
+        "originX": 1128.75,
+        "originY": 511.33,
+        "rotationDeg": 24.0,
+        "rowPitch": 2.75,
+        "bayPitch": 6.25,
+        "tierPitch": 2.591,
+        "rows": 9,
+        "bays": 9,
         "maxTier": 6
       }
     ]
