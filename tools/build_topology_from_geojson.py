@@ -6,11 +6,19 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import warnings
 from pathlib import Path
 
 
 DEFAULT_TIER_PITCH = 2.591
 MARGIN_M = 20.0
+AXIS_MIN_LENGTH_M = 0.5
+AXIS_VERTEX_TOLERANCE_M = 0.15
+AXIS_DIMENSION_SCORE_TOLERANCE = 0.25
+ROTATION_WARNING_TOLERANCE_DEG = 5.0
+BLOCK_SIZE_TOLERANCE_M = 0.02
+CONTAINER_BAY_SIZE_FACTOR = 0.94
+CONTAINER_ROW_SIZE_FACTOR = 0.88
 
 
 def parse_scene_origin(path: Path) -> dict:
@@ -57,6 +65,10 @@ def round2(value: float) -> float:
     return round(value, 2)
 
 
+def round4(value: float) -> float:
+    return round(value, 4)
+
+
 def qgis_azimuth_to_scene(value: float) -> float:
     """Азимут QGIS (от севера по часовой) -> угол сцены (от востока против часовой)."""
     return (90.0 - value) % 360.0
@@ -74,20 +86,118 @@ def normalize_deg(value: float) -> float:
     return value % 360.0
 
 
+def angular_distance_deg(first: float, second: float) -> float:
+    """Минимальная разница двух направленных углов."""
+    return abs((first - second + 180.0) % 360.0 - 180.0)
+
+
+def point_distance(first: tuple[float, float], second: tuple[float, float]) -> float:
+    return math.hypot(second[0] - first[0], second[1] - first[1])
+
+
+def axis_angle_deg(start: tuple[float, float], end: tuple[float, float]) -> float:
+    """Математический угол оси bay в CRS: от востока против часовой."""
+    return normalize_deg(math.degrees(math.atan2(end[1] - start[1], end[0] - start[0])))
+
+
+def polygon_vertices(geometry: dict, block_id: str) -> list[tuple[float, float]]:
+    if geometry.get("type") != "Polygon":
+        raise SystemExit(f"yard_blocks {block_id}: ожидается геометрия Polygon")
+    rings = geometry.get("coordinates") or []
+    if not rings or len(rings[0]) < 4:
+        raise SystemExit(f"yard_blocks {block_id}: внешний контур должен содержать >= 3 вершин")
+    vertices = [(float(point[0]), float(point[1])) for point in rings[0]]
+    if len(vertices) > 1 and point_distance(vertices[0], vertices[-1]) <= AXIS_VERTEX_TOLERANCE_M:
+        vertices.pop()
+    return vertices
+
+
+def validate_axis_vertices(
+    block_id: str,
+    start: tuple[float, float],
+    end: tuple[float, float],
+    geometry: dict,
+) -> None:
+    """Проверяет, что направляющая совпадает с одной стороной блока."""
+    vertices = polygon_vertices(geometry, block_id)
+    start_index = min(range(len(vertices)), key=lambda index: point_distance(start, vertices[index]))
+    end_index = min(range(len(vertices)), key=lambda index: point_distance(end, vertices[index]))
+    start_error = point_distance(start, vertices[start_index])
+    end_error = point_distance(end, vertices[end_index])
+    if start_error > AXIS_VERTEX_TOLERANCE_M or end_error > AXIS_VERTEX_TOLERANCE_M:
+        raise SystemExit(
+            f"block_axes {block_id}: точки линии должны совпадать с вершинами yard_blocks "
+            f"(отклонения {start_error:.2f} м и {end_error:.2f} м)"
+        )
+    if start_index == end_index or (start_index - end_index) % len(vertices) not in {1, len(vertices) - 1}:
+        raise SystemExit(f"block_axes {block_id}: точки линии должны задавать одну сторону yard_blocks")
+
+
+def validate_axis_dimension(
+    block_id: str,
+    start: tuple[float, float],
+    end: tuple[float, float],
+    geometry: dict,
+    bay_extent: float,
+    row_extent: float,
+) -> tuple[float, float]:
+    """Не даёт перепутать стороны bay и row по размерам сетки."""
+    vertices = polygon_vertices(geometry, block_id)
+    start_index = min(range(len(vertices)), key=lambda index: point_distance(start, vertices[index]))
+    end_index = min(range(len(vertices)), key=lambda index: point_distance(end, vertices[index]))
+    neighbour_indices = {(start_index - 1) % len(vertices), (start_index + 1) % len(vertices)}
+    other_indices = neighbour_indices - {end_index}
+    if len(other_indices) != 1 or bay_extent <= 0 or row_extent <= 0:
+        raise SystemExit(f"yard_blocks {block_id}: невозможно определить размеры сторон блока")
+    other_index = other_indices.pop()
+    axis_length = point_distance(vertices[start_index], vertices[end_index])
+    other_length = point_distance(vertices[start_index], vertices[other_index])
+    selected_score = abs(axis_length - bay_extent) / bay_extent + abs(other_length - row_extent) / row_extent
+    swapped_score = abs(axis_length - row_extent) / row_extent + abs(other_length - bay_extent) / bay_extent
+    if selected_score > swapped_score + AXIS_DIMENSION_SCORE_TOLERANCE:
+        raise SystemExit(
+            f"block_axes {block_id}: выбрана сторона {axis_length:.2f} м, но по размерам сетки "
+            f"ось bay вероятнее проходит по соседней стороне {other_length:.2f} м"
+        )
+    return axis_length, other_length
+
+
+def distributed_axis_layout(
+    block_id: str,
+    axis_name: str,
+    block_extent: float,
+    count: int,
+    minimum_pitch: float,
+    container_size: float,
+) -> tuple[float, float, str | None]:
+    """Возвращает разреженный шаг и отступ центра первой ячейки от границы."""
+    if count < 1:
+        return minimum_pitch, container_size * 0.5, f"{block_id}: {axis_name} должно быть >= 1"
+    minimum_extent = container_size + (count - 1) * minimum_pitch
+    if minimum_extent > block_extent + BLOCK_SIZE_TOLERANCE_M:
+        return (
+            minimum_pitch,
+            container_size * 0.5,
+            f"{block_id}: по оси {axis_name} требуется {minimum_extent:.2f} м, "
+            f"размер блока {block_extent:.2f} м",
+        )
+    if count == 1:
+        return minimum_pitch, block_extent * 0.5, None
+    return (block_extent - container_size) / (count - 1), container_size * 0.5, None
+
+
 def slot_center_from_corner(
     corner_x: float,
     corner_y: float,
     rotation_deg: float,
-    row_pitch: float,
-    bay_pitch: float,
+    row_offset: float,
+    bay_offset: float,
 ) -> tuple[float, float]:
     """Перевод угла слота row=1,bay=1 в его центр, ожидаемый viewer."""
     ang = math.radians(rotation_deg)
-    half_bay = bay_pitch * 0.5
-    half_row = row_pitch * 0.5
     return (
-        corner_x + half_bay * math.cos(ang) - half_row * math.sin(ang),
-        corner_y + half_bay * math.sin(ang) + half_row * math.cos(ang),
+        corner_x + bay_offset * math.cos(ang) - row_offset * math.sin(ang),
+        corner_y + bay_offset * math.sin(ang) + row_offset * math.cos(ang),
     )
 
 
@@ -161,43 +271,87 @@ def collect_water(
 
 def collect_blocks(
     blocks_geojson: dict,
-    origins_geojson: dict,
+    axes_geojson: dict,
     origin_e: float,
     origin_n: float,
     scene_rotation_deg: float,
 ) -> list[dict]:
-    origins: dict[str, tuple[float, float]] = {}
-    for feature in origins_geojson.get("features", []):
+    axes: dict[str, tuple[tuple[float, float], tuple[float, float]]] = {}
+    for feature in axes_geojson.get("features", []):
         block_id = str(prop(feature.get("properties") or {}, "block_id", default="") or "")
         geometry = feature.get("geometry") or {}
-        if not block_id or geometry.get("type") != "Point":
-            continue
-        easting, northing = geometry["coordinates"][:2]
-        x, y = to_local(easting, northing, origin_e, origin_n)
-        origins[block_id] = rotate_point(x, y, scene_rotation_deg)
+        if not block_id:
+            raise SystemExit("block_axes: у направляющей не заполнен block_id")
+        if block_id in axes:
+            raise SystemExit(f"block_axes: дублируется block_id {block_id}")
+        coordinates = geometry.get("coordinates") or []
+        if geometry.get("type") != "LineString" or len(coordinates) != 2:
+            raise SystemExit(f"block_axes {block_id}: ожидается LineString ровно из двух точек")
+        start = (float(coordinates[0][0]), float(coordinates[0][1]))
+        end = (float(coordinates[1][0]), float(coordinates[1][1]))
+        if point_distance(start, end) < AXIS_MIN_LENGTH_M:
+            raise SystemExit(
+                f"block_axes {block_id}: длина направляющей должна быть >= {AXIS_MIN_LENGTH_M} м"
+            )
+        axes[block_id] = (start, end)
 
     blocks: list[dict] = []
     missing: list[str] = []
+    size_errors: list[str] = []
     for feature in blocks_geojson.get("features", []):
         properties = feature.get("properties") or {}
         block_id = str(prop(properties, "id", default="") or "")
         if not block_id:
             continue
-        if block_id not in origins:
+        if block_id not in axes:
             missing.append(block_id)
             continue
-        corner_x, corner_y = origins[block_id]
-        # угол в локальной CRS до поворота сцены, затем вычитаем scene rotation
-        abs_rotation = qgis_azimuth_to_scene(float(prop(properties, "rotation", default=0) or 0))
-        rotation_deg = normalize_deg(abs_rotation - scene_rotation_deg)
+        axis_start, axis_end = axes[block_id]
+        validate_axis_vertices(block_id, axis_start, axis_end, feature.get("geometry") or {})
         row_pitch = float(prop(properties, "row_pitch", default=2.75) or 2.75)
         bay_pitch = float(prop(properties, "bay_pitch", default=6.25) or 6.25)
+        rows = int(prop(properties, "rows", default=0) or 0)
+        bays = int(prop(properties, "bays", default=0) or 0)
+        bay_size = bay_pitch * CONTAINER_BAY_SIZE_FACTOR
+        row_size = row_pitch * CONTAINER_ROW_SIZE_FACTOR
+        bay_extent, row_extent = validate_axis_dimension(
+            block_id,
+            axis_start,
+            axis_end,
+            feature.get("geometry") or {},
+            bay_size + max(0, bays - 1) * bay_pitch,
+            row_size + max(0, rows - 1) * row_pitch,
+        )
+        distributed_bay_pitch, bay_offset, bay_error = distributed_axis_layout(
+            block_id, "bay", bay_extent, bays, bay_pitch, bay_size
+        )
+        distributed_row_pitch, row_offset, row_error = distributed_axis_layout(
+            block_id, "row", row_extent, rows, row_pitch, row_size
+        )
+        if bay_error:
+            size_errors.append(bay_error)
+        if row_error:
+            size_errors.append(row_error)
+        corner_x, corner_y = to_local(axis_start[0], axis_start[1], origin_e, origin_n)
+        corner_x, corner_y = rotate_point(corner_x, corner_y, scene_rotation_deg)
+        abs_rotation = axis_angle_deg(axis_start, axis_end)
+        rotation_deg = normalize_deg(abs_rotation - scene_rotation_deg)
+        manual_rotation = prop(properties, "rotation", default=None)
+        if manual_rotation is not None:
+            old_abs_rotation = qgis_azimuth_to_scene(float(manual_rotation))
+            difference = angular_distance_deg(abs_rotation, old_abs_rotation)
+            if difference > ROTATION_WARNING_TOLERANCE_DEG:
+                warnings.warn(
+                    f"block_axes {block_id}: вычисленный угол отличается от yard_blocks.rotation "
+                    f"на {difference:.2f}°",
+                    stacklevel=2,
+                )
         ox, oy = slot_center_from_corner(
             corner_x,
             corner_y,
             rotation_deg,
-            row_pitch,
-            bay_pitch,
+            row_offset,
+            bay_offset,
         )
         blocks.append(
             {
@@ -205,21 +359,25 @@ def collect_blocks(
                 "originX": round2(ox),
                 "originY": round2(oy),
                 "rotationDeg": round2(rotation_deg),
-                "rowPitch": row_pitch,
-                "bayPitch": bay_pitch,
+                "rowPitch": round4(distributed_row_pitch),
+                "bayPitch": round4(distributed_bay_pitch),
+                "rowSize": round4(row_size),
+                "baySize": round4(bay_size),
                 "tierPitch": DEFAULT_TIER_PITCH,
-                "rows": int(prop(properties, "rows", default=0) or 0),
-                "bays": int(prop(properties, "bays", default=0) or 0),
+                "rows": rows,
+                "bays": bays,
                 "maxTier": int(prop(properties, "max_tier", default=7) or 7),
             }
         )
 
     if missing:
-        raise SystemExit(f"нет block_origins для: {', '.join(sorted(missing))}")
+        raise SystemExit(f"нет block_axes для: {', '.join(sorted(missing))}")
+    if size_errors:
+        raise SystemExit("сетка контейнеров не помещается в блок:\n- " + "\n- ".join(size_errors))
 
-    extra = sorted(set(origins) - {b["id"] for b in blocks})
+    extra = sorted(set(axes) - {b["id"] for b in blocks})
     if extra:
-        raise SystemExit(f"лишние block_origins без yard_blocks: {', '.join(extra)}")
+        raise SystemExit(f"лишние block_axes без yard_blocks: {', '.join(extra)}")
 
     blocks.sort(key=lambda item: item["id"])
     return blocks
@@ -230,10 +388,10 @@ def block_corners(block: dict) -> list[tuple[float, float]]:
     ang = math.radians(block["rotationDeg"])
     cos_a = math.cos(ang)
     sin_a = math.sin(ang)
-    min_x = -block["bayPitch"] * 0.5
-    min_y = -block["rowPitch"] * 0.5
-    max_x = (block["bays"] - 0.5) * block["bayPitch"]
-    max_y = (block["rows"] - 0.5) * block["rowPitch"]
+    min_x = -block["baySize"] * 0.5
+    min_y = -block["rowSize"] * 0.5
+    max_x = (block["bays"] - 1) * block["bayPitch"] + block["baySize"] * 0.5
+    max_y = (block["rows"] - 1) * block["rowPitch"] + block["rowSize"] * 0.5
     corners_local = ((min_x, min_y), (max_x, min_y), (max_x, max_y), (min_x, max_y))
     result = []
     for lx, ly in corners_local:
@@ -312,7 +470,7 @@ def build_snapshot(data_dir: Path) -> dict:
     water_rings = collect_water(water_geo, origin_e, origin_n, scene_rotation)
     blocks = collect_blocks(
         load_geojson(data_dir / "geojson" / "yard_blocks.geojson"),
-        load_geojson(data_dir / "geojson" / "block_origins.geojson"),
+        load_geojson(data_dir / "geojson" / "block_axes.geojson"),
         origin_e,
         origin_n,
         scene_rotation,
@@ -409,17 +567,20 @@ def write_bsl_fragment(snapshot: dict, path: Path) -> None:
     )
     for block in snapshot["topology"]["blocks"]:
         lines.append(
-            "Блоки.Добавить(ОписаниеБлока(\"{id}\", {ox}, {oy}, {rot}, {rp}, {bp}, {tp}, {rows}, {bays}, {mt}));".format(
+            "Блоки.Добавить(ОписаниеБлока(\"{id}\", {ox}, {oy}, {rot}, {rp}, {bp}, {tp}, "
+            "{rows}, {bays}, {mt}, {rs}, {bs}));".format(
                 id=block["id"],
                 ox=bsl_number(block["originX"]),
                 oy=bsl_number(block["originY"]),
                 rot=bsl_number(block["rotationDeg"]),
-                rp=bsl_number(block["rowPitch"]),
-                bp=bsl_number(block["bayPitch"]),
+                rp=bsl_number(block["rowPitch"], digits=4),
+                bp=bsl_number(block["bayPitch"], digits=4),
                 tp=bsl_number(block["tierPitch"], digits=3),
                 rows=block["rows"],
                 bays=block["bays"],
                 mt=block["maxTier"],
+                rs=bsl_number(block["rowSize"], digits=4),
+                bs=bsl_number(block["baySize"], digits=4),
             )
         )
     lines.append("")
@@ -471,17 +632,20 @@ def patch_object_module(module_path: Path, snapshot: dict) -> None:
     )
     for block in snapshot["topology"]["blocks"]:
         fragment_lines.append(
-            "\tБлоки.Добавить(ОписаниеБлока(\"{id}\", {ox}, {oy}, {rot}, {rp}, {bp}, {tp}, {rows}, {bays}, {mt}));".format(
+            "\tБлоки.Добавить(ОписаниеБлока(\"{id}\", {ox}, {oy}, {rot}, {rp}, {bp}, {tp}, "
+            "{rows}, {bays}, {mt}, {rs}, {bs}));".format(
                 id=block["id"],
                 ox=bsl_number(block["originX"]),
                 oy=bsl_number(block["originY"]),
                 rot=bsl_number(block["rotationDeg"]),
-                rp=bsl_number(block["rowPitch"]),
-                bp=bsl_number(block["bayPitch"]),
+                rp=bsl_number(block["rowPitch"], digits=4),
+                bp=bsl_number(block["bayPitch"], digits=4),
                 tp=bsl_number(block["tierPitch"], digits=3),
                 rows=block["rows"],
                 bays=block["bays"],
                 mt=block["maxTier"],
+                rs=bsl_number(block["rowSize"], digits=4),
+                bs=bsl_number(block["baySize"], digits=4),
             )
         )
     fragment_lines.append('\tДанныеСцены.Вставить("topology", Новый Структура("blocks", Блоки));')

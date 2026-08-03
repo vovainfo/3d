@@ -5,14 +5,14 @@
   "meta": {
     "sourceCrs": "EPSG:32652",
     "sceneOrigin": {
-      "easting": 734444.7,
-      "northing": 4774763.4,
+      "easting": 734400.0,
+      "northing": 4774800.0,
       "rotationDeg": 50.0,
       "note": "SW corner of terminal fence; rotationDeg aligns O-1/O-2 bay axis to +X"
     },
     "effectiveOrigin": {
-      "easting": 734208.26,
-      "northing": 4774720.26,
+      "easting": 734164.25,
+      "northing": 4774699.09,
       "note": "после scene rotation; сдвиг, чтобы локальные x/y были >= margin"
     },
     "marginM": 20.0
@@ -29,22 +29,22 @@
       },
       {
         "x": 1529.77,
-        "y": 710.61
+        "y": 710.62
       },
       {
         "x": 1523.11,
         "y": 715.85
       },
       {
-        "x": 1358.53,
+        "x": 1358.54,
         "y": 755.81
       },
       {
-        "x": 1342.62,
+        "x": 1342.63,
         "y": 755.02
       },
       {
-        "x": 1127.18,
+        "x": 1127.19,
         "y": 653.38
       },
       {
@@ -56,11 +56,11 @@
         "y": 305.75
       },
       {
-        "x": 573.03,
+        "x": 573.04,
         "y": 330.42
       },
       {
-        "x": 409.7,
+        "x": 409.71,
         "y": 266.39
       },
       {
@@ -79,22 +79,22 @@
       },
       {
         "x": 1529.77,
-        "y": 710.61
+        "y": 710.62
       },
       {
         "x": 1523.11,
         "y": 715.85
       },
       {
-        "x": 1358.53,
+        "x": 1358.54,
         "y": 755.81
       },
       {
-        "x": 1342.62,
+        "x": 1342.63,
         "y": 755.02
       },
       {
-        "x": 1127.18,
+        "x": 1127.19,
         "y": 653.38
       },
       {
@@ -106,11 +106,11 @@
         "y": 305.75
       },
       {
-        "x": 573.03,
+        "x": 573.04,
         "y": 330.42
       },
       {
-        "x": 409.7,
+        "x": 409.71,
         "y": 266.39
       },
       {
@@ -126,43 +126,43 @@
         "y": 20.0
       },
       {
-        "x": 47.49,
+        "x": 47.5,
         "y": 398.05
       },
       {
         "x": 306.59,
-        "y": 526.71
+        "y": 526.72
       },
       {
-        "x": 531.51,
-        "y": 607.32
+        "x": 531.52,
+        "y": 607.33
       },
       {
-        "x": 606.63,
+        "x": 606.64,
         "y": 577.96
       },
       {
-        "x": 817.31,
+        "x": 817.32,
         "y": 652.76
       },
       {
-        "x": 938.28,
+        "x": 938.29,
         "y": 860.06
       },
       {
-        "x": 1229.26,
+        "x": 1229.27,
         "y": 1011.04
       },
       {
-        "x": 1417.92,
+        "x": 1417.93,
         "y": 1029.44
       },
       {
-        "x": 1594.56,
+        "x": 1594.57,
         "y": 986.58
       },
       {
-        "x": 1579.77,
+        "x": 1579.78,
         "y": 986.11
       },
       {
@@ -179,9 +179,9 @@
     "blocks": [
       {
         "id": "A1",
-        "originX": 399.56,
-        "originY": 107.37,
-        "rotationDeg": 22.0,
+        "originX": 399.5,
+        "originY": 107.44,
+        "rotationDeg": 23.53,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -191,9 +191,9 @@
       },
       {
         "id": "A2",
-        "originX": 422.79,
-        "originY": 116.87,
-        "rotationDeg": 22.0,
+        "originX": 422.73,
+        "originY": 116.94,
+        "rotationDeg": 23.67,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -203,9 +203,9 @@
       },
       {
         "id": "A3",
-        "originX": 458.58,
-        "originY": 126.95,
-        "rotationDeg": 20.0,
+        "originX": 458.51,
+        "originY": 127.04,
+        "rotationDeg": 21.97,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -215,9 +215,9 @@
       },
       {
         "id": "B",
-        "originX": 373.63,
-        "originY": 152.24,
-        "rotationDeg": 20.0,
+        "originX": 373.55,
+        "originY": 152.34,
+        "rotationDeg": 22.12,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -227,9 +227,9 @@
       },
       {
         "id": "BR",
-        "originX": 1395.43,
-        "originY": 620.32,
-        "rotationDeg": 346.0,
+        "originX": 1395.41,
+        "originY": 620.43,
+        "rotationDeg": 347.86,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -239,9 +239,9 @@
       },
       {
         "id": "C1",
-        "originX": 350.58,
-        "originY": 206.62,
-        "rotationDeg": 20.0,
+        "originX": 350.49,
+        "originY": 206.72,
+        "rotationDeg": 22.31,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -251,9 +251,9 @@
       },
       {
         "id": "C2",
-        "originX": 397.5,
-        "originY": 224.64,
-        "rotationDeg": 20.0,
+        "originX": 397.45,
+        "originY": 224.7,
+        "rotationDeg": 21.29,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -263,9 +263,9 @@
       },
       {
         "id": "C3",
-        "originX": 499.68,
-        "originY": 264.3,
-        "rotationDeg": 20.0,
+        "originX": 499.59,
+        "originY": 264.4,
+        "rotationDeg": 22.24,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -275,9 +275,9 @@
       },
       {
         "id": "E1",
-        "originX": 783.19,
-        "originY": 265.51,
-        "rotationDeg": 22.0,
+        "originX": 783.1,
+        "originY": 265.61,
+        "rotationDeg": 24.28,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -287,9 +287,9 @@
       },
       {
         "id": "E2",
-        "originX": 770.01,
-        "originY": 257.88,
-        "rotationDeg": 330.0,
+        "originX": 764.18,
+        "originY": 260.64,
+        "rotationDeg": 111.88,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -299,9 +299,9 @@
       },
       {
         "id": "F",
-        "originX": 630.42,
-        "originY": 261.62,
-        "rotationDeg": 36.0,
+        "originX": 630.34,
+        "originY": 261.67,
+        "rotationDeg": 37.6,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -311,21 +311,21 @@
       },
       {
         "id": "J",
-        "originX": 1149.1,
-        "originY": 499.62,
-        "rotationDeg": 306.0,
+        "originX": 1142.95,
+        "originY": 502.51,
+        "rotationDeg": 136.21,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
-        "rows": 2,
-        "bays": 17,
+        "rows": 17,
+        "bays": 2,
         "maxTier": 6
       },
       {
         "id": "L",
-        "originX": 1936.57,
-        "originY": 467.41,
-        "rotationDeg": 355.0,
+        "originX": 1936.55,
+        "originY": 467.5,
+        "rotationDeg": 356.41,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -335,9 +335,9 @@
       },
       {
         "id": "LM",
-        "originX": 1787.33,
-        "originY": 575.52,
-        "rotationDeg": 349.0,
+        "originX": 1787.3,
+        "originY": 575.64,
+        "rotationDeg": 350.96,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -347,9 +347,9 @@
       },
       {
         "id": "MR-1",
-        "originX": 1369.86,
-        "originY": 706.67,
-        "rotationDeg": 345.0,
+        "originX": 1369.85,
+        "originY": 706.78,
+        "rotationDeg": 346.99,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -359,9 +359,9 @@
       },
       {
         "id": "MR-2",
-        "originX": 1470.64,
-        "originY": 682.0,
-        "rotationDeg": 345.0,
+        "originX": 1470.63,
+        "originY": 682.07,
+        "rotationDeg": 346.21,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -371,9 +371,9 @@
       },
       {
         "id": "N",
-        "originX": 1141.82,
-        "originY": 587.55,
-        "rotationDeg": 306.0,
+        "originX": 1135.68,
+        "originY": 590.46,
+        "rotationDeg": 135.85,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -383,9 +383,9 @@
       },
       {
         "id": "O-1",
-        "originX": 1574.15,
-        "originY": 539.54,
-        "rotationDeg": 348.0,
+        "originX": 1574.13,
+        "originY": 539.66,
+        "rotationDeg": 349.99,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -395,9 +395,9 @@
       },
       {
         "id": "O-2",
-        "originX": 1572.57,
-        "originY": 528.55,
-        "rotationDeg": 348.0,
+        "originX": 1572.55,
+        "originY": 528.66,
+        "rotationDeg": 349.93,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -407,9 +407,9 @@
       },
       {
         "id": "P",
-        "originX": 648.51,
-        "originY": 252.18,
-        "rotationDeg": 336.0,
+        "originX": 642.93,
+        "originY": 254.83,
+        "rotationDeg": 105.86,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -419,9 +419,9 @@
       },
       {
         "id": "PR",
-        "originX": 1351.74,
-        "originY": 672.7,
-        "rotationDeg": 344.0,
+        "originX": 1351.72,
+        "originY": 672.83,
+        "rotationDeg": 346.19,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -431,9 +431,9 @@
       },
       {
         "id": "Q",
-        "originX": 1052.82,
-        "originY": 394.98,
-        "rotationDeg": 24.0,
+        "originX": 1051.04,
+        "originY": 395.83,
+        "rotationDeg": 57.7,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -443,9 +443,9 @@
       },
       {
         "id": "R",
-        "originX": 851.24,
-        "originY": 228.66,
-        "rotationDeg": 20.0,
+        "originX": 851.15,
+        "originY": 228.77,
+        "rotationDeg": 22.39,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -455,9 +455,9 @@
       },
       {
         "id": "R1",
-        "originX": 803.1,
-        "originY": 216.89,
-        "rotationDeg": 21.0,
+        "originX": 803.04,
+        "originY": 216.96,
+        "rotationDeg": 22.72,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -467,9 +467,9 @@
       },
       {
         "id": "R2",
-        "originX": 1072.2,
-        "originY": 323.42,
-        "rotationDeg": 39.0,
+        "originX": 1071.99,
+        "originY": 323.52,
+        "rotationDeg": 43.05,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -479,9 +479,9 @@
       },
       {
         "id": "RF-1",
-        "originX": 1166.02,
-        "originY": 428.07,
-        "rotationDeg": 34.0,
+        "originX": 1165.26,
+        "originY": 428.44,
+        "rotationDeg": 48.36,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -491,9 +491,9 @@
       },
       {
         "id": "RF-2",
-        "originX": 1126.86,
-        "originY": 379.78,
-        "rotationDeg": 33.0,
+        "originX": 1126.01,
+        "originY": 380.19,
+        "rotationDeg": 48.91,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -503,9 +503,9 @@
       },
       {
         "id": "S",
-        "originX": 1101.87,
-        "originY": 416.7,
-        "rotationDeg": 25.0,
+        "originX": 1100.16,
+        "originY": 417.51,
+        "rotationDeg": 57.07,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -515,9 +515,9 @@
       },
       {
         "id": "T1",
-        "originX": 716.72,
-        "originY": 284.57,
-        "rotationDeg": 21.0,
+        "originX": 716.66,
+        "originY": 284.64,
+        "rotationDeg": 22.48,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -527,9 +527,9 @@
       },
       {
         "id": "T2",
-        "originX": 792.78,
-        "originY": 315.65,
-        "rotationDeg": 20.0,
+        "originX": 792.68,
+        "originY": 315.75,
+        "rotationDeg": 22.5,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -539,9 +539,9 @@
       },
       {
         "id": "T3",
-        "originX": 896.25,
-        "originY": 357.63,
-        "rotationDeg": 20.0,
+        "originX": 896.16,
+        "originY": 357.73,
+        "rotationDeg": 22.32,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -551,9 +551,9 @@
       },
       {
         "id": "T4",
-        "originX": 961.81,
-        "originY": 383.78,
-        "rotationDeg": 22.0,
+        "originX": 961.74,
+        "originY": 383.85,
+        "rotationDeg": 23.75,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -563,9 +563,9 @@
       },
       {
         "id": "X",
-        "originX": 795.07,
-        "originY": 270.62,
-        "rotationDeg": 20.0,
+        "originX": 794.98,
+        "originY": 270.71,
+        "rotationDeg": 22.1,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,
@@ -575,9 +575,9 @@
       },
       {
         "id": "Y",
-        "originX": 1128.75,
-        "originY": 511.33,
-        "rotationDeg": 24.0,
+        "originX": 1126.94,
+        "originY": 512.18,
+        "rotationDeg": 58.14,
         "rowPitch": 2.75,
         "bayPitch": 6.25,
         "tierPitch": 2.591,

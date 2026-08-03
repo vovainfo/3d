@@ -649,8 +649,8 @@ function initTerminalPlan2D() {
 
     function drawCell(cell) {
         var block = blockById[cell.blockId];
-        var w = block ? numberOr(block.bayPitch, 6.25) * 0.92 : 5.5;
-        var h = block ? numberOr(block.rowPitch, 2.75) * 0.85 : 2.3;
+        var w = block ? numberOr(block.baySize, numberOr(block.bayPitch, 6.25) * 0.94) : 5.875;
+        var h = block ? numberOr(block.rowSize, numberOr(block.rowPitch, 2.75) * 0.88) : 2.42;
         var ang = cell.rotation * Math.PI / 180;
         var p = worldToScreen(cell.x, cell.y);
         ctx.save();
@@ -671,10 +671,10 @@ function initTerminalPlan2D() {
 
     function drawPlacement(pl) {
         var block = blockById[pl.blockId];
-        var bayPitch = block ? numberOr(block.bayPitch, 6.25) : 6.25;
-        var rowPitch = block ? numberOr(block.rowPitch, 2.75) : 2.75;
-        var w = bayPitch * pl.spanCells * 0.94;
-        var h = rowPitch * 0.88;
+        var baySize = block ? numberOr(block.baySize, numberOr(block.bayPitch, 6.25) * 0.94) : 5.875;
+        var rowSize = block ? numberOr(block.rowSize, numberOr(block.rowPitch, 2.75) * 0.88) : 2.42;
+        var w = baySize * pl.spanCells;
+        var h = rowSize;
         var ang = pl.rotation * Math.PI / 180;
         var p = worldToScreen(pl.x, pl.y);
         var stackH = 0;
@@ -716,14 +716,16 @@ function initTerminalPlan2D() {
         var bays = Math.max(1, numberOr(block.bays, 1));
         var rowPitch = numberOr(block.rowPitch, 2.75);
         var bayPitch = numberOr(block.bayPitch, 12.5);
+        var rowSize = numberOr(block.rowSize, rowPitch * 0.88);
+        var baySize = numberOr(block.baySize, bayPitch * 0.94);
         var ang = numberOr(block.rotationDeg, 0) * Math.PI / 180;
         var cosA = Math.cos(ang);
         var sinA = Math.sin(ang);
         var corners = [
-            { lx: -bayPitch * 0.5, ly: -rowPitch * 0.5 },
-            { lx: (bays - 0.5) * bayPitch, ly: -rowPitch * 0.5 },
-            { lx: (bays - 0.5) * bayPitch, ly: (rows - 0.5) * rowPitch },
-            { lx: -bayPitch * 0.5, ly: (rows - 0.5) * rowPitch }
+            { lx: -baySize * 0.5, ly: -rowSize * 0.5 },
+            { lx: (bays - 1) * bayPitch + baySize * 0.5, ly: -rowSize * 0.5 },
+            { lx: (bays - 1) * bayPitch + baySize * 0.5, ly: (rows - 1) * rowPitch + rowSize * 0.5 },
+            { lx: -baySize * 0.5, ly: (rows - 1) * rowPitch + rowSize * 0.5 }
         ];
         ctx.beginPath();
         for (var i = 0; i < corners.length; i++) {
@@ -1474,6 +1476,8 @@ function initTerminalPlan2D() {
             var ly = -dx * sinA + dy * cosA;
             var bayPitch = numberOr(block.bayPitch, 6.25);
             var rowPitch = numberOr(block.rowPitch, 2.75);
+            var baySize = numberOr(block.baySize, bayPitch * 0.94);
+            var rowSize = numberOr(block.rowSize, rowPitch * 0.88);
             var bay = Math.round(lx / bayPitch) + 1;
             var row = Math.round(ly / rowPitch) + 1;
             var rowsN = Math.max(1, numberOr(block.rows, 1));
@@ -1483,7 +1487,7 @@ function initTerminalPlan2D() {
             }
             var localX = (bay - 1) * bayPitch;
             var localY = (row - 1) * rowPitch;
-            if (Math.abs(lx - localX) > bayPitch * 0.5 || Math.abs(ly - localY) > rowPitch * 0.5) {
+            if (Math.abs(lx - localX) > baySize * 0.5 || Math.abs(ly - localY) > rowSize * 0.5) {
                 continue;
             }
             return ensureCell(block, row, bay);
@@ -1513,10 +1517,10 @@ function initTerminalPlan2D() {
         for (i = 0; i < topPlacementList.length; i++) {
             var top = topPlacementList[i];
             var block = blockById[top.blockId];
-            var bayPitch = block ? numberOr(block.bayPitch, 6.25) : 6.25;
-            var rowPitch = block ? numberOr(block.rowPitch, 2.75) : 2.75;
-            var hw = bayPitch * top.spanCells * 0.5;
-            var hh = rowPitch * 0.5;
+            var baySize = block ? numberOr(block.baySize, numberOr(block.bayPitch, 6.25) * 0.94) : 5.875;
+            var rowSize = block ? numberOr(block.rowSize, numberOr(block.rowPitch, 2.75) * 0.88) : 2.42;
+            var hw = baySize * top.spanCells * 0.5;
+            var hh = rowSize * 0.5;
             var pAng = top.rotation * Math.PI / 180;
             var pCos = Math.cos(pAng);
             var pSin = Math.sin(pAng);
