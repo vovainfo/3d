@@ -38,11 +38,19 @@
     "container40FtMayCrossZoneBoundary": false,
     "container40FtMayCrossInfrastructure": false
   },
+  "demo": {
+    "enabled": true,
+    "seed": 20260805,
+    "fillPercent": 65,
+    "container40FtPercent": 45,
+    "maxTier": 4
+  },
   "sites": [
     {
       "id": "kpC",
       "name": "кпC",
       "qgisFeatureId": "kpC",
+      "containerLabelRotationDeg": 0,
       "maxTier": 6,
       "zones": [
         {

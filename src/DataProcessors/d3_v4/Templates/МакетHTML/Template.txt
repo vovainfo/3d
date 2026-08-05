@@ -8,7 +8,7 @@
 <div id="stage">
   <div id="hud">
     <div id="help">2D план · ячейка = 20 ft · 40 ft = 2 ячейки · ЛКМ — pan · колесо — zoom</div>
-    <div id="legend">Ярусность: <span class="lg0">0</span> <span class="lg1">1</span> <span class="lg2">2</span> <span class="lg3">3</span> <span class="lg4">4</span> <span class="lg5">5+</span></div>
+    <div id="legend">Хранение — красные · выгрузка — синие · ярус: <span class="lg1">1</span> <span class="lg2">2</span> <span class="lg3">3</span> <span class="lg4">4</span> <span class="lg5">5+</span></div>
     <div id="equip-legend">20/40 ft · суда · STS · RTG · ричстакер · тягач · ж/д · склад</div>
     <div id="status">Загрузка плана…</div>
   </div>

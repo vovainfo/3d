@@ -58,6 +58,7 @@
       <key>ru</key>
       <value>Water geojson</value>
     </synonym>
+    <templateType>TextDocument</templateType>
   </templates>
   <templates uuid="6e9bd841-4882-42be-b587-38c1f36cf9bc">
     <name>Shoreline_geojson</name>
@@ -68,18 +69,10 @@
     <templateType>TextDocument</templateType>
   </templates>
   <templates uuid="3a9f64d1-5909-476a-a6f2-7c699633b653">
-    <name>ContainerSitesV4_json</name>
+    <name>ContainerSitesV4_geojson</name>
     <synonym>
       <key>ru</key>
-      <value>Container sites v4 json</value>
-    </synonym>
-    <templateType>TextDocument</templateType>
-  </templates>
-  <templates uuid="e9a57a48-d4ba-4165-a1cf-a95898799dd6">
-    <name>Макет</name>
-    <synonym>
-      <key>ru</key>
-      <value>Макет</value>
+      <value>Container sites v4 geojson</value>
     </synonym>
     <templateType>TextDocument</templateType>
   </templates>
@@ -88,6 +81,22 @@
     <synonym>
       <key>ru</key>
       <value>Container site bay axes v4 geojson</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="58c95bc2-518b-4594-b6f1-165ade975199">
+    <name>SceneOrigin_txt</name>
+    <synonym>
+      <key>ru</key>
+      <value>Scene origin txt</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="c50742f6-18d9-4f46-a6ec-3e81fe03ec19">
+    <name>SceneManifestV4_json</name>
+    <synonym>
+      <key>ru</key>
+      <value>Scene manifest v4 json</value>
     </synonym>
     <templateType>TextDocument</templateType>
   </templates>

@@ -1,6 +1,6 @@
 {
   "type": "FeatureCollection",
-  "name": "container_site_bay_axes_v4",
+  "name": "container_sites_v4",
   "crs": {
     "type": "name",
     "properties": {
@@ -15,15 +15,14 @@
         "site_id": "kpC"
       },
       "geometry": {
-        "type": "LineString",
+        "type": "Polygon",
         "coordinates": [
           [
-            734482.1,
-            4775170.09
-          ],
-          [
-            734397.91,
-            4774931.05
+            [734441.84, 4775184.27],
+            [734357.65, 4774945.23],
+            [734397.91, 4774931.05],
+            [734482.1, 4775170.09],
+            [734441.84, 4775184.27]
           ]
         ]
       }

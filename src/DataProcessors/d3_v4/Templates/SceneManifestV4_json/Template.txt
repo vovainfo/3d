@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "4.0",
+  "buildId": "85e493b15683ee13",
+  "algorithm": "sha256",
+  "sources": {
+    "bayAxes": {
+      "path": "geojson/container_site_bay_axes_v4.geojson",
+      "sha256": "6a1ce0ee862cfbd8b4550fcc4b151bdad0d291e7f4a920ebd51e7c5fe585ffaa",
+      "characters": 563
+    },
+    "containerSites": {
+      "path": "geojson/container_sites_v4.geojson",
+      "sha256": "8444a487ecc060f639e336a78e80326b7dad5834c9ea5b1465ddcf48d0c96437",
+      "characters": 829
+    },
+    "sceneOrigin": {
+      "path": "scene_origin.txt",
+      "sha256": "e0c6bcfd9bc3545b3ba873e6dd8ed40dd491e60f518f09c6e98a2a6b085ab4e8",
+      "characters": 156
+    },
+    "shoreline": {
+      "path": "geojson/shoreline.geojson",
+      "sha256": "c549d214d91ad0564920810ef056284286b3e23f8392c84fca50299035c6f73a",
+      "characters": 1279
+    },
+    "terminalLayout": {
+      "path": "terminal-layout-v4.json",
+      "sha256": "b15c115f27d892cb0d4a0be0125eeccd55c34f3c18438b1a2d307aa395bf1a6a",
+      "characters": 4328
+    },
+    "water": {
+      "path": "geojson/water.geojson",
+      "sha256": "fae4f70c1c1db72c0218c3bb910bdb3bef6265f83c1a5957f0327100b71f5842",
+      "characters": 2443
+    }
+  }
+}

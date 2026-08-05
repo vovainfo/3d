@@ -1,0 +1,46 @@
+{
+  "type": "FeatureCollection",
+  "name": "container_sites_v4",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:EPSG::32652"
+    }
+  },
+  "xy_coordinate_resolution": 0.01,
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "kpC"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              734441.84,
+              4775184.27
+            ],
+            [
+              734357.65,
+              4774945.23
+            ],
+            [
+              734397.91,
+              4774931.05
+            ],
+            [
+              734482.1,
+              4775170.09
+            ],
+            [
+              734441.84,
+              4775184.27
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
