@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="ad4e0045-3a79-4e93-bd27-5409b2fa5f97">
+  <producedTypes>
+    <objectType typeId="52bf3513-26f3-4987-ace1-fb5c6f689334" valueTypeId="a245ad23-6b2d-4717-9be1-1888e5e72ace"/>
+    <managerType typeId="d5137aac-adbb-467f-af80-2eb89b5ac9b4" valueTypeId="9f4706ec-8c5e-4b40-b63f-108f777bc789"/>
+  </producedTypes>
+  <name>d3_v4</name>
+  <synonym>
+    <key>ru</key>
+    <value>D3 V4</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.d3_v4.Form.Форма</defaultForm>
+  <forms uuid="a6db393a-5e68-4fe6-a319-556c2046affc">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <templates uuid="720119db-5d6d-458a-aa3b-e241e0a5b193">
+    <name>МакетHTML</name>
+    <synonym>
+      <key>ru</key>
+      <value>Макет HTML</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="c0f69348-9399-45ce-a2b9-df1eeba0a56b">
+    <name>МакетCSS</name>
+    <synonym>
+      <key>ru</key>
+      <value>Макет CSS</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="afa761dd-17dd-43ae-a4c9-7a13578301a7">
+    <name>МакетJS</name>
+    <synonym>
+      <key>ru</key>
+      <value>Макет JS</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="4c4e1a8c-06c9-4ca9-91f4-95d5611f0ac3">
+    <name>TerminalLayoutV4_json</name>
+    <synonym>
+      <key>ru</key>
+      <value>Terminal layout v4 json</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="6896b63f-7e6b-4488-abc9-044a9ddf8982">
+    <name>Water_geojson</name>
+    <synonym>
+      <key>ru</key>
+      <value>Water geojson</value>
+    </synonym>
+  </templates>
+  <templates uuid="6e9bd841-4882-42be-b587-38c1f36cf9bc">
+    <name>Shoreline_geojson</name>
+    <synonym>
+      <key>ru</key>
+      <value>Shoreline geojson</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="3a9f64d1-5909-476a-a6f2-7c699633b653">
+    <name>ContainerSitesV4_json</name>
+    <synonym>
+      <key>ru</key>
+      <value>Container sites v4 json</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="e9a57a48-d4ba-4165-a1cf-a95898799dd6">
+    <name>Макет</name>
+    <synonym>
+      <key>ru</key>
+      <value>Макет</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="b0ea51bf-65d9-486e-b559-9018292f6f8f">
+    <name>ContainerSiteBayAxesV4_geojson</name>
+    <synonym>
+      <key>ru</key>
+      <value>Container site bay axes v4 geojson</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+</mdclass:DataProcessor>

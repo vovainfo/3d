@@ -1,0 +1,1914 @@
+<script>
+function initTerminalPlan2D() {
+    var viewport = document.getElementById('viewport');
+    var canvas = document.getElementById('plan-canvas');
+    var statusEl = document.getElementById('status');
+    var bridge = document.getElementById('pick-bridge');
+    var commandBridge = document.getElementById('scene-command-bridge');
+    var errEl = document.getElementById('plan-error');
+    var dataEl = document.getElementById('scene-data');
+
+    function showError(text) {
+        if (errEl) {
+            errEl.style.display = 'block';
+            errEl.textContent = text;
+        }
+    }
+
+    if (!viewport || !canvas || typeof canvas.getContext !== 'function') {
+        showError('Canvas 2D недоступен в этом клиенте.');
+        return;
+    }
+
+    var ctx = canvas.getContext('2d');
+    if (!ctx) {
+        showError('Не удалось создать контекст Canvas 2D.');
+        return;
+    }
+
+    var sceneData;
+    try {
+        var jsonText = dataEl ? (dataEl.textContent || dataEl.innerText || '') : '';
+        sceneData = JSON.parse(jsonText);
+    } catch (parseError) {
+        showError('Ошибка JSON плана: ' + parseError.message);
+        return;
+    }
+
+    if (!sceneData || sceneData.units !== 'm') {
+        showError('Неподдерживаемые единицы или данные плана.');
+        return;
+    }
+
+    function numberOr(value, fallback) {
+        var n = Number(value);
+        return isFinite(n) ? n : fallback;
+    }
+
+    var site = sceneData.site || {};
+    site.width = numberOr(site.width, 720);
+    site.length = numberOr(site.length, 620);
+    site.quayWidth = Math.max(0, numberOr(site.quayWidth, 12));
+    function normalizePointRing(raw) {
+        var out = [];
+        var i;
+        if (!(raw instanceof Array)) {
+            return out;
+        }
+        for (i = 0; i < raw.length; i++) {
+            var pt = raw[i] || {};
+            out.push({
+                x: numberOr(pt.x, 0),
+                y: numberOr(pt.y, 0)
+            });
+        }
+        return out;
+    }
+
+    var rawShore = (site.shoreline instanceof Array) ? site.shoreline.slice() : [];
+    site.shoreline = normalizePointRing(rawShore);
+    if (site.shoreline.length < 2) {
+        var fallbackDepth = Math.max(0, numberOr(site.seaDepth, 100));
+        site.shoreline = [
+            { x: 0, y: fallbackDepth },
+            { x: site.width, y: fallbackDepth }
+        ];
+    }
+
+    // site.water: одно кольцо [{x,y},…] или массив колец [[{x,y},…], …]
+    site.waterRings = [];
+    var rawWater = site.water;
+    if (rawWater instanceof Array && rawWater.length > 0) {
+        if (rawWater[0] && rawWater[0].x != null) {
+            site.waterRings.push(normalizePointRing(rawWater));
+        } else {
+            var wi;
+            for (wi = 0; wi < rawWater.length; wi++) {
+                var ring = normalizePointRing(rawWater[wi]);
+                if (ring.length >= 3) {
+                    site.waterRings.push(ring);
+                }
+            }
+        }
+    }
+
+    var blocks = (sceneData.topology && sceneData.topology.blocks instanceof Array)
+        ? sceneData.topology.blocks : [];
+    var blockById = {};
+    for (var bi = 0; bi < blocks.length; bi++) {
+        blockById[String(blocks[bi].id)] = blocks[bi];
+    }
+
+    function slotWorld(block, row, bay) {
+        var ang = numberOr(block.rotationDeg, 0) * Math.PI / 180;
+        var cosA = Math.cos(ang);
+        var sinA = Math.sin(ang);
+        var rowPitch = numberOr(block.rowPitch, 2.75);
+        var bayPitch = numberOr(block.bayPitch, 6.25);
+        var lx = (bay - 1) * bayPitch;
+        var ly = (row - 1) * rowPitch;
+        return {
+            x: numberOr(block.originX, 0) + lx * cosA - ly * sinA,
+            y: numberOr(block.originY, 0) + lx * sinA + ly * cosA,
+            rotation: numberOr(block.rotationDeg, 0)
+        };
+    }
+
+    var cells = [];
+    var cellById = {};
+    function ensureCell(block, row, bay) {
+        var id = String(block.id) + ':' + row + ':' + bay;
+        var existing = cellById[id];
+        if (existing) {
+            return existing;
+        }
+        var pos = slotWorld(block, row, bay);
+        var cell = {
+            id: id,
+            kind: 'cell',
+            blockId: String(block.id),
+            row: row,
+            bay: bay,
+            count: 0,
+            maxTier: Math.max(1, numberOr(block.maxTier, 7)),
+            x: pos.x,
+            y: pos.y,
+            rotation: pos.rotation
+        };
+        cells.push(cell);
+        cellById[id] = cell;
+        return cell;
+    }
+
+    // Сетку 6000 ячеек не материализуем заранее — только слоты из placements.
+    var placements = [];
+    var placementById = {};
+    var topPlacementList = [];
+    // cellId|tier -> placementId
+    var occupancy = {};
+
+    function occupancyKey(cellId, tier) {
+        return String(cellId) + '|' + String(tier);
+    }
+
+    function recomputeCellCounts() {
+        var ci;
+        for (ci = 0; ci < cells.length; ci++) {
+            cells[ci].count = 0;
+        }
+        var pi;
+        for (pi = 0; pi < placements.length; pi++) {
+            var pl = placements[pi];
+            var ids = pl.cellIds || [];
+            var ii;
+            for (ii = 0; ii < ids.length; ii++) {
+                var cell = cellById[String(ids[ii])];
+                if (cell && pl.tier > cell.count) {
+                    cell.count = pl.tier;
+                }
+            }
+        }
+        rebuildTopPlacementList();
+    }
+
+    function rebuildTopPlacementList() {
+        topPlacementList = [];
+        var seen = {};
+        var pi;
+        for (pi = 0; pi < placements.length; pi++) {
+            var pl = placements[pi];
+            var cell = cellById[pl.cellIds[0]];
+            if (!cell || cell.count !== pl.tier) {
+                continue;
+            }
+            // верхнее, если на якорной ячейке это max tier
+            if (seen[pl.id]) {
+                continue;
+            }
+            seen[pl.id] = true;
+            topPlacementList.push(pl);
+        }
+    }
+
+    function normalizePlacement(raw) {
+        raw = raw || {};
+        var blockId = String(raw.blockId || '');
+        var blockRef = blockById[blockId];
+        var row = Math.max(1, numberOr(raw.row, 1));
+        var bay = Math.max(1, numberOr(raw.bay, 1));
+        var tier = Math.max(1, numberOr(raw.tier, 1));
+        var lengthFt = numberOr(raw.lengthFt, 20) >= 40 ? 40 : 20;
+        var span = lengthFt === 40 ? 2 : 1;
+        var id = String(raw.id == null || raw.id === ''
+            ? ('P-' + blockId + '-' + row + '-' + bay + '-T' + tier + '-' + lengthFt)
+            : raw.id);
+        var cellIds = [];
+        if (raw.cellIds instanceof Array && raw.cellIds.length) {
+            var cii;
+            for (cii = 0; cii < raw.cellIds.length; cii++) {
+                cellIds.push(String(raw.cellIds[cii]));
+            }
+        } else {
+            cellIds.push(blockId + ':' + row + ':' + bay);
+            if (span === 2) {
+                cellIds.push(blockId + ':' + row + ':' + (bay + 1));
+            }
+        }
+        if (blockRef) {
+            var si;
+            for (si = 0; si < span; si++) {
+                ensureCell(blockRef, row, bay + si);
+            }
+        }
+        var anchor = cellById[cellIds[0]];
+        var pos = anchor || { x: 0, y: 0, rotation: 0 };
+        if (span === 2 && cellById[cellIds[1]]) {
+            pos = {
+                x: (cellById[cellIds[0]].x + cellById[cellIds[1]].x) / 2,
+                y: (cellById[cellIds[0]].y + cellById[cellIds[1]].y) / 2,
+                rotation: cellById[cellIds[0]].rotation
+            };
+        }
+        return {
+            id: id,
+            kind: 'placement',
+            name: id,
+            blockId: blockId,
+            row: row,
+            bay: bay,
+            tier: tier,
+            lengthFt: lengthFt,
+            spanCells: span,
+            cellIds: cellIds,
+            x: pos.x,
+            y: pos.y,
+            rotation: pos.rotation,
+            z: 0
+        };
+    }
+
+    function clearOccupancyFor(pl) {
+        var i;
+        for (i = 0; i < pl.cellIds.length; i++) {
+            delete occupancy[occupancyKey(pl.cellIds[i], pl.tier)];
+        }
+    }
+
+    function markOccupancy(pl) {
+        var i;
+        for (i = 0; i < pl.cellIds.length; i++) {
+            occupancy[occupancyKey(pl.cellIds[i], pl.tier)] = pl.id;
+        }
+    }
+
+    function bumpCellCounts(pl) {
+        var i;
+        for (i = 0; i < pl.cellIds.length; i++) {
+            var cell = cellById[String(pl.cellIds[i])];
+            if (cell && pl.tier > cell.count) {
+                cell.count = pl.tier;
+            }
+        }
+    }
+
+    function upsertPlacement(raw, deferRebuild) {
+        var pl = normalizePlacement(raw);
+        var old = placementById[pl.id];
+        if (old) {
+            clearOccupancyFor(old);
+        } else {
+            placements.push(pl);
+            placementById[pl.id] = pl;
+        }
+        if (old) {
+            old.blockId = pl.blockId;
+            old.row = pl.row;
+            old.bay = pl.bay;
+            old.tier = pl.tier;
+            old.lengthFt = pl.lengthFt;
+            old.spanCells = pl.spanCells;
+            old.cellIds = pl.cellIds;
+            old.x = pl.x;
+            old.y = pl.y;
+            old.rotation = pl.rotation;
+            pl = old;
+        }
+        markOccupancy(pl);
+        if (deferRebuild) {
+            bumpCellCounts(pl);
+        } else {
+            recomputeCellCounts();
+            needsDraw = true;
+        }
+        return pl;
+    }
+
+    function removePlacement(id, deferRebuild) {
+        id = String(id == null ? '' : id);
+        var pl = placementById[id];
+        if (!pl) {
+            return false;
+        }
+        clearOccupancyFor(pl);
+        var idx = -1;
+        var i;
+        for (i = 0; i < placements.length; i++) {
+            if (placements[i].id === id) {
+                idx = i;
+                break;
+            }
+        }
+        if (idx >= 0) {
+            placements.splice(idx, 1);
+        }
+        delete placementById[id];
+        if (selected && selected.id === id) {
+            selected = null;
+        }
+        if (!deferRebuild) {
+            recomputeCellCounts();
+            needsDraw = true;
+        }
+        return true;
+    }
+
+    function topPlacementForCell(cellId) {
+        var cell = cellById[String(cellId)];
+        if (!cell || cell.count <= 0) {
+            return null;
+        }
+        var t;
+        for (t = cell.count; t >= 1; t--) {
+            var pid = occupancy[occupancyKey(cell.id, t)];
+            if (pid && placementById[pid]) {
+                return placementById[pid];
+            }
+        }
+        return null;
+    }
+
+    var sourcePlacements = sceneData.placements instanceof Array ? sceneData.placements : [];
+    for (var spi = 0; spi < sourcePlacements.length; spi++) {
+        upsertPlacement(sourcePlacements[spi], true);
+    }
+    recomputeCellCounts();
+
+    var objects = [];
+    var objectById = {};
+    var sourceObjects = sceneData.objects instanceof Array ? sceneData.objects : [];
+    for (var oi = 0; oi < sourceObjects.length; oi++) {
+        var so = sourceObjects[oi] || {};
+        var oid = String(so.id == null ? '' : so.id);
+        var kind = String(so.kind == null ? '' : so.kind);
+        if (!oid || !kind || objectById[oid] || kind === 'cell' || kind === 'placement') {
+            continue;
+        }
+        var obj = {
+            id: oid,
+            kind: kind,
+            name: String(so.name || oid),
+            x: numberOr(so.x, 0),
+            y: numberOr(so.y, 0),
+            z: numberOr(so.z, 0),
+            rotation: numberOr(so.rotation, 0),
+            color: String(so.color || '#94a3b8'),
+            size: so.size || {},
+            load: String(so.load || 'none'),
+            length: numberOr(so.length, numberOr(so.size && so.size.length, 0)),
+            vesselId: String(so.vesselId || '')
+        };
+        objects.push(obj);
+        objectById[oid] = obj;
+    }
+
+    var dpr = 1;
+    var view = { scale: 1, offsetX: 40, offsetY: 40 };
+    var selected = null;
+    var needsDraw = true;
+    var panning = false;
+    var panLast = null;
+    var pointerDown = null;
+    var DRAG_THRESHOLD = 4;
+    var buildMs = 0;
+
+    var TIER_COLORS = [
+        '#4a3f3f',
+        '#f0a090',
+        '#e87868',
+        '#d45040',
+        '#b83228',
+        '#8f2018',
+        '#6e1410',
+        '#4a0c08'
+    ];
+
+    function colorForCount(count, maxTier) {
+        if (count <= 0) {
+            return TIER_COLORS[0];
+        }
+        var idx = Math.min(TIER_COLORS.length - 1, count);
+        return TIER_COLORS[idx];
+    }
+
+    function worldToScreen(x, y) {
+        return {
+            x: view.offsetX + x * view.scale,
+            // Геодезический Y (Northing) растёт к северу, экранный Y — вниз.
+            y: view.offsetY + (site.length - y) * view.scale
+        };
+    }
+
+    function screenToWorld(sx, sy) {
+        return {
+            x: (sx - view.offsetX) / view.scale,
+            y: site.length - (sy - view.offsetY) / view.scale
+        };
+    }
+
+    function resize() {
+        var width = viewport.clientWidth || 800;
+        var height = viewport.clientHeight || 600;
+        if (width < 1 || height < 1) {
+            return;
+        }
+        dpr = (window.devicePixelRatio > 1.5) ? 1.5 : (window.devicePixelRatio || 1);
+        if (dpr > 2) {
+            dpr = 2;
+        }
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        needsDraw = true;
+    }
+
+    function resetView() {
+        var width = viewport.clientWidth || 800;
+        var height = viewport.clientHeight || 600;
+        var pad = 40;
+        var sx = (width - pad * 2) / site.width;
+        var sy = (height - pad * 2) / site.length;
+        view.scale = Math.max(0.05, Math.min(sx, sy));
+        view.offsetX = (width - site.width * view.scale) / 2;
+        view.offsetY = (height - site.length * view.scale) / 2;
+        needsDraw = true;
+    }
+
+    function ringCentroid(ring) {
+        var i;
+        var sx = 0;
+        var sy = 0;
+        var n = ring ? ring.length : 0;
+        for (i = 0; i < n; i++) {
+            sx += ring[i].x;
+            sy += ring[i].y;
+        }
+        return {
+            x: sx / Math.max(1, n),
+            y: sy / Math.max(1, n)
+        };
+    }
+
+    function shorelineCentroid() {
+        if (site.waterRings && site.waterRings.length > 0) {
+            return ringCentroid(site.waterRings[0]);
+        }
+        var shore = site.shoreline;
+        var i;
+        var sx = 0;
+        var sy = 0;
+        for (i = 0; i < shore.length; i++) {
+            sx += shore[i].x;
+            sy += shore[i].y * 0.35;
+        }
+        return {
+            x: sx / Math.max(1, shore.length),
+            y: Math.max(24, sy / Math.max(1, shore.length))
+        };
+    }
+
+    function beginWaterPolygons() {
+        var rings = site.waterRings;
+        var ri;
+        var i;
+        var p;
+        if (!(rings && rings.length > 0)) {
+            return false;
+        }
+        ctx.beginPath();
+        for (ri = 0; ri < rings.length; ri++) {
+            var ring = rings[ri];
+            for (i = 0; i < ring.length; i++) {
+                p = worldToScreen(ring[i].x, ring[i].y);
+                if (i === 0) {
+                    ctx.moveTo(p.x, p.y);
+                } else {
+                    ctx.lineTo(p.x, p.y);
+                }
+            }
+            ctx.closePath();
+        }
+        return true;
+    }
+
+    // Fallback для stub без site.water: замыкание shoreline с нижней кромкой.
+    function beginSeaPolygonFallback() {
+        var shore = site.shoreline;
+        var i;
+        var p;
+        ctx.beginPath();
+        p = worldToScreen(0, 0);
+        ctx.moveTo(p.x, p.y);
+        p = worldToScreen(site.width, 0);
+        ctx.lineTo(p.x, p.y);
+        for (i = shore.length - 1; i >= 0; i--) {
+            p = worldToScreen(shore[i].x, shore[i].y);
+            ctx.lineTo(p.x, p.y);
+        }
+        ctx.closePath();
+    }
+
+    function beginShorePolyline() {
+        var shore = site.shoreline;
+        var i;
+        var p;
+        ctx.beginPath();
+        for (i = 0; i < shore.length; i++) {
+            p = worldToScreen(shore[i].x, shore[i].y);
+            if (i === 0) {
+                ctx.moveTo(p.x, p.y);
+            } else {
+                ctx.lineTo(p.x, p.y);
+            }
+        }
+    }
+
+    function drawRoundedSite() {
+        var p0 = worldToScreen(0, site.length);
+        var sw = site.width * view.scale;
+        var sh = site.length * view.scale;
+        var shore = site.shoreline;
+        var quayW = site.quayWidth;
+        var hasWater = site.waterRings && site.waterRings.length > 0;
+        var i;
+
+        // суша
+        ctx.fillStyle = '#2a3140';
+        ctx.fillRect(p0.x, p0.y, sw, sh);
+
+        // море: явный полигон water, иначе legacy-эвристика по shoreline
+        if (hasWater) {
+            beginWaterPolygons();
+        } else {
+            beginSeaPolygonFallback();
+        }
+        ctx.fillStyle = '#1a6a9a';
+        ctx.fill();
+
+        ctx.save();
+        if (hasWater) {
+            beginWaterPolygons();
+        } else {
+            beginSeaPolygonFallback();
+        }
+        ctx.clip();
+        ctx.fillStyle = '#2280b5';
+        ctx.fillRect(p0.x, p0.y, sw, Math.max(20, 42 * view.scale));
+        ctx.strokeStyle = 'rgba(180, 230, 255, 0.22)';
+        ctx.lineWidth = Math.max(1, view.scale * 0.35);
+        var wy;
+        var step = Math.max(6, 7 * view.scale);
+        var maxSeaY = 0;
+        var minSeaY = site.length;
+        var rippleSource = hasWater ? site.waterRings[0] : shore;
+        for (i = 0; i < rippleSource.length; i++) {
+            if (rippleSource[i].y > maxSeaY) {
+                maxSeaY = rippleSource[i].y;
+            }
+            if (rippleSource[i].y < minSeaY) {
+                minSeaY = rippleSource[i].y;
+            }
+        }
+        var yTopScreen = worldToScreen(0, maxSeaY).y;
+        var yBotScreen = worldToScreen(0, minSeaY).y;
+        var rippleMin = Math.min(yTopScreen, yBotScreen);
+        var rippleMax = Math.max(yTopScreen, yBotScreen);
+        for (wy = rippleMin + step * 0.6; wy < rippleMax - 2; wy += step) {
+            ctx.beginPath();
+            var wx;
+            for (wx = 0; wx <= site.width; wx += 8) {
+                var sx = p0.x + wx * view.scale;
+                var amp = Math.sin((wx + wy) * 0.08) * 1.6 * view.scale;
+                if (wx === 0) {
+                    ctx.moveTo(sx, wy + amp);
+                } else {
+                    ctx.lineTo(sx, wy + amp);
+                }
+            }
+            ctx.stroke();
+        }
+        ctx.restore();
+
+        // причал вдоль shoreline (обводка, не заливка)
+        if (quayW > 0 && shore.length >= 2) {
+            beginShorePolyline();
+            ctx.strokeStyle = '#5c6578';
+            ctx.lineWidth = Math.max(3, quayW * view.scale);
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+            ctx.stroke();
+            beginShorePolyline();
+            ctx.strokeStyle = '#9aa3b5';
+            ctx.lineWidth = Math.max(1, view.scale * 0.35);
+            ctx.stroke();
+            ctx.fillStyle = '#3d4658';
+            for (i = 0; i < shore.length; i++) {
+                var bp = worldToScreen(shore[i].x, shore[i].y);
+                ctx.fillRect(
+                    bp.x - Math.max(1.5, view.scale),
+                    bp.y - Math.max(1.5, view.scale),
+                    Math.max(3, 2.2 * view.scale),
+                    Math.max(3, 2.4 * view.scale));
+            }
+        }
+
+        if (view.scale > 0.7) {
+            var c = shorelineCentroid();
+            var cp = worldToScreen(c.x, c.y);
+            ctx.fillStyle = 'rgba(220, 240, 255, 0.55)';
+            ctx.font = Math.max(11, Math.min(16, 5.5 * view.scale)) + 'px Segoe UI, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('МОРЕ', cp.x, cp.y);
+        }
+
+        ctx.strokeStyle = '#465168';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(p0.x, p0.y, sw, sh);
+    }
+
+    function drawCell(cell) {
+        var block = blockById[cell.blockId];
+        var w = block ? numberOr(block.baySize, numberOr(block.bayPitch, 6.25) * 0.94) : 5.875;
+        var h = block ? numberOr(block.rowSize, numberOr(block.rowPitch, 2.75) * 0.88) : 2.42;
+        var ang = cell.rotation * Math.PI / 180;
+        var p = worldToScreen(cell.x, cell.y);
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(-ang);
+        var sw = w * view.scale;
+        var sh = h * view.scale;
+        // пустая сетка 20 ft; занятость рисуется placements
+        ctx.fillStyle = colorForCount(0, cell.maxTier);
+        ctx.fillRect(-sw / 2, -sh / 2, sw, sh);
+        if (view.scale > 2.5) {
+            ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(-sw / 2, -sh / 2, sw, sh);
+        }
+        ctx.restore();
+    }
+
+    function drawPlacement(pl) {
+        var block = blockById[pl.blockId];
+        var baySize = block ? numberOr(block.baySize, numberOr(block.bayPitch, 6.25) * 0.94) : 5.875;
+        var rowSize = block ? numberOr(block.rowSize, numberOr(block.rowPitch, 2.75) * 0.88) : 2.42;
+        var w = baySize * pl.spanCells;
+        var h = rowSize;
+        var ang = pl.rotation * Math.PI / 180;
+        var p = worldToScreen(pl.x, pl.y);
+        var stackH = 0;
+        var i;
+        for (i = 0; i < pl.cellIds.length; i++) {
+            var cell = cellById[pl.cellIds[i]];
+            if (cell && cell.count > stackH) {
+                stackH = cell.count;
+            }
+        }
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(-ang);
+        var sw = w * view.scale;
+        var sh = h * view.scale;
+        ctx.fillStyle = colorForCount(stackH, 7);
+        ctx.fillRect(-sw / 2, -sh / 2, sw, sh);
+        ctx.strokeStyle = pl.lengthFt === 40 ? '#1f0a08' : 'rgba(0,0,0,0.35)';
+        ctx.lineWidth = pl.lengthFt === 40 ? Math.max(1.5, view.scale * 0.2) : 1;
+        ctx.strokeRect(-sw / 2, -sh / 2, sw, sh);
+        if (selected && (selected.id === pl.id ||
+                (selected.kind === 'cell' && pl.cellIds.indexOf(selected.id) >= 0))) {
+            ctx.strokeStyle = '#ffcc33';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(-sw / 2 - 1, -sh / 2 - 1, sw + 2, sh + 2);
+        }
+        if (view.scale > 3) {
+            ctx.fillStyle = '#fff';
+            ctx.font = Math.max(8, Math.min(12, 3.2 * view.scale)) + 'px Segoe UI, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(pl.lengthFt + "'/" + stackH, 0, 0);
+        }
+        ctx.restore();
+    }
+
+    function drawBlockOutline(block) {
+        var rows = Math.max(1, numberOr(block.rows, 1));
+        var bays = Math.max(1, numberOr(block.bays, 1));
+        var rowPitch = numberOr(block.rowPitch, 2.75);
+        var bayPitch = numberOr(block.bayPitch, 12.5);
+        var rowSize = numberOr(block.rowSize, rowPitch * 0.88);
+        var baySize = numberOr(block.baySize, bayPitch * 0.94);
+        var ang = numberOr(block.rotationDeg, 0) * Math.PI / 180;
+        var cosA = Math.cos(ang);
+        var sinA = Math.sin(ang);
+        var corners = [
+            { lx: -baySize * 0.5, ly: -rowSize * 0.5 },
+            { lx: (bays - 1) * bayPitch + baySize * 0.5, ly: -rowSize * 0.5 },
+            { lx: (bays - 1) * bayPitch + baySize * 0.5, ly: (rows - 1) * rowPitch + rowSize * 0.5 },
+            { lx: -baySize * 0.5, ly: (rows - 1) * rowPitch + rowSize * 0.5 }
+        ];
+        ctx.beginPath();
+        for (var i = 0; i < corners.length; i++) {
+            var wx = block.originX + corners[i].lx * cosA - corners[i].ly * sinA;
+            var wy = block.originY + corners[i].lx * sinA + corners[i].ly * cosA;
+            var p = worldToScreen(wx, wy);
+            if (i === 0) {
+                ctx.moveTo(p.x, p.y);
+            } else {
+                ctx.lineTo(p.x, p.y);
+            }
+        }
+        ctx.closePath();
+        ctx.strokeStyle = '#8fa0b8';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+    }
+
+    function strokeFillRect(x, y, w, h) {
+        ctx.fillRect(x, y, w, h);
+        ctx.strokeRect(x, y, w, h);
+    }
+
+    function drawWheels(axles, halfW, wheelR) {
+        var i;
+        ctx.fillStyle = '#1a1a1a';
+        for (i = 0; i < axles.length; i++) {
+            ctx.beginPath();
+            ctx.arc(axles[i], -halfW, wheelR, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(axles[i], halfW, wheelR, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function vesselLength(obj) {
+        var size = obj.size || {};
+        return numberOr(obj.length, numberOr(size.length, 120));
+    }
+
+    function vesselBeam(obj) {
+        var size = obj.size || {};
+        return numberOr(size.beam, numberOr(size.width, 28));
+    }
+
+    function equipmentBounds(obj) {
+        var kind = obj.kind || '';
+        var size = obj.size || {};
+        if (kind === 'warehouse') {
+            return {
+                hw: numberOr(size.length, 30) * 0.5,
+                hh: numberOr(size.width, 18) * 0.5
+            };
+        }
+        if (kind === 'vessel') {
+            return {
+                hw: vesselLength(obj) * 0.52,
+                hh: vesselBeam(obj) * 0.55
+            };
+        }
+        if (kind === 'craneSts') {
+            return {
+                hw: numberOr(size.length, 14) * 0.7,
+                hh: (numberOr(size.outreach, 42) + numberOr(size.gauge, 18) * 0.5) * 0.55
+            };
+        }
+        if (kind === 'craneRtg') {
+            return {
+                hw: numberOr(size.length, 22) * 0.55,
+                hh: numberOr(size.span, 32) * 0.55
+            };
+        }
+        if (kind === 'craneReachStacker') {
+            return { hw: 14, hh: 5 };
+        }
+        if (kind === 'craneMobile') {
+            return { hw: 12, hh: 6 };
+        }
+        if (kind === 'railway') {
+            return { hw: numberOr(size.length, 100) * 0.5, hh: 4 };
+        }
+        if (kind === 'containerTruck') {
+            return { hw: 11, hh: 3.2 };
+        }
+        if (kind === 'dieselLocomotive') {
+            return { hw: 9, hh: 2.2 };
+        }
+        if (kind.indexOf('wagon') === 0) {
+            return {
+                hw: numberOr(size.length, 14) * 0.55,
+                hh: numberOr(size.width, 3.1) * 0.7
+            };
+        }
+        return { hw: 6, hh: 6 };
+    }
+
+    function drawVesselIcon(obj, s) {
+        var len = vesselLength(obj) * s;
+        var beam = vesselBeam(obj) * s;
+        var color = obj.color || '#d7dee8';
+        var x0 = -len / 2;
+        var y0 = -beam / 2;
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = '#1f2937';
+        ctx.lineWidth = Math.max(1.2, s * 0.12);
+
+        // корпус
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(x0, y0 + beam * 0.18);
+        ctx.lineTo(x0 + len * 0.12, y0);
+        ctx.lineTo(x0 + len * 0.78, y0);
+        ctx.lineTo(x0 + len * 0.92, y0 + beam * 0.22);
+        ctx.lineTo(x0 + len, y0 + beam * 0.5); // нос
+        ctx.lineTo(x0 + len * 0.92, y0 + beam * 0.78);
+        ctx.lineTo(x0 + len * 0.78, y0 + beam);
+        ctx.lineTo(x0 + len * 0.12, y0 + beam);
+        ctx.lineTo(x0, y0 + beam * 0.82);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // палуба / грузовые трюмы
+        ctx.fillStyle = '#64748b';
+        strokeFillRect(x0 + len * 0.14, y0 + beam * 0.22, len * 0.58, beam * 0.56);
+        ctx.fillStyle = 'rgba(30, 58, 95, 0.35)';
+        var hi;
+        var hatchW = len * 0.12;
+        for (hi = 0; hi < 4; hi++) {
+            ctx.fillRect(
+                x0 + len * 0.16 + hi * (hatchW + len * 0.02),
+                y0 + beam * 0.28,
+                hatchW,
+                beam * 0.44);
+        }
+
+        // надстройка / мостик у кормы
+        ctx.fillStyle = '#e2e8f0';
+        strokeFillRect(x0 + len * 0.04, y0 + beam * 0.18, len * 0.12, beam * 0.64);
+        ctx.fillStyle = '#1e3a5f';
+        strokeFillRect(x0 + len * 0.06, y0 + beam * 0.28, len * 0.08, beam * 0.44);
+        ctx.fillStyle = '#93c5fd';
+        ctx.fillRect(x0 + len * 0.075, y0 + beam * 0.34, len * 0.05, beam * 0.18);
+
+        // ватерлиния
+        ctx.strokeStyle = '#334155';
+        ctx.lineWidth = Math.max(1, s * 0.1);
+        ctx.beginPath();
+        ctx.moveTo(x0 + len * 0.08, 0);
+        ctx.lineTo(x0 + len * 0.88, 0);
+        ctx.stroke();
+
+        if (view.scale > 0.9) {
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold ' + Math.max(9, Math.min(13, 3.2 * s)) + 'px Segoe UI, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(obj.name || 'Судно', x0 + len * 0.45, 0);
+            if (view.scale > 1.4) {
+                ctx.font = Math.max(8, Math.min(11, 2.4 * s)) + 'px Segoe UI, sans-serif';
+                ctx.fillStyle = '#334155';
+                ctx.fillText('L=' + Math.round(vesselLength(obj)) + ' м', x0 + len * 0.45, beam * 0.28);
+            }
+        }
+    }
+
+    function drawStsIcon(obj, s) {
+        var gauge = numberOr(obj.size.gauge, 18) * s;
+        var outreach = numberOr(obj.size.outreach, 42) * s;
+        var len = numberOr(obj.size.length, 14) * s;
+        var color = obj.color || '#f0c000';
+        var leg = Math.max(2.2, 1.4 * s);
+        // локально: +Y к суше, −Y к морю (вылет стрелы)
+        var landY = gauge * 0.35;
+        var seaY = -outreach;
+
+        ctx.strokeStyle = '#111';
+        ctx.lineWidth = 1;
+
+        // рельсовые тележки на причале
+        ctx.fillStyle = '#374151';
+        strokeFillRect(-len / 2, landY - leg * 0.2, len, leg);
+        strokeFillRect(-len / 2, landY + gauge * 0.55, len, leg * 0.85);
+
+        // портал
+        ctx.fillStyle = color;
+        strokeFillRect(-len / 2, landY - leg * 0.2, leg, gauge * 0.85 + leg);
+        strokeFillRect(len / 2 - leg, landY - leg * 0.2, leg, gauge * 0.85 + leg);
+        // поперечная балка портала
+        var beamH = Math.max(2, 1.3 * s);
+        strokeFillRect(-len / 2, landY + gauge * 0.15, len, beamH);
+
+        // стрела к морю
+        ctx.fillStyle = color;
+        strokeFillRect(-leg * 0.55, seaY, leg * 1.1, landY - seaY + beamH);
+        // троллей + спредер
+        ctx.fillStyle = '#1f2937';
+        var trolleyY = seaY + outreach * 0.45;
+        strokeFillRect(-2.4 * s, trolleyY - 1.2 * s, 4.8 * s, 2.4 * s);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = Math.max(1.5, s * 0.28);
+        ctx.strokeRect(-3.2 * s, trolleyY + 1.4 * s, 6.4 * s, Math.max(2.5, 2 * s));
+
+        // оттяжка
+        ctx.strokeStyle = '#92400e';
+        ctx.lineWidth = Math.max(1, s * 0.15);
+        ctx.beginPath();
+        ctx.moveTo(0, landY + gauge * 0.15);
+        ctx.lineTo(0, seaY + 2 * s);
+        ctx.stroke();
+
+        if (view.scale > 1.3) {
+            ctx.fillStyle = '#1f2937';
+            ctx.font = Math.max(8, Math.min(11, 2.6 * s)) + 'px Segoe UI, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(obj.name || 'STS', 0, landY + gauge * 0.45);
+        }
+    }
+
+    function drawWarehouseIcon(obj, s) {
+        var wl = numberOr(obj.size.length, 30) * s;
+        var ww = numberOr(obj.size.width, 18) * s;
+        var x0 = -wl / 2;
+        var y0 = -ww / 2;
+        ctx.globalAlpha = 0.92;
+        ctx.fillStyle = obj.color || '#64748b';
+        ctx.strokeStyle = '#1f2937';
+        ctx.lineWidth = Math.max(1, s * 0.08);
+        strokeFillRect(x0, y0, wl, ww);
+        // конёк крыши
+        ctx.strokeStyle = '#94a3b8';
+        ctx.beginPath();
+        ctx.moveTo(x0 + wl * 0.08, 0);
+        ctx.lineTo(x0 + wl * 0.92, 0);
+        ctx.stroke();
+        // ворота / рампы по длинной стороне
+        var doors = Math.max(2, Math.min(6, Math.round(wl / (18 * s))));
+        var i;
+        var doorW = Math.max(4, 4.5 * s);
+        var gap = wl / (doors + 1);
+        ctx.fillStyle = '#334155';
+        for (i = 1; i <= doors; i++) {
+            var dx = x0 + gap * i - doorW / 2;
+            ctx.fillRect(dx, y0 + ww - Math.max(3, 2.2 * s), doorW, Math.max(3, 2.2 * s));
+        }
+        // световые фонари на крыше
+        ctx.fillStyle = 'rgba(226, 232, 240, 0.35)';
+        for (i = 0; i < 3; i++) {
+            ctx.fillRect(x0 + wl * (0.2 + i * 0.25), y0 + ww * 0.22, wl * 0.12, ww * 0.18);
+        }
+        ctx.globalAlpha = 1;
+        if (view.scale > 1.2) {
+            ctx.fillStyle = '#e2e8f0';
+            ctx.font = Math.max(9, Math.min(13, 4.5 * s)) + 'px Segoe UI, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(obj.name || 'Склад', 0, -ww * 0.12);
+        }
+    }
+
+    function drawRtgIcon(obj, s) {
+        var span = numberOr(obj.size.span, 32) * s;
+        var len = numberOr(obj.size.length, 22) * s;
+        var leg = Math.max(2.5, 1.6 * s);
+        var color = obj.color || '#ffd000';
+        ctx.strokeStyle = '#111';
+        ctx.lineWidth = 1;
+        // опоры / рельсовые тележки
+        ctx.fillStyle = '#374151';
+        strokeFillRect(-len / 2, -span / 2, len, leg);
+        strokeFillRect(-len / 2, span / 2 - leg, len, leg);
+        // вертикальные стойки
+        ctx.fillStyle = color;
+        strokeFillRect(-len / 2, -span / 2, leg, span);
+        strokeFillRect(len / 2 - leg, -span / 2, leg, span);
+        // пролётная балка
+        var beam = Math.max(2, 1.4 * s);
+        strokeFillRect(-len / 2, -beam / 2, len, beam);
+        // тележка + спредер
+        ctx.fillStyle = '#1f2937';
+        strokeFillRect(-2.2 * s, -beam * 1.6, 4.4 * s, beam * 3.2);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = Math.max(1.5, s * 0.25);
+        ctx.strokeRect(-3.5 * s, beam * 1.2, 7 * s, Math.max(3, 2.2 * s));
+        // поперечины
+        ctx.strokeStyle = '#92400e';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(-len / 2 + leg, -span / 2 + leg);
+        ctx.lineTo(len / 2 - leg, span / 2 - leg);
+        ctx.moveTo(-len / 2 + leg, span / 2 - leg);
+        ctx.lineTo(len / 2 - leg, -span / 2 + leg);
+        ctx.stroke();
+    }
+
+    function drawReachStackerIcon(obj, s) {
+        var color = obj.color || '#e39b00';
+        // задний противовес
+        ctx.fillStyle = '#4b5563';
+        ctx.strokeStyle = '#111';
+        ctx.lineWidth = 1;
+        strokeFillRect(-7.5 * s, -2.2 * s, 3.2 * s, 4.4 * s);
+        // кабина / шасси
+        ctx.fillStyle = color;
+        strokeFillRect(-4.8 * s, -2 * s, 7.2 * s, 4 * s);
+        ctx.fillStyle = '#1e3a5f';
+        strokeFillRect(-1.2 * s, -1.6 * s, 2.8 * s, 3.2 * s);
+        drawWheels([-3.2 * s, 1.6 * s], 2.15 * s, Math.max(1.2, 0.7 * s));
+        // стрела
+        ctx.strokeStyle = color;
+        ctx.fillStyle = color;
+        ctx.lineWidth = Math.max(2, s * 0.55);
+        ctx.beginPath();
+        ctx.moveTo(1.5 * s, 0);
+        ctx.lineTo(11 * s, -0.4 * s);
+        ctx.stroke();
+        // спредер
+        ctx.lineWidth = Math.max(1.5, s * 0.35);
+        ctx.strokeRect(10.2 * s, -2.2 * s, 3.2 * s, 4.4 * s);
+        ctx.beginPath();
+        ctx.moveTo(10.2 * s, 0);
+        ctx.lineTo(11.8 * s, 0);
+        ctx.stroke();
+    }
+
+    function drawMobileCraneIcon(obj, s) {
+        var color = obj.color || '#d9a400';
+        ctx.strokeStyle = '#111';
+        ctx.lineWidth = 1;
+        // шасси
+        ctx.fillStyle = color;
+        strokeFillRect(-5.5 * s, -1.8 * s, 9 * s, 3.6 * s);
+        drawWheels([-3.5 * s, -0.5 * s, 2.5 * s], 1.95 * s, Math.max(1.1, 0.65 * s));
+        // поворотная платформа
+        ctx.fillStyle = '#6b7280';
+        ctx.beginPath();
+        ctx.arc(-0.5 * s, 0, 2.1 * s, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        // противовес
+        ctx.fillStyle = '#374151';
+        strokeFillRect(-6.8 * s, -1.4 * s, 2.4 * s, 2.8 * s);
+        // кабина
+        ctx.fillStyle = '#1e3a5f';
+        strokeFillRect(0.2 * s, -1.3 * s, 2.2 * s, 2.6 * s);
+        // стрела
+        ctx.strokeStyle = color;
+        ctx.lineWidth = Math.max(2.2, s * 0.5);
+        ctx.beginPath();
+        ctx.moveTo(1.5 * s, 0);
+        ctx.lineTo(12 * s, -1.2 * s);
+        ctx.stroke();
+        ctx.lineWidth = Math.max(1.2, s * 0.25);
+        ctx.beginPath();
+        ctx.moveTo(12 * s, -1.2 * s);
+        ctx.lineTo(13.5 * s, 0.8 * s);
+        ctx.stroke();
+    }
+
+    function drawRailwayIcon(obj, s) {
+        var rl = numberOr(obj.size.length, 100) * s;
+        var gauge = Math.max(2.4, 1.55 * s);
+        var i;
+        var step = Math.max(6, 4.5 * s);
+        ctx.strokeStyle = '#78716c';
+        ctx.lineWidth = Math.max(1.5, s * 0.22);
+        // шпалы
+        for (i = -rl / 2; i <= rl / 2; i += step) {
+            ctx.beginPath();
+            ctx.moveTo(i, -gauge * 1.15);
+            ctx.lineTo(i, gauge * 1.15);
+            ctx.stroke();
+        }
+        ctx.strokeStyle = '#d1d5db';
+        ctx.lineWidth = Math.max(2, s * 0.35);
+        ctx.beginPath();
+        ctx.moveTo(-rl / 2, -gauge);
+        ctx.lineTo(rl / 2, -gauge);
+        ctx.moveTo(-rl / 2, gauge);
+        ctx.lineTo(rl / 2, gauge);
+        ctx.stroke();
+    }
+
+    function drawTruckIcon(obj, s) {
+        // Вид сверху: нос = +X (как rotation). Чуть укрупняем для читаемости на плане.
+        var u = s * 1.15;
+        var color = obj.color || '#1769aa';
+        var load = obj.load || 'container40';
+        var hasLoad = load && load !== 'none';
+        var cLen = hasLoad ? ((load === 'container20') ? 6.2 * u : 12.4 * u) : 0;
+        var halfW = 1.7 * u;
+        var line = Math.max(1.2, u * 0.18);
+
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#0b1220';
+        ctx.lineWidth = line;
+
+        // --- полуприцеп / рама ---
+        var trailX0 = hasLoad ? (-1.2 * u - cLen) : -8.5 * u;
+        var trailX1 = 2.6 * u;
+        ctx.fillStyle = '#3f4a5a';
+        strokeFillRect(trailX0, -halfW * 0.55, trailX1 - trailX0, halfW * 1.1);
+
+        if (hasLoad) {
+            // контейнер: толстая рамка + торцевая дверь сзади (−X)
+            ctx.fillStyle = color;
+            strokeFillRect(trailX0 + 0.25 * u, -halfW * 1.05, cLen, halfW * 2.1);
+            ctx.fillStyle = 'rgba(255,255,255,0.14)';
+            ctx.fillRect(trailX0 + 0.45 * u, -halfW * 0.85, cLen - 0.4 * u, halfW * 0.55);
+            // гофры
+            ctx.strokeStyle = 'rgba(0,0,0,0.28)';
+            ctx.lineWidth = Math.max(1, u * 0.12);
+            var gx;
+            for (gx = trailX0 + 1.4 * u; gx < trailX0 + cLen - 0.4 * u; gx += 1.35 * u) {
+                ctx.beginPath();
+                ctx.moveTo(gx, -halfW * 0.95);
+                ctx.lineTo(gx, halfW * 0.95);
+                ctx.stroke();
+            }
+            // двери контейнера (зад)
+            ctx.strokeStyle = '#0b1220';
+            ctx.lineWidth = line;
+            ctx.strokeRect(trailX0 + 0.25 * u, -halfW * 1.05, 0.7 * u, halfW * 2.1);
+            ctx.beginPath();
+            ctx.moveTo(trailX0 + 0.6 * u, -halfW * 1.05);
+            ctx.lineTo(trailX0 + 0.6 * u, halfW * 1.05);
+            ctx.stroke();
+        } else {
+            // пустая платформа: лонжероны
+            ctx.strokeStyle = '#9aa5b5';
+            ctx.lineWidth = Math.max(1.5, u * 0.28);
+            ctx.beginPath();
+            ctx.moveTo(trailX0 + 0.4 * u, -halfW * 0.35);
+            ctx.lineTo(trailX1 - 0.3 * u, -halfW * 0.35);
+            ctx.moveTo(trailX0 + 0.4 * u, halfW * 0.35);
+            ctx.lineTo(trailX1 - 0.3 * u, halfW * 0.35);
+            ctx.stroke();
+            ctx.strokeStyle = '#0b1220';
+            ctx.lineWidth = line;
+        }
+
+        // седельно-сцепное (пятое колесо)
+        ctx.fillStyle = '#1f2937';
+        ctx.beginPath();
+        ctx.arc(2.2 * u, 0, Math.max(1.4, 0.85 * u), 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // --- тягач ---
+        // капот / нос (трапеция вперёд)
+        ctx.fillStyle = '#c5ced9';
+        ctx.beginPath();
+        ctx.moveTo(5.2 * u, -halfW * 0.95);
+        ctx.lineTo(9.6 * u, -halfW * 0.7);
+        ctx.lineTo(10.4 * u, -halfW * 0.35);
+        ctx.lineTo(10.4 * u, halfW * 0.35);
+        ctx.lineTo(9.6 * u, halfW * 0.7);
+        ctx.lineTo(5.2 * u, halfW * 0.95);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // кабина (шире капота)
+        ctx.fillStyle = '#e8eef6';
+        strokeFillRect(3.0 * u, -halfW * 1.25, 3.0 * u, halfW * 2.5);
+
+        // лобовое стекло
+        ctx.fillStyle = '#3b82f6';
+        ctx.beginPath();
+        ctx.moveTo(5.55 * u, -halfW * 1.05);
+        ctx.lineTo(6.85 * u, -halfW * 0.85);
+        ctx.lineTo(6.85 * u, halfW * 0.85);
+        ctx.lineTo(5.55 * u, halfW * 1.05);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // спальник / зад кабины
+        ctx.fillStyle = '#94a3b8';
+        strokeFillRect(3.05 * u, -halfW * 1.05, 1.15 * u, halfW * 2.1);
+
+        // зеркала
+        ctx.fillStyle = '#111827';
+        strokeFillRect(5.3 * u, -halfW * 1.7, 1.1 * u, 0.4 * u);
+        strokeFillRect(5.3 * u, halfW * 1.3, 1.1 * u, 0.4 * u);
+
+        // бампер
+        ctx.fillStyle = '#6b7280';
+        strokeFillRect(10.15 * u, -halfW * 0.55, 0.7 * u, halfW * 1.1);
+
+        // колёса: тягач (2 оси) + прицеп
+        var wr = Math.max(1.15, 0.62 * u);
+        var track = halfW * 1.15;
+        ctx.fillStyle = '#111';
+        ctx.strokeStyle = '#0b1220';
+        ctx.lineWidth = 1;
+        var axles = [4.0 * u, 7.6 * u];
+        if (hasLoad) {
+            axles.push(trailX0 + cLen * 0.22);
+            axles.push(trailX0 + cLen * 0.55);
+            axles.push(trailX0 + cLen * 0.82);
+        } else {
+            axles.push(-6.5 * u);
+            axles.push(-3.5 * u);
+            axles.push(-0.5 * u);
+        }
+        var ai;
+        for (ai = 0; ai < axles.length; ai++) {
+            ctx.beginPath();
+            ctx.arc(axles[ai], -track, wr, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(axles[ai], track, wr, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+        }
+    }
+
+
+    function drawLocoIcon(obj, s) {
+        var color = obj.color || '#d46b00';
+        var len = 16 * s;
+        var w = 3 * s;
+        ctx.strokeStyle = '#111';
+        ctx.lineWidth = 1;
+        ctx.fillStyle = color;
+        strokeFillRect(-len / 2, -w / 2, len, w);
+        // кабина
+        ctx.fillStyle = '#1f2937';
+        strokeFillRect(len * 0.18, -w * 0.55, len * 0.22, w * 1.1);
+        ctx.fillStyle = '#93c5fd';
+        ctx.fillRect(len * 0.22, -w * 0.35, len * 0.12, w * 0.7);
+        // нос
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(len / 2, -w / 2);
+        ctx.lineTo(len / 2 + 1.8 * s, 0);
+        ctx.lineTo(len / 2, w / 2);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        // вентиляционные рёбра
+        ctx.strokeStyle = 'rgba(0,0,0,0.35)';
+        var i;
+        for (i = 0; i < 4; i++) {
+            var x = -len / 2 + len * (0.12 + i * 0.12);
+            ctx.beginPath();
+            ctx.moveTo(x, -w * 0.35);
+            ctx.lineTo(x, w * 0.35);
+            ctx.stroke();
+        }
+        drawWheels([-len * 0.32, -len * 0.12, len * 0.12, len * 0.32], w * 0.55, Math.max(1.0, 0.55 * s));
+    }
+
+    function drawWagonIcon(obj, s) {
+        var kind = obj.kind;
+        var len = numberOr(obj.size && obj.size.length, 14) * s;
+        var w = numberOr(obj.size && obj.size.width, 3.05) * s;
+        var color = obj.color || '#4b5563';
+        ctx.strokeStyle = '#111';
+        ctx.lineWidth = 1;
+        // рама
+        ctx.fillStyle = '#374151';
+        strokeFillRect(-len / 2, -w * 0.22, len, w * 0.44);
+        drawWheels([-len * 0.32, len * 0.32], w * 0.55, Math.max(0.9, 0.5 * s));
+
+        if (kind === 'wagonTank') {
+            ctx.fillStyle = color;
+            ctx.save();
+            ctx.scale(1, (w * 0.55) / Math.max(1, len * 0.42));
+            ctx.beginPath();
+            ctx.arc(0, 0, len * 0.42, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+            ctx.fillStyle = '#6b7280';
+            ctx.beginPath();
+            ctx.arc(0, -w * 0.15, Math.max(1.2, 0.7 * s), 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            return;
+        }
+
+        if (kind === 'wagonFlatcar') {
+            ctx.fillStyle = color;
+            strokeFillRect(-len / 2, -w * 0.35, len, w * 0.7);
+            // фитинги / контейнер 40'
+            ctx.fillStyle = '#1d4ed8';
+            strokeFillRect(-len * 0.42, -w * 0.55, len * 0.84, w * 1.1);
+            ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+            ctx.beginPath();
+            ctx.moveTo(0, -w * 0.55);
+            ctx.lineTo(0, w * 0.55);
+            ctx.stroke();
+            return;
+        }
+
+        if (kind === 'wagonGondola') {
+            ctx.fillStyle = color;
+            strokeFillRect(-len / 2, -w / 2, len, w);
+            ctx.fillStyle = '#1f2937';
+            ctx.fillRect(-len * 0.42, -w * 0.28, len * 0.84, w * 0.56);
+            ctx.strokeStyle = '#111';
+            ctx.strokeRect(-len * 0.42, -w * 0.28, len * 0.84, w * 0.56);
+            return;
+        }
+
+        // крытый / прочее
+        ctx.fillStyle = color;
+        strokeFillRect(-len / 2, -w / 2, len, w);
+        ctx.strokeStyle = '#94a3b8';
+        ctx.beginPath();
+        ctx.moveTo(-len / 2, 0);
+        ctx.lineTo(len / 2, 0);
+        ctx.stroke();
+        ctx.strokeStyle = '#111';
+        ctx.strokeRect(-len * 0.12, -w * 0.35, len * 0.24, w * 0.7);
+    }
+
+    function drawEquipment(obj) {
+        var p = worldToScreen(obj.x, obj.y);
+        var ang = (obj.rotation || 0) * Math.PI / 180;
+        var s = view.scale;
+        var kind = obj.kind || '';
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(-ang);
+
+        if (kind === 'warehouse') {
+            drawWarehouseIcon(obj, s);
+        } else if (kind === 'vessel') {
+            drawVesselIcon(obj, s);
+        } else if (kind === 'craneSts') {
+            drawStsIcon(obj, s);
+        } else if (kind === 'craneRtg') {
+            drawRtgIcon(obj, s);
+        } else if (kind === 'craneReachStacker') {
+            drawReachStackerIcon(obj, s);
+        } else if (kind === 'craneMobile') {
+            drawMobileCraneIcon(obj, s);
+        } else if (kind === 'railway') {
+            drawRailwayIcon(obj, s);
+        } else if (kind === 'containerTruck') {
+            drawTruckIcon(obj, s);
+        } else if (kind === 'dieselLocomotive') {
+            drawLocoIcon(obj, s);
+        } else if (kind.indexOf('wagon') === 0) {
+            drawWagonIcon(obj, s);
+        } else {
+            ctx.fillStyle = obj.color || '#94a3b8';
+            ctx.strokeStyle = '#111';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.arc(0, 0, Math.max(5, 3.5 * s), 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        if (selected && selected.id === obj.id) {
+            var b = equipmentBounds(obj);
+            ctx.strokeStyle = '#ffcc33';
+            ctx.lineWidth = 2;
+            if (ctx.setLineDash) { ctx.setLineDash([4, 3]); }
+            ctx.strokeRect(-b.hw * s - 3, -b.hh * s - 3, b.hw * 2 * s + 6, b.hh * 2 * s + 6);
+            if (ctx.setLineDash) { ctx.setLineDash([]); }
+        }
+        ctx.restore();
+    }
+
+    function applyDprTransform() {
+        try {
+            if (typeof ctx.setTransform === 'function') {
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                return;
+            }
+        } catch (ignoreSet) {}
+        try {
+            if (typeof ctx.scale === 'function') {
+                ctx.scale(dpr, dpr);
+            }
+        } catch (ignoreScale) {}
+    }
+
+    function draw() {
+        var width = viewport.clientWidth || 800;
+        var height = viewport.clientHeight || 600;
+        applyDprTransform();
+        ctx.clearRect(0, 0, width, height);
+        drawRoundedSite();
+
+        var i;
+        // Только занятые верхние footprints — без 6000 пустых fillRect.
+        for (i = 0; i < topPlacementList.length; i++) {
+            drawPlacement(topPlacementList[i]);
+        }
+        for (i = 0; i < blocks.length; i++) {
+            drawBlockOutline(blocks[i]);
+        }
+        for (i = 0; i < objects.length; i++) {
+            if (objects[i].kind === 'vessel') {
+                drawEquipment(objects[i]);
+            }
+        }
+        for (i = 0; i < objects.length; i++) {
+            if (objects[i].kind !== 'vessel') {
+                drawEquipment(objects[i]);
+            }
+        }
+        needsDraw = false;
+        updateStatus();
+    }
+
+    function updateStatus() {
+        if (!statusEl) {
+            return;
+        }
+        var text = 'Размещений: ' + placements.length +
+            ' · объектов: ' + objects.length +
+            ' · масштаб: ' + view.scale.toFixed(2) + ' px/м';
+        if (selected) {
+            if (selected.kind === 'placement') {
+                text += ' · ' + selected.id + ' ' + selected.lengthFt +
+                    " ft · tier " + selected.tier;
+            } else if (selected.kind === 'cell') {
+                text += ' · ' + selected.id + ' count=' + selected.count +
+                    '/' + selected.maxTier;
+            } else {
+                text += ' · ' + selected.name + ' [' + selected.kind + ']';
+            }
+        }
+        statusEl.textContent = text;
+    }
+
+    function hitTestCellFromWorld(world) {
+        var bi;
+        for (bi = 0; bi < blocks.length; bi++) {
+            var block = blocks[bi];
+            var ang = numberOr(block.rotationDeg, 0) * Math.PI / 180;
+            var cosA = Math.cos(ang);
+            var sinA = Math.sin(ang);
+            var dx = world.x - numberOr(block.originX, 0);
+            var dy = world.y - numberOr(block.originY, 0);
+            var lx = dx * cosA + dy * sinA;
+            var ly = -dx * sinA + dy * cosA;
+            var bayPitch = numberOr(block.bayPitch, 6.25);
+            var rowPitch = numberOr(block.rowPitch, 2.75);
+            var baySize = numberOr(block.baySize, bayPitch * 0.94);
+            var rowSize = numberOr(block.rowSize, rowPitch * 0.88);
+            var bay = Math.round(lx / bayPitch) + 1;
+            var row = Math.round(ly / rowPitch) + 1;
+            var rowsN = Math.max(1, numberOr(block.rows, 1));
+            var baysN = Math.max(1, numberOr(block.bays, 1));
+            if (row < 1 || bay < 1 || row > rowsN || bay > baysN) {
+                continue;
+            }
+            var localX = (bay - 1) * bayPitch;
+            var localY = (row - 1) * rowPitch;
+            if (Math.abs(lx - localX) > baySize * 0.5 || Math.abs(ly - localY) > rowSize * 0.5) {
+                continue;
+            }
+            return ensureCell(block, row, bay);
+        }
+        return null;
+    }
+
+    function hitTest(sx, sy) {
+        var world = screenToWorld(sx, sy);
+        var i;
+        for (i = objects.length - 1; i >= 0; i--) {
+            var obj = objects[i];
+            var b = equipmentBounds(obj);
+            var ang = (obj.rotation || 0) * Math.PI / 180;
+            var cosA = Math.cos(ang);
+            var sinA = Math.sin(ang);
+            var lx = (world.x - obj.x) * cosA + (world.y - obj.y) * sinA;
+            var ly = -(world.x - obj.x) * sinA + (world.y - obj.y) * cosA;
+            var pad = (obj.kind === 'craneReachStacker' || obj.kind === 'craneMobile') ? 2 : 0.5;
+            if (Math.abs(lx) <= b.hw + pad && Math.abs(ly) <= b.hh + pad) {
+                return obj;
+            }
+        }
+
+        var bestPl = null;
+        var bestPlDist = 1e9;
+        for (i = 0; i < topPlacementList.length; i++) {
+            var top = topPlacementList[i];
+            var block = blockById[top.blockId];
+            var baySize = block ? numberOr(block.baySize, numberOr(block.bayPitch, 6.25) * 0.94) : 5.875;
+            var rowSize = block ? numberOr(block.rowSize, numberOr(block.rowPitch, 2.75) * 0.88) : 2.42;
+            var hw = baySize * top.spanCells * 0.5;
+            var hh = rowSize * 0.5;
+            var pAng = top.rotation * Math.PI / 180;
+            var pCos = Math.cos(pAng);
+            var pSin = Math.sin(pAng);
+            var plx = (world.x - top.x) * pCos + (world.y - top.y) * pSin;
+            var ply = -(world.x - top.x) * pSin + (world.y - top.y) * pCos;
+            if (Math.abs(plx) <= hw && Math.abs(ply) <= hh) {
+                var pd = plx * plx + ply * ply;
+                if (pd < bestPlDist) {
+                    bestPlDist = pd;
+                    bestPl = top;
+                }
+            }
+        }
+        if (bestPl) {
+            return bestPl;
+        }
+        return hitTestCellFromWorld(world);
+    }
+
+    function notify1C(target) {
+        if (!bridge || !target) {
+            return;
+        }
+        bridge.setAttribute('href', '#pick:' + encodeURIComponent(target.id));
+        bridge.setAttribute('data-event', 'pick');
+        bridge.setAttribute('data-id', target.id);
+        bridge.setAttribute('data-kind', target.kind);
+        bridge.setAttribute('data-x', JSON.stringify(target.x));
+        bridge.setAttribute('data-y', JSON.stringify(target.y));
+        bridge.setAttribute('data-z', JSON.stringify(target.z || 0));
+        if (target.kind === 'cell') {
+            bridge.setAttribute('data-count', JSON.stringify(target.count));
+            bridge.setAttribute('data-block', target.blockId);
+            bridge.setAttribute('data-row', JSON.stringify(target.row));
+            bridge.setAttribute('data-bay', JSON.stringify(target.bay));
+        }
+        if (target.kind === 'placement') {
+            bridge.setAttribute('data-lengthft', JSON.stringify(target.lengthFt));
+            bridge.setAttribute('data-tier', JSON.stringify(target.tier));
+            bridge.setAttribute('data-block', target.blockId);
+            bridge.setAttribute('data-row', JSON.stringify(target.row));
+            bridge.setAttribute('data-bay', JSON.stringify(target.bay));
+            bridge.setAttribute('data-cells', (target.cellIds || []).join(','));
+        }
+        if (typeof bridge.click === 'function') {
+            bridge.click();
+        } else {
+            var evt = document.createEvent('MouseEvents');
+            evt.initEvent('click', true, true);
+            bridge.dispatchEvent(evt);
+        }
+    }
+
+    function selectTarget(target) {
+        selected = target || null;
+        needsDraw = true;
+        if (target) {
+            notify1C(target);
+        }
+        updateStatus();
+    }
+
+    function focusObject(id) {
+        id = String(id == null ? '' : id);
+        var target = placementById[id] || cellById[id] || objectById[id];
+        if (!target && cellById[id]) {
+            target = topPlacementForCell(id) || cellById[id];
+        }
+        if (!target) {
+            // поиск ячейки, входящей в placement
+            var pi;
+            for (pi = 0; pi < placements.length; pi++) {
+                if (placements[pi].cellIds && placements[pi].cellIds.indexOf(id) >= 0) {
+                    target = placements[pi];
+                    break;
+                }
+            }
+        }
+        if (!target) {
+            throw new Error('Объект с id "' + id + '" не найден.');
+        }
+        selectTarget(target);
+        var width = viewport.clientWidth || 800;
+        var height = viewport.clientHeight || 600;
+        view.offsetX = width / 2 - target.x * view.scale;
+        view.offsetY = height / 2 - (site.length - target.y) * view.scale;
+        needsDraw = true;
+        return target;
+    }
+
+    function moveObject(id, x, y, z) {
+        var obj = objectById[String(id)];
+        if (!obj) {
+            throw new Error('Объект с id "' + id + '" не найден.');
+        }
+        obj.x = Number(x);
+        obj.y = Number(y);
+        if (isFinite(Number(z))) {
+            obj.z = Number(z);
+        }
+        needsDraw = true;
+        return obj;
+    }
+
+    function upsertCell(data) {
+        // Неструктурные метаданные ячейки; count/занятость — только через placements.
+        data = data || {};
+        var id = String(data.id == null ? '' : data.id);
+        if (!id) {
+            throw new Error('cellUpsert без id');
+        }
+        var cell = cellById[id];
+        if (!cell) {
+            throw new Error('Ячейка "' + id + '" не найдена (сетка строится из topology).');
+        }
+        if (data.maxTier != null) {
+            cell.maxTier = Math.max(1, numberOr(data.maxTier, cell.maxTier));
+        }
+        needsDraw = true;
+        return cell;
+    }
+
+    function applyDelta(delta) {
+        delta = delta || {};
+        var started = (typeof performance !== 'undefined' && performance.now)
+            ? performance.now() : Date.now();
+        var moves = delta.moves instanceof Array ? delta.moves : [];
+        var placementUpserts = delta.placementUpserts instanceof Array
+            ? delta.placementUpserts : [];
+        var placementRemoved = delta.placementRemoved instanceof Array
+            ? delta.placementRemoved : [];
+        var cellUpserts = delta.cellUpserts instanceof Array ? delta.cellUpserts : [];
+        var mi;
+        for (mi = 0; mi < moves.length; mi++) {
+            var m = moves[mi] || {};
+            moveObject(m.id, m.x, m.y, m.z);
+        }
+        for (mi = 0; mi < placementRemoved.length; mi++) {
+            var rid = placementRemoved[mi];
+            if (rid && typeof rid === 'object') {
+                rid = rid.id;
+            }
+            removePlacement(rid, true);
+        }
+        for (mi = 0; mi < placementUpserts.length; mi++) {
+            upsertPlacement(placementUpserts[mi], true);
+        }
+        if (placementRemoved.length || placementUpserts.length) {
+            recomputeCellCounts();
+        }
+        for (mi = 0; mi < cellUpserts.length; mi++) {
+            upsertCell(cellUpserts[mi]);
+        }
+        var ended = (typeof performance !== 'undefined' && performance.now)
+            ? performance.now() : Date.now();
+        needsDraw = true;
+        return {
+            moves: moves.length,
+            placementUpserts: placementUpserts.length,
+            placementRemoved: placementRemoved.length,
+            cellUpserts: cellUpserts.length,
+            ms: Math.round(ended - started)
+        };
+    }
+
+    function applyCommand(command) {
+        command = command || {};
+        if (command.op === 'move') {
+            return moveObject(command.id, command.x, command.y, command.z);
+        }
+        if (command.op === 'applyDelta') {
+            return applyDelta(command.delta);
+        }
+        if (command.op === 'focus') {
+            return focusObject(command.id);
+        }
+        if (command.op === 'upsertCell') {
+            return upsertCell(command.cell);
+        }
+        if (command.op === 'upsertPlacement') {
+            return upsertPlacement(command.placement);
+        }
+        if (command.op === 'removePlacement') {
+            return removePlacement(command.id);
+        }
+        throw new Error('Неизвестная операция "' + String(command.op || '') + '".');
+    }
+
+    function processBridgeCommand(event) {
+        if (event) {
+            if (event.preventDefault) {
+                event.preventDefault();
+            }
+            if (event.stopPropagation) {
+                event.stopPropagation();
+            }
+        }
+        if (!commandBridge) {
+            return false;
+        }
+        var sequence = commandBridge.getAttribute('data-seq') || '';
+        if (!sequence || sequence === processBridgeCommand.lastSequence) {
+            return false;
+        }
+        processBridgeCommand.lastSequence = sequence;
+        try {
+            applyCommand(JSON.parse(commandBridge.getAttribute('data-payload') || ''));
+            commandBridge.setAttribute('data-error', '');
+        } catch (commandError) {
+            commandBridge.setAttribute('data-error', commandError.message || String(commandError));
+        }
+        commandBridge.setAttribute('data-ack', sequence);
+        return false;
+    }
+    processBridgeCommand.lastSequence = '';
+
+    window.terminalPlan2d = {
+        applyDelta: applyDelta,
+        applyCommand: applyCommand,
+        focusObject: focusObject,
+        getCell: function (id) { return cellById[String(id)] || null; },
+        getPlacement: function (id) { return placementById[String(id)] || null; },
+        getObject: function (id) { return objectById[String(id)] || null; }
+    };
+
+    if (commandBridge) {
+        if (commandBridge.addEventListener) {
+            commandBridge.addEventListener('click', processBridgeCommand, false);
+        } else if (commandBridge.attachEvent) {
+            commandBridge.attachEvent('onclick', processBridgeCommand);
+        } else {
+            commandBridge.onclick = processBridgeCommand;
+        }
+        commandBridge.setAttribute('data-ready', 'true');
+    }
+
+    function bind(el, eventName, handler, useCapture) {
+        if (!el) {
+            return;
+        }
+        if (el.addEventListener) {
+            try {
+                el.addEventListener(eventName, handler, !!useCapture);
+            } catch (ignoreBind) {
+                el.addEventListener(eventName, handler);
+            }
+        } else if (el.attachEvent) {
+            el.attachEvent('on' + eventName, handler);
+        }
+    }
+
+    function onWheel(e) {
+        if (!e) { e = window.event; }
+        if (e.preventDefault) { e.preventDefault(); }
+        var rect = canvas.getBoundingClientRect();
+        var sx = e.clientX - rect.left;
+        var sy = e.clientY - rect.top;
+        var before = screenToWorld(sx, sy);
+        var delta = e.deltaY != null ? e.deltaY : (e.wheelDelta ? -e.wheelDelta : 0);
+        var factor = delta > 0 ? 0.9 : 1.1;
+        view.scale = Math.max(0.05, Math.min(20, view.scale * factor));
+        view.offsetX = sx - before.x * view.scale;
+        view.offsetY = sy - (site.length - before.y) * view.scale;
+        needsDraw = true;
+        return false;
+    }
+
+    function bootDraw() {
+        resize();
+        resetView();
+        needsDraw = true;
+        draw();
+        if (statusEl) {
+            statusEl.textContent = 'Ячеек: ' + cells.length +
+                ' · объектов: ' + objects.length +
+                ' · масштаб ' + view.scale.toFixed(2);
+        }
+    }
+
+    // Сначала рисуем — до API, которые могут упасть в WebKit 1С.
+    bootDraw();
+    setTimeout(bootDraw, 50);
+    setTimeout(bootDraw, 250);
+
+    bind(canvas, 'mousedown', function (e) {
+        if (!e) { e = window.event; }
+        if (e.button !== 0) { return; }
+        panning = true;
+        panLast = { x: e.clientX, y: e.clientY };
+        pointerDown = { x: e.clientX, y: e.clientY, moved: false };
+        viewport.className = (viewport.className || '').replace(/\bpanning\b/g, '') + ' panning';
+        if (e.preventDefault) { e.preventDefault(); }
+    });
+
+    bind(window, 'mousemove', function (e) {
+        if (!e) { e = window.event; }
+        if (!panning || !panLast) { return; }
+        var dx = e.clientX - panLast.x;
+        var dy = e.clientY - panLast.y;
+        panLast = { x: e.clientX, y: e.clientY };
+        if (pointerDown) {
+            var tx = e.clientX - pointerDown.x;
+            var ty = e.clientY - pointerDown.y;
+            if (tx * tx + ty * ty > DRAG_THRESHOLD * DRAG_THRESHOLD) {
+                pointerDown.moved = true;
+            }
+        }
+        view.offsetX += dx;
+        view.offsetY += dy;
+        needsDraw = true;
+    });
+
+    bind(window, 'mouseup', function (e) {
+        if (!e) { e = window.event; }
+        if (e.button !== 0) { return; }
+        var wasClick = pointerDown && !pointerDown.moved;
+        var clickX = e.clientX;
+        var clickY = e.clientY;
+        panning = false;
+        panLast = null;
+        pointerDown = null;
+        viewport.className = (viewport.className || '').replace(/\bpanning\b/g, '').replace(/\s+/g, ' ');
+        if (wasClick) {
+            var rect = canvas.getBoundingClientRect();
+            selectTarget(hitTest(clickX - rect.left, clickY - rect.top));
+        }
+    });
+
+    bind(canvas, 'mousewheel', onWheel);
+    bind(canvas, 'wheel', onWheel);
+    canvas.onmousewheel = onWheel;
+
+    bind(document.getElementById('btn-reset'), 'click', function () {
+        resetView();
+        needsDraw = true;
+        draw();
+    });
+
+    bind(window, 'resize', function () {
+        resize();
+        needsDraw = true;
+    });
+    try {
+        if (typeof ResizeObserver !== 'undefined') {
+            new ResizeObserver(function () {
+                resize();
+                needsDraw = true;
+            }).observe(viewport);
+        }
+    } catch (ignoreRo) {}
+
+    var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame ||
+        function (cb) { return setTimeout(function () { cb(); }, 33); };
+
+    function loop() {
+        if (needsDraw) {
+            draw();
+        }
+        raf(loop);
+    }
+    raf(loop);
+}
+
+function startTerminalPlan2D() {
+    try {
+        initTerminalPlan2D();
+    } catch (bootError) {
+        var errNode = document.getElementById('plan-error');
+        var st = document.getElementById('status');
+        var msg = 'Ошибка плана: ' + (bootError && bootError.message
+            ? bootError.message : String(bootError));
+        if (errNode) {
+            errNode.style.display = 'block';
+            errNode.textContent = msg;
+        }
+        if (st) {
+            st.textContent = msg;
+        }
+    }
+}
+
+if (document.readyState === 'loading') {
+    if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', startTerminalPlan2D, false);
+    } else {
+        setTimeout(startTerminalPlan2D, 0);
+    }
+} else {
+    startTerminalPlan2D();
+}
+</script>

@@ -43,4 +43,5 @@
   <dataProcessors>DataProcessor.d3</dataProcessors>
   <dataProcessors>DataProcessor.d3_v2</dataProcessors>
   <dataProcessors>DataProcessor.d3_v3</dataProcessors>
+  <dataProcessors>DataProcessor.d3_v4</dataProcessors>
 </mdclass:Configuration>

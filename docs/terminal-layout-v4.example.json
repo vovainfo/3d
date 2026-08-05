@@ -1,0 +1,189 @@
+{
+  "schemaVersion": "4.0",
+  "terminal": {
+    "id": "terminal",
+    "name": "Контейнерный терминал",
+    "units": "m",
+    "crs": "EPSG:32652"
+  },
+  "qgis": {
+    "sceneOriginFile": "data/scene_origin.txt",
+    "siteLayer": {
+      "name": "container_sites_v4",
+      "file": "data/geojson/container_sites_v4.geojson",
+      "geometry": "Polygon",
+      "idField": "site_id"
+    },
+    "bayAxisLayer": {
+      "name": "container_site_bay_axes_v4",
+      "file": "data/geojson/container_site_bay_axes_v4.geojson",
+      "geometry": "LineString",
+      "siteIdField": "site_id",
+      "direction": "from_first_bay_to_last_bay"
+    }
+  },
+  "cell": {
+    "layoutMode": "fixed_pitch",
+    "container20Ft": {
+      "lengthM": 6.1,
+      "widthM": 2.5
+    },
+    "minimumGapM": 0.25,
+    "bayPitchM": 6.35,
+    "rowPitchM": 2.75,
+    "container40FtBaySpan": 2
+  },
+  "containerRules": {
+    "container40FtRequiresAdjacentBays": true,
+    "container40FtMayCrossZoneBoundary": false,
+    "container40FtMayCrossInfrastructure": false
+  },
+  "sites": [
+    {
+      "id": "kpC",
+      "name": "кпC",
+      "qgisFeatureId": "kpC",
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "C",
+          "name": "Зона C",
+          "kind": "storage"
+        },
+        {
+          "id": "ZV52",
+          "name": "Зона выгрузки 52",
+          "kind": "discharge",
+          "berthNumber": 52
+        },
+        {
+          "id": "ZV53",
+          "name": "Зона выгрузки 53",
+          "kind": "discharge",
+          "berthNumber": 53
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 10
+            }
+          },
+          {
+            "kind": "aisle",
+            "id": "aisle_rows_1",
+            "widthM": 10.0,
+            "runsAlong": "bays"
+          },
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 20,
+              "to": 20
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "C",
+            "numbers": {
+              "from": 1,
+              "to": 7
+            }
+          },
+          {
+            "kind": "aisle",
+            "id": "aisle_bays_1",
+            "widthM": 3.0,
+            "runsAlong": "rows"
+          },
+          {
+            "kind": "zone",
+            "zoneId": "ZV52",
+            "numbers": {
+              "from": 1,
+              "to": 2
+            }
+          },
+          {
+            "kind": "zone",
+            "zoneId": "C",
+            "numbers": {
+              "from": 8,
+              "to": 12
+            }
+          },
+          {
+            "kind": "zone",
+            "zoneId": "ZV52",
+            "numbers": {
+              "from": 3,
+              "to": 5
+            }
+          },
+          {
+            "kind": "reeferRack",
+            "id": "reefer_rack_bays_1",
+            "widthM": 1.0,
+            "runsAlong": "rows"
+          },
+          {
+            "kind": "zone",
+            "zoneId": "C",
+            "numbers": {
+              "from": 13,
+              "to": 21
+            }
+          },
+          {
+            "kind": "zone",
+            "zoneId": "ZV53",
+            "numbers": {
+              "from": 1,
+              "to": 3
+            }
+          },
+          {
+            "kind": "zone",
+            "zoneId": "C",
+            "numbers": {
+              "from": 22,
+              "to": 27
+            }
+          },
+          {
+            "kind": "zone",
+            "zoneId": "ZV53",
+            "numbers": {
+              "from": 4,
+              "to": 5
+            }
+          },
+          {
+            "kind": "zone",
+            "zoneId": "C",
+            "numbers": {
+              "from": 28,
+              "to": 29
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 11,
+        "bayCellCount": 39,
+        "zoneCellCounts": {
+          "C": 319,
+          "ZV52": 55,
+          "ZV53": 55
+        },
+        "footprintAlongRowsM": 40.25,
+        "footprintAlongBaysM": 251.65
+      }
+    }
+  ]
+}
