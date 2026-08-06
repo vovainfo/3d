@@ -12,18 +12,59 @@
     {
       "type": "Feature",
       "properties": {
+        "fid": 1,
         "site_id": "kpC"
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            734482.1,
-            4775170.09
+            734431.69,
+            4775149.66
           ],
           [
-            734397.91,
-            4774931.05
+            734352.03,
+            4774906.74
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 2,
+        "site_id": "kpB"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            734492.54,
+            4775170.2
+          ],
+          [
+            734394.49,
+            4774866.85
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 3,
+        "site_id": "kpAD"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            734565.46,
+            4775105.81
+          ],
+          [
+            734502.59,
+            4774908.85
           ]
         ]
       }

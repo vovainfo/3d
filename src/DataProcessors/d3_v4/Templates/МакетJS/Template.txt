@@ -622,7 +622,7 @@ function initTerminalPlan2D() {
             ctx.textBaseline = 'middle';
             ctx.save();
             ctx.rotate(numberOr(pl.labelRotationDeg, 0) * Math.PI / 180);
-            ctx.fillText(pl.lengthFt + "'/" + stackH, 0, 0);
+            ctx.fillText(String(stackH), 0, 0);
             ctx.restore();
         }
         ctx.restore();
@@ -676,11 +676,16 @@ function initTerminalPlan2D() {
     }
 
     function drawInfrastructure(item) {
-        var reefer = item.kind === 'reeferRack';
-        drawTopologyRect(
-            item,
-            reefer ? 'rgba(250, 204, 21, 0.58)' : 'rgba(64, 72, 86, 0.38)',
-            reefer ? '#eab308' : '#4b5563');
+        var fill = 'rgba(64, 72, 86, 0.38)';
+        var stroke = '#4b5563';
+        if (item.kind === 'reeferRack') {
+            fill = 'rgba(250, 204, 21, 0.58)';
+            stroke = '#eab308';
+        } else if (item.kind === 'canopy') {
+            fill = 'rgba(146, 64, 14, 0.52)';
+            stroke = '#78350f';
+        }
+        drawTopologyRect(item, fill, stroke);
     }
 
     function strokeFillRect(x, y, w, h) {

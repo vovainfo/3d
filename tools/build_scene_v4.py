@@ -19,6 +19,8 @@ DEFAULT_DATA_DIR = ROOT / "data"
 DEFAULT_TEMPLATES_DIR = ROOT / "src" / "DataProcessors" / "d3_v4" / "Templates"
 AXIS_VERTEX_TOLERANCE_M = 0.15
 GEOMETRY_TOLERANCE_M = 0.05
+COORDINATE_PRECISION = 2
+RESIZE_TOLERANCE_M = 0.5 * 10**-COORDINATE_PRECISION
 
 SOURCE_FILES = {
     "terminalLayout": "terminal-layout-v4.json",
@@ -278,8 +280,8 @@ def collect_sites(document: Any, crs: str, validation: Validation) -> dict[str, 
     return sites
 
 
-def collect_axes(document: Any, crs: str, validation: Validation) -> dict[str, list[tuple[float, float]]]:
-    axes: dict[str, list[tuple[float, float]]] = {}
+def collect_axes(document: Any, crs: str, validation: Validation) -> dict[str, dict[str, Any]]:
+    axes: dict[str, dict[str, Any]] = {}
     for feature_index, feature in enumerate(
         feature_collection(document, "container_site_bay_axes_v4.geojson", validation)
     ):
@@ -305,7 +307,7 @@ def collect_axes(document: Any, crs: str, validation: Validation) -> dict[str, l
             continue
         axis = [value for value in parsed if value is not None]
         validation.require(distance(axis[0], axis[1]) >= 0.5, location, "axis is too short")
-        axes[site_id] = axis
+        axes[site_id] = {"feature": feature, "points": axis}
     validation.require(crs_code(document) == crs, "container_site_bay_axes_v4.geojson", f"CRS must be {crs}")
     return axes
 
@@ -329,17 +331,18 @@ def inclusive_numbers(segment: Any, location: str, validation: Validation) -> li
 def validate_layout(
     layout: Any,
     sites: dict[str, dict[str, Any]],
-    axes: dict[str, list[tuple[float, float]]],
+    axes: dict[str, dict[str, Any]],
     validation: Validation,
-) -> None:
+) -> list[str]:
+    changes: list[str] = []
     if not isinstance(layout, dict):
         validation.add("terminal-layout-v4.json", "root must be an object")
-        return
+        return changes
     validation.require(layout.get("schemaVersion") == "4.0", "terminal-layout-v4.json", "schemaVersion must be 4.0")
     terminal = layout.get("terminal")
     if not isinstance(terminal, dict):
         validation.add("terminal-layout-v4.json.terminal", "terminal object is required")
-        return
+        return changes
     crs = terminal.get("crs")
     validation.require(terminal.get("units") == "m", "terminal-layout-v4.json.terminal", "units must be m")
     validation.require(isinstance(crs, str) and bool(crs), "terminal-layout-v4.json.terminal", "crs is required")
@@ -347,7 +350,7 @@ def validate_layout(
     cell = layout.get("cell")
     if not isinstance(cell, dict):
         validation.add("terminal-layout-v4.json.cell", "cell object is required")
-        return
+        return changes
     validation.require(cell.get("layoutMode") == "fixed_pitch", "terminal-layout-v4.json.cell", "layoutMode must be fixed_pitch")
     bay_pitch = cell.get("bayPitchM")
     row_pitch = cell.get("rowPitchM")
@@ -397,7 +400,7 @@ def validate_layout(
     layout_sites = layout.get("sites")
     if not isinstance(layout_sites, list) or not layout_sites:
         validation.add("terminal-layout-v4.json.sites", "non-empty sites array is required")
-        return
+        return changes
     layout_ids: set[str] = set()
     for site_index, site in enumerate(layout_sites):
         location = f"terminal-layout-v4.json.sites[{site_index}]"
@@ -418,6 +421,7 @@ def validate_layout(
         )
 
         zone_ids: set[str] = set()
+        zone_id_list: list[str] = []
         zones = site.get("zones")
         if not isinstance(zones, list) or not zones:
             validation.add(f"{location}.zones", "non-empty zones array is required")
@@ -428,6 +432,8 @@ def validate_layout(
                 validation.add(f"{location}.zones[{zone_index}]", "id is required")
             elif zone_id in zone_ids:
                 validation.add(f"{location}.zones[{zone_index}]", f"duplicate zone id {zone_id}")
+            else:
+                zone_id_list.append(zone_id)
             zone_ids.add(zone_id)
             validation.require(
                 isinstance(zone, dict) and zone.get("kind") in ("storage", "discharge"),
@@ -457,7 +463,7 @@ def validate_layout(
                 row_numbers.update(values)
                 row_count += len(values)
                 rows_footprint += len(values) * float(row_pitch or 0)
-            elif kind in ("aisle", "reeferRack"):
+            elif kind in ("aisle", "reeferRack", "canopy"):
                 width = segment.get("widthM")
                 validation.require(number(width) and width > 0, segment_location, "widthM must be positive")
                 validation.require(segment.get("runsAlong") == "bays", segment_location, "runsAlong must be bays")
@@ -488,7 +494,7 @@ def validate_layout(
                 known.update(values)
                 bay_count += len(values)
                 bays_footprint += len(values) * float(bay_pitch or 0)
-            elif kind in ("aisle", "reeferRack"):
+            elif kind in ("aisle", "reeferRack", "canopy"):
                 width = segment.get("widthM")
                 validation.require(number(width) and width > 0, segment_location, "widthM must be positive")
                 validation.require(segment.get("runsAlong") == "rows", segment_location, "runsAlong must be rows")
@@ -497,50 +503,42 @@ def validate_layout(
             else:
                 validation.add(segment_location, f"unsupported kind {kind!r}")
 
-        expected = site.get("expected")
-        if isinstance(expected, dict):
-            validation.require(expected.get("rowCellCount") == row_count, f"{location}.expected", "rowCellCount mismatch")
-            validation.require(expected.get("bayCellCount") == bay_count, f"{location}.expected", "bayCellCount mismatch")
-            validation.require(
-                number(expected.get("footprintAlongRowsM"))
-                and abs(float(expected["footprintAlongRowsM"]) - rows_footprint) <= 0.01,
-                f"{location}.expected",
-                "footprintAlongRowsM mismatch",
-            )
-            validation.require(
-                number(expected.get("footprintAlongBaysM"))
-                and abs(float(expected["footprintAlongBaysM"]) - bays_footprint) <= 0.01,
-                f"{location}.expected",
-                "footprintAlongBaysM mismatch",
-            )
-            expected_zone_counts = expected.get("zoneCellCounts")
-            if isinstance(expected_zone_counts, dict):
-                for zone_id in zone_ids:
-                    validation.require(
-                        expected_zone_counts.get(zone_id) == len(zone_numbers.get(zone_id, set())) * row_count,
-                        f"{location}.expected.zoneCellCounts.{zone_id}",
-                        "zone cell count mismatch",
-                    )
-        else:
-            validation.add(f"{location}.expected", "expected object is required")
+        calculated_expected = {
+            "rowCellCount": row_count,
+            "bayCellCount": bay_count,
+            "zoneCellCounts": {
+                zone_id: len(zone_numbers.get(zone_id, set())) * row_count for zone_id in zone_id_list
+            },
+            "footprintAlongRowsM": round(rows_footprint, 2),
+            "footprintAlongBaysM": round(bays_footprint, 2),
+        }
+        if site.get("expected") != calculated_expected:
+            site["expected"] = calculated_expected
+            changes.append(f"{site_id}: updated expected values")
 
         site_geometry = sites.get(site_id)
-        axis = axes.get(site_id)
+        axis_geometry = axes.get(site_id)
         if site_geometry is None:
             validation.add(location, f"no container site polygon for {site_id}")
-        if axis is None:
+        if axis_geometry is None:
             validation.add(location, f"no bay axis for {site_id}")
-        if site_geometry is not None and axis is not None and len(site_geometry["vertices"]) == 4:
+        if site_geometry is not None and axis_geometry is not None and len(site_geometry["vertices"]) == 4:
             vertices = site_geometry["vertices"]
+            axis = axis_geometry["points"]
             vertex_indexes: list[int] = []
+            endpoints_match = True
             for axis_point in axis:
                 nearest = min(range(4), key=lambda index: distance(axis_point, vertices[index]))
                 if distance(axis_point, vertices[nearest]) > AXIS_VERTEX_TOLERANCE_M:
                     validation.add(location, "bay axis endpoints must match polygon vertices")
+                    endpoints_match = False
                 vertex_indexes.append(nearest)
+            axis_follows_side = len(vertex_indexes) == 2 and (
+                (vertex_indexes[0] - vertex_indexes[1]) % 4 in (1, 3)
+            )
             if len(vertex_indexes) == 2:
                 validation.require(
-                    (vertex_indexes[0] - vertex_indexes[1]) % 4 in (1, 3),
+                    axis_follows_side,
                     location,
                     "bay axis must follow one polygon side",
                 )
@@ -553,19 +551,65 @@ def validate_layout(
                 if index != (vertex_indexes[1] if len(vertex_indexes) > 1 else -1)
             ]
             row_extent = row_extents[0] if row_extents else 0.0
-            validation.require(
-                bay_extent + GEOMETRY_TOLERANCE_M >= bays_footprint,
-                location,
-                f"polygon bay side {bay_extent:.2f} m is smaller than {bays_footprint:.2f} m",
+            can_resize = (
+                endpoints_match
+                and axis_follows_side
+                and bay_extent > GEOMETRY_TOLERANCE_M
+                and row_extent > GEOMETRY_TOLERANCE_M
             )
-            validation.require(
-                row_extent + GEOMETRY_TOLERANCE_M >= rows_footprint,
-                location,
-                f"polygon row side {row_extent:.2f} m is smaller than {rows_footprint:.2f} m",
-            )
+            needs_bay_resize = abs(bays_footprint - bay_extent) > RESIZE_TOLERANCE_M
+            needs_row_resize = abs(rows_footprint - row_extent) > RESIZE_TOLERANCE_M
+            if can_resize and (needs_bay_resize or needs_row_resize):
+                axis_end_index = vertex_indexes[1]
+                row_end_index = next(index for index in adjacent_indexes if index != axis_end_index)
+                opposite_index = next(
+                    index for index in range(4) if index not in (origin_index, axis_end_index, row_end_index)
+                )
+                origin_point = vertices[origin_index]
+                bay_unit = (
+                    (vertices[axis_end_index][0] - origin_point[0]) / bay_extent,
+                    (vertices[axis_end_index][1] - origin_point[1]) / bay_extent,
+                )
+                row_unit = (
+                    (vertices[row_end_index][0] - origin_point[0]) / row_extent,
+                    (vertices[row_end_index][1] - origin_point[1]) / row_extent,
+                )
+                required_bay_extent = bays_footprint if needs_bay_resize else bay_extent
+                required_row_extent = rows_footprint if needs_row_resize else row_extent
+                expanded_vertices = list(vertices)
+                expanded_vertices[axis_end_index] = (
+                    origin_point[0] + bay_unit[0] * required_bay_extent,
+                    origin_point[1] + bay_unit[1] * required_bay_extent,
+                )
+                expanded_vertices[row_end_index] = (
+                    origin_point[0] + row_unit[0] * required_row_extent,
+                    origin_point[1] + row_unit[1] * required_row_extent,
+                )
+                expanded_vertices[opposite_index] = (
+                    expanded_vertices[axis_end_index][0] + row_unit[0] * required_row_extent,
+                    expanded_vertices[axis_end_index][1] + row_unit[1] * required_row_extent,
+                )
+                expanded_vertices = [
+                    (round(x, COORDINATE_PRECISION), round(y, COORDINATE_PRECISION))
+                    for x, y in expanded_vertices
+                ]
+                ring = [[x, y] for x, y in expanded_vertices]
+                ring.append(ring[0].copy())
+                site_geometry["feature"]["geometry"]["coordinates"][0] = ring
+                axis_geometry["feature"]["geometry"]["coordinates"] = [
+                    list(origin_point),
+                    list(expanded_vertices[axis_end_index]),
+                ]
+                site_geometry["vertices"] = expanded_vertices
+                axis_geometry["points"] = [origin_point, expanded_vertices[axis_end_index]]
+                changes.append(
+                    f"{site_id}: resized site from {bay_extent:.2f} x {row_extent:.2f} m "
+                    f"to {required_bay_extent:.2f} x {required_row_extent:.2f} m"
+                )
 
     validation.require(set(sites) == layout_ids, "container_sites_v4.geojson", "site ids must exactly match layout")
     validation.require(set(axes) == layout_ids, "container_site_bay_axes_v4.geojson", "site ids must exactly match layout")
+    return changes
 
 
 def validate_declared_paths(layout: Any, validation: Validation) -> None:
@@ -619,7 +663,7 @@ def build(data_dir: Path, templates_dir: Path, check_only: bool) -> None:
     validate_water(source_documents.get("water", {}), terminal_crs, validation)
     sites = collect_sites(source_documents.get("containerSites", {}), terminal_crs, validation)
     axes = collect_axes(source_documents.get("bayAxes", {}), terminal_crs, validation)
-    validate_layout(layout, sites, axes, validation)
+    changes = validate_layout(layout, sites, axes, validation)
     validation.finish()
 
     normalized = {
@@ -647,6 +691,8 @@ def build(data_dir: Path, templates_dir: Path, check_only: bool) -> None:
     )
 
     if not check_only:
+        for key in ("terminalLayout", "containerSites", "bayAxes"):
+            atomic_write(data_dir / SOURCE_FILES[key], normalized[key])
         for key, text in normalized.items():
             atomic_write(templates_dir / TEMPLATE_PATHS[key], text)
         atomic_write(templates_dir / TEMPLATE_PATHS["manifest"], manifest)
@@ -654,6 +700,9 @@ def build(data_dir: Path, templates_dir: Path, check_only: bool) -> None:
     site_count = len(layout.get("sites", [])) if isinstance(layout, dict) else 0
     action = "validated" if check_only else "synchronized"
     print(f"V4 scene {action}: buildId={build_id} sites={site_count}")
+    for change in changes:
+        prefix = "would change" if check_only else "changed"
+        print(f"  {prefix}: {change}")
 
 
 def main() -> None:

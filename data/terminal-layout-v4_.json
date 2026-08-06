@@ -98,7 +98,7 @@
           },
           {
             "kind": "aisle",
-            "id": "aisle_bays_C1",
+            "id": "aisle_bays_1",
             "widthM": 1.0,
             "runsAlong": "rows"
           },
@@ -112,7 +112,7 @@
           },
           {
             "kind": "aisle",
-            "id": "aisle_bays_C2",
+            "id": "aisle_bays_2",
             "widthM": 1.0,
             "runsAlong": "rows"
           },
@@ -126,7 +126,7 @@
           },
           {
             "kind": "aisle",
-            "id": "aisle_bays_C3",
+            "id": "aisle_bays_3",
             "widthM": 1.0,
             "runsAlong": "rows"
           },
@@ -140,7 +140,7 @@
           },
           {
             "kind": "aisle",
-            "id": "aisle_bays_C4",
+            "id": "aisle_bays_4",
             "widthM": 1.0,
             "runsAlong": "rows"
           },
@@ -154,7 +154,7 @@
           },
           {
             "kind": "aisle",
-            "id": "aisle_bays_C6",
+            "id": "aisle_bays_6",
             "widthM": 1.0,
             "runsAlong": "rows"
           },
@@ -168,7 +168,7 @@
           },
           {
             "kind": "aisle",
-            "id": "aisle_bays_C7",
+            "id": "aisle_bays_7",
             "widthM": 1.0,
             "runsAlong": "rows"
           },
@@ -182,7 +182,7 @@
           },
           {
             "kind": "aisle",
-            "id": "aisle_bays_C8",
+            "id": "aisle_bays_8",
             "widthM": 1.0,
             "runsAlong": "rows"
           },
@@ -196,7 +196,7 @@
           },
           {
             "kind": "aisle",
-            "id": "aisle_bays_C9",
+            "id": "aisle_bays_9",
             "widthM": 1.0,
             "runsAlong": "rows"
           },
@@ -220,192 +220,6 @@
         },
         "footprintAlongRowsM": 37.5,
         "footprintAlongBaysM": 255.65
-      }
-    },
-    {
-      "id": "kpB",
-      "name": "кпB",
-      "qgisFeatureId": "kpB",
-      "containerLabelRotationDeg": 180,
-      "maxTier": 6,
-      "zones": [
-        {
-          "id": "B",
-          "name": "Зона B",
-          "kind": "storage"
-        }
-      ],
-      "topology": {
-        "rows": [
-          {
-            "kind": "cells",
-            "numbers": {
-              "from": 1,
-              "to": 9
-            }
-          }
-        ],
-        "bays": [
-          {
-            "kind": "zone",
-            "zoneId": "B",
-            "numbers": {
-              "from": 1,
-              "to": 11
-            }
-          },
-          {
-            "kind": "reeferRack",
-            "id": "reefer_rack_bays_B1",
-            "widthM": 1.0,
-            "runsAlong": "rows"
-          },
-          {
-            "kind": "zone",
-            "zoneId": "B",
-            "numbers": {
-              "from": 12,
-              "to": 44
-            }
-          },
-          {
-            "kind": "aisle",
-            "id": "aisle_bays_B1",
-            "widthM": 12.0,
-            "runsAlong": "rows"
-          },
-          {
-            "kind": "zone",
-            "zoneId": "B",
-            "numbers": {
-              "from": 45,
-              "to": 46
-            }
-          },
-          {
-            "kind": "reeferRack",
-            "id": "reefer_rack_bays_B2",
-            "widthM": 1.0,
-            "runsAlong": "rows"
-          },
-          {
-            "kind": "zone",
-            "zoneId": "B",
-            "numbers": {
-              "from": 47,
-              "to": 48
-            }
-          }
-        ]
-      },
-      "expected": {
-        "rowCellCount": 9,
-        "bayCellCount": 48,
-        "zoneCellCounts": {
-          "B": 432
-        },
-        "footprintAlongRowsM": 24.75,
-        "footprintAlongBaysM": 318.8
-      }
-    },
-    {
-      "id": "kpAD",
-      "name": "кпAD",
-      "qgisFeatureId": "kpAD",
-      "containerLabelRotationDeg": 180,
-      "maxTier": 6,
-      "zones": [
-        {
-          "id": "A",
-          "name": "Зона A",
-          "kind": "storage"
-        },
-        {
-          "id": "D",
-          "name": "Зона D",
-          "kind": "storage"
-        }
-      ],
-      "topology": {
-        "rows": [
-          {
-            "kind": "cells",
-            "numbers": {
-              "from": 1,
-              "to": 9
-            }
-          }
-        ],
-        "bays": [
-          {
-            "kind": "zone",
-            "zoneId": "A",
-            "numbers": {
-              "from": 1,
-              "to": 1
-            }
-          },
-          {
-            "kind": "canopy",
-            "id": "canopy_bays_A1",
-            "widthM": 12.0,
-            "runsAlong": "rows"
-          },
-          {
-            "kind": "zone",
-            "zoneId": "A",
-            "numbers": {
-              "from": 2,
-              "to": 18
-            }
-          },
-          {
-            "kind": "zone",
-            "zoneId": "D",
-            "numbers": {
-              "from": 1,
-              "to": 2
-            }
-          },
-          {
-            "kind": "canopy",
-            "id": "canopy_bays_D1",
-            "widthM": 18.0,
-            "runsAlong": "rows"
-          },
-          {
-            "kind": "zone",
-            "zoneId": "D",
-            "numbers": {
-              "from": 3,
-              "to": 6
-            }
-          },
-          {
-            "kind": "canopy",
-            "id": "canopy_bays_D2",
-            "widthM": 18.0,
-            "runsAlong": "rows"
-          },
-          {
-            "kind": "zone",
-            "zoneId": "D",
-            "numbers": {
-              "from": 7,
-              "to": 7
-            }
-          }
-        ]
-      },
-      "expected": {
-        "rowCellCount": 9,
-        "bayCellCount": 25,
-        "zoneCellCounts": {
-          "A": 162,
-          "D": 63
-        },
-        "footprintAlongRowsM": 24.75,
-        "footprintAlongBaysM": 206.75
       }
     }
   ]
