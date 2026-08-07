@@ -102,6 +102,26 @@ function initTerminalPlan2D() {
         ? sceneData.topology.zones : [];
     var infrastructure = (sceneData.topology && sceneData.topology.infrastructure instanceof Array)
         ? sceneData.topology.infrastructure : [];
+    var buildings = [];
+    var rawBuildings = (sceneData.topology && sceneData.topology.buildings instanceof Array)
+        ? sceneData.topology.buildings : [];
+    for (var initialBuildingIndex = 0; initialBuildingIndex < rawBuildings.length; initialBuildingIndex++) {
+        var rawBuilding = rawBuildings[initialBuildingIndex] || {};
+        var buildingPolygon = normalizePointRing(rawBuilding.polygon);
+        if (buildingPolygon.length < 3) {
+            continue;
+        }
+        var buildingCenter = ringCentroid(buildingPolygon);
+        buildings.push({
+            id: String(rawBuilding.id || ''),
+            kind: 'building',
+            name: String(rawBuilding.name || rawBuilding.id || ''),
+            color: String(rawBuilding.color || '#64748b'),
+            x: numberOr(rawBuilding.x, buildingCenter.x),
+            y: numberOr(rawBuilding.y, buildingCenter.y),
+            polygon: buildingPolygon
+        });
+    }
     var cells = (sceneData.cells instanceof Array) ? sceneData.cells.slice() : [];
     var cellById = {};
     for (var initialCellIndex = 0; initialCellIndex < cells.length; initialCellIndex++) {
@@ -277,7 +297,9 @@ function initTerminalPlan2D() {
             size: so.size || {},
             load: String(so.load || 'none'),
             length: numberOr(so.length, numberOr(so.size && so.size.length, 0)),
-            vesselId: String(so.vesselId || '')
+            vesselId: String(so.vesselId || ''),
+            berthId: String(so.berthId || ''),
+            mooringSide: String(so.mooringSide || '')
         };
         objects.push(obj);
         objectById[oid] = obj;
@@ -650,6 +672,36 @@ function initTerminalPlan2D() {
         ctx.strokeStyle = strokeStyle || '#8192aa';
         ctx.lineWidth = Math.max(1, view.scale * 0.12);
         ctx.stroke();
+    }
+
+    function buildingTextColor(color) {
+        var match = /^#([0-9a-f]{6})$/i.exec(String(color || ''));
+        if (!match) {
+            return '#ffffff';
+        }
+        var value = parseInt(match[1], 16);
+        var red = (value >> 16) & 255;
+        var green = (value >> 8) & 255;
+        var blue = value & 255;
+        return (red * 299 + green * 587 + blue * 114) / 1000 >= 150
+            ? '#111827' : '#ffffff';
+    }
+
+    function drawBuilding(building) {
+        drawPolygonOutline(building, building.color, '#1f2937');
+        var center = worldToScreen(building.x, building.y);
+        ctx.save();
+        ctx.font = 'bold ' + Math.max(10, Math.min(16, 4 * view.scale)) + 'px Segoe UI, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = buildingTextColor(building.color) === '#ffffff'
+            ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.72)';
+        ctx.lineWidth = 3;
+        ctx.strokeText(building.name, center.x, center.y);
+        ctx.fillStyle = buildingTextColor(building.color);
+        ctx.fillText(building.name, center.x, center.y);
+        ctx.restore();
     }
 
     function drawTopologyRect(item, fillStyle, strokeStyle) {
@@ -1365,6 +1417,9 @@ function initTerminalPlan2D() {
         drawRoundedSite();
 
         var i;
+        for (i = 0; i < buildings.length; i++) {
+            drawBuilding(buildings[i]);
+        }
         for (i = 0; i < containerSites.length; i++) {
             drawPolygonOutline(containerSites[i], 'rgba(30, 41, 59, 0.12)', '#64748b');
         }
@@ -1401,6 +1456,7 @@ function initTerminalPlan2D() {
         var text = 'Размещений: ' + placements.length +
             ' · ячеек: ' + cells.length +
             ' · площадок: ' + containerSites.length +
+            ' · зданий: ' + buildings.length +
             ' · масштаб: ' + view.scale.toFixed(2) + ' px/м';
         if (selected) {
             if (selected.kind === 'placement') {

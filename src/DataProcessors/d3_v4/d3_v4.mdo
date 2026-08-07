@@ -100,4 +100,28 @@
     </synonym>
     <templateType>TextDocument</templateType>
   </templates>
+  <templates uuid="ae6e58c0-2b7a-4145-8531-91e6d020c91f">
+    <name>Buildings_geojson</name>
+    <synonym>
+      <key>ru</key>
+      <value>Buildings geojson</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="ea0a0c7d-4d71-41ec-9f24-0573e6010126">
+    <name>BerthsV4_json</name>
+    <synonym>
+      <key>ru</key>
+      <value>Berths v4 json</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="85accc2d-7b60-4496-a3a4-b54884f41571">
+    <name>VesselsV4_json</name>
+    <synonym>
+      <key>ru</key>
+      <value>Vessels v4 json</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
 </mdclass:DataProcessor>

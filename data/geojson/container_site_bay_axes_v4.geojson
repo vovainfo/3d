@@ -68,6 +68,46 @@
           ]
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 4,
+        "site_id": "kpF"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            734532.84,
+            4775225.03
+          ],
+          [
+            734532.0,
+            4775199.64
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 5,
+        "site_id": "kpP"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            734545.4,
+            4775232.97
+          ],
+          [
+            734556.75,
+            4775227.26
+          ]
+        ]
+      }
     }
   ]
 }

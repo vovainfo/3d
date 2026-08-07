@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "4.0",
+  "vessels": [
+    {
+      "id": "polar-star",
+      "name": "Polar Star",
+      "lengthM": 150.0,
+      "beamM": 30.0,
+      "berthId": "52",
+      "mooringSide": "starboard"
+    },
+    {
+      "id": "fesco-star",
+      "name": "FESCO Star",
+      "lengthM": 100.0,
+      "beamM": 20.0,
+      "berthId": "53",
+      "mooringSide": "port"
+    }
+  ]
+}

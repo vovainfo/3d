@@ -20,13 +20,17 @@ DEFAULT_TEMPLATES_DIR = ROOT / "src" / "DataProcessors" / "d3_v4" / "Templates"
 AXIS_VERTEX_TOLERANCE_M = 0.15
 GEOMETRY_TOLERANCE_M = 0.05
 COORDINATE_PRECISION = 2
-RESIZE_TOLERANCE_M = 0.5 * 10**-COORDINATE_PRECISION
+RESIZE_TOLERANCE_M = math.sqrt(2) * 0.5 * 10**-COORDINATE_PRECISION + 1e-9
 
 SOURCE_FILES = {
     "terminalLayout": "terminal-layout-v4.json",
     "sceneOrigin": "scene_origin.txt",
     "shoreline": "geojson/shoreline.geojson",
     "water": "geojson/water.geojson",
+    "buildings": "geojson/buildings.geojson",
+    "berthPoints": "geojson/berth_points_v4.geojson",
+    "berthHeadingAxes": "geojson/berth_heading_axes_v4.geojson",
+    "vessels": "vessels-v4.json",
     "containerSites": "geojson/container_sites_v4.geojson",
     "bayAxes": "geojson/container_site_bay_axes_v4.geojson",
 }
@@ -36,6 +40,9 @@ TEMPLATE_PATHS = {
     "sceneOrigin": "SceneOrigin_txt/Template.txt",
     "shoreline": "Shoreline_geojson/Template.txt",
     "water": "Water_geojson/Template.txt",
+    "buildings": "Buildings_geojson/Template.txt",
+    "berths": "BerthsV4_json/Template.txt",
+    "vessels": "VesselsV4_json/Template.txt",
     "containerSites": "ContainerSitesV4_geojson/Template.txt",
     "bayAxes": "ContainerSiteBayAxesV4_geojson/Template.txt",
     "manifest": "SceneManifestV4_json/Template.txt",
@@ -236,6 +243,70 @@ def validate_water(document: Any, crs: str, validation: Validation) -> None:
     validation.require(crs_code(document) == crs, "water.geojson", f"CRS must be {crs}")
 
 
+def validate_buildings(document: Any, crs: str, validation: Validation) -> None:
+    building_ids: set[str] = set()
+    for feature_index, feature in enumerate(feature_collection(document, "buildings.geojson", validation)):
+        location = f"buildings.geojson.features[{feature_index}]"
+        properties = feature.get("properties") if isinstance(feature, dict) else None
+        if not isinstance(properties, dict):
+            validation.add(location, "properties object is required")
+            properties = {}
+
+        raw_building_id = properties.get("id")
+        raw_name = properties.get("name")
+        building_id = raw_building_id.strip() if isinstance(raw_building_id, str) else ""
+        name = raw_name.strip() if isinstance(raw_name, str) else ""
+        color = properties.get("color")
+        if not validation.require(bool(building_id), f"{location}.properties.id", "id is required"):
+            building_id = ""
+        elif building_id in building_ids:
+            validation.add(f"{location}.properties.id", f"duplicate id {building_id}")
+        else:
+            building_ids.add(building_id)
+        validation.require(bool(name), f"{location}.properties.name", "name is required")
+        validation.require(
+            isinstance(color, str) and re.fullmatch(r"#[0-9A-Fa-f]{6}", color) is not None,
+            f"{location}.properties.color",
+            "color must use #RRGGBB format",
+        )
+
+        geometry = feature.get("geometry") if isinstance(feature, dict) else None
+        if not isinstance(geometry, dict) or geometry.get("type") != "Polygon":
+            validation.add(f"{location}.geometry", "geometry must be Polygon")
+            continue
+        coordinates = geometry.get("coordinates")
+        if not isinstance(coordinates, list) or len(coordinates) != 1:
+            validation.add(f"{location}.geometry.coordinates", "Polygon must contain one exterior ring without holes")
+            continue
+        ring = coordinates[0]
+        parsed = [point(value) for value in ring] if isinstance(ring, list) else []
+        validation.require(
+            len(parsed) >= 4 and all(value is not None for value in parsed),
+            f"{location}.geometry.coordinates[0]",
+            "ring must contain at least four valid coordinates",
+        )
+        if len(parsed) >= 2 and parsed[0] is not None and parsed[-1] is not None:
+            validation.require(
+                distance(parsed[0], parsed[-1]) <= GEOMETRY_TOLERANCE_M,
+                f"{location}.geometry.coordinates[0]",
+                "ring must be closed",
+            )
+        valid_points = [value for value in parsed if value is not None]
+        if len(valid_points) >= 4:
+            vertices = valid_points[:-1]
+            doubled_area = sum(
+                vertices[index][0] * vertices[(index + 1) % len(vertices)][1]
+                - vertices[(index + 1) % len(vertices)][0] * vertices[index][1]
+                for index in range(len(vertices))
+            )
+            validation.require(
+                len(set(vertices)) >= 3 and abs(doubled_area) > GEOMETRY_TOLERANCE_M**2,
+                f"{location}.geometry.coordinates[0]",
+                "ring must have a non-zero area",
+            )
+    validation.require(crs_code(document) == crs, "buildings.geojson", f"CRS must be {crs}")
+
+
 def validate_shoreline(document: Any, crs: str, validation: Validation) -> None:
     features = feature_collection(document, "shoreline.geojson", validation)
     point_count = 0
@@ -310,6 +381,140 @@ def collect_axes(document: Any, crs: str, validation: Validation) -> dict[str, d
         axes[site_id] = {"feature": feature, "points": axis}
     validation.require(crs_code(document) == crs, "container_site_bay_axes_v4.geojson", f"CRS must be {crs}")
     return axes
+
+
+def collect_berths(
+    points_document: Any,
+    axes_document: Any,
+    crs: str,
+    validation: Validation,
+) -> dict[str, Any]:
+    points: dict[str, dict[str, Any]] = {}
+    for feature_index, feature in enumerate(feature_collection(points_document, "berth_points_v4.geojson", validation)):
+        location = f"berth_points_v4.geojson.features[{feature_index}]"
+        properties = feature.get("properties") if isinstance(feature, dict) else None
+        geometry = feature.get("geometry") if isinstance(feature, dict) else None
+        berth_id = properties.get("berth_id") if isinstance(properties, dict) else None
+        name = properties.get("name") if isinstance(properties, dict) else None
+        berth_id = berth_id.strip() if isinstance(berth_id, str) else ""
+        name = name.strip() if isinstance(name, str) else ""
+        validation.require(bool(berth_id), f"{location}.properties.berth_id", "berth_id is required")
+        validation.require(bool(name), f"{location}.properties.name", "name is required")
+        if berth_id in points:
+            validation.add(f"{location}.properties.berth_id", f"duplicate berth_id {berth_id}")
+        if not isinstance(geometry, dict) or geometry.get("type") != "Point":
+            validation.add(f"{location}.geometry", "geometry must be Point")
+            continue
+        center = point(geometry.get("coordinates"))
+        if center is None:
+            validation.add(f"{location}.geometry.coordinates", "coordinates must be a finite point")
+            continue
+        if berth_id and berth_id not in points:
+            points[berth_id] = {"id": berth_id, "name": name, "center": center}
+    validation.require(crs_code(points_document) == crs, "berth_points_v4.geojson", f"CRS must be {crs}")
+
+    axes: dict[str, list[tuple[float, float]]] = {}
+    for feature_index, feature in enumerate(
+        feature_collection(axes_document, "berth_heading_axes_v4.geojson", validation)
+    ):
+        location = f"berth_heading_axes_v4.geojson.features[{feature_index}]"
+        properties = feature.get("properties") if isinstance(feature, dict) else None
+        geometry = feature.get("geometry") if isinstance(feature, dict) else None
+        berth_id = properties.get("berth_id") if isinstance(properties, dict) else None
+        berth_id = berth_id.strip() if isinstance(berth_id, str) else ""
+        validation.require(bool(berth_id), f"{location}.properties.berth_id", "berth_id is required")
+        if berth_id in axes:
+            validation.add(f"{location}.properties.berth_id", f"duplicate berth_id {berth_id}")
+        if (
+            not isinstance(geometry, dict)
+            or geometry.get("type") != "LineString"
+            or not isinstance(geometry.get("coordinates"), list)
+            or len(geometry["coordinates"]) != 2
+        ):
+            validation.add(f"{location}.geometry", "geometry must be a two-point LineString")
+            continue
+        parsed = [point(value) for value in geometry["coordinates"]]
+        if not all(value is not None for value in parsed):
+            validation.add(f"{location}.geometry.coordinates", "coordinates must be finite points")
+            continue
+        axis = [value for value in parsed if value is not None]
+        validation.require(distance(axis[0], axis[1]) >= 0.5, location, "heading axis is too short")
+        if berth_id and berth_id not in axes:
+            axes[berth_id] = axis
+    validation.require(crs_code(axes_document) == crs, "berth_heading_axes_v4.geojson", f"CRS must be {crs}")
+
+    validation.require(set(points) == set(axes), "virtual berths", "berth_id sets in points and axes must match")
+    berths: list[dict[str, Any]] = []
+    for berth_id, description in points.items():
+        axis = axes.get(berth_id)
+        if axis is None:
+            continue
+        validation.require(
+            distance(description["center"], axis[0]) <= AXIS_VERTEX_TOLERANCE_M,
+            f"virtual berths.{berth_id}",
+            "heading axis must start at berth point",
+        )
+        berths.append(
+            {
+                "id": berth_id,
+                "name": description["name"],
+                "center": list(description["center"]),
+                "headingPoint": list(axis[1]),
+            }
+        )
+    return {"schemaVersion": "4.0", "crs": crs, "berths": berths}
+
+
+def validate_vessels(document: Any, berth_ids: set[str], validation: Validation) -> None:
+    if not isinstance(document, dict):
+        validation.add("vessels-v4.json", "root must be an object")
+        return
+    validation.require(document.get("schemaVersion") == "4.0", "vessels-v4.json", "schemaVersion must be 4.0")
+    vessels = document.get("vessels")
+    if not isinstance(vessels, list):
+        validation.add("vessels-v4.json.vessels", "vessels must be an array")
+        return
+    vessel_ids: set[str] = set()
+    occupied_berths: set[str] = set()
+    for vessel_index, vessel in enumerate(vessels):
+        location = f"vessels-v4.json.vessels[{vessel_index}]"
+        if not isinstance(vessel, dict):
+            validation.add(location, "vessel must be an object")
+            continue
+        vessel_id = vessel.get("id")
+        name = vessel.get("name")
+        berth_id = vessel.get("berthId")
+        vessel_id = vessel_id.strip() if isinstance(vessel_id, str) else ""
+        name = name.strip() if isinstance(name, str) else ""
+        berth_id = berth_id.strip() if isinstance(berth_id, str) else ""
+        validation.require(bool(vessel_id), f"{location}.id", "id is required")
+        validation.require(bool(name), f"{location}.name", "name is required")
+        if vessel_id in vessel_ids:
+            validation.add(f"{location}.id", f"duplicate vessel id {vessel_id}")
+        elif vessel_id:
+            vessel_ids.add(vessel_id)
+        validation.require(number(vessel.get("lengthM")) and vessel["lengthM"] > 0, f"{location}.lengthM", "must be positive")
+        validation.require(number(vessel.get("beamM")) and vessel["beamM"] > 0, f"{location}.beamM", "must be positive")
+        validation.require(berth_id in berth_ids, f"{location}.berthId", f"unknown berthId {berth_id!r}")
+        if berth_id in occupied_berths:
+            validation.add(f"{location}.berthId", f"berth {berth_id} already has a vessel")
+        elif berth_id:
+            occupied_berths.add(berth_id)
+        validation.require(
+            vessel.get("mooringSide") in ("starboard", "port"),
+            f"{location}.mooringSide",
+            "must be starboard or port",
+        )
+        color = vessel.get("color")
+        if color is not None:
+            validation.require(
+                isinstance(color, str) and re.fullmatch(r"#[0-9A-Fa-f]{6}", color) is not None,
+                f"{location}.color",
+                "color must use #RRGGBB format",
+            )
+        clearance = vessel.get("clearanceM")
+        if clearance is not None:
+            validation.require(number(clearance) and clearance >= 0, f"{location}.clearanceM", "must be non-negative")
 
 
 def inclusive_numbers(segment: Any, location: str, validation: Validation) -> list[int]:
@@ -661,6 +866,19 @@ def build(data_dir: Path, templates_dir: Path, check_only: bool) -> None:
     validate_declared_paths(layout, validation)
     validate_shoreline(source_documents.get("shoreline", {}), terminal_crs, validation)
     validate_water(source_documents.get("water", {}), terminal_crs, validation)
+    validate_buildings(source_documents.get("buildings", {}), terminal_crs, validation)
+    berths_document = collect_berths(
+        source_documents.get("berthPoints", {}),
+        source_documents.get("berthHeadingAxes", {}),
+        terminal_crs,
+        validation,
+    )
+    berth_ids = {
+        str(berth.get("id", ""))
+        for berth in berths_document.get("berths", [])
+        if isinstance(berth, dict)
+    }
+    validate_vessels(source_documents.get("vessels", {}), berth_ids, validation)
     sites = collect_sites(source_documents.get("containerSites", {}), terminal_crs, validation)
     axes = collect_axes(source_documents.get("bayAxes", {}), terminal_crs, validation)
     changes = validate_layout(layout, sites, axes, validation)
@@ -672,8 +890,19 @@ def build(data_dir: Path, templates_dir: Path, check_only: bool) -> None:
         else source_texts[key].replace("\r\n", "\n").rstrip() + "\n"
         for key in SOURCE_FILES
     }
+    normalized["berths"] = canonical_json(berths_document)
+    berths_path = data_dir / "berths-v4.json"
+    try:
+        current_berths = berths_path.read_text(encoding="utf-8-sig").replace("\r\n", "\n")
+    except OSError:
+        current_berths = ""
+    if current_berths != normalized["berths"]:
+        changes.append("updated derived berths-v4.json")
+
     hashes = {key: hashlib.sha256(value.encode("utf-8")).hexdigest() for key, value in normalized.items()}
     build_id = hashlib.sha256("".join(hashes[key] for key in sorted(hashes)).encode("ascii")).hexdigest()[:16]
+    manifest_paths = dict(SOURCE_FILES)
+    manifest_paths["berths"] = "berths-v4.json"
     manifest = canonical_json(
         {
             "schemaVersion": "4.0",
@@ -681,11 +910,11 @@ def build(data_dir: Path, templates_dir: Path, check_only: bool) -> None:
             "algorithm": "sha256",
             "sources": {
                 key: {
-                    "path": SOURCE_FILES[key].replace("\\", "/"),
+                    "path": manifest_paths[key].replace("\\", "/"),
                     "sha256": hashes[key],
                     "characters": len(normalized[key]),
                 }
-                for key in sorted(SOURCE_FILES)
+                for key in sorted(normalized)
             },
         }
     )
@@ -693,13 +922,20 @@ def build(data_dir: Path, templates_dir: Path, check_only: bool) -> None:
     if not check_only:
         for key in ("terminalLayout", "containerSites", "bayAxes"):
             atomic_write(data_dir / SOURCE_FILES[key], normalized[key])
-        for key, text in normalized.items():
-            atomic_write(templates_dir / TEMPLATE_PATHS[key], text)
+        atomic_write(berths_path, normalized["berths"])
+        for key, template_path in TEMPLATE_PATHS.items():
+            if key in normalized:
+                atomic_write(templates_dir / template_path, normalized[key])
         atomic_write(templates_dir / TEMPLATE_PATHS["manifest"], manifest)
 
     site_count = len(layout.get("sites", [])) if isinstance(layout, dict) else 0
+    berth_count = len(berths_document.get("berths", []))
+    vessel_count = len(source_documents.get("vessels", {}).get("vessels", []))
     action = "validated" if check_only else "synchronized"
-    print(f"V4 scene {action}: buildId={build_id} sites={site_count}")
+    print(
+        f"V4 scene {action}: buildId={build_id} "
+        f"sites={site_count} berths={berth_count} vessels={vessel_count}"
+    )
     for change in changes:
         prefix = "would change" if check_only else "changed"
         print(f"  {prefix}: {change}")

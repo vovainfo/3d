@@ -1,17 +1,37 @@
 {
   "schemaVersion": "4.0",
-  "buildId": "3cd081c4195ce801",
+  "buildId": "d4ce86934366012a",
   "algorithm": "sha256",
   "sources": {
     "bayAxes": {
       "path": "geojson/container_site_bay_axes_v4.geojson",
-      "sha256": "f16e7bdbf9a5ebb05b01e6fc2f599131d31109cbe570ddc965df6d5c214f89bd",
-      "characters": 1274
+      "sha256": "835e80ef86d9dfd0176337659902be03a7225a3bb661cf526dc3965c76d082aa",
+      "characters": 1964
+    },
+    "berthHeadingAxes": {
+      "path": "geojson/berth_heading_axes_v4.geojson",
+      "sha256": "b6cebc4e97d1463058503fb0b2a8946ac8663e2dba02669ac0750c5bcc72a642",
+      "characters": 2309
+    },
+    "berthPoints": {
+      "path": "geojson/berth_points_v4.geojson",
+      "sha256": "80493460789461a4aa70606143f631b5a0ad3fad76e5f056a1b45404706e0da5",
+      "characters": 1858
+    },
+    "berths": {
+      "path": "berths-v4.json",
+      "sha256": "00839b466a1b55a0a44421b0b3c48e709c3562e422213adae367e79b66714746",
+      "characters": 1234
+    },
+    "buildings": {
+      "path": "geojson/buildings.geojson",
+      "sha256": "ddec1f9674f8821224f598ba123c6c4010a1a74ef43843623912497b250100d5",
+      "characters": 2851
     },
     "containerSites": {
       "path": "geojson/container_sites_v4.geojson",
-      "sha256": "5dedbd7675727d28539a82a65c0f375ba154e371bcb192b408958ee9ebcc0f64",
-      "characters": 2087
+      "sha256": "a6587e5c1553f29ab172c2c2e94b3d822d5850fbd423f67e83081686ad9572d6",
+      "characters": 3325
     },
     "sceneOrigin": {
       "path": "scene_origin.txt",
@@ -25,8 +45,13 @@
     },
     "terminalLayout": {
       "path": "terminal-layout-v4.json",
-      "sha256": "95c4a4810b6fe95a553acc3be1e44118433796aede2e893909de25e689fb168a",
-      "characters": 9019
+      "sha256": "99dc4b0f0f96d47a56f2bd142e6818def4dc61d86bfe7529e8e84b0f10ad4c35",
+      "characters": 10755
+    },
+    "vessels": {
+      "path": "vessels-v4.json",
+      "sha256": "a3107df110944d7b21a2791b40876b48fc73b25f7627ea55683a36a123c210af",
+      "characters": 379
     },
     "water": {
       "path": "geojson/water.geojson",

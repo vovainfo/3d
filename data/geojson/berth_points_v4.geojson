@@ -1,0 +1,14 @@
+{
+"type": "FeatureCollection",
+"name": "berth_points_v4",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32652" } },
+"xy_coordinate_resolution": 0.01,
+"features": [
+{"type":"Feature","properties":{"fid":1,"berth_id":"53","name":"Причал 53"},"geometry":{"type":"Point","coordinates":[734361.84,4774968.97]}},
+{"type":"Feature","properties":{"fid":2,"berth_id":"52","name":"Причал 52"},"geometry":{"type":"Point","coordinates":[734418.24,4775138.28]}},
+{"type":"Feature","properties":{"fid":3,"berth_id":"51","name":"Причал 51"},"geometry":{"type":"Point","coordinates":[734486.45,4775238.98]}},
+{"type":"Feature","properties":{"fid":4,"berth_id":"50","name":"Причал 50"},"geometry":{"type":"Point","coordinates":[734585.1,4775450.38]}},
+{"type":"Feature","properties":{"fid":5,"berth_id":"50-2","name":"Причал 50-2"},"geometry":{"type":"Point","coordinates":[734555.49,4775361.54]}},
+{"type":"Feature","properties":{"fid":6,"berth_id":"50-1","name":"Причал 50-1"},"geometry":{"type":"Point","coordinates":[734610.76,4775527.37]}}
+]
+}
