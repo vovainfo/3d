@@ -1,0 +1,12 @@
+{
+"type": "FeatureCollection",
+"name": "portal_cranes_v4",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32652" } },
+"xy_coordinate_resolution": 0.01,
+"features": [
+{"type":"Feature","properties":{"fid":1,"id":"PK76","name":"ПК76","model":"Кондор 40","azimuthDeg":0,"scale":1.0,"color":"#F0C000"},"geometry":{"type":"Point","coordinates":[734426.38,4775149.06]}},
+{"type":"Feature","properties":{"fid":2,"id":"PK87","name":"ПК87","model":"DBM 6045","azimuthDeg":0,"scale":1.5,"color":"#F0C000"},"geometry":{"type":"Point","coordinates":[734406.14,4775085.66]}},
+{"type":"Feature","properties":{"fid":3,"id":"PK81","name":"ПК81","model":"ВИТЯЗЬ 45-63","azimuthDeg":0,"scale":1.0,"color":"#F0C000"},"geometry":{"type":"Point","coordinates":[734369.94,4774979.32]}},
+{"type":"Feature","properties":{"fid":4,"id":"PK79","name":"ПК79","model":"LIEBHERR LPS 420","azimuthDeg":0,"scale":1.0,"color":"#F0C000"},"geometry":{"type":"Point","coordinates":[734340.7,4774892.41]}}
+]
+}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "4.0",
-  "buildId": "d4ce86934366012a",
+  "buildId": "f9b26ecaf3201aeb",
   "algorithm": "sha256",
   "sources": {
     "bayAxes": {
@@ -33,6 +33,16 @@
       "sha256": "a6587e5c1553f29ab172c2c2e94b3d822d5850fbd423f67e83081686ad9572d6",
       "characters": 3325
     },
+    "cranes": {
+      "path": "cranes-v4.json",
+      "sha256": "fe528a179556f2a59dbd8b9577643e03f3c8ccceec9166d2883a466af45608ef",
+      "characters": 2060
+    },
+    "portalCranes": {
+      "path": "geojson/portal_cranes_v4.geojson",
+      "sha256": "b33f880eb87a88202ecf492c49c9ddaa9a55efabd83388b5ccfb66aeaac4af76",
+      "characters": 1702
+    },
     "sceneOrigin": {
       "path": "scene_origin.txt",
       "sha256": "e0c6bcfd9bc3545b3ba873e6dd8ed40dd491e60f518f09c6e98a2a6b085ab4e8",
@@ -57,6 +67,11 @@
       "path": "geojson/water.geojson",
       "sha256": "fae4f70c1c1db72c0218c3bb910bdb3bef6265f83c1a5957f0327100b71f5842",
       "characters": 2443
+    },
+    "yardCranes": {
+      "path": "yard-cranes-v4.json",
+      "sha256": "49dcd067c12f90b239edbe15f348442b0ec9333665dcc78e513aba7a007a2de1",
+      "characters": 1061
     }
   }
 }

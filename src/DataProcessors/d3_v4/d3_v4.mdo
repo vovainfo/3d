@@ -124,4 +124,12 @@
     </synonym>
     <templateType>TextDocument</templateType>
   </templates>
+  <templates uuid="4a68cdbf-f91e-42ac-9e16-60912c616c62">
+    <name>CranesV4_json</name>
+    <synonym>
+      <key>ru</key>
+      <value>Cranes v4 json</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
 </mdclass:DataProcessor>

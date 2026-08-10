@@ -52,7 +52,7 @@ function initTerminalPlan2D() {
     site.length = numberOr(site.length, 620);
     site.maxX = numberOr(site.maxX, site.minX + site.width);
     site.maxY = numberOr(site.maxY, site.minY + site.length);
-    site.quayWidth = Math.max(0, numberOr(site.quayWidth, 12));
+    site.quayWidth = Math.max(0, numberOr(site.quayWidth, 4));
     function normalizePointRing(raw) {
         var out = [];
         var i;
@@ -299,7 +299,15 @@ function initTerminalPlan2D() {
             length: numberOr(so.length, numberOr(so.size && so.size.length, 0)),
             vesselId: String(so.vesselId || ''),
             berthId: String(so.berthId || ''),
-            mooringSide: String(so.mooringSide || '')
+            mooringSide: String(so.mooringSide || ''),
+            model: String(so.model || ''),
+            scale: Math.max(0.01, numberOr(so.scale, 1)),
+            azimuthDeg: numberOr(so.azimuthDeg, 0),
+            siteId: String(so.siteId || ''),
+            movementAxis: String(so.movementAxis || ''),
+            positionM: numberOr(so.positionM, 0),
+            railInsetM: numberOr(so.railInsetM, 0),
+            rails: so.rails instanceof Array ? so.rails : []
         };
         objects.push(obj);
         objectById[oid] = obj;
@@ -783,16 +791,18 @@ function initTerminalPlan2D() {
                 hh: vesselBeam(obj) * 0.55
             };
         }
-        if (kind === 'craneSts') {
+        if (kind === 'cranePortal') {
+            var portalScale = Math.max(0.01, numberOr(obj.scale, 1));
             return {
-                hw: numberOr(size.length, 14) * 0.7,
-                hh: (numberOr(size.outreach, 42) + numberOr(size.gauge, 18) * 0.5) * 0.55
+                hw: numberOr(size.length, 7) * 0.7 * portalScale,
+                hh: (numberOr(size.outreach, 21) + numberOr(size.gauge, 9) * 0.5) * 0.55 * portalScale
             };
         }
-        if (kind === 'craneRtg') {
+        if (kind === 'craneRtg' || kind === 'craneRmg') {
             return {
-                hw: numberOr(size.length, 22) * 0.55,
-                hh: numberOr(size.span, 32) * 0.55
+                // После поворота +90°: span поперёк площадки (X), length вдоль хода (Y).
+                hw: numberOr(size.span, 32) * 0.55,
+                hh: numberOr(size.length, 22) * 0.55
             };
         }
         if (kind === 'craneReachStacker') {
@@ -889,10 +899,10 @@ function initTerminalPlan2D() {
         }
     }
 
-    function drawStsIcon(obj, s) {
-        var gauge = numberOr(obj.size.gauge, 18) * s;
-        var outreach = numberOr(obj.size.outreach, 42) * s;
-        var len = numberOr(obj.size.length, 14) * s;
+    function drawPortalIcon(obj, s) {
+        var gauge = numberOr(obj.size.gauge, 9) * s;
+        var outreach = numberOr(obj.size.outreach, 21) * s;
+        var len = numberOr(obj.size.length, 7) * s;
         var color = obj.color || '#f0c000';
         var leg = Math.max(2.2, 1.4 * s);
         // локально: +Y к суше, −Y к морю (вылет стрелы)
@@ -939,7 +949,7 @@ function initTerminalPlan2D() {
             ctx.font = Math.max(8, Math.min(11, 2.6 * s)) + 'px Segoe UI, sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText(obj.name || 'STS', 0, landY + gauge * 0.45);
+            ctx.fillText(obj.model || obj.name || 'Портальный', 0, landY + gauge * 0.45);
         }
     }
 
@@ -984,39 +994,114 @@ function initTerminalPlan2D() {
         }
     }
 
-    function drawRtgIcon(obj, s) {
+    function drawGantryIcon(obj, s, onRails) {
+        // После rotation+90: локальный X — поперёк площадки (пролёт), Y — вдоль хода.
         var span = numberOr(obj.size.span, 32) * s;
         var len = numberOr(obj.size.length, 22) * s;
         var leg = Math.max(2.5, 1.6 * s);
         var color = obj.color || '#ffd000';
+        var left = -span / 2;
+        var right = span / 2;
         ctx.strokeStyle = '#111';
         ctx.lineWidth = 1;
-        // опоры / рельсовые тележки
+
+        // Опорные балки слева/справа — за пределами площадки.
         ctx.fillStyle = '#374151';
-        strokeFillRect(-len / 2, -span / 2, len, leg);
-        strokeFillRect(-len / 2, span / 2 - leg, len, leg);
-        // вертикальные стойки
+        strokeFillRect(left, -len / 2, leg, len);
+        strokeFillRect(right - leg, -len / 2, leg, len);
+
+        if (onRails) {
+            // Узкие ЖД-катки точно на рельсах (на внешних кромках опор).
+            var bogieW = Math.max(1.2, 0.7 * s);
+            var bogieH = Math.max(2.2, 1.3 * s);
+            ctx.fillStyle = '#111827';
+            strokeFillRect(left - bogieW * 0.15, -len / 2, bogieW, bogieH);
+            strokeFillRect(left - bogieW * 0.15, len / 2 - bogieH, bogieW, bogieH);
+            strokeFillRect(right - bogieW * 0.85, -len / 2, bogieW, bogieH);
+            strokeFillRect(right - bogieW * 0.85, len / 2 - bogieH, bogieW, bogieH);
+        } else {
+            // Широкие резиновые колёса снаружи опор.
+            var wheelR = Math.max(2.2, 1.35 * s);
+            var wheelX = [left - wheelR * 0.15, right + wheelR * 0.15];
+            var wheelY = [-len / 2 + wheelR * 1.1, 0, len / 2 - wheelR * 1.1];
+            var wxi;
+            var wyi;
+            ctx.fillStyle = '#111';
+            ctx.strokeStyle = '#0b1220';
+            ctx.lineWidth = Math.max(1, s * 0.12);
+            for (wxi = 0; wxi < wheelX.length; wxi++) {
+                for (wyi = 0; wyi < wheelY.length; wyi++) {
+                    ctx.beginPath();
+                    ctx.arc(wheelX[wxi], wheelY[wyi], wheelR, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.arc(wheelX[wxi], wheelY[wyi], wheelR * 0.45, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+            }
+            ctx.strokeStyle = '#111';
+            ctx.lineWidth = 1;
+        }
+
+        // Вертикальные стойки и поперечная балка.
         ctx.fillStyle = color;
-        strokeFillRect(-len / 2, -span / 2, leg, span);
-        strokeFillRect(len / 2 - leg, -span / 2, leg, span);
-        // пролётная балка
+        strokeFillRect(left, -len / 2, leg, len);
+        strokeFillRect(right - leg, -len / 2, leg, len);
         var beam = Math.max(2, 1.4 * s);
-        strokeFillRect(-len / 2, -beam / 2, len, beam);
-        // тележка + спредер
+        strokeFillRect(left, -beam / 2, span, beam);
+
+        // Тележка + спредер.
         ctx.fillStyle = '#1f2937';
-        strokeFillRect(-2.2 * s, -beam * 1.6, 4.4 * s, beam * 3.2);
+        strokeFillRect(-beam * 1.6, -2.2 * s, beam * 3.2, 4.4 * s);
         ctx.strokeStyle = color;
         ctx.lineWidth = Math.max(1.5, s * 0.25);
-        ctx.strokeRect(-3.5 * s, beam * 1.2, 7 * s, Math.max(3, 2.2 * s));
-        // поперечины
+        ctx.strokeRect(beam * 1.2, -3.5 * s, Math.max(3, 2.2 * s), 7 * s);
+
+        // Поперечины.
         ctx.strokeStyle = '#92400e';
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.moveTo(-len / 2 + leg, -span / 2 + leg);
-        ctx.lineTo(len / 2 - leg, span / 2 - leg);
-        ctx.moveTo(-len / 2 + leg, span / 2 - leg);
-        ctx.lineTo(len / 2 - leg, -span / 2 + leg);
+        ctx.moveTo(left + leg, -len / 2 + leg);
+        ctx.lineTo(right - leg, len / 2 - leg);
+        ctx.moveTo(left + leg, len / 2 - leg);
+        ctx.lineTo(right - leg, -len / 2 + leg);
         ctx.stroke();
+    }
+
+    function drawRtgIcon(obj, s) {
+        drawGantryIcon(obj, s, false);
+    }
+
+    function drawRmgIcon(obj, s) {
+        drawGantryIcon(obj, s, true);
+    }
+
+    function drawRmgRails(obj) {
+        if (!(obj.rails instanceof Array)) {
+            return;
+        }
+        ctx.save();
+        var railWidth = Math.max(3, view.scale * 0.45);
+        for (var ri = 0; ri < obj.rails.length; ri++) {
+            var rail = obj.rails[ri] || {};
+            var first = worldToScreen(numberOr(rail.x1, 0), numberOr(rail.y1, 0));
+            var last = worldToScreen(numberOr(rail.x2, 0), numberOr(rail.y2, 0));
+            ctx.strokeStyle = '#1f2937';
+            ctx.lineWidth = railWidth + Math.max(2, view.scale * 0.2);
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(first.x, first.y);
+            ctx.lineTo(last.x, last.y);
+            ctx.stroke();
+            ctx.strokeStyle = '#d1d5db';
+            ctx.lineWidth = railWidth;
+            ctx.beginPath();
+            ctx.moveTo(first.x, first.y);
+            ctx.lineTo(last.x, last.y);
+            ctx.stroke();
+        }
+        ctx.restore();
     }
 
     function drawReachStackerIcon(obj, s) {
@@ -1358,10 +1443,12 @@ function initTerminalPlan2D() {
             drawWarehouseIcon(obj, s);
         } else if (kind === 'vessel') {
             drawVesselIcon(obj, s);
-        } else if (kind === 'craneSts') {
-            drawStsIcon(obj, s);
+        } else if (kind === 'cranePortal') {
+            drawPortalIcon(obj, s * Math.max(0.01, numberOr(obj.scale, 1)));
         } else if (kind === 'craneRtg') {
             drawRtgIcon(obj, s);
+        } else if (kind === 'craneRmg') {
+            drawRmgIcon(obj, s);
         } else if (kind === 'craneReachStacker') {
             drawReachStackerIcon(obj, s);
         } else if (kind === 'craneMobile') {
@@ -1428,6 +1515,11 @@ function initTerminalPlan2D() {
         }
         for (i = 0; i < infrastructure.length; i++) {
             drawInfrastructure(infrastructure[i]);
+        }
+        for (i = 0; i < objects.length; i++) {
+            if (objects[i].kind === 'craneRmg') {
+                drawRmgRails(objects[i]);
+            }
         }
         for (i = 0; i < cells.length; i++) {
             drawCell(cells[i]);

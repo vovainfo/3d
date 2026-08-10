@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "4.0",
+  "cranes": [
+    {
+      "id": "RTG-kpB-01",
+      "name": "RTG kpB 01",
+      "type": "rtg",
+      "siteId": "kpB",
+      "movementAxis": "bays",
+      "positionM": 60.0,
+      "color": "#F2C94C"
+    },
+    {
+      "id": "RTG-kpB-02",
+      "name": "RTG kpB 02",
+      "type": "rtg",
+      "siteId": "kpB",
+      "movementAxis": "bays",
+      "positionM": 155.0,
+      "color": "#F2C94C"
+    },
+    {
+      "id": "RTG-kpB-03",
+      "name": "RTG kpB 03",
+      "type": "rtg",
+      "siteId": "kpB",
+      "movementAxis": "bays",
+      "positionM": 250.0,
+      "color": "#F2C94C"
+    },
+    {
+      "id": "RMG-kpAD-01",
+      "name": "RMG kpAD 01",
+      "type": "rmg",
+      "siteId": "kpAD",
+      "movementAxis": "bays",
+      "positionM": 65.0,
+      "railInsetM": 2.0,
+      "color": "#E67E22"
+    },
+    {
+      "id": "RMG-kpAD-02",
+      "name": "RMG kpAD 02",
+      "type": "rmg",
+      "siteId": "kpAD",
+      "movementAxis": "bays",
+      "positionM": 145.0,
+      "railInsetM": 2.0,
+      "color": "#E67E22"
+    }
+  ]
+}

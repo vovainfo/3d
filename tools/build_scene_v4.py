@@ -31,6 +31,8 @@ SOURCE_FILES = {
     "berthPoints": "geojson/berth_points_v4.geojson",
     "berthHeadingAxes": "geojson/berth_heading_axes_v4.geojson",
     "vessels": "vessels-v4.json",
+    "portalCranes": "geojson/portal_cranes_v4.geojson",
+    "yardCranes": "yard-cranes-v4.json",
     "containerSites": "geojson/container_sites_v4.geojson",
     "bayAxes": "geojson/container_site_bay_axes_v4.geojson",
 }
@@ -43,6 +45,7 @@ TEMPLATE_PATHS = {
     "buildings": "Buildings_geojson/Template.txt",
     "berths": "BerthsV4_json/Template.txt",
     "vessels": "VesselsV4_json/Template.txt",
+    "cranes": "CranesV4_json/Template.txt",
     "containerSites": "ContainerSitesV4_geojson/Template.txt",
     "bayAxes": "ContainerSiteBayAxesV4_geojson/Template.txt",
     "manifest": "SceneManifestV4_json/Template.txt",
@@ -517,6 +520,134 @@ def validate_vessels(document: Any, berth_ids: set[str], validation: Validation)
             validation.require(number(clearance) and clearance >= 0, f"{location}.clearanceM", "must be non-negative")
 
 
+def valid_color(value: Any) -> bool:
+    return isinstance(value, str) and re.fullmatch(r"#[0-9A-Fa-f]{6}", value) is not None
+
+
+def trimmed_text(value: Any) -> str:
+    return value.strip() if isinstance(value, str) else ""
+
+
+def collect_cranes(
+    portal_document: Any,
+    yard_document: Any,
+    layout: Any,
+    crs: str,
+    validation: Validation,
+) -> dict[str, Any]:
+    cranes: list[dict[str, Any]] = []
+    crane_ids: set[str] = set()
+
+    for feature_index, feature in enumerate(
+        feature_collection(portal_document, "portal_cranes_v4.geojson", validation)
+    ):
+        location = f"portal_cranes_v4.geojson.features[{feature_index}]"
+        properties = feature.get("properties") if isinstance(feature, dict) else None
+        geometry = feature.get("geometry") if isinstance(feature, dict) else None
+        if not isinstance(properties, dict):
+            validation.add(f"{location}.properties", "properties object is required")
+            continue
+        crane_id = trimmed_text(properties.get("id"))
+        name = trimmed_text(properties.get("name"))
+        model = trimmed_text(properties.get("model"))
+        validation.require(bool(crane_id), f"{location}.properties.id", "id is required")
+        validation.require(bool(name), f"{location}.properties.name", "name is required")
+        validation.require(bool(model), f"{location}.properties.model", "model is required")
+        if crane_id in crane_ids:
+            validation.add(f"{location}.properties.id", f"duplicate crane id {crane_id}")
+        elif crane_id:
+            crane_ids.add(crane_id)
+        azimuth = properties.get("azimuthDeg")
+        scale = properties.get("scale")
+        color = properties.get("color")
+        validation.require(
+            number(azimuth) and 0 <= float(azimuth) < 360,
+            f"{location}.properties.azimuthDeg",
+            "must be in range [0, 360)",
+        )
+        validation.require(number(scale) and float(scale) > 0, f"{location}.properties.scale", "must be positive")
+        validation.require(valid_color(color), f"{location}.properties.color", "must use #RRGGBB format")
+        if not isinstance(geometry, dict) or geometry.get("type") != "Point":
+            validation.add(f"{location}.geometry", "geometry must be Point")
+            continue
+        coordinates = point(geometry.get("coordinates"))
+        if coordinates is None:
+            validation.add(f"{location}.geometry.coordinates", "coordinates must be a finite point")
+            continue
+        if crane_id:
+            cranes.append(
+                {
+                    "id": crane_id,
+                    "name": name,
+                    "type": "portal",
+                    "model": model,
+                    "position": list(coordinates),
+                    "azimuthDeg": azimuth,
+                    "scale": scale,
+                    "color": color,
+                }
+            )
+    validation.require(crs_code(portal_document) == crs, "portal_cranes_v4.geojson", f"CRS must be {crs}")
+
+    if not isinstance(yard_document, dict):
+        validation.add("yard-cranes-v4.json", "root must be an object")
+        return {"schemaVersion": "4.0", "crs": crs, "cranes": cranes}
+    validation.require(yard_document.get("schemaVersion") == "4.0", "yard-cranes-v4.json", "schemaVersion must be 4.0")
+    yard_cranes = yard_document.get("cranes")
+    if not isinstance(yard_cranes, list):
+        validation.add("yard-cranes-v4.json.cranes", "cranes must be an array")
+        return {"schemaVersion": "4.0", "crs": crs, "cranes": cranes}
+
+    sites_by_id = {
+        str(site.get("id", "")): site
+        for site in layout.get("sites", [])
+        if isinstance(site, dict)
+    } if isinstance(layout, dict) else {}
+    for crane_index, crane in enumerate(yard_cranes):
+        location = f"yard-cranes-v4.json.cranes[{crane_index}]"
+        if not isinstance(crane, dict):
+            validation.add(location, "crane must be an object")
+            continue
+        crane_id = trimmed_text(crane.get("id"))
+        name = trimmed_text(crane.get("name"))
+        crane_type = crane.get("type")
+        site_id = trimmed_text(crane.get("siteId"))
+        movement_axis = crane.get("movementAxis")
+        validation.require(bool(crane_id), f"{location}.id", "id is required")
+        validation.require(bool(name), f"{location}.name", "name is required")
+        if crane_id in crane_ids:
+            validation.add(f"{location}.id", f"duplicate crane id {crane_id}")
+        elif crane_id:
+            crane_ids.add(crane_id)
+        validation.require(crane_type in ("rtg", "rmg"), f"{location}.type", "must be rtg or rmg")
+        validation.require(site_id in sites_by_id, f"{location}.siteId", f"unknown siteId {site_id!r}")
+        validation.require(movement_axis in ("bays", "rows"), f"{location}.movementAxis", "must be bays or rows")
+        validation.require(number(crane.get("positionM")), f"{location}.positionM", "must be a finite number")
+        validation.require(valid_color(crane.get("color")), f"{location}.color", "must use #RRGGBB format")
+        if crane_type == "rmg":
+            rail_inset = crane.get("railInsetM")
+            validation.require(
+                number(rail_inset) and float(rail_inset) >= 0,
+                f"{location}.railInsetM",
+                "must be non-negative",
+            )
+        if crane_id:
+            normalized = {
+                "id": crane_id,
+                "name": name,
+                "type": crane_type,
+                "siteId": site_id,
+                "movementAxis": movement_axis,
+                "positionM": crane.get("positionM"),
+                "color": crane.get("color"),
+            }
+            if crane_type == "rmg":
+                normalized["railInsetM"] = crane.get("railInsetM")
+            cranes.append(normalized)
+
+    return {"schemaVersion": "4.0", "crs": crs, "cranes": cranes}
+
+
 def inclusive_numbers(segment: Any, location: str, validation: Validation) -> list[int]:
     numbers = segment.get("numbers") if isinstance(segment, dict) else None
     if not isinstance(numbers, dict):
@@ -882,6 +1013,13 @@ def build(data_dir: Path, templates_dir: Path, check_only: bool) -> None:
     sites = collect_sites(source_documents.get("containerSites", {}), terminal_crs, validation)
     axes = collect_axes(source_documents.get("bayAxes", {}), terminal_crs, validation)
     changes = validate_layout(layout, sites, axes, validation)
+    cranes_document = collect_cranes(
+        source_documents.get("portalCranes", {}),
+        source_documents.get("yardCranes", {}),
+        layout,
+        terminal_crs,
+        validation,
+    )
     validation.finish()
 
     normalized = {
@@ -891,18 +1029,27 @@ def build(data_dir: Path, templates_dir: Path, check_only: bool) -> None:
         for key in SOURCE_FILES
     }
     normalized["berths"] = canonical_json(berths_document)
+    normalized["cranes"] = canonical_json(cranes_document)
     berths_path = data_dir / "berths-v4.json"
+    cranes_path = data_dir / "cranes-v4.json"
     try:
         current_berths = berths_path.read_text(encoding="utf-8-sig").replace("\r\n", "\n")
     except OSError:
         current_berths = ""
     if current_berths != normalized["berths"]:
         changes.append("updated derived berths-v4.json")
+    try:
+        current_cranes = cranes_path.read_text(encoding="utf-8-sig").replace("\r\n", "\n")
+    except OSError:
+        current_cranes = ""
+    if current_cranes != normalized["cranes"]:
+        changes.append("updated derived cranes-v4.json")
 
     hashes = {key: hashlib.sha256(value.encode("utf-8")).hexdigest() for key, value in normalized.items()}
     build_id = hashlib.sha256("".join(hashes[key] for key in sorted(hashes)).encode("ascii")).hexdigest()[:16]
     manifest_paths = dict(SOURCE_FILES)
     manifest_paths["berths"] = "berths-v4.json"
+    manifest_paths["cranes"] = "cranes-v4.json"
     manifest = canonical_json(
         {
             "schemaVersion": "4.0",
@@ -923,6 +1070,7 @@ def build(data_dir: Path, templates_dir: Path, check_only: bool) -> None:
         for key in ("terminalLayout", "containerSites", "bayAxes"):
             atomic_write(data_dir / SOURCE_FILES[key], normalized[key])
         atomic_write(berths_path, normalized["berths"])
+        atomic_write(cranes_path, normalized["cranes"])
         for key, template_path in TEMPLATE_PATHS.items():
             if key in normalized:
                 atomic_write(templates_dir / template_path, normalized[key])
@@ -931,10 +1079,11 @@ def build(data_dir: Path, templates_dir: Path, check_only: bool) -> None:
     site_count = len(layout.get("sites", [])) if isinstance(layout, dict) else 0
     berth_count = len(berths_document.get("berths", []))
     vessel_count = len(source_documents.get("vessels", {}).get("vessels", []))
+    crane_count = len(cranes_document.get("cranes", []))
     action = "validated" if check_only else "synchronized"
     print(
         f"V4 scene {action}: buildId={build_id} "
-        f"sites={site_count} berths={berth_count} vessels={vessel_count}"
+        f"sites={site_count} berths={berth_count} vessels={vessel_count} cranes={crane_count}"
     )
     for change in changes:
         prefix = "would change" if check_only else "changed"

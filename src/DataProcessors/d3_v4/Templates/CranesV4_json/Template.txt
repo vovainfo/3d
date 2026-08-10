@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "4.0",
+  "crs": "EPSG:32652",
+  "cranes": [
+    {
+      "id": "PK76",
+      "name": "ПК76",
+      "type": "portal",
+      "model": "Кондор 40",
+      "position": [
+        734426.38,
+        4775149.06
+      ],
+      "azimuthDeg": 0,
+      "scale": 1.0,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK87",
+      "name": "ПК87",
+      "type": "portal",
+      "model": "DBM 6045",
+      "position": [
+        734406.14,
+        4775085.66
+      ],
+      "azimuthDeg": 0,
+      "scale": 1.5,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK81",
+      "name": "ПК81",
+      "type": "portal",
+      "model": "ВИТЯЗЬ 45-63",
+      "position": [
+        734369.94,
+        4774979.32
+      ],
+      "azimuthDeg": 0,
+      "scale": 1.0,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK79",
+      "name": "ПК79",
+      "type": "portal",
+      "model": "LIEBHERR LPS 420",
+      "position": [
+        734340.7,
+        4774892.41
+      ],
+      "azimuthDeg": 0,
+      "scale": 1.0,
+      "color": "#F0C000"
+    },
+    {
+      "id": "RTG-kpB-01",
+      "name": "RTG kpB 01",
+      "type": "rtg",
+      "siteId": "kpB",
+      "movementAxis": "bays",
+      "positionM": 60.0,
+      "color": "#F2C94C"
+    },
+    {
+      "id": "RTG-kpB-02",
+      "name": "RTG kpB 02",
+      "type": "rtg",
+      "siteId": "kpB",
+      "movementAxis": "bays",
+      "positionM": 155.0,
+      "color": "#F2C94C"
+    },
+    {
+      "id": "RTG-kpB-03",
+      "name": "RTG kpB 03",
+      "type": "rtg",
+      "siteId": "kpB",
+      "movementAxis": "bays",
+      "positionM": 250.0,
+      "color": "#F2C94C"
+    },
+    {
+      "id": "RMG-kpAD-01",
+      "name": "RMG kpAD 01",
+      "type": "rmg",
+      "siteId": "kpAD",
+      "movementAxis": "bays",
+      "positionM": 65.0,
+      "color": "#E67E22",
+      "railInsetM": 2.0
+    },
+    {
+      "id": "RMG-kpAD-02",
+      "name": "RMG kpAD 02",
+      "type": "rmg",
+      "siteId": "kpAD",
+      "movementAxis": "bays",
+      "positionM": 145.0,
+      "color": "#E67E22",
+      "railInsetM": 2.0
+    }
+  ]
+}

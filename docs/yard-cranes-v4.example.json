@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "4.0",
+  "cranes": [
+    {
+      "id": "RTG-example-01",
+      "name": "RTG 01",
+      "type": "rtg",
+      "siteId": "kpB",
+      "movementAxis": "bays",
+      "positionM": 42.5,
+      "color": "#F2C94C"
+    },
+    {
+      "id": "RMG-example-01",
+      "name": "RMG 01",
+      "type": "rmg",
+      "siteId": "kpAD",
+      "movementAxis": "bays",
+      "positionM": -5.0,
+      "railInsetM": 2.0,
+      "color": "#E67E22"
+    }
+  ]
+}
