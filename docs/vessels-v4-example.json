@@ -7,7 +7,9 @@
       "lengthM": 100.0,
       "beamM": 30.0,
       "berthId": "52",
-      "mooringSide": "starboard"
+      "mooringSide": "right",
+      "vesselType": "container",
+      "refueling": true
     },
     {
       "id": "fesco-star",
@@ -15,7 +17,46 @@
       "lengthM": 50.0,
       "beamM": 20.0,
       "berthId": "53",
-      "mooringSide": "port"
+      "mooringSide": "left",
+      "vesselType": "carCarrier",
+      "refueling": true
+    },
+    {
+      "id": "coal-trader",
+      "name": "Coal Trader",
+      "lengthM": 120.0,
+      "beamM": 24.0,
+      "berthId": "51",
+      "mooringSide": "right",
+      "vesselType": "coal"
+    },
+    {
+      "id": "okhotsk-fish",
+      "name": "Okhotsk Fish",
+      "lengthM": 90.0,
+      "beamM": 18.0,
+      "berthId": "50",
+      "mooringSide": "right",
+      "vesselType": "fish"
+    },
+    {
+      "id": "general-breeze",
+      "name": "General Breeze",
+      "lengthM": 110.0,
+      "beamM": 22.0,
+      "berthId": "50-1",
+      "mooringSide": "left",
+      "vesselType": "general"
+    },
+    {
+      "id": "empty-harbor",
+      "name": "Empty Harbor",
+      "lengthM": 80.0,
+      "beamM": 18.0,
+      "berthId": "50-2",
+      "mooringSide": "bow",
+      "vesselType": "empty",
+      "refueling": true
     }
   ]
 }

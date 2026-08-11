@@ -3,7 +3,6 @@
   <items xsi:type="form:FormField">
     <name>ПоискОбъекта</name>
     <id>12</id>
-    <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
       <common>true</common>
@@ -43,7 +42,6 @@
   <items xsi:type="form:FormField">
     <name>СостояниеОбмена</name>
     <id>19</id>
-    <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
       <common>true</common>

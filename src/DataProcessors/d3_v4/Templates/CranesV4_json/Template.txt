@@ -55,6 +55,344 @@
       "color": "#F0C000"
     },
     {
+      "id": "PK63",
+      "name": "ПК63",
+      "type": "portal",
+      "model": "КОНДОР 40",
+      "position": [
+        734542.44,
+        4775307.44
+      ],
+      "azimuthDeg": 0,
+      "scale": 1.0,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK89",
+      "name": "ПК89",
+      "type": "portal",
+      "model": "DBM 6045",
+      "position": [
+        734567.82,
+        4775386.55
+      ],
+      "azimuthDeg": 0,
+      "scale": 1.5,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK88",
+      "name": "ПК88",
+      "type": "portal",
+      "model": "DBM 6045",
+      "position": [
+        734595.42,
+        4775468.98
+      ],
+      "azimuthDeg": 0,
+      "scale": 1.5,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK78",
+      "name": "ПК78",
+      "type": "portal",
+      "model": "LIEBHERR LPS 280",
+      "position": [
+        734616.31,
+        4775532.57
+      ],
+      "azimuthDeg": 0,
+      "scale": 1.0,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK59",
+      "name": "ПК59",
+      "type": "portal",
+      "model": "ГАНЦ 5/6",
+      "position": [
+        734626.53,
+        4775617.05
+      ],
+      "azimuthDeg": 0,
+      "scale": 0.7,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK69",
+      "name": "ПК69",
+      "type": "portal",
+      "model": "КПП 16/20",
+      "position": [
+        734609.5,
+        4775673.49
+      ],
+      "azimuthDeg": 0,
+      "scale": 1.0,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK75",
+      "name": "ПК75",
+      "type": "portal",
+      "model": "Кондор 40",
+      "position": [
+        734592.24,
+        4775724.81
+      ],
+      "azimuthDeg": 0,
+      "scale": 1.0,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK83",
+      "name": "ПК83",
+      "type": "portal",
+      "model": "DBM 6045",
+      "position": [
+        734571.03,
+        4775790.67
+      ],
+      "azimuthDeg": 0,
+      "scale": 1.5,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK56",
+      "name": "ПК56",
+      "type": "portal",
+      "model": "ГАНЦ 5/6",
+      "position": [
+        734562.4,
+        4775868.91
+      ],
+      "azimuthDeg": 0,
+      "scale": 0.7,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK64",
+      "name": "ПК64",
+      "type": "portal",
+      "model": "ГАНЦ 5/6",
+      "position": [
+        734571.71,
+        4775907.74
+      ],
+      "azimuthDeg": 0,
+      "scale": 0.7,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK46",
+      "name": "ПК46",
+      "type": "portal",
+      "model": "ГАНЦ 5/6",
+      "position": [
+        734581.25,
+        4775942.26
+      ],
+      "azimuthDeg": 0,
+      "scale": 0.7,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK49",
+      "name": "ПК49",
+      "type": "portal",
+      "model": "ГАНЦ 5/6",
+      "position": [
+        734589.54,
+        4775974.29
+      ],
+      "azimuthDeg": 0,
+      "scale": 0.7,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK50",
+      "name": "ПК50",
+      "type": "portal",
+      "model": "ГАНЦ 5/6",
+      "position": [
+        734598.74,
+        4776007.9
+      ],
+      "azimuthDeg": 0,
+      "scale": 0.7,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK54",
+      "name": "ПК54",
+      "type": "portal",
+      "model": "ГАНЦ 5/6",
+      "position": [
+        734607.14,
+        4776039.92
+      ],
+      "azimuthDeg": 0,
+      "scale": 0.7,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK51",
+      "name": "ПК51",
+      "type": "portal",
+      "model": "ГАНЦ 5/6",
+      "position": [
+        734626.98,
+        4776083.41
+      ],
+      "azimuthDeg": 0,
+      "scale": 0.7,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK57",
+      "name": "ПК57",
+      "type": "portal",
+      "model": "ГАНЦ 5/6",
+      "position": [
+        734659.12,
+        4776106.8
+      ],
+      "azimuthDeg": 0,
+      "scale": 0.7,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK52",
+      "name": "ПК52",
+      "type": "portal",
+      "model": "ГАНЦ 5/6",
+      "position": [
+        734693.13,
+        4776131.44
+      ],
+      "azimuthDeg": 0,
+      "scale": 0.7,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK60",
+      "name": "ПК60",
+      "type": "portal",
+      "model": "КОНДОР 40",
+      "position": [
+        734730.6,
+        4776158.58
+      ],
+      "azimuthDeg": 0,
+      "scale": 1.0,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK71",
+      "name": "ПК71",
+      "type": "portal",
+      "model": "КПП 16/20",
+      "position": [
+        734776.44,
+        4776189.01
+      ],
+      "azimuthDeg": 0,
+      "scale": 1.0,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK73",
+      "name": "ПК73",
+      "type": "portal",
+      "model": "СОКОЛ 16/20",
+      "position": [
+        734817.86,
+        4776223.42
+      ],
+      "azimuthDeg": 0,
+      "scale": 1.0,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK70",
+      "name": "ПК70",
+      "type": "portal",
+      "model": "КПП 16/20",
+      "position": [
+        734854.4,
+        4776254.19
+      ],
+      "azimuthDeg": 0,
+      "scale": 1.0,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK68",
+      "name": "ПК68",
+      "type": "portal",
+      "model": "КПП 16/20",
+      "position": [
+        734887.3,
+        4776281.78
+      ],
+      "azimuthDeg": 0,
+      "scale": 1.0,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK67",
+      "name": "ПК67",
+      "type": "portal",
+      "model": "Альбатрос 10",
+      "position": [
+        734919.09,
+        4776307.22
+      ],
+      "azimuthDeg": 0,
+      "scale": 1.0,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK45",
+      "name": "ПК45",
+      "type": "portal",
+      "model": "ГАНЦ 5/6",
+      "position": [
+        734957.22,
+        4776340.37
+      ],
+      "azimuthDeg": 0,
+      "scale": 0.7,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK58",
+      "name": "ПК58",
+      "type": "portal",
+      "model": "ГАНЦ 5/6",
+      "position": [
+        734983.22,
+        4776362.52
+      ],
+      "azimuthDeg": 0,
+      "scale": 0.7,
+      "color": "#F0C000"
+    },
+    {
+      "id": "PK55",
+      "name": "ПК55",
+      "type": "portal",
+      "model": "ГАНЦ 5/6",
+      "position": [
+        735042.81,
+        4776411.57
+      ],
+      "azimuthDeg": 0,
+      "scale": 0.7,
+      "color": "#F0C000"
+    },
+    {
       "id": "RTG-kpB-01",
       "name": "RTG kpB 01",
       "type": "rtg",

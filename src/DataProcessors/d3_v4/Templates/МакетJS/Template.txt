@@ -103,6 +103,7 @@ function initTerminalPlan2D() {
     var infrastructure = (sceneData.topology && sceneData.topology.infrastructure instanceof Array)
         ? sceneData.topology.infrastructure : [];
     var buildings = [];
+    var buildingById = {};
     var rawBuildings = (sceneData.topology && sceneData.topology.buildings instanceof Array)
         ? sceneData.topology.buildings : [];
     for (var initialBuildingIndex = 0; initialBuildingIndex < rawBuildings.length; initialBuildingIndex++) {
@@ -111,16 +112,22 @@ function initTerminalPlan2D() {
         if (buildingPolygon.length < 3) {
             continue;
         }
+        var buildingId = String(rawBuilding.id || '');
+        if (!buildingId || buildingById[buildingId]) {
+            continue;
+        }
         var buildingCenter = ringCentroid(buildingPolygon);
-        buildings.push({
-            id: String(rawBuilding.id || ''),
+        var building = {
+            id: buildingId,
             kind: 'building',
             name: String(rawBuilding.name || rawBuilding.id || ''),
             color: String(rawBuilding.color || '#64748b'),
             x: numberOr(rawBuilding.x, buildingCenter.x),
             y: numberOr(rawBuilding.y, buildingCenter.y),
             polygon: buildingPolygon
-        });
+        };
+        buildings.push(building);
+        buildingById[buildingId] = building;
     }
     var cells = (sceneData.cells instanceof Array) ? sceneData.cells.slice() : [];
     var cellById = {};
@@ -298,8 +305,10 @@ function initTerminalPlan2D() {
             load: String(so.load || 'none'),
             length: numberOr(so.length, numberOr(so.size && so.size.length, 0)),
             vesselId: String(so.vesselId || ''),
+            vesselType: String(so.vesselType || ''),
             berthId: String(so.berthId || ''),
             mooringSide: String(so.mooringSide || ''),
+            refueling: !!so.refueling,
             model: String(so.model || ''),
             scale: Math.max(0.01, numberOr(so.scale, 1)),
             azimuthDeg: numberOr(so.azimuthDeg, 0),
@@ -696,7 +705,8 @@ function initTerminalPlan2D() {
     }
 
     function drawBuilding(building) {
-        drawPolygonOutline(building, building.color, '#1f2937');
+        var outline = (selected && selected.id === building.id) ? '#fbbf24' : '#1f2937';
+        drawPolygonOutline(building, building.color, outline);
         var center = worldToScreen(building.x, building.y);
         ctx.save();
         ctx.font = 'bold ' + Math.max(10, Math.min(16, 4 * view.scale)) + 'px Segoe UI, sans-serif';
@@ -786,9 +796,13 @@ function initTerminalPlan2D() {
             };
         }
         if (kind === 'vessel') {
+            var vesselHh = vesselBeam(obj) * 0.55;
+            if (obj.refueling) {
+                vesselHh = vesselBeam(obj) * 0.95;
+            }
             return {
                 hw: vesselLength(obj) * 0.52,
-                hh: vesselBeam(obj) * 0.55
+                hh: vesselHh
             };
         }
         if (kind === 'cranePortal') {
@@ -829,6 +843,252 @@ function initTerminalPlan2D() {
         return { hw: 6, hh: 6 };
     }
 
+    function drawVesselCargoContainer(x0, y0, len, beam) {
+        var cols = 4;
+        var rows = 2;
+        var gapX = len * 0.015;
+        var gapY = beam * 0.04;
+        var cw = (len * 0.54 - gapX * (cols - 1)) / cols;
+        var ch = (beam * 0.44 - gapY * (rows - 1)) / rows;
+        var colors = ['#2563eb', '#1d4ed8', '#0ea5e9', '#0369a1'];
+        var c;
+        var r;
+        for (r = 0; r < rows; r++) {
+            for (c = 0; c < cols; c++) {
+                ctx.fillStyle = colors[(c + r) % colors.length];
+                strokeFillRect(
+                    x0 + len * 0.16 + c * (cw + gapX),
+                    y0 + beam * 0.28 + r * (ch + gapY),
+                    cw,
+                    ch);
+            }
+        }
+    }
+
+    function drawVesselCargoCar(x0, y0, len, beam, mooringSide) {
+        // Локально +Y к причалу при right (как у кранов: +Y к суше).
+        // При left судно развёрнуто на 180° — причал у −Y. bow/stern — без требований.
+        var wheelsAtNegY = mooringSide === 'left';
+        var n = 5;
+        var gap = len * 0.02;
+        var cw = (len * 0.54 - gap * (n - 1)) / n;
+        var ch = beam * 0.28;
+        var cy = y0 + beam * 0.36;
+        var i;
+        for (i = 0; i < n; i++) {
+            var cx = x0 + len * 0.16 + i * (cw + gap);
+            var bodyY = wheelsAtNegY ? (cy + ch * 0.28) : (cy + ch * 0.22);
+            var cabinY = wheelsAtNegY ? (cy + ch * 0.62) : (cy + ch * 0.05);
+            var wheelY = wheelsAtNegY ? (cy + ch * 0.18) : (cy + ch * 0.82);
+            ctx.fillStyle = '#dc2626';
+            strokeFillRect(cx + cw * 0.08, bodyY, cw * 0.84, ch * 0.55);
+            ctx.fillStyle = '#7f1d1d';
+            strokeFillRect(cx + cw * 0.22, cabinY, cw * 0.45, ch * 0.28);
+            ctx.fillStyle = '#1f2937';
+            ctx.beginPath();
+            ctx.arc(cx + cw * 0.28, wheelY, Math.max(1.2, ch * 0.18), 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(cx + cw * 0.72, wheelY, Math.max(1.2, ch * 0.18), 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function drawVesselCargoCoal(x0, y0, len, beam) {
+        var piles = 3;
+        var i;
+        for (i = 0; i < piles; i++) {
+            var px = x0 + len * (0.22 + i * 0.18);
+            var py = y0 + beam * 0.5;
+            var pw = len * 0.14;
+            var ph = beam * 0.32;
+            ctx.fillStyle = i % 2 === 0 ? '#1c1917' : '#0c0a09';
+            ctx.beginPath();
+            ctx.moveTo(px - pw * 0.5, py + ph * 0.45);
+            ctx.quadraticCurveTo(px - pw * 0.15, py - ph * 0.55, px, py - ph * 0.35);
+            ctx.quadraticCurveTo(px + pw * 0.2, py - ph * 0.6, px + pw * 0.5, py + ph * 0.45);
+            ctx.closePath();
+            ctx.fill();
+            ctx.strokeStyle = '#78716c';
+            ctx.lineWidth = Math.max(1, beam * 0.03);
+            ctx.stroke();
+            ctx.fillStyle = 'rgba(168, 162, 158, 0.35)';
+            ctx.beginPath();
+            ctx.arc(px - pw * 0.12, py, Math.max(1.5, pw * 0.12), 0, Math.PI * 2);
+            ctx.arc(px + pw * 0.1, py + ph * 0.12, Math.max(1.2, pw * 0.1), 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function fillEllipse(cx, cy, rx, ry) {
+        ctx.beginPath();
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.scale(Math.max(0.01, rx), Math.max(0.01, ry));
+        ctx.arc(0, 0, 1, 0, Math.PI * 2);
+        ctx.restore();
+        ctx.fill();
+    }
+
+    function strokeEllipse(cx, cy, rx, ry) {
+        ctx.beginPath();
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.scale(Math.max(0.01, rx), Math.max(0.01, ry));
+        ctx.arc(0, 0, 1, 0, Math.PI * 2);
+        ctx.restore();
+        ctx.stroke();
+    }
+
+    function drawVesselCargoFish(x0, y0, len, beam) {
+        // холодный трюм
+        ctx.fillStyle = '#e0f2fe';
+        strokeFillRect(x0 + len * 0.15, y0 + beam * 0.24, len * 0.56, beam * 0.52);
+        ctx.fillStyle = 'rgba(186, 230, 253, 0.9)';
+        strokeFillRect(x0 + len * 0.16, y0 + beam * 0.26, len * 0.54, beam * 0.48);
+
+        var n = 2;
+        var i;
+        for (i = 0; i < n; i++) {
+            var fx = x0 + len * (0.28 + i * 0.26);
+            var fy = y0 + beam * 0.5;
+            var fw = len * 0.16;
+            var fh = beam * 0.38;
+            // силуэт рыбы (тело + хвост)
+            ctx.fillStyle = i % 2 === 0 ? '#f97316' : '#fb923c';
+            fillEllipse(fx, fy, fw * 0.55, fh * 0.42);
+            ctx.beginPath();
+            ctx.moveTo(fx + fw * 0.45, fy);
+            ctx.lineTo(fx + fw * 0.95, fy - fh * 0.38);
+            ctx.lineTo(fx + fw * 0.72, fy);
+            ctx.lineTo(fx + fw * 0.95, fy + fh * 0.38);
+            ctx.closePath();
+            ctx.fill();
+            ctx.strokeStyle = '#9a3412';
+            ctx.lineWidth = Math.max(1, beam * 0.025);
+            strokeEllipse(fx, fy, fw * 0.55, fh * 0.42);
+            ctx.beginPath();
+            ctx.moveTo(fx + fw * 0.45, fy);
+            ctx.lineTo(fx + fw * 0.95, fy - fh * 0.38);
+            ctx.lineTo(fx + fw * 0.72, fy);
+            ctx.lineTo(fx + fw * 0.95, fy + fh * 0.38);
+            ctx.closePath();
+            ctx.stroke();
+            // глаз
+            ctx.fillStyle = '#0f172a';
+            ctx.beginPath();
+            ctx.arc(fx - fw * 0.28, fy - fh * 0.06, Math.max(1.4, fh * 0.08), 0, Math.PI * 2);
+            ctx.fill();
+            // плавник
+            ctx.fillStyle = '#ea580c';
+            ctx.beginPath();
+            ctx.moveTo(fx - fw * 0.05, fy - fh * 0.35);
+            ctx.lineTo(fx + fw * 0.15, fy - fh * 0.55);
+            ctx.lineTo(fx + fw * 0.2, fy - fh * 0.28);
+            ctx.closePath();
+            ctx.fill();
+        }
+    }
+
+    function drawVesselCargoGeneral(x0, y0, len, beam) {
+        var n = 4;
+        var gap = len * 0.025;
+        var pw = (len * 0.52 - gap * (n - 1)) / n;
+        var ph = beam * 0.42;
+        var py = y0 + beam * 0.29;
+        var cargoColors = ['#b45309', '#c2410c', '#a16207', '#854d0e'];
+        var i;
+        for (i = 0; i < n; i++) {
+            var px = x0 + len * 0.17 + i * (pw + gap);
+            // поддон сверху: поперечные доски
+            ctx.fillStyle = '#92400e';
+            strokeFillRect(px, py + ph * 0.62, pw, ph * 0.34);
+            ctx.strokeStyle = '#78350f';
+            ctx.lineWidth = Math.max(0.8, beam * 0.02);
+            var slat;
+            for (slat = 0; slat < 4; slat++) {
+                var sy = py + ph * (0.64 + slat * 0.08);
+                ctx.beginPath();
+                ctx.moveTo(px + pw * 0.04, sy);
+                ctx.lineTo(px + pw * 0.96, sy);
+                ctx.stroke();
+            }
+            // продольные бруски поддона
+            ctx.fillStyle = '#78350f';
+            ctx.fillRect(px + pw * 0.08, py + ph * 0.62, pw * 0.12, ph * 0.34);
+            ctx.fillRect(px + pw * 0.44, py + ph * 0.62, pw * 0.12, ph * 0.34);
+            ctx.fillRect(px + pw * 0.8, py + ph * 0.62, pw * 0.12, ph * 0.34);
+
+            if (i % 2 === 0) {
+                // ящик / кипа
+                ctx.fillStyle = cargoColors[i % cargoColors.length];
+                strokeFillRect(px + pw * 0.1, py + ph * 0.08, pw * 0.8, ph * 0.55);
+                ctx.strokeStyle = '#451a03';
+                ctx.lineWidth = Math.max(1, beam * 0.03);
+                ctx.beginPath();
+                ctx.moveTo(px + pw * 0.1, py + ph * 0.35);
+                ctx.lineTo(px + pw * 0.9, py + ph * 0.35);
+                ctx.moveTo(px + pw * 0.5, py + ph * 0.08);
+                ctx.lineTo(px + pw * 0.5, py + ph * 0.63);
+                ctx.stroke();
+                // обвязка крест-накрест
+                ctx.strokeStyle = '#fbbf24';
+                ctx.beginPath();
+                ctx.moveTo(px + pw * 0.18, py + ph * 0.12);
+                ctx.lineTo(px + pw * 0.82, py + ph * 0.58);
+                ctx.moveTo(px + pw * 0.82, py + ph * 0.12);
+                ctx.lineTo(px + pw * 0.18, py + ph * 0.58);
+                ctx.stroke();
+            } else {
+                // бочка сверху
+                var bx = px + pw * 0.5;
+                var by = py + ph * 0.35;
+                var brx = pw * 0.32;
+                var bry = ph * 0.28;
+                ctx.fillStyle = '#78716c';
+                fillEllipse(bx, by, brx, bry);
+                ctx.strokeStyle = '#292524';
+                ctx.lineWidth = Math.max(1, beam * 0.03);
+                strokeEllipse(bx, by, brx, bry);
+                ctx.strokeStyle = '#a8a29e';
+                strokeEllipse(bx, by, brx * 0.7, bry * 0.7);
+                strokeEllipse(bx, by, brx * 0.35, bry * 0.35);
+                ctx.fillStyle = '#44403c';
+                ctx.beginPath();
+                ctx.arc(bx, by, Math.max(1.2, brx * 0.12), 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+    }
+
+    function drawVesselDeckCargo(vesselType, x0, y0, len, beam, mooringSide) {
+        ctx.fillStyle = '#64748b';
+        strokeFillRect(x0 + len * 0.14, y0 + beam * 0.22, len * 0.58, beam * 0.56);
+        if (vesselType === 'container') {
+            drawVesselCargoContainer(x0, y0, len, beam);
+        } else if (vesselType === 'carCarrier') {
+            drawVesselCargoCar(x0, y0, len, beam, mooringSide);
+        } else if (vesselType === 'coal') {
+            drawVesselCargoCoal(x0, y0, len, beam);
+        } else if (vesselType === 'fish') {
+            drawVesselCargoFish(x0, y0, len, beam);
+        } else if (vesselType === 'general') {
+            drawVesselCargoGeneral(x0, y0, len, beam);
+        } else if (vesselType === 'empty') {
+            // пустая палуба / трюмы
+            ctx.fillStyle = 'rgba(30, 58, 95, 0.28)';
+            var hi;
+            var hatchW = len * 0.12;
+            for (hi = 0; hi < 4; hi++) {
+                ctx.fillRect(
+                    x0 + len * 0.16 + hi * (hatchW + len * 0.02),
+                    y0 + beam * 0.28,
+                    hatchW,
+                    beam * 0.44);
+            }
+        }
+    }
+
     function drawVesselIcon(obj, s) {
         var len = vesselLength(obj) * s;
         var beam = vesselBeam(obj) * s;
@@ -855,19 +1115,8 @@ function initTerminalPlan2D() {
         ctx.fill();
         ctx.stroke();
 
-        // палуба / грузовые трюмы
-        ctx.fillStyle = '#64748b';
-        strokeFillRect(x0 + len * 0.14, y0 + beam * 0.22, len * 0.58, beam * 0.56);
-        ctx.fillStyle = 'rgba(30, 58, 95, 0.35)';
-        var hi;
-        var hatchW = len * 0.12;
-        for (hi = 0; hi < 4; hi++) {
-            ctx.fillRect(
-                x0 + len * 0.16 + hi * (hatchW + len * 0.02),
-                y0 + beam * 0.28,
-                hatchW,
-                beam * 0.44);
-        }
+        // палуба / груз по виду судна
+        drawVesselDeckCargo(obj.vesselType || '', x0, y0, len, beam, obj.mooringSide || '');
 
         // надстройка / мостик у кормы
         ctx.fillStyle = '#e2e8f0';
@@ -877,26 +1126,54 @@ function initTerminalPlan2D() {
         ctx.fillStyle = '#93c5fd';
         ctx.fillRect(x0 + len * 0.075, y0 + beam * 0.34, len * 0.05, beam * 0.18);
 
-        // ватерлиния
-        ctx.strokeStyle = '#334155';
-        ctx.lineWidth = Math.max(1, s * 0.1);
+        if (obj.refueling) {
+            drawBunkerTanker(len, beam, obj.mooringSide || '', s);
+        }
+    }
+
+    function drawBunkerTanker(hostLen, hostBeam, mooringSide, s) {
+        // У воды напротив причала: right → −Y, left → +Y; bow/stern → левый борт (−Y).
+        // Размер заправщика фиксированный в метрах сцены.
+        var sideSign = (mooringSide === 'left') ? 1 : -1;
+        var tLen = 28 * s;
+        var tBeam = 8 * s;
+        var gap = 2 * s;
+        var cx = -hostLen * 0.05;
+        var cy = sideSign * (hostBeam * 0.5 + tBeam * 0.5 + gap);
+        var tx0 = cx - tLen / 2;
+        var ty0 = cy - tBeam / 2;
+
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = '#1f2937';
+        ctx.lineWidth = Math.max(1, 0.25 * s);
+        ctx.fillStyle = '#fef3c7';
         ctx.beginPath();
-        ctx.moveTo(x0 + len * 0.08, 0);
-        ctx.lineTo(x0 + len * 0.88, 0);
+        ctx.moveTo(tx0, ty0 + tBeam * 0.2);
+        ctx.lineTo(tx0 + tLen * 0.12, ty0);
+        ctx.lineTo(tx0 + tLen * 0.78, ty0);
+        ctx.lineTo(tx0 + tLen * 0.92, ty0 + tBeam * 0.22);
+        ctx.lineTo(tx0 + tLen, ty0 + tBeam * 0.5);
+        ctx.lineTo(tx0 + tLen * 0.92, ty0 + tBeam * 0.78);
+        ctx.lineTo(tx0 + tLen * 0.78, ty0 + tBeam);
+        ctx.lineTo(tx0 + tLen * 0.12, ty0 + tBeam);
+        ctx.lineTo(tx0, ty0 + tBeam * 0.8);
+        ctx.closePath();
+        ctx.fill();
         ctx.stroke();
 
-        if (view.scale > 0.9) {
-            ctx.fillStyle = '#0f172a';
-            ctx.font = 'bold ' + Math.max(9, Math.min(13, 3.2 * s)) + 'px Segoe UI, sans-serif';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(obj.name || 'Судно', x0 + len * 0.45, 0);
-            if (view.scale > 1.4) {
-                ctx.font = Math.max(8, Math.min(11, 2.4 * s)) + 'px Segoe UI, sans-serif';
-                ctx.fillStyle = '#334155';
-                ctx.fillText('L=' + Math.round(vesselLength(obj)) + ' м', x0 + len * 0.45, beam * 0.28);
-            }
-        }
+        // цистерны
+        ctx.fillStyle = '#f59e0b';
+        strokeFillRect(tx0 + tLen * 0.18, ty0 + tBeam * 0.22, tLen * 0.22, tBeam * 0.56);
+        strokeFillRect(tx0 + tLen * 0.44, ty0 + tBeam * 0.22, tLen * 0.22, tBeam * 0.56);
+        ctx.fillStyle = '#b45309';
+        strokeFillRect(tx0 + tLen * 0.2, ty0 + tBeam * 0.38, tLen * 0.18, tBeam * 0.24);
+        strokeFillRect(tx0 + tLen * 0.46, ty0 + tBeam * 0.38, tLen * 0.18, tBeam * 0.24);
+
+        // рубка у кормы
+        ctx.fillStyle = '#e2e8f0';
+        strokeFillRect(tx0 + tLen * 0.04, ty0 + tBeam * 0.2, tLen * 0.12, tBeam * 0.6);
+        ctx.fillStyle = '#1e3a5f';
+        strokeFillRect(tx0 + tLen * 0.055, ty0 + tBeam * 0.3, tLen * 0.09, tBeam * 0.4);
     }
 
     function drawPortalIcon(obj, s) {
@@ -943,14 +1220,6 @@ function initTerminalPlan2D() {
         ctx.moveTo(0, landY + gauge * 0.15);
         ctx.lineTo(0, seaY + 2 * s);
         ctx.stroke();
-
-        if (view.scale > 1.3) {
-            ctx.fillStyle = '#1f2937';
-            ctx.font = Math.max(8, Math.min(11, 2.6 * s)) + 'px Segoe UI, sans-serif';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(obj.model || obj.name || 'Портальный', 0, landY + gauge * 0.45);
-        }
     }
 
     function drawWarehouseIcon(obj, s) {
@@ -1480,6 +1749,23 @@ function initTerminalPlan2D() {
             if (ctx.setLineDash) { ctx.setLineDash([]); }
         }
         ctx.restore();
+
+        if (kind === 'cranePortal') {
+            drawCraneNameLabel(obj, p.x, p.y, s);
+        }
+    }
+
+    function drawCraneNameLabel(obj, sx, sy, s) {
+        if (view.scale < 1.8) {
+            return;
+        }
+        ctx.save();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold ' + Math.max(18, Math.min(26, 5.6 * s)) + 'px Segoe UI, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(obj.name || 'Портальный', sx, sy);
+        ctx.restore();
     }
 
     function applyDprTransform() {
@@ -1564,6 +1850,38 @@ function initTerminalPlan2D() {
         statusEl.textContent = text;
     }
 
+    function pointInPolygon(world, polygon) {
+        if (!(polygon instanceof Array) || polygon.length < 3) {
+            return false;
+        }
+        var inside = false;
+        var x = world.x;
+        var y = world.y;
+        var j = polygon.length - 1;
+        for (var i = 0; i < polygon.length; i++) {
+            var xi = numberOr(polygon[i].x, 0);
+            var yi = numberOr(polygon[i].y, 0);
+            var xj = numberOr(polygon[j].x, 0);
+            var yj = numberOr(polygon[j].y, 0);
+            var intersects = ((yi > y) !== (yj > y)) &&
+                (x < (xj - xi) * (y - yi) / ((yj - yi) || 1e-12) + xi);
+            if (intersects) {
+                inside = !inside;
+            }
+            j = i;
+        }
+        return inside;
+    }
+
+    function hitTestBuildingFromWorld(world) {
+        for (var bi = buildings.length - 1; bi >= 0; bi--) {
+            if (pointInPolygon(world, buildings[bi].polygon)) {
+                return buildings[bi];
+            }
+        }
+        return null;
+    }
+
     function hitTestCellFromWorld(world) {
         for (var ci = cells.length - 1; ci >= 0; ci--) {
             var cell = cells[ci];
@@ -1624,7 +1942,11 @@ function initTerminalPlan2D() {
         if (bestPl) {
             return bestPl;
         }
-        return hitTestCellFromWorld(world);
+        var cellHit = hitTestCellFromWorld(world);
+        if (cellHit) {
+            return cellHit;
+        }
+        return hitTestBuildingFromWorld(world);
     }
 
     function notify1C(target) {
@@ -1672,7 +1994,7 @@ function initTerminalPlan2D() {
 
     function focusObject(id) {
         id = String(id == null ? '' : id);
-        var target = placementById[id] || cellById[id] || objectById[id];
+        var target = placementById[id] || cellById[id] || objectById[id] || buildingById[id];
         if (!target && cellById[id]) {
             target = topPlacementForCell(id) || cellById[id];
         }
@@ -1739,7 +2061,10 @@ function initTerminalPlan2D() {
         focusObject: focusObject,
         getCell: function (id) { return cellById[String(id)] || null; },
         getPlacement: function (id) { return placementById[String(id)] || null; },
-        getObject: function (id) { return objectById[String(id)] || null; }
+        getObject: function (id) {
+            id = String(id);
+            return objectById[id] || buildingById[id] || null;
+        }
     };
 
     if (commandBridge) {

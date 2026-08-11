@@ -504,9 +504,14 @@ def validate_vessels(document: Any, berth_ids: set[str], validation: Validation)
         elif berth_id:
             occupied_berths.add(berth_id)
         validation.require(
-            vessel.get("mooringSide") in ("starboard", "port"),
+            vessel.get("mooringSide") in ("right", "left", "bow", "stern"),
             f"{location}.mooringSide",
-            "must be starboard or port",
+            "must be right, left, bow or stern",
+        )
+        validation.require(
+            vessel.get("vesselType") in ("container", "carCarrier", "coal", "fish", "general", "empty"),
+            f"{location}.vesselType",
+            "must be container, carCarrier, coal, fish, general or empty",
         )
         color = vessel.get("color")
         if color is not None:
@@ -518,6 +523,9 @@ def validate_vessels(document: Any, berth_ids: set[str], validation: Validation)
         clearance = vessel.get("clearanceM")
         if clearance is not None:
             validation.require(number(clearance) and clearance >= 0, f"{location}.clearanceM", "must be non-negative")
+        refueling = vessel.get("refueling")
+        if refueling is not None:
+            validation.require(isinstance(refueling, bool), f"{location}.refueling", "must be boolean")
 
 
 def valid_color(value: Any) -> bool:

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "4.0",
-  "buildId": "f9b26ecaf3201aeb",
+  "buildId": "5c7355c3c6c43ecd",
   "algorithm": "sha256",
   "sources": {
     "bayAxes": {
@@ -35,13 +35,13 @@
     },
     "cranes": {
       "path": "cranes-v4.json",
-      "sha256": "fe528a179556f2a59dbd8b9577643e03f3c8ccceec9166d2883a466af45608ef",
-      "characters": 2060
+      "sha256": "53c5f6932cfb9b7bd763d892ff4a865611b7e708a403a29f4f51f53b9240453a",
+      "characters": 8341
     },
     "portalCranes": {
       "path": "geojson/portal_cranes_v4.geojson",
-      "sha256": "b33f880eb87a88202ecf492c49c9ddaa9a55efabd83388b5ccfb66aeaac4af76",
-      "characters": 1702
+      "sha256": "8a3a1a016f673f4e1473a51e751910860f93f5afdd05b13f64d10e349f2f6b97",
+      "characters": 11254
     },
     "sceneOrigin": {
       "path": "scene_origin.txt",
@@ -60,8 +60,8 @@
     },
     "vessels": {
       "path": "vessels-v4.json",
-      "sha256": "a3107df110944d7b21a2791b40876b48fc73b25f7627ea55683a36a123c210af",
-      "characters": 379
+      "sha256": "396906a9ee30e857381e28319a54b802ed9c54b9f36217af649536c0316a8ff8",
+      "characters": 1307
     },
     "water": {
       "path": "geojson/water.geojson",
