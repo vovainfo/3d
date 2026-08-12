@@ -1,6 +1,6 @@
 {
   "schemaVersion": "4.0",
-  "buildId": "5c7355c3c6c43ecd",
+  "buildId": "51c73c579c274f21",
   "algorithm": "sha256",
   "sources": {
     "bayAxes": {
@@ -43,6 +43,21 @@
       "sha256": "8a3a1a016f673f4e1473a51e751910860f93f5afdd05b13f64d10e349f2f6b97",
       "characters": 11254
     },
+    "railwayBranches": {
+      "path": "geojson/railway_branches_v4.geojson",
+      "sha256": "835878e8f39d70b914205a127cec1485fe4b9962776e7fe3e1febf3bbefe24a1",
+      "characters": 1490
+    },
+    "railways": {
+      "path": "railways-v4.json",
+      "sha256": "6fc22ccc0ba46485bf7852339d136a0619128d50156773e9d8fce01cd79e2850",
+      "characters": 13513
+    },
+    "railwaysVisual": {
+      "path": "geojson/railways_visual_v4.geojson",
+      "sha256": "8293fbfc7d49c840d9ba2d4745a3c4a2332402a78d33ffaffa57f4744de04208",
+      "characters": 2520
+    },
     "sceneOrigin": {
       "path": "scene_origin.txt",
       "sha256": "e0c6bcfd9bc3545b3ba873e6dd8ed40dd491e60f518f09c6e98a2a6b085ab4e8",
@@ -57,6 +72,11 @@
       "path": "terminal-layout-v4.json",
       "sha256": "99dc4b0f0f96d47a56f2bd142e6818def4dc61d86bfe7529e8e84b0f10ad4c35",
       "characters": 10755
+    },
+    "trains": {
+      "path": "trains-v4.json",
+      "sha256": "47edab32c4b21fb04d682dfe5c7f1e3fec2639e6aa2420e0c2ace076b7260f99",
+      "characters": 3492
     },
     "vessels": {
       "path": "vessels-v4.json",

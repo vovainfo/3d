@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"name": "railway_branches_v4",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32652" } },
+"xy_coordinate_resolution": 0.01,
+"features": [
+{"type":"Feature","properties":{"fid":1,"branch_id":"1-52","name":"1-52","gauge_m":null,"color":null},"geometry":{"type":"LineString","coordinates":[[734339.94,4774886.86],[734428.7,4775148.01]]}},
+{"type":"Feature","properties":{"fid":2,"branch_id":"4-52","name":"4-52","gauge_m":null,"color":null},"geometry":{"type":"LineString","coordinates":[[734458.97,4774948.42],[734524.81,4775150.88]]}},
+{"type":"Feature","properties":{"fid":3,"branch_id":"5-52","name":"5-52","gauge_m":null,"color":null},"geometry":{"type":"LineString","coordinates":[[734462.85,4774947.19],[734525.02,4775142.9]]}}
+]
+}

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "4.0",
+  "trains": [
+    {
+      "id": "TRAIN-001",
+      "name": "Контейнерный состав",
+      "branchId": "1 выст.",
+      "offsetM": 25.0,
+      "direction": "forward",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-001",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-002",
+          "type": "fittingPlatform",
+          "platformLengthFt": 80,
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "CONT-001",
+                "lengthFt": 40,
+                "color": "#2563EB"
+              },
+              {
+                "lengthFt": 20
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-003",
+          "type": "covered",
+          "loadStatus": "empty"
+        }
+      ]
+    }
+  ]
+}

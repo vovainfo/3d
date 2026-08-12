@@ -132,4 +132,12 @@
     </synonym>
     <templateType>TextDocument</templateType>
   </templates>
+  <templates uuid="dc641941-b818-4b36-917b-57bce66889be">
+    <name>RailwaysV4_json</name>
+    <synonym>
+      <key>ru</key>
+      <value>Railways v4 json</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
 </mdclass:DataProcessor>

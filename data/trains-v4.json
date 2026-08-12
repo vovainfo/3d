@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "4.0",
+  "trains": [
+    {
+      "id": "TRAIN-LOADED",
+      "name": "Гружёный демонстрационный состав",
+      "branchId": "1-52",
+      "offsetM": 35.0,
+      "direction": "forward",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-L-COVERED",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Тарно-штучный груз"
+          }
+        },
+        {
+          "id": "W-L-GONDOLA",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-L-REFRIGERATED",
+          "type": "refrigerated",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "refrigerated"
+          }
+        },
+        {
+          "id": "W-L-CAR-CARRIER",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        },
+        {
+          "id": "W-L-THERMOS",
+          "type": "thermos",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "temperatureControlled"
+          }
+        },
+        {
+          "id": "W-L-PLATFORM-40",
+          "type": "fittingPlatform",
+          "platformLengthFt": 40,
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-20-A",
+                "lengthFt": 20,
+                "color": "#2563EB"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-EMPTY",
+      "name": "Порожний демонстрационный состав",
+      "branchId": "4-52",
+      "offsetM": 10.0,
+      "direction": "reverse",
+      "wagons": [
+        {
+          "id": "W-E-COVERED",
+          "type": "covered",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-E-GONDOLA",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-E-REFRIGERATED",
+          "type": "refrigerated",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-E-CAR-CARRIER",
+          "type": "carCarrier",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-E-THERMOS",
+          "type": "thermos",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-E-PLATFORM-60",
+          "type": "fittingPlatform",
+          "platformLengthFt": 60,
+          "loadStatus": "empty"
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-CONTAINERS",
+      "name": "Контейнерный демонстрационный состав",
+      "branchId": "5-52",
+      "offsetM": 10.0,
+      "direction": "forward",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-L-PLATFORM-80",
+          "type": "fittingPlatform",
+          "platformLengthFt": 80,
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-40-A",
+                "lengthFt": 40,
+                "color": "#DC2626"
+              },
+              {
+                "id": "RAIL-CONT-20-B",
+                "lengthFt": 20,
+                "color": "#16A34A"
+              },
+              {
+                "id": "RAIL-CONT-20-C",
+                "lengthFt": 20,
+                "color": "#F59E0B"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

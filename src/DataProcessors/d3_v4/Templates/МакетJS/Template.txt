@@ -129,6 +129,32 @@ function initTerminalPlan2D() {
         buildings.push(building);
         buildingById[buildingId] = building;
     }
+    function normalizeRailwayList(rawList, requireId) {
+        var result = [];
+        if (!(rawList instanceof Array)) {
+            return result;
+        }
+        for (var railwayIndex = 0; railwayIndex < rawList.length; railwayIndex++) {
+            var rawRailway = rawList[railwayIndex] || {};
+            var railwayPoints = normalizePointRing(rawRailway.points);
+            var railwayId = String(rawRailway.id || '');
+            if (railwayPoints.length < 2 || (requireId && !railwayId)) {
+                continue;
+            }
+            result.push({
+                id: railwayId,
+                name: String(rawRailway.name || railwayId),
+                gaugeM: Math.max(0.1, numberOr(rawRailway.gaugeM, 1.52)),
+                color: String(rawRailway.color || '#6b7280'),
+                points: railwayPoints
+            });
+        }
+        return result;
+    }
+    var rawRailways = (sceneData.topology && sceneData.topology.railways)
+        ? sceneData.topology.railways : {};
+    var visualRailways = normalizeRailwayList(rawRailways.visual, false);
+    var railwayBranches = normalizeRailwayList(rawRailways.branches, true);
     var cells = (sceneData.cells instanceof Array) ? sceneData.cells.slice() : [];
     var cellById = {};
     for (var initialCellIndex = 0; initialCellIndex < cells.length; initialCellIndex++) {
@@ -316,7 +342,13 @@ function initTerminalPlan2D() {
             movementAxis: String(so.movementAxis || ''),
             positionM: numberOr(so.positionM, 0),
             railInsetM: numberOr(so.railInsetM, 0),
-            rails: so.rails instanceof Array ? so.rails : []
+            rails: so.rails instanceof Array ? so.rails : [],
+            wagonType: String(so.wagonType || ''),
+            trainId: String(so.trainId || ''),
+            branchId: String(so.branchId || ''),
+            loadStatus: String(so.loadStatus || 'empty'),
+            cargo: so.cargo || null,
+            platformLengthFt: numberOr(so.platformLengthFt, 0)
         };
         objects.push(obj);
         objectById[oid] = obj;
@@ -833,6 +865,12 @@ function initTerminalPlan2D() {
         }
         if (kind === 'dieselLocomotive') {
             return { hw: 9, hh: 2.2 };
+        }
+        if (kind === 'railWagon') {
+            return {
+                hw: numberOr(size.length, 14) * 0.55,
+                hh: numberOr(size.width, 3.1) * 0.7
+            };
         }
         if (kind.indexOf('wagon') === 0) {
             return {
@@ -1437,6 +1475,74 @@ function initTerminalPlan2D() {
         ctx.stroke();
     }
 
+    function drawRailwayTrack(track, showLabel) {
+        var points = track.points || [];
+        if (points.length < 2) {
+            return;
+        }
+        var gaugePx = Math.max(0.7, track.gaugeM * view.scale * 0.5);
+        var sleeperHalfPx = Math.max(1.8, track.gaugeM * view.scale * 0.9);
+        var sleeperStepM = 2.2;
+        var distanceToSleeperM = 0;
+        var i;
+        ctx.save();
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        for (i = 1; i < points.length; i++) {
+            var first = worldToScreen(points[i - 1].x, points[i - 1].y);
+            var second = worldToScreen(points[i].x, points[i].y);
+            var dx = second.x - first.x;
+            var dy = second.y - first.y;
+            var segmentPx = Math.sqrt(dx * dx + dy * dy);
+            var segmentM = Math.sqrt(
+                Math.pow(points[i].x - points[i - 1].x, 2) +
+                Math.pow(points[i].y - points[i - 1].y, 2));
+            if (segmentPx < 0.01 || segmentM < 0.01) {
+                continue;
+            }
+            var ux = dx / segmentPx;
+            var uy = dy / segmentPx;
+            var nx = -uy;
+            var ny = ux;
+
+            if (view.scale >= 0.2) {
+                ctx.strokeStyle = '#57534e';
+                ctx.lineWidth = Math.max(0.7, 0.18 * view.scale);
+                var sleeperM = distanceToSleeperM;
+                while (sleeperM <= segmentM) {
+                    var sleeperRatio = sleeperM / segmentM;
+                    var sleeperX = first.x + dx * sleeperRatio;
+                    var sleeperY = first.y + dy * sleeperRatio;
+                    ctx.beginPath();
+                    ctx.moveTo(sleeperX - nx * sleeperHalfPx, sleeperY - ny * sleeperHalfPx);
+                    ctx.lineTo(sleeperX + nx * sleeperHalfPx, sleeperY + ny * sleeperHalfPx);
+                    ctx.stroke();
+                    sleeperM += sleeperStepM;
+                }
+                distanceToSleeperM = sleeperM - segmentM;
+            }
+
+            ctx.strokeStyle = track.color || '#6b7280';
+            ctx.lineWidth = Math.max(1, 0.22 * view.scale);
+            ctx.beginPath();
+            ctx.moveTo(first.x + nx * gaugePx, first.y + ny * gaugePx);
+            ctx.lineTo(second.x + nx * gaugePx, second.y + ny * gaugePx);
+            ctx.moveTo(first.x - nx * gaugePx, first.y - ny * gaugePx);
+            ctx.lineTo(second.x - nx * gaugePx, second.y - ny * gaugePx);
+            ctx.stroke();
+        }
+        if (showLabel && track.name && view.scale >= 0.8) {
+            var middlePoint = points[Math.floor(points.length / 2)];
+            var label = worldToScreen(middlePoint.x, middlePoint.y);
+            ctx.fillStyle = '#374151';
+            ctx.font = 'bold ' + Math.max(10, Math.min(16, 4 * view.scale)) + 'px Segoe UI, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+            ctx.fillText(track.name, label.x, label.y - Math.max(4, 2 * view.scale));
+        }
+        ctx.restore();
+    }
+
     function drawRailwayIcon(obj, s) {
         var rl = numberOr(obj.size.length, 100) * s;
         var gauge = Math.max(2.4, 1.55 * s);
@@ -1634,6 +1740,156 @@ function initTerminalPlan2D() {
         drawWheels([-len * 0.32, -len * 0.12, len * 0.12, len * 0.32], w * 0.55, Math.max(1.0, 0.55 * s));
     }
 
+    function drawRailWagonContainers(obj, len, w, s) {
+        var cargo = obj.cargo || {};
+        var containers = cargo.containers instanceof Array ? cargo.containers : [];
+        if (!containers.length) {
+            return;
+        }
+        var totalFt = 0;
+        var i;
+        for (i = 0; i < containers.length; i++) {
+            totalFt += numberOr(containers[i] && containers[i].lengthFt, 20) >= 40 ? 40 : 20;
+        }
+        if (totalFt <= 0) {
+            return;
+        }
+        var usableLength = len * 0.9;
+        var cursor = -usableLength * 0.5;
+        var gap = Math.max(0.4, 0.15 * s);
+        for (i = 0; i < containers.length; i++) {
+            var container = containers[i] || {};
+            var lengthFt = numberOr(container.lengthFt, 20) >= 40 ? 40 : 20;
+            var containerLength = usableLength * lengthFt / totalFt;
+            ctx.fillStyle = String(container.color || (i % 2 ? '#0369a1' : '#1d4ed8'));
+            ctx.strokeStyle = '#172554';
+            ctx.lineWidth = Math.max(0.7, 0.12 * s);
+            strokeFillRect(
+                cursor + gap * 0.5,
+                -w * 0.5,
+                Math.max(1, containerLength - gap),
+                w);
+            ctx.strokeStyle = 'rgba(255,255,255,0.38)';
+            ctx.beginPath();
+            ctx.moveTo(cursor + containerLength * 0.5, -w * 0.5);
+            ctx.lineTo(cursor + containerLength * 0.5, w * 0.5);
+            ctx.stroke();
+            cursor += containerLength;
+        }
+    }
+
+    function drawRailWagonIcon(obj, s) {
+        var type = obj.wagonType || 'covered';
+        var len = numberOr(obj.size && obj.size.length, 14) * s;
+        var w = numberOr(obj.size && obj.size.width, 3.1) * s;
+        var color = obj.color || '#4b5563';
+        var loaded = obj.loadStatus === 'loaded';
+        var cargo = obj.cargo || {};
+        var line = Math.max(0.8, 0.15 * s);
+
+        ctx.strokeStyle = '#111827';
+        ctx.lineWidth = line;
+        ctx.fillStyle = '#374151';
+        strokeFillRect(-len * 0.5, -w * 0.17, len, w * 0.34);
+        drawWheels([-len * 0.34, len * 0.34], w * 0.58, Math.max(0.9, 0.45 * s));
+
+        if (type === 'fittingPlatform') {
+            ctx.fillStyle = color;
+            strokeFillRect(-len * 0.5, -w * 0.34, len, w * 0.68);
+            if (loaded) {
+                drawRailWagonContainers(obj, len, w * 0.9, s);
+            } else {
+                ctx.fillStyle = '#fbbf24';
+                for (var fittingIndex = -2; fittingIndex <= 2; fittingIndex++) {
+                    ctx.fillRect(fittingIndex * len * 0.2 - line, -w * 0.42, line * 2, w * 0.84);
+                }
+            }
+            return;
+        }
+
+        if (type === 'gondola') {
+            ctx.fillStyle = color;
+            strokeFillRect(-len * 0.5, -w * 0.5, len, w);
+            ctx.fillStyle = '#111827';
+            ctx.fillRect(-len * 0.42, -w * 0.32, len * 0.84, w * 0.64);
+            if (loaded && cargo.kind === 'coal') {
+                ctx.fillStyle = '#27272a';
+                ctx.save();
+                ctx.scale(1, (w * 0.27) / Math.max(1, len * 0.38));
+                ctx.beginPath();
+                ctx.arc(0, 0, len * 0.38, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            } else if (loaded && cargo.kind === 'containers') {
+                drawRailWagonContainers(obj, len * 0.82, w * 0.48, s);
+            }
+            ctx.strokeStyle = '#111';
+            ctx.strokeRect(-len * 0.42, -w * 0.32, len * 0.84, w * 0.64);
+            return;
+        }
+
+        if (type === 'carCarrier') {
+            ctx.fillStyle = loaded ? '#cbd5e1' : '#e2e8f0';
+            strokeFillRect(-len * 0.5, -w * 0.5, len, w);
+            ctx.strokeStyle = '#64748b';
+            ctx.lineWidth = Math.max(0.6, 0.1 * s);
+            for (var meshX = -4; meshX <= 4; meshX++) {
+                ctx.beginPath();
+                ctx.moveTo(meshX * len / 9, -w * 0.48);
+                ctx.lineTo(meshX * len / 9, w * 0.48);
+                ctx.stroke();
+            }
+            ctx.beginPath();
+            ctx.moveTo(-len * 0.48, 0);
+            ctx.lineTo(len * 0.48, 0);
+            ctx.stroke();
+            if (loaded) {
+                for (var carIndex = -3; carIndex <= 3; carIndex++) {
+                    ctx.fillStyle = carIndex % 2 ? '#dc2626' : '#2563eb';
+                    ctx.fillRect(carIndex * len / 8 - len * 0.045, -w * 0.3, len * 0.09, w * 0.22);
+                    ctx.fillRect(carIndex * len / 8 - len * 0.045, w * 0.08, len * 0.09, w * 0.22);
+                }
+            }
+            return;
+        }
+
+        ctx.fillStyle = type === 'refrigerated' ? '#f8fafc'
+            : (type === 'thermos' ? '#f5f5dc' : color);
+        strokeFillRect(-len * 0.5, -w * 0.5, len, w);
+        if (type === 'refrigerated') {
+            ctx.fillStyle = '#0ea5e9';
+            ctx.fillRect(-len * 0.46, -w * 0.08, len * 0.92, w * 0.16);
+            ctx.strokeStyle = '#64748b';
+            ctx.beginPath();
+            ctx.arc(-len * 0.36, 0, w * 0.18, 0, Math.PI * 2);
+            ctx.arc(len * 0.36, 0, w * 0.18, 0, Math.PI * 2);
+            ctx.stroke();
+        } else if (type === 'thermos') {
+            ctx.strokeStyle = '#a8a29e';
+            for (var thermoX = -3; thermoX <= 3; thermoX++) {
+                ctx.beginPath();
+                ctx.moveTo(thermoX * len / 8, -w * 0.46);
+                ctx.lineTo(thermoX * len / 8, w * 0.46);
+                ctx.stroke();
+            }
+        } else {
+            ctx.strokeStyle = '#94a3b8';
+            ctx.beginPath();
+            ctx.moveTo(-len * 0.5, 0);
+            ctx.lineTo(len * 0.5, 0);
+            ctx.stroke();
+            ctx.strokeStyle = '#111';
+            ctx.strokeRect(-len * 0.12, -w * 0.35, len * 0.24, w * 0.7);
+        }
+        if (!loaded) {
+            ctx.strokeStyle = 'rgba(15,23,42,0.35)';
+            ctx.beginPath();
+            ctx.moveTo(-len * 0.42, -w * 0.34);
+            ctx.lineTo(len * 0.42, w * 0.34);
+            ctx.stroke();
+        }
+    }
+
     function drawWagonIcon(obj, s) {
         var kind = obj.kind;
         var len = numberOr(obj.size && obj.size.length, 14) * s;
@@ -1728,6 +1984,8 @@ function initTerminalPlan2D() {
             drawTruckIcon(obj, s);
         } else if (kind === 'dieselLocomotive') {
             drawLocoIcon(obj, s);
+        } else if (kind === 'railWagon') {
+            drawRailWagonIcon(obj, s);
         } else if (kind.indexOf('wagon') === 0) {
             drawWagonIcon(obj, s);
         } else {
@@ -1790,6 +2048,12 @@ function initTerminalPlan2D() {
         drawRoundedSite();
 
         var i;
+        for (i = 0; i < visualRailways.length; i++) {
+            drawRailwayTrack(visualRailways[i], false);
+        }
+        for (i = 0; i < railwayBranches.length; i++) {
+            drawRailwayTrack(railwayBranches[i], true);
+        }
         for (i = 0; i < buildings.length; i++) {
             drawBuilding(buildings[i]);
         }
@@ -1831,10 +2095,18 @@ function initTerminalPlan2D() {
         if (!statusEl) {
             return;
         }
+        var railWagonCount = 0;
+        for (var statusObjectIndex = 0; statusObjectIndex < objects.length; statusObjectIndex++) {
+            if (objects[statusObjectIndex].kind === 'railWagon') {
+                railWagonCount++;
+            }
+        }
         var text = 'Размещений: ' + placements.length +
             ' · ячеек: ' + cells.length +
             ' · площадок: ' + containerSites.length +
             ' · зданий: ' + buildings.length +
+            ' · ж/д веток: ' + railwayBranches.length +
+            ' · вагонов: ' + railWagonCount +
             ' · масштаб: ' + view.scale.toFixed(2) + ' px/м';
         if (selected) {
             if (selected.kind === 'placement') {

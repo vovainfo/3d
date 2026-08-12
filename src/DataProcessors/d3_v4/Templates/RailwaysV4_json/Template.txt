@@ -1,0 +1,646 @@
+{
+  "schemaVersion": "4.0",
+  "crs": "EPSG:32652",
+  "defaults": {
+    "railGaugeM": 1.52,
+    "railColor": "#6B7280",
+    "trainGapM": 1.0,
+    "wagonTypes": {
+      "covered": {
+        "lengthM": 15.7,
+        "widthM": 3.25,
+        "heightM": 4.7,
+        "color": "#8B5A2B"
+      },
+      "gondola": {
+        "lengthM": 13.92,
+        "widthM": 3.24,
+        "heightM": 3.48,
+        "color": "#4B5563"
+      },
+      "refrigerated": {
+        "lengthM": 21.0,
+        "widthM": 3.1,
+        "heightM": 4.7,
+        "color": "#DCEAF7"
+      },
+      "carCarrier": {
+        "lengthM": 24.0,
+        "widthM": 3.1,
+        "heightM": 4.8,
+        "color": "#94A3B8"
+      },
+      "thermos": {
+        "lengthM": 21.0,
+        "widthM": 3.1,
+        "heightM": 4.7,
+        "color": "#E5E7EB"
+      },
+      "fittingPlatform": [
+        {
+          "platformLengthFt": 40,
+          "lengthM": 13.4,
+          "widthM": 3.1,
+          "heightM": 1.3,
+          "color": "#B45309"
+        },
+        {
+          "platformLengthFt": 60,
+          "lengthM": 19.62,
+          "widthM": 3.1,
+          "heightM": 1.3,
+          "color": "#B45309"
+        },
+        {
+          "platformLengthFt": 80,
+          "lengthM": 25.8,
+          "widthM": 3.1,
+          "heightM": 1.3,
+          "color": "#B45309"
+        }
+      ]
+    }
+  },
+  "visualPaths": [
+    {
+      "gaugeM": 1.52,
+      "color": "#6B7280",
+      "lengthM": 183.468,
+      "coordinates": [
+        [
+          734428.7,
+          4775148.01
+        ],
+        [
+          734431.8,
+          4775153.71
+        ],
+        [
+          734443.31,
+          4775171.45
+        ],
+        [
+          734458.08,
+          4775188.68
+        ],
+        [
+          734490.39,
+          4775217.52
+        ],
+        [
+          734510.64,
+          4775238.58
+        ],
+        [
+          734522.81,
+          4775252.69
+        ],
+        [
+          734541.42,
+          4775290.32
+        ]
+      ]
+    },
+    {
+      "gaugeM": 1.52,
+      "color": "#6B7280",
+      "lengthM": 101.85,
+      "coordinates": [
+        [
+          734524.81,
+          4775150.88
+        ],
+        [
+          734531.7,
+          4775170.18
+        ],
+        [
+          734536.61,
+          4775181.83
+        ],
+        [
+          734542.54,
+          4775190.52
+        ],
+        [
+          734561.46,
+          4775216.29
+        ],
+        [
+          734576.8,
+          4775237.56
+        ]
+      ]
+    },
+    {
+      "gaugeM": 1.52,
+      "color": "#6B7280",
+      "lengthM": 118.034,
+      "coordinates": [
+        [
+          734525.02,
+          4775142.9
+        ],
+        [
+          734527.82,
+          4775154.02
+        ],
+        [
+          734530.27,
+          4775163.53
+        ],
+        [
+          734532.42,
+          4775177.74
+        ],
+        [
+          734535.79,
+          4775231.63
+        ],
+        [
+          734536.0,
+          4775242.88
+        ],
+        [
+          734538.96,
+          4775259.75
+        ]
+      ]
+    }
+  ],
+  "branches": [
+    {
+      "id": "1-52",
+      "name": "1-52",
+      "gaugeM": 1.52,
+      "color": "#6B7280",
+      "lengthM": 275.822,
+      "coordinates": [
+        [
+          734339.94,
+          4774886.86
+        ],
+        [
+          734428.7,
+          4775148.01
+        ]
+      ]
+    },
+    {
+      "id": "4-52",
+      "name": "4-52",
+      "gaugeM": 1.52,
+      "color": "#6B7280",
+      "lengthM": 212.897,
+      "coordinates": [
+        [
+          734458.97,
+          4774948.42
+        ],
+        [
+          734524.81,
+          4775150.88
+        ]
+      ]
+    },
+    {
+      "id": "5-52",
+      "name": "5-52",
+      "gaugeM": 1.52,
+      "color": "#6B7280",
+      "lengthM": 205.347,
+      "coordinates": [
+        [
+          734462.85,
+          4774947.19
+        ],
+        [
+          734525.02,
+          4775142.9
+        ]
+      ]
+    }
+  ],
+  "trains": [
+    {
+      "id": "TRAIN-LOADED",
+      "name": "Гружёный демонстрационный состав",
+      "branchId": "1-52",
+      "offsetM": 35.0,
+      "direction": "forward",
+      "gapM": 1.0,
+      "intervalM": [
+        35.0,
+        149.02
+      ],
+      "wagons": [
+        {
+          "id": "W-L-COVERED",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "chainageM": 42.85,
+          "intervalM": [
+            35.0,
+            50.7
+          ],
+          "position": [
+            734353.729,
+            4774927.431
+          ],
+          "tangent": [
+            0.321802,
+            0.946807
+          ],
+          "headingDeg": 71.228,
+          "size": {
+            "lengthM": 15.7,
+            "widthM": 3.25,
+            "heightM": 4.7
+          },
+          "color": "#8B5A2B",
+          "cargo": {
+            "kind": "general",
+            "description": "Тарно-штучный груз"
+          }
+        },
+        {
+          "id": "W-L-GONDOLA",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "chainageM": 58.66,
+          "intervalM": [
+            51.7,
+            65.62
+          ],
+          "position": [
+            734358.817,
+            4774942.4
+          ],
+          "tangent": [
+            0.321802,
+            0.946807
+          ],
+          "headingDeg": 71.228,
+          "size": {
+            "lengthM": 13.92,
+            "widthM": 3.24,
+            "heightM": 3.48
+          },
+          "color": "#4B5563",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-L-REFRIGERATED",
+          "type": "refrigerated",
+          "loadStatus": "loaded",
+          "chainageM": 77.12,
+          "intervalM": [
+            66.62,
+            87.62
+          ],
+          "position": [
+            734364.757,
+            4774959.878
+          ],
+          "tangent": [
+            0.321802,
+            0.946807
+          ],
+          "headingDeg": 71.228,
+          "size": {
+            "lengthM": 21.0,
+            "widthM": 3.1,
+            "heightM": 4.7
+          },
+          "color": "#DCEAF7",
+          "cargo": {
+            "kind": "refrigerated"
+          }
+        },
+        {
+          "id": "W-L-CAR-CARRIER",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "chainageM": 100.62,
+          "intervalM": [
+            88.62,
+            112.62
+          ],
+          "position": [
+            734372.32,
+            4774982.128
+          ],
+          "tangent": [
+            0.321802,
+            0.946807
+          ],
+          "headingDeg": 71.228,
+          "size": {
+            "lengthM": 24.0,
+            "widthM": 3.1,
+            "heightM": 4.8
+          },
+          "color": "#94A3B8",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        },
+        {
+          "id": "W-L-THERMOS",
+          "type": "thermos",
+          "loadStatus": "loaded",
+          "chainageM": 124.12,
+          "intervalM": [
+            113.62,
+            134.62
+          ],
+          "position": [
+            734379.882,
+            4775004.378
+          ],
+          "tangent": [
+            0.321802,
+            0.946807
+          ],
+          "headingDeg": 71.228,
+          "size": {
+            "lengthM": 21.0,
+            "widthM": 3.1,
+            "heightM": 4.7
+          },
+          "color": "#E5E7EB",
+          "cargo": {
+            "kind": "temperatureControlled"
+          }
+        },
+        {
+          "id": "W-L-PLATFORM-40",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "chainageM": 142.32,
+          "intervalM": [
+            135.62,
+            149.02
+          ],
+          "position": [
+            734385.739,
+            4775021.61
+          ],
+          "tangent": [
+            0.321802,
+            0.946807
+          ],
+          "headingDeg": 71.228,
+          "size": {
+            "lengthM": 13.4,
+            "widthM": 3.1,
+            "heightM": 1.3
+          },
+          "color": "#B45309",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "lengthFt": 20,
+                "id": "RAIL-CONT-20-A",
+                "color": "#2563EB"
+              }
+            ],
+            "usedTeu": 1,
+            "capacityTeu": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-EMPTY",
+      "name": "Порожний демонстрационный состав",
+      "branchId": "4-52",
+      "offsetM": 10.0,
+      "direction": "reverse",
+      "gapM": 1.0,
+      "intervalM": [
+        10.0,
+        130.24
+      ],
+      "wagons": [
+        {
+          "id": "W-E-COVERED",
+          "type": "covered",
+          "loadStatus": "empty",
+          "chainageM": 17.85,
+          "intervalM": [
+            10.0,
+            25.7
+          ],
+          "position": [
+            734464.49,
+            4774965.395
+          ],
+          "tangent": [
+            -0.309258,
+            -0.950978
+          ],
+          "headingDeg": -108.015,
+          "size": {
+            "lengthM": 15.7,
+            "widthM": 3.25,
+            "heightM": 4.7
+          },
+          "color": "#8B5A2B"
+        },
+        {
+          "id": "W-E-GONDOLA",
+          "type": "gondola",
+          "loadStatus": "empty",
+          "chainageM": 33.66,
+          "intervalM": [
+            26.7,
+            40.62
+          ],
+          "position": [
+            734469.38,
+            4774980.43
+          ],
+          "tangent": [
+            -0.309258,
+            -0.950978
+          ],
+          "headingDeg": -108.015,
+          "size": {
+            "lengthM": 13.92,
+            "widthM": 3.24,
+            "heightM": 3.48
+          },
+          "color": "#4B5563"
+        },
+        {
+          "id": "W-E-REFRIGERATED",
+          "type": "refrigerated",
+          "loadStatus": "empty",
+          "chainageM": 52.12,
+          "intervalM": [
+            41.62,
+            62.62
+          ],
+          "position": [
+            734475.089,
+            4774997.985
+          ],
+          "tangent": [
+            -0.309258,
+            -0.950978
+          ],
+          "headingDeg": -108.015,
+          "size": {
+            "lengthM": 21.0,
+            "widthM": 3.1,
+            "heightM": 4.7
+          },
+          "color": "#DCEAF7"
+        },
+        {
+          "id": "W-E-CAR-CARRIER",
+          "type": "carCarrier",
+          "loadStatus": "empty",
+          "chainageM": 75.62,
+          "intervalM": [
+            63.62,
+            87.62
+          ],
+          "position": [
+            734482.356,
+            4775020.333
+          ],
+          "tangent": [
+            -0.309258,
+            -0.950978
+          ],
+          "headingDeg": -108.015,
+          "size": {
+            "lengthM": 24.0,
+            "widthM": 3.1,
+            "heightM": 4.8
+          },
+          "color": "#94A3B8"
+        },
+        {
+          "id": "W-E-THERMOS",
+          "type": "thermos",
+          "loadStatus": "empty",
+          "chainageM": 99.12,
+          "intervalM": [
+            88.62,
+            109.62
+          ],
+          "position": [
+            734489.624,
+            4775042.681
+          ],
+          "tangent": [
+            -0.309258,
+            -0.950978
+          ],
+          "headingDeg": -108.015,
+          "size": {
+            "lengthM": 21.0,
+            "widthM": 3.1,
+            "heightM": 4.7
+          },
+          "color": "#E5E7EB"
+        },
+        {
+          "id": "W-E-PLATFORM-60",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "chainageM": 120.43,
+          "intervalM": [
+            110.62,
+            130.24
+          ],
+          "position": [
+            734496.214,
+            4775062.946
+          ],
+          "tangent": [
+            -0.309258,
+            -0.950978
+          ],
+          "headingDeg": -108.015,
+          "size": {
+            "lengthM": 19.62,
+            "widthM": 3.1,
+            "heightM": 1.3
+          },
+          "color": "#B45309",
+          "platformLengthFt": 60
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-CONTAINERS",
+      "name": "Контейнерный демонстрационный состав",
+      "branchId": "5-52",
+      "offsetM": 10.0,
+      "direction": "forward",
+      "gapM": 1.0,
+      "intervalM": [
+        10.0,
+        35.8
+      ],
+      "wagons": [
+        {
+          "id": "W-L-PLATFORM-80",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "chainageM": 22.9,
+          "intervalM": [
+            10.0,
+            35.8
+          ],
+          "position": [
+            734469.783,
+            4774969.015
+          ],
+          "tangent": [
+            0.302755,
+            0.953068
+          ],
+          "headingDeg": 72.377,
+          "size": {
+            "lengthM": 25.8,
+            "widthM": 3.1,
+            "heightM": 1.3
+          },
+          "color": "#B45309",
+          "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "lengthFt": 40,
+                "id": "RAIL-CONT-40-A",
+                "color": "#DC2626"
+              },
+              {
+                "lengthFt": 20,
+                "id": "RAIL-CONT-20-B",
+                "color": "#16A34A"
+              },
+              {
+                "lengthFt": 20,
+                "id": "RAIL-CONT-20-C",
+                "color": "#F59E0B"
+              }
+            ],
+            "usedTeu": 4,
+            "capacityTeu": 4
+          }
+        }
+      ]
+    }
+  ]
+}

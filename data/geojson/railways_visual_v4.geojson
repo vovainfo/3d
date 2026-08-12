@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"name": "railways_visual_v4",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32652" } },
+"xy_coordinate_resolution": 0.01,
+"features": [
+{"type":"Feature","properties":{"fid":1,"id":null,"name":null,"gauge_m":null,"color ":null},"geometry":{"type":"LineString","coordinates":[[734428.7,4775148.01],[734431.8,4775153.71],[734443.31,4775171.45],[734458.08,4775188.68],[734490.39,4775217.52],[734510.64,4775238.58],[734522.81,4775252.69],[734541.42,4775290.32]]}},
+{"type":"Feature","properties":{"fid":2,"id":null,"name":null,"gauge_m":null,"color ":null},"geometry":{"type":"LineString","coordinates":[[734524.81,4775150.88],[734531.7,4775170.18],[734536.61,4775181.83],[734542.54,4775190.52],[734561.46,4775216.29],[734576.8,4775237.56]]}},
+{"type":"Feature","properties":{"fid":3,"id":null,"name":null,"gauge_m":null,"color ":null},"geometry":{"type":"LineString","coordinates":[[734525.02,4775142.9],[734527.82,4775154.02],[734530.27,4775163.53],[734532.42,4775177.74],[734535.79,4775231.63],[734536.0,4775242.88],[734538.96,4775259.75]]}}
+]
+}
