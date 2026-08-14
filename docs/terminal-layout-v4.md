@@ -62,15 +62,19 @@ RTG/RMG задают `siteId`, `movementAxis` (`bays` или `rows`) и `positio
 
 Железная дорога имеет три исходника:
 
-- `data/geojson/railways_visual_v4.geojson` — фоновые `LineString`, где `id` и
-  `name` опциональны;
-- `data/geojson/railway_branches_v4.geojson` — направленные `LineString` с
-  обязательными `branch_id` и `name`;
+- `data/geojson/railways_visual_v4.geojson` — вся отображаемая сеть рельсов,
+  включая участки под составами; `id` и `name` опциональны;
+- `data/geojson/railway_branches_v4.geojson` — невидимые направленные
+  `LineString` с обязательными `branch_id` и `name`, используемые только для
+  размещения вагонов;
 - `data/trains-v4.json` — ручной реестр составов схемы `4.0`.
 
 Оба GeoJSON должны быть в `EPSG:32652`. У линии минимум две разные точки.
 Опциональные `gauge_m` и `color` по умолчанию равны 1,52 м и `#6B7280`.
-Порядок вершин ветки задаёт начало цепажа и положительное направление.
+Рельсы рисуются только по `railways_visual_v4`; визуальные свойства и имя ветки
+размещения на картинку не влияют. Ветка должна лежать на визуальной сети с
+допуском 0,5 м, а порядок её вершин задаёт начало цепажа и положительное
+направление.
 
 Состав имеет только поля `id`, `name`, `branchId`, `offsetM`, `direction`,
 `gapM`, `wagons`. `direction` равен `forward` или `reverse`, `gapM`

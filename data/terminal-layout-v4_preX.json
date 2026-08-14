@@ -407,6 +407,229 @@
         "footprintAlongRowsM": 24.75,
         "footprintAlongBaysM": 206.75
       }
+    },
+    {
+      "id": "kpF",
+      "name": "кпF",
+      "qgisFeatureId": "kpF",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "F",
+          "name": "Зона F",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 6
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "F",
+            "numbers": {
+              "from": 1,
+              "to": 4
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 6,
+        "bayCellCount": 4,
+        "zoneCellCounts": {
+          "F": 24
+        },
+        "footprintAlongRowsM": 16.5,
+        "footprintAlongBaysM": 25.4
+      }
+    },
+    {
+      "id": "kpP",
+      "name": "кпP",
+      "qgisFeatureId": "kpP",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "P",
+          "name": "Зона P",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 6
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "P",
+            "numbers": {
+              "from": 1,
+              "to": 2
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 6,
+        "bayCellCount": 2,
+        "zoneCellCounts": {
+          "P": 12
+        },
+        "footprintAlongRowsM": 16.5,
+        "footprintAlongBaysM": 12.7
+      }
+    },
+    {
+      "id": "kpT",
+      "name": "кпТ",
+      "qgisFeatureId": "kpT",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "T",
+          "name": "Зона Т",
+          "kind": "storage"
+        },
+        {
+          "id": "ZV50_1",
+          "name": "Зона выгрузки 50 №1",
+          "kind": "discharge",
+          "berthNumber": 50
+        },
+        {
+          "id": "ZV50_2",
+          "name": "Зона выгрузки 50 №2",
+          "kind": "discharge",
+          "berthNumber": 50
+        },
+        {
+          "id": "ZV50dr2",
+          "name": "Зона выгрузки 50/2",
+          "kind": "discharge",
+          "berthNumber": 50
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 8
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "T",
+            "numbers": {
+              "from": 1,
+              "to": 7
+            }
+          },
+          {
+            "kind": "aisle",
+            "id": "aisle_bays_T1",
+            "widthM": 1.0,
+            "runsAlong": "rows"
+          },
+          {
+            "kind": "zone",
+            "zoneId": "ZV50_1",
+            "numbers": {
+              "from": 1,
+              "to": 2
+            }
+          },
+          {
+            "kind": "aisle",
+            "id": "aisle_bays_T2",
+            "widthM": 1.0,
+            "runsAlong": "rows"
+          },
+          {
+            "kind": "zone",
+            "zoneId": "T",
+            "numbers": {
+              "from": 8,
+              "to": 12
+            }
+          },
+          {
+            "kind": "aisle",
+            "id": "aisle_bays_T3",
+            "widthM": 1.0,
+            "runsAlong": "rows"
+          },
+          {
+            "kind": "zone",
+            "zoneId": "ZV50_2",
+            "numbers": {
+              "from": 1,
+              "to": 2
+            }
+          },
+          {
+            "kind": "aisle",
+            "id": "aisle_bays_T4",
+            "widthM": 1.0,
+            "runsAlong": "rows"
+          },
+          {
+            "kind": "zone",
+            "zoneId": "ZV50dr2",
+            "numbers": {
+              "from": 1,
+              "to": 2
+            }
+          },
+          {
+            "kind": "aisle",
+            "id": "aisle_bays_T5",
+            "widthM": 1.0,
+            "runsAlong": "rows"
+          },
+          {
+            "kind": "zone",
+            "zoneId": "T",
+            "numbers": {
+              "from": 13,
+              "to": 37
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 8,
+        "bayCellCount": 43,
+        "zoneCellCounts": {
+          "T": 296,
+          "ZV50_1": 16,
+          "ZV50_2": 16,
+          "ZV50dr2": 16
+        },
+        "footprintAlongRowsM": 22.0,
+        "footprintAlongBaysM": 278.05
+      }
     }
   ]
 }

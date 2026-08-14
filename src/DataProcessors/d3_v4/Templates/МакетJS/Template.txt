@@ -904,31 +904,26 @@ function initTerminalPlan2D() {
     }
 
     function drawVesselCargoCar(x0, y0, len, beam, mooringSide) {
-        // Локально +Y к причалу при right (как у кранов: +Y к суше).
-        // При left судно развёрнуто на 180° — причал у −Y. bow/stern — без требований.
-        var wheelsAtNegY = mooringSide === 'left';
-        var n = 5;
-        var gap = len * 0.02;
-        var cw = (len * 0.54 - gap * (n - 1)) / n;
-        var ch = beam * 0.28;
-        var cy = y0 + beam * 0.36;
+        var carColors = ['#dc2626', '#1d4ed8', '#f8fafc', '#111827'];
+        var carCount = 4;
+        var deckX = x0 + len * 0.14;
+        var deckY = y0 + beam * 0.22;
+        var deckW = len * 0.58;
+        var deckH = beam * 0.56;
+        var carLen = deckW * 0.2;
+        var carW = deckH * 0.62;
+        var carGap = (deckW * 0.86 - carLen * carCount) / Math.max(1, carCount - 1);
+        var carStart = deckX + deckW * 0.07;
+        var carCy = deckY + deckH * 0.5;
         var i;
-        for (i = 0; i < n; i++) {
-            var cx = x0 + len * 0.16 + i * (cw + gap);
-            var bodyY = wheelsAtNegY ? (cy + ch * 0.28) : (cy + ch * 0.22);
-            var cabinY = wheelsAtNegY ? (cy + ch * 0.62) : (cy + ch * 0.05);
-            var wheelY = wheelsAtNegY ? (cy + ch * 0.18) : (cy + ch * 0.82);
-            ctx.fillStyle = '#dc2626';
-            strokeFillRect(cx + cw * 0.08, bodyY, cw * 0.84, ch * 0.55);
-            ctx.fillStyle = '#7f1d1d';
-            strokeFillRect(cx + cw * 0.22, cabinY, cw * 0.45, ch * 0.28);
-            ctx.fillStyle = '#1f2937';
-            ctx.beginPath();
-            ctx.arc(cx + cw * 0.28, wheelY, Math.max(1.2, ch * 0.18), 0, Math.PI * 2);
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(cx + cw * 0.72, wheelY, Math.max(1.2, ch * 0.18), 0, Math.PI * 2);
-            ctx.fill();
+        for (i = 0; i < carCount; i++) {
+            drawTopCar(
+                carStart + i * (carLen + carGap) + carLen * 0.5,
+                carCy,
+                carLen,
+                carW,
+                carColors[i % carColors.length],
+                view.scale);
         }
     }
 
@@ -1475,7 +1470,7 @@ function initTerminalPlan2D() {
         ctx.stroke();
     }
 
-    function drawRailwayTrack(track, showLabel) {
+    function drawRailwayTrack(track) {
         var points = track.points || [];
         if (points.length < 2) {
             return;
@@ -1530,15 +1525,6 @@ function initTerminalPlan2D() {
             ctx.moveTo(first.x - nx * gaugePx, first.y - ny * gaugePx);
             ctx.lineTo(second.x - nx * gaugePx, second.y - ny * gaugePx);
             ctx.stroke();
-        }
-        if (showLabel && track.name && view.scale >= 0.8) {
-            var middlePoint = points[Math.floor(points.length / 2)];
-            var label = worldToScreen(middlePoint.x, middlePoint.y);
-            ctx.fillStyle = '#374151';
-            ctx.font = 'bold ' + Math.max(10, Math.min(16, 4 * view.scale)) + 'px Segoe UI, sans-serif';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'bottom';
-            ctx.fillText(track.name, label.x, label.y - Math.max(4, 2 * view.scale));
         }
         ctx.restore();
     }
@@ -1778,6 +1764,154 @@ function initTerminalPlan2D() {
         }
     }
 
+    function drawTopCar(cx, cy, carLen, carW, color, s) {
+        var line = Math.max(0.7, 0.1 * s);
+        var x0 = cx - carLen * 0.5;
+        var y0 = cy - carW * 0.5;
+        ctx.save();
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#111827';
+        ctx.lineWidth = line;
+
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(x0 + carLen * 0.08, y0 + carW * 0.18);
+        ctx.lineTo(x0 + carLen * 0.22, y0 + carW * 0.08);
+        ctx.lineTo(x0 + carLen * 0.78, y0 + carW * 0.08);
+        ctx.lineTo(x0 + carLen * 0.92, y0 + carW * 0.18);
+        ctx.lineTo(x0 + carLen * 0.96, y0 + carW * 0.5);
+        ctx.lineTo(x0 + carLen * 0.92, y0 + carW * 0.82);
+        ctx.lineTo(x0 + carLen * 0.78, y0 + carW * 0.92);
+        ctx.lineTo(x0 + carLen * 0.22, y0 + carW * 0.92);
+        ctx.lineTo(x0 + carLen * 0.08, y0 + carW * 0.82);
+        ctx.lineTo(x0 + carLen * 0.04, y0 + carW * 0.5);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.55)';
+        ctx.fillRect(x0 + carLen * 0.28, y0 + carW * 0.16, carLen * 0.18, carW * 0.68);
+        ctx.fillRect(x0 + carLen * 0.58, y0 + carW * 0.16, carLen * 0.12, carW * 0.68);
+        ctx.fillStyle = 'rgba(226, 232, 240, 0.55)';
+        ctx.fillRect(x0 + carLen * 0.3, y0 + carW * 0.22, carLen * 0.14, carW * 0.56);
+
+        ctx.fillStyle = '#1f2937';
+        var wheelR = Math.max(0.9, carW * 0.12);
+        var wheelX = [x0 + carLen * 0.22, x0 + carLen * 0.78];
+        var wheelY = [y0 + carW * 0.12, y0 + carW * 0.88];
+        var wi;
+        var wj;
+        for (wi = 0; wi < wheelX.length; wi++) {
+            for (wj = 0; wj < wheelY.length; wj++) {
+                ctx.beginPath();
+                ctx.arc(wheelX[wi], wheelY[wj], wheelR, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        ctx.restore();
+    }
+
+    function drawSnowflake(cx, cy, r, s) {
+        var line = Math.max(1.1, 0.18 * s);
+        var arm;
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.strokeStyle = '#0369a1';
+        ctx.fillStyle = '#0369a1';
+        ctx.lineWidth = line;
+        ctx.lineCap = 'round';
+        for (arm = 0; arm < 6; arm++) {
+            ctx.save();
+            ctx.rotate(arm * Math.PI / 3);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(0, -r);
+            ctx.moveTo(0, -r * 0.45);
+            ctx.lineTo(-r * 0.22, -r * 0.68);
+            ctx.moveTo(0, -r * 0.45);
+            ctx.lineTo(r * 0.22, -r * 0.68);
+            ctx.moveTo(0, -r * 0.72);
+            ctx.lineTo(-r * 0.14, -r * 0.9);
+            ctx.moveTo(0, -r * 0.72);
+            ctx.lineTo(r * 0.14, -r * 0.9);
+            ctx.stroke();
+            ctx.restore();
+        }
+        ctx.beginPath();
+        ctx.arc(0, 0, Math.max(1.2, r * 0.12), 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+    }
+
+    function drawThermometer(cx, cy, h, maxW, s) {
+        var line = Math.max(1, 0.16 * s);
+        var tubeW = Math.max(1.2, Math.min(h * 0.08, maxW * 0.14));
+        var bulbR = Math.max(2, Math.min(h * 0.12, maxW * 0.28));
+        var tubeTop = -h * 0.48;
+        var tubeBottom = h * 0.18;
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = '#7f1d1d';
+        ctx.fillStyle = '#fecaca';
+        ctx.lineWidth = line;
+        ctx.beginPath();
+        ctx.moveTo(-tubeW, tubeTop + tubeW);
+        ctx.quadraticCurveTo(-tubeW, tubeTop, 0, tubeTop);
+        ctx.quadraticCurveTo(tubeW, tubeTop, tubeW, tubeTop + tubeW);
+        ctx.lineTo(tubeW, tubeBottom);
+        ctx.lineTo(-tubeW, tubeBottom);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(0, tubeBottom + bulbR * 0.15, bulbR, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = '#b91c1c';
+        ctx.beginPath();
+        ctx.arc(0, tubeBottom + bulbR * 0.15, bulbR * 0.62, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillRect(-tubeW * 0.45, tubeTop + h * 0.18, tubeW * 0.9, tubeBottom - tubeTop - h * 0.08);
+        ctx.strokeStyle = '#7f1d1d';
+        ctx.lineWidth = Math.max(0.8, line * 0.7);
+        var tick;
+        for (tick = 0; tick < 5; tick++) {
+            var ty = tubeTop + h * 0.1 + tick * h * 0.08;
+            ctx.beginPath();
+            ctx.moveTo(tubeW * 1.15, ty);
+            ctx.lineTo(tubeW * 1.85, ty);
+            ctx.stroke();
+        }
+        ctx.restore();
+    }
+
+    function drawEmptyWagonMark(len, w, s) {
+        ctx.save();
+        ctx.fillStyle = 'rgba(248, 250, 252, 0.42)';
+        ctx.fillRect(-len * 0.48, -w * 0.46, len * 0.96, w * 0.92);
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = Math.max(4, 0.55 * s);
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(-len * 0.36, -w * 0.3);
+        ctx.lineTo(len * 0.36, w * 0.3);
+        ctx.moveTo(len * 0.36, -w * 0.3);
+        ctx.lineTo(-len * 0.36, w * 0.3);
+        ctx.stroke();
+        ctx.strokeStyle = '#b91c1c';
+        ctx.lineWidth = Math.max(2.2, 0.32 * s);
+        ctx.beginPath();
+        ctx.moveTo(-len * 0.36, -w * 0.3);
+        ctx.lineTo(len * 0.36, w * 0.3);
+        ctx.moveTo(len * 0.36, -w * 0.3);
+        ctx.lineTo(-len * 0.36, w * 0.3);
+        ctx.stroke();
+        ctx.restore();
+    }
+
     function drawRailWagonIcon(obj, s) {
         var type = obj.wagonType || 'covered';
         var len = numberOr(obj.size && obj.size.length, 14) * s;
@@ -1803,6 +1937,7 @@ function initTerminalPlan2D() {
                 for (var fittingIndex = -2; fittingIndex <= 2; fittingIndex++) {
                     ctx.fillRect(fittingIndex * len * 0.2 - line, -w * 0.42, line * 2, w * 0.84);
                 }
+                drawEmptyWagonMark(len, w, s);
             }
             return;
         }
@@ -1825,68 +1960,85 @@ function initTerminalPlan2D() {
             }
             ctx.strokeStyle = '#111';
             ctx.strokeRect(-len * 0.42, -w * 0.32, len * 0.84, w * 0.64);
+            if (!loaded) {
+                drawEmptyWagonMark(len, w, s);
+            }
             return;
         }
 
         if (type === 'carCarrier') {
             ctx.fillStyle = loaded ? '#cbd5e1' : '#e2e8f0';
             strokeFillRect(-len * 0.5, -w * 0.5, len, w);
-            ctx.strokeStyle = '#64748b';
-            ctx.lineWidth = Math.max(0.6, 0.1 * s);
-            for (var meshX = -4; meshX <= 4; meshX++) {
-                ctx.beginPath();
-                ctx.moveTo(meshX * len / 9, -w * 0.48);
-                ctx.lineTo(meshX * len / 9, w * 0.48);
-                ctx.stroke();
-            }
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = Math.max(0.6, 0.08 * s);
             ctx.beginPath();
-            ctx.moveTo(-len * 0.48, 0);
-            ctx.lineTo(len * 0.48, 0);
+            ctx.moveTo(-len * 0.48, -w * 0.18);
+            ctx.lineTo(len * 0.48, -w * 0.18);
+            ctx.moveTo(-len * 0.48, w * 0.18);
+            ctx.lineTo(len * 0.48, w * 0.18);
             ctx.stroke();
             if (loaded) {
-                for (var carIndex = -3; carIndex <= 3; carIndex++) {
-                    ctx.fillStyle = carIndex % 2 ? '#dc2626' : '#2563eb';
-                    ctx.fillRect(carIndex * len / 8 - len * 0.045, -w * 0.3, len * 0.09, w * 0.22);
-                    ctx.fillRect(carIndex * len / 8 - len * 0.045, w * 0.08, len * 0.09, w * 0.22);
+                var carColors = ['#dc2626', '#1d4ed8', '#f8fafc', '#111827'];
+                var carCount = 4;
+                var carLen = len * 0.2;
+                var carW = w * 0.62;
+                var carGap = (len * 0.86 - carLen * carCount) / Math.max(1, carCount - 1);
+                var carStart = -len * 0.43;
+                var carIndex;
+                for (carIndex = 0; carIndex < carCount; carIndex++) {
+                    drawTopCar(
+                        carStart + carIndex * (carLen + carGap) + carLen * 0.5,
+                        0,
+                        carLen,
+                        carW,
+                        carColors[carIndex % carColors.length],
+                        s);
                 }
+            } else {
+                drawEmptyWagonMark(len, w, s);
             }
             return;
         }
 
-        ctx.fillStyle = type === 'refrigerated' ? '#f8fafc'
-            : (type === 'thermos' ? '#f5f5dc' : color);
-        strokeFillRect(-len * 0.5, -w * 0.5, len, w);
         if (type === 'refrigerated') {
-            ctx.fillStyle = '#0ea5e9';
-            ctx.fillRect(-len * 0.46, -w * 0.08, len * 0.92, w * 0.16);
-            ctx.strokeStyle = '#64748b';
-            ctx.beginPath();
-            ctx.arc(-len * 0.36, 0, w * 0.18, 0, Math.PI * 2);
-            ctx.arc(len * 0.36, 0, w * 0.18, 0, Math.PI * 2);
-            ctx.stroke();
-        } else if (type === 'thermos') {
-            ctx.strokeStyle = '#a8a29e';
-            for (var thermoX = -3; thermoX <= 3; thermoX++) {
-                ctx.beginPath();
-                ctx.moveTo(thermoX * len / 8, -w * 0.46);
-                ctx.lineTo(thermoX * len / 8, w * 0.46);
-                ctx.stroke();
+            ctx.fillStyle = '#e0f2fe';
+            strokeFillRect(-len * 0.5, -w * 0.5, len, w);
+            ctx.fillStyle = '#7dd3fc';
+            ctx.fillRect(-len * 0.5, -w * 0.5, len * 0.16, w);
+            ctx.strokeStyle = '#0369a1';
+            ctx.strokeRect(-len * 0.5, -w * 0.5, len * 0.16, w);
+            ctx.save();
+            ctx.translate(len * 0.08, 0);
+            ctx.rotate(Math.PI / 2);
+            drawThermometer(0, 0, len * 0.72, w * 0.7, s);
+            ctx.restore();
+            if (!loaded) {
+                drawEmptyWagonMark(len, w, s);
             }
-        } else {
-            ctx.strokeStyle = '#94a3b8';
-            ctx.beginPath();
-            ctx.moveTo(-len * 0.5, 0);
-            ctx.lineTo(len * 0.5, 0);
-            ctx.stroke();
-            ctx.strokeStyle = '#111';
-            ctx.strokeRect(-len * 0.12, -w * 0.35, len * 0.24, w * 0.7);
+            return;
         }
+
+        if (type === 'thermos') {
+            ctx.fillStyle = '#f5f0e6';
+            strokeFillRect(-len * 0.5, -w * 0.5, len, w);
+            drawSnowflake(0, 0, Math.min(len * 0.16, w * 0.38), s);
+            if (!loaded) {
+                drawEmptyWagonMark(len, w, s);
+            }
+            return;
+        }
+
+        ctx.fillStyle = color;
+        strokeFillRect(-len * 0.5, -w * 0.5, len, w);
+        ctx.strokeStyle = '#94a3b8';
+        ctx.beginPath();
+        ctx.moveTo(-len * 0.5, 0);
+        ctx.lineTo(len * 0.5, 0);
+        ctx.stroke();
+        ctx.strokeStyle = '#111';
+        ctx.strokeRect(-len * 0.12, -w * 0.35, len * 0.24, w * 0.7);
         if (!loaded) {
-            ctx.strokeStyle = 'rgba(15,23,42,0.35)';
-            ctx.beginPath();
-            ctx.moveTo(-len * 0.42, -w * 0.34);
-            ctx.lineTo(len * 0.42, w * 0.34);
-            ctx.stroke();
+            drawEmptyWagonMark(len, w, s);
         }
     }
 
@@ -2048,14 +2200,11 @@ function initTerminalPlan2D() {
         drawRoundedSite();
 
         var i;
-        for (i = 0; i < visualRailways.length; i++) {
-            drawRailwayTrack(visualRailways[i], false);
-        }
-        for (i = 0; i < railwayBranches.length; i++) {
-            drawRailwayTrack(railwayBranches[i], true);
-        }
         for (i = 0; i < buildings.length; i++) {
             drawBuilding(buildings[i]);
+        }
+        for (i = 0; i < visualRailways.length; i++) {
+            drawRailwayTrack(visualRailways[i]);
         }
         for (i = 0; i < containerSites.length; i++) {
             drawPolygonOutline(containerSites[i], 'rgba(30, 41, 59, 0.12)', '#64748b');

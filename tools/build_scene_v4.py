@@ -19,6 +19,8 @@ DEFAULT_DATA_DIR = ROOT / "data"
 DEFAULT_TEMPLATES_DIR = ROOT / "src" / "DataProcessors" / "d3_v4" / "Templates"
 AXIS_VERTEX_TOLERANCE_M = 0.15
 GEOMETRY_TOLERANCE_M = 0.05
+RAIL_OVERLAY_TOLERANCE_M = 0.5
+RAIL_OVERLAY_SAMPLE_STEP_M = 1.0
 COORDINATE_PRECISION = 2
 RESIZE_TOLERANCE_M = math.sqrt(2) * 0.5 * 10**-COORDINATE_PRECISION + 1e-9
 
@@ -148,6 +150,97 @@ def point(value: Any) -> tuple[float, float] | None:
 
 def distance(first: tuple[float, float], second: tuple[float, float]) -> float:
     return math.hypot(second[0] - first[0], second[1] - first[1])
+
+
+def point_to_segment_distance(
+    sample: tuple[float, float],
+    start: tuple[float, float],
+    end: tuple[float, float],
+) -> float:
+    dx = end[0] - start[0]
+    dy = end[1] - start[1]
+    length_sq = dx * dx + dy * dy
+    if length_sq <= 1e-24:
+        return distance(sample, start)
+    fraction = ((sample[0] - start[0]) * dx + (sample[1] - start[1]) * dy) / length_sq
+    fraction = min(max(fraction, 0.0), 1.0)
+    closest = (start[0] + fraction * dx, start[1] + fraction * dy)
+    return distance(sample, closest)
+
+
+def polyline_segments(
+    coordinates: list[list[float]],
+) -> list[tuple[tuple[float, float], tuple[float, float]]]:
+    segments: list[tuple[tuple[float, float], tuple[float, float]]] = []
+    for index in range(1, len(coordinates)):
+        start = (float(coordinates[index - 1][0]), float(coordinates[index - 1][1]))
+        end = (float(coordinates[index][0]), float(coordinates[index][1]))
+        if distance(start, end) > 1e-12:
+            segments.append((start, end))
+    return segments
+
+
+def sample_polyline(
+    coordinates: list[list[float]],
+    step_m: float,
+) -> list[tuple[float, float]]:
+    if not coordinates:
+        return []
+    points = [(float(coordinate[0]), float(coordinate[1])) for coordinate in coordinates]
+    samples = [points[0]]
+    chainage = 0.0
+    next_sample = step_m
+    for index in range(1, len(points)):
+        start = points[index - 1]
+        end = points[index]
+        segment_length = distance(start, end)
+        if segment_length <= 1e-12:
+            continue
+        while next_sample < chainage + segment_length - 1e-12:
+            fraction = (next_sample - chainage) / segment_length
+            samples.append(
+                (
+                    start[0] + (end[0] - start[0]) * fraction,
+                    start[1] + (end[1] - start[1]) * fraction,
+                )
+            )
+            next_sample += step_m
+        chainage += segment_length
+        samples.append(end)
+    return samples
+
+
+def validate_branch_overlay(
+    branches: list[dict[str, Any]],
+    visual_paths: list[dict[str, Any]],
+    validation: Validation,
+) -> None:
+    visual_segments = [
+        segment
+        for path in visual_paths
+        for segment in polyline_segments(path["coordinates"])
+    ]
+    for branch in branches:
+        max_offset = max(
+            (
+                min(
+                    point_to_segment_distance(sample, start, end)
+                    for start, end in visual_segments
+                )
+                if visual_segments
+                else math.inf
+            )
+            for sample in sample_polyline(
+                branch["coordinates"],
+                RAIL_OVERLAY_SAMPLE_STEP_M,
+            )
+        )
+        if max_offset > RAIL_OVERLAY_TOLERANCE_M:
+            validation.add(
+                f"railway_branches_v4.geojson branch {branch['id']}",
+                "must lie on railways_visual_v4 within "
+                f"{RAIL_OVERLAY_TOLERANCE_M:g} m (maximum offset {max_offset:.2f} m)",
+            )
 
 
 def crs_code(document: Any) -> str:
@@ -816,6 +909,7 @@ def collect_railways(
         validation,
     )
     branches_by_id = {branch["id"]: branch for branch in branches}
+    validate_branch_overlay(branches, visual_paths, validation)
 
     if not isinstance(trains_document, dict):
         validation.add("trains-v4.json", "root must be an object")
