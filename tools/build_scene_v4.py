@@ -30,6 +30,8 @@ SOURCE_FILES = {
     "shoreline": "geojson/shoreline.geojson",
     "water": "geojson/water.geojson",
     "buildings": "geojson/buildings.geojson",
+    "roads": "geojson/roads.geojson",
+    "portBoundary": "geojson/port_boundary.geojson",
     "berthPoints": "geojson/berth_points_v4.geojson",
     "berthHeadingAxes": "geojson/berth_heading_axes_v4.geojson",
     "vessels": "vessels-v4.json",
@@ -48,6 +50,8 @@ TEMPLATE_PATHS = {
     "shoreline": "Shoreline_geojson/Template.txt",
     "water": "Water_geojson/Template.txt",
     "buildings": "Buildings_geojson/Template.txt",
+    "roads": "Roads_geojson/Template.txt",
+    "portBoundary": "PortBoundary_geojson/Template.txt",
     "berths": "BerthsV4_json/Template.txt",
     "vessels": "VesselsV4_json/Template.txt",
     "cranes": "CranesV4_json/Template.txt",
@@ -98,6 +102,28 @@ class Validation:
         if not condition:
             self.add(location, message)
         return condition
+
+    def require_ids(
+        self,
+        actual: set[str],
+        expected: set[str],
+        location: str,
+        message: str,
+        *,
+        actual_label: str,
+        expected_label: str,
+    ) -> bool:
+        if actual == expected:
+            return True
+        missing = sorted(expected - actual)
+        extra = sorted(actual - expected)
+        details: list[str] = []
+        if missing:
+            details.append(f"missing from {actual_label} ({len(missing)}): {', '.join(missing)}")
+        if extra:
+            details.append(f"only in {actual_label}, not in {expected_label} ({len(extra)}): {', '.join(extra)}")
+        self.add(location, f"{message}; {'; '.join(details)}")
+        return False
 
     def finish(self) -> None:
         if not self.errors:
@@ -436,6 +462,113 @@ def validate_buildings(document: Any, crs: str, validation: Validation) -> None:
     validation.require(crs_code(document) == crs, "buildings.geojson", f"CRS must be {crs}")
 
 
+def validate_roads(document: Any, crs: str, validation: Validation) -> None:
+    road_ids: set[str] = set()
+    for feature_index, feature in enumerate(feature_collection(document, "roads.geojson", validation)):
+        location = f"roads.geojson.features[{feature_index}]"
+        properties = feature.get("properties") if isinstance(feature, dict) else None
+        if not isinstance(properties, dict):
+            validation.add(location, "properties object is required")
+            properties = {}
+
+        road_id = trimmed_text(properties.get("id"))
+        color = properties.get("color")
+        width = properties.get("width_m")
+        if not validation.require(bool(road_id), f"{location}.properties.id", "id is required"):
+            road_id = ""
+        elif road_id in road_ids:
+            validation.add(f"{location}.properties.id", f"duplicate id {road_id}")
+        else:
+            road_ids.add(road_id)
+        validation.require(
+            valid_color(color),
+            f"{location}.properties.color",
+            "color must use #RRGGBB format",
+        )
+        validation.require(
+            number(width) and float(width) > 0,
+            f"{location}.properties.width_m",
+            "width_m must be a positive finite number",
+        )
+
+        geometry = feature.get("geometry") if isinstance(feature, dict) else None
+        if not isinstance(geometry, dict) or geometry.get("type") != "LineString":
+            validation.add(f"{location}.geometry", "geometry must be LineString")
+            continue
+        raw_coordinates = geometry.get("coordinates")
+        parsed = [point(value) for value in raw_coordinates] if isinstance(raw_coordinates, list) else []
+        if not validation.require(
+            len(parsed) >= 2 and all(value is not None for value in parsed),
+            f"{location}.geometry.coordinates",
+            "LineString must contain at least two finite points",
+        ):
+            continue
+        coordinates = [value for value in parsed if value is not None]
+        path_length = sum(
+            distance(coordinates[index - 1], coordinates[index]) for index in range(1, len(coordinates))
+        )
+        validation.require(
+            path_length > GEOMETRY_TOLERANCE_M,
+            f"{location}.geometry.coordinates",
+            "LineString must contain at least two different points",
+        )
+    validation.require(crs_code(document) == crs, "roads.geojson", f"CRS must be {crs}")
+
+
+def validate_port_boundary(document: Any, crs: str, validation: Validation) -> None:
+    features = feature_collection(document, "port_boundary.geojson", validation)
+    validation.require(
+        len(features) == 1,
+        "port_boundary.geojson",
+        "exactly one LineString feature is required",
+    )
+    for feature_index, feature in enumerate(features):
+        location = f"port_boundary.geojson.features[{feature_index}]"
+        properties = feature.get("properties") if isinstance(feature, dict) else None
+        if not isinstance(properties, dict):
+            validation.add(location, "properties object is required")
+            properties = {}
+
+        boundary_id = trimmed_text(properties.get("id"))
+        color = properties.get("color")
+        width = properties.get("width_m")
+        if not validation.require(bool(boundary_id), f"{location}.properties.id", "id is required"):
+            boundary_id = ""
+        validation.require(
+            valid_color(color),
+            f"{location}.properties.color",
+            "color must use #RRGGBB format",
+        )
+        validation.require(
+            number(width) and float(width) > 0,
+            f"{location}.properties.width_m",
+            "width_m must be a positive finite number",
+        )
+
+        geometry = feature.get("geometry") if isinstance(feature, dict) else None
+        if not isinstance(geometry, dict) or geometry.get("type") != "LineString":
+            validation.add(f"{location}.geometry", "geometry must be LineString")
+            continue
+        raw_coordinates = geometry.get("coordinates")
+        parsed = [point(value) for value in raw_coordinates] if isinstance(raw_coordinates, list) else []
+        if not validation.require(
+            len(parsed) >= 2 and all(value is not None for value in parsed),
+            f"{location}.geometry.coordinates",
+            "LineString must contain at least two finite points",
+        ):
+            continue
+        coordinates = [value for value in parsed if value is not None]
+        path_length = sum(
+            distance(coordinates[index - 1], coordinates[index]) for index in range(1, len(coordinates))
+        )
+        validation.require(
+            path_length > GEOMETRY_TOLERANCE_M,
+            f"{location}.geometry.coordinates",
+            "LineString must contain at least two different points",
+        )
+    validation.require(crs_code(document) == crs, "port_boundary.geojson", f"CRS must be {crs}")
+
+
 def validate_shoreline(document: Any, crs: str, validation: Validation) -> None:
     features = feature_collection(document, "shoreline.geojson", validation)
     point_count = 0
@@ -572,7 +705,14 @@ def collect_berths(
             axes[berth_id] = axis
     validation.require(crs_code(axes_document) == crs, "berth_heading_axes_v4.geojson", f"CRS must be {crs}")
 
-    validation.require(set(points) == set(axes), "virtual berths", "berth_id sets in points and axes must match")
+    validation.require_ids(
+        set(points),
+        set(axes),
+        "virtual berths",
+        "berth_id sets in points and axes must match",
+        actual_label="berth_points_v4.geojson",
+        expected_label="berth_heading_axes_v4.geojson",
+    )
     berths: list[dict[str, Any]] = []
     for berth_id, description in points.items():
         axis = axes.get(berth_id)
@@ -1221,6 +1361,13 @@ def collect_cranes(
                 f"{location}.railInsetM",
                 "must be non-negative",
             )
+            for wing_field in ("leftWingM", "rightWingM"):
+                wing_size = crane.get(wing_field)
+                validation.require(
+                    number(wing_size) and float(wing_size) >= 0,
+                    f"{location}.{wing_field}",
+                    "must be a non-negative finite number",
+                )
         if crane_id:
             normalized = {
                 "id": crane_id,
@@ -1233,6 +1380,8 @@ def collect_cranes(
             }
             if crane_type == "rmg":
                 normalized["railInsetM"] = crane.get("railInsetM")
+                normalized["leftWingM"] = crane.get("leftWingM")
+                normalized["rightWingM"] = crane.get("rightWingM")
             cranes.append(normalized)
 
     return {"schemaVersion": "4.0", "crs": crs, "cranes": cranes}
@@ -1533,8 +1682,22 @@ def validate_layout(
                     f"to {required_bay_extent:.2f} x {required_row_extent:.2f} m"
                 )
 
-    validation.require(set(sites) == layout_ids, "container_sites_v4.geojson", "site ids must exactly match layout")
-    validation.require(set(axes) == layout_ids, "container_site_bay_axes_v4.geojson", "site ids must exactly match layout")
+    validation.require_ids(
+        set(sites),
+        layout_ids,
+        "container_sites_v4.geojson",
+        "site ids must exactly match layout",
+        actual_label="container_sites_v4.geojson",
+        expected_label="terminal-layout-v4.json",
+    )
+    validation.require_ids(
+        set(axes),
+        layout_ids,
+        "container_site_bay_axes_v4.geojson",
+        "site ids must exactly match layout",
+        actual_label="container_site_bay_axes_v4.geojson",
+        expected_label="terminal-layout-v4.json",
+    )
     return changes
 
 
@@ -1588,6 +1751,8 @@ def build(data_dir: Path, templates_dir: Path, check_only: bool) -> None:
     validate_shoreline(source_documents.get("shoreline", {}), terminal_crs, validation)
     validate_water(source_documents.get("water", {}), terminal_crs, validation)
     validate_buildings(source_documents.get("buildings", {}), terminal_crs, validation)
+    validate_roads(source_documents.get("roads", {}), terminal_crs, validation)
+    validate_port_boundary(source_documents.get("portBoundary", {}), terminal_crs, validation)
     berths_document = collect_berths(
         source_documents.get("berthPoints", {}),
         source_documents.get("berthHeadingAxes", {}),

@@ -140,4 +140,20 @@
     </synonym>
     <templateType>TextDocument</templateType>
   </templates>
+  <templates uuid="265e19a0-47d6-43e7-8a84-ac8b70b7b859">
+    <name>Roads_geojson</name>
+    <synonym>
+      <key>ru</key>
+      <value>Roads geojson</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="9f4e2c8a-6b1d-4a57-8e3f-c0d91b7a5e24">
+    <name>PortBoundary_geojson</name>
+    <synonym>
+      <key>ru</key>
+      <value>Port boundary geojson</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
 </mdclass:DataProcessor>

@@ -420,26 +420,6 @@
       "color": "#F2C94C"
     },
     {
-      "id": "RMG-kpAD-01",
-      "name": "RMG kpAD 01",
-      "type": "rmg",
-      "siteId": "kpAD",
-      "movementAxis": "bays",
-      "positionM": 65.0,
-      "color": "#E67E22",
-      "railInsetM": 2.0
-    },
-    {
-      "id": "RMG-kpAD-02",
-      "name": "RMG kpAD 02",
-      "type": "rmg",
-      "siteId": "kpAD",
-      "movementAxis": "bays",
-      "positionM": 145.0,
-      "color": "#E67E22",
-      "railInsetM": 2.0
-    },
-    {
       "id": "RTG-80",
       "name": "RTG 80",
       "type": "rtg",
@@ -456,6 +436,48 @@
       "movementAxis": "bays",
       "positionM": 150.0,
       "color": "#F2C94C"
+    },
+    {
+      "id": "RTG-85",
+      "name": "RTG 85",
+      "type": "rtg",
+      "siteId": "kpQ",
+      "movementAxis": "bays",
+      "positionM": 30.0,
+      "color": "#F2C94C"
+    },
+    {
+      "id": "RTG-84",
+      "name": "RTG 84",
+      "type": "rtg",
+      "siteId": "kpQ",
+      "movementAxis": "bays",
+      "positionM": 80.0,
+      "color": "#F2C94C"
+    },
+    {
+      "id": "RMG-kpO-01",
+      "name": "RMG kpO 01",
+      "type": "rmg",
+      "siteId": "kpO",
+      "movementAxis": "bays",
+      "positionM": 65.0,
+      "color": "#E67E22",
+      "railInsetM": 1.0,
+      "leftWingM": 15.0,
+      "rightWingM": 10.0
+    },
+    {
+      "id": "RMG-kpO-02",
+      "name": "RMG kpO 02",
+      "type": "rmg",
+      "siteId": "kpO",
+      "movementAxis": "bays",
+      "positionM": 200.0,
+      "color": "#E67E22",
+      "railInsetM": 1.0,
+      "leftWingM": 15.0,
+      "rightWingM": 10.0
     }
   ]
 }

@@ -1,12 +1,12 @@
 {
   "schemaVersion": "4.0",
-  "buildId": "ba0a098e1a06647b",
+  "buildId": "87e65bf763d88119",
   "algorithm": "sha256",
   "sources": {
     "bayAxes": {
       "path": "geojson/container_site_bay_axes_v4.geojson",
-      "sha256": "4bd65411abbc524182ef7c79f5ef7a0569aa7e320dd6a875f58a67423f16b98a",
-      "characters": 4386
+      "sha256": "b572c39f3ac0c48701f7e8f38c206bb0225c0877995eda66e7af7cc290eebe3a",
+      "characters": 7163
     },
     "berthHeadingAxes": {
       "path": "geojson/berth_heading_axes_v4.geojson",
@@ -25,18 +25,23 @@
     },
     "buildings": {
       "path": "geojson/buildings.geojson",
-      "sha256": "ac8ae8f4a6a47f6fb7ab7830d45ff7c3d9b6f4e9dc4725ca1e92ea012e020c6d",
-      "characters": 15162
+      "sha256": "a1f6ad28956afa8f71c193e735d358f14a06969ca5b69b6e326265c1af495168",
+      "characters": 15827
     },
     "containerSites": {
       "path": "geojson/container_sites_v4.geojson",
-      "sha256": "33848aabc242c96f8b299cbd235ad13ff25390e677a60598bfc796d213b983c4",
-      "characters": 7660
+      "sha256": "69649adee487db5ccffd74ca7715e0a4b0947652c85429936194e03ea7130646",
+      "characters": 12622
     },
     "cranes": {
       "path": "cranes-v4.json",
-      "sha256": "84c1529489955970312d474084a41ea08113f2bbe6b6349ecb593e5acfbd3664",
-      "characters": 8684
+      "sha256": "a1a467bd62070a404475fe9667d787179303c73e685392035bd39c8f94d6de49",
+      "characters": 9146
+    },
+    "portBoundary": {
+      "path": "geojson/port_boundary.geojson",
+      "sha256": "e98862db44cbaa96436eca2135846212c28605e50234dad68d83f05320a4c4e3",
+      "characters": 7346
     },
     "portalCranes": {
       "path": "geojson/portal_cranes_v4.geojson",
@@ -58,6 +63,11 @@
       "sha256": "51cdc3000279ebeef8495980b550968ce244412d6fab69f88767089dd934cbfb",
       "characters": 40686
     },
+    "roads": {
+      "path": "geojson/roads.geojson",
+      "sha256": "dff87bfc43951ca3a065384a80254ca09b2b3c3b584f2734e8e893b2df2b14dc",
+      "characters": 2615
+    },
     "sceneOrigin": {
       "path": "scene_origin.txt",
       "sha256": "e0c6bcfd9bc3545b3ba873e6dd8ed40dd491e60f518f09c6e98a2a6b085ab4e8",
@@ -70,8 +80,8 @@
     },
     "terminalLayout": {
       "path": "terminal-layout-v4.json",
-      "sha256": "bfd26a1ca78dbc594a0a46fef219eb8e5399c2b0310f9cc0fb7b87d402e31cf8",
-      "characters": 19632
+      "sha256": "4695cf450f290867f3fd7fffd0c89338bcb6fd03a2af7a0ec2a43a87ff34dd1d",
+      "characters": 28551
     },
     "trains": {
       "path": "trains-v4.json",
@@ -90,8 +100,8 @@
     },
     "yardCranes": {
       "path": "yard-cranes-v4.json",
-      "sha256": "d9527bfe57bc0e7edf5ad439f1e3a8b116289fcd3f162df04e938bb5af2357e0",
-      "characters": 1404
+      "sha256": "e4cd938513474a70c4ce022d74ec4e746059511a0bc7ef8116a39d617d18a4d1",
+      "characters": 1866
     }
   }
 }

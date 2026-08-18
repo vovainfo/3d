@@ -18,6 +18,8 @@
       "movementAxis": "bays",
       "positionM": -5.0,
       "railInsetM": 2.0,
+      "leftWingM": 1.5,
+      "rightWingM": 3.0,
       "color": "#E67E22"
     }
   ]
