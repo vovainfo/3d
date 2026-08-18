@@ -1388,12 +1388,30 @@ function initTerminalPlan2D() {
             ctx.lineWidth = 1;
         }
 
-        // Вертикальные стойки и поперечная балка.
+        // Вертикальные стойки.
         ctx.fillStyle = color;
         strokeFillRect(leftLeg, -len / 2, leg, len);
         strokeFillRect(rightLeg, -len / 2, leg, len);
         var beam = Math.max(2, 1.4 * s);
-        strokeFillRect(left - rightWing, -beam / 2, span + leftWing + rightWing, beam);
+        var beamX = left - rightWing;
+        var beamW = span + leftWing + rightWing;
+
+        if (onRails) {
+            // Две поперечные балки с крыльями и продольная между ними.
+            strokeFillRect(beamX, -len / 2, beamW, beam);
+            strokeFillRect(beamX, len / 2 - beam, beamW, beam);
+            strokeFillRect(-beam / 2, -len / 2 + beam, beam, len - beam * 2);
+        } else {
+            strokeFillRect(left, -beam / 2, span, beam);
+            ctx.strokeStyle = '#92400e';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(leftInner, -len / 2 + leg);
+            ctx.lineTo(rightInner, len / 2 - leg);
+            ctx.moveTo(leftInner, len / 2 - leg);
+            ctx.lineTo(rightInner, -len / 2 + leg);
+            ctx.stroke();
+        }
 
         // Тележка + спредер.
         ctx.fillStyle = '#1f2937';
@@ -1401,16 +1419,6 @@ function initTerminalPlan2D() {
         ctx.strokeStyle = color;
         ctx.lineWidth = Math.max(1.5, s * 0.25);
         ctx.strokeRect(beam * 1.2, -3.5 * s, Math.max(3, 2.2 * s), 7 * s);
-
-        // Поперечины.
-        ctx.strokeStyle = '#92400e';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(leftInner, -len / 2 + leg);
-        ctx.lineTo(rightInner, len / 2 - leg);
-        ctx.moveTo(leftInner, len / 2 - leg);
-        ctx.lineTo(rightInner, -len / 2 + leg);
-        ctx.stroke();
     }
 
     function drawRtgIcon(obj, s) {
