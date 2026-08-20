@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="763c1b4a-6d6e-4997-85a7-958571d570fc">
+  <producedTypes>
+    <objectType typeId="2ac89e0a-52c0-42ae-8e1e-e76a81bd7ecf" valueTypeId="636d5f0c-9795-44c9-9e84-1265b4d58a86"/>
+    <managerType typeId="17f008e4-6613-43a7-aba2-e3282802920d" valueTypeId="5d7f08e9-a28b-4940-aded-54da47c8612b"/>
+  </producedTypes>
+  <name>Скаут</name>
+  <synonym>
+    <key>ru</key>
+    <value>Скаут</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.Скаут.Form.Форма</defaultForm>
+  <forms uuid="dae058c2-0005-4714-aae5-534bade365d6">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>

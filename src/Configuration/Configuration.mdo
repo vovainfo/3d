@@ -39,9 +39,13 @@
     </synonym>
     <languageCode>ru</languageCode>
   </languages>
+  <constants>Constant.ЛогинСкаут</constants>
+  <constants>Constant.ПарольСкаут</constants>
   <commonForms>CommonForm.Стартовая</commonForms>
   <dataProcessors>DataProcessor.d3</dataProcessors>
   <dataProcessors>DataProcessor.d3_v2</dataProcessors>
   <dataProcessors>DataProcessor.d3_v3</dataProcessors>
   <dataProcessors>DataProcessor.d3_v4</dataProcessors>
+  <dataProcessors>DataProcessor.Скаут</dataProcessors>
+  <informationRegisters>InformationRegister.ПоложениеТехникиСкаут</informationRegisters>
 </mdclass:Configuration>

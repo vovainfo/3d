@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:InformationRegister xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="ca2a2d7b-e22b-4ff2-8d93-51caae6a0d1e">
+  <producedTypes>
+    <selectionType typeId="bba2b8da-b34a-46dc-8526-f216035ab6a5" valueTypeId="645c09d9-2c09-40be-a38d-f00d6aa8ba80"/>
+    <listType typeId="a83a51ca-ee43-4139-ac28-81b893d703c6" valueTypeId="d7910cd7-f152-405a-8a57-1d751138ddb4"/>
+    <managerType typeId="2d9e2926-8861-4dba-b3eb-25583bf19413" valueTypeId="f7473d90-8a2d-4496-bec3-e1a65d93a9b7"/>
+    <recordSetType typeId="45fe5d1b-4174-4900-92dc-d2e85a9fd967" valueTypeId="c8ad0222-2e96-41a3-b491-77382b3e5924"/>
+    <recordKeyType typeId="b4b8ee1d-b3b9-4eac-82f9-9a331ce65019" valueTypeId="be3b8a4d-abde-4f55-a577-8bc508773dbc"/>
+    <recordType typeId="c9a16e6a-9ff4-406d-bff7-41d2f6aa728c" valueTypeId="b642c4aa-4412-4531-942b-87b53f847b40"/>
+    <recordManagerType typeId="c466fd4a-debf-4101-97c6-d13091dcefb8" valueTypeId="c9b20ee0-9fab-46e8-bcb8-95d78bdbecc4"/>
+  </producedTypes>
+  <name>ПоложениеТехникиСкаут</name>
+  <synonym>
+    <key>ru</key>
+    <value>Положение техники Скаут</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <editType>InDialog</editType>
+  <informationRegisterPeriodicity>Second</informationRegisterPeriodicity>
+  <mainFilterOnPeriod>true</mainFilterOnPeriod>
+  <dataLockControlMode>Managed</dataLockControlMode>
+  <enableTotalsSliceLast>true</enableTotalsSliceLast>
+  <recordPresentation>
+    <key>ru</key>
+    <value>Положение техники Скаут</value>
+  </recordPresentation>
+  <listPresentation>
+    <key>ru</key>
+    <value>Положения техники Скаут</value>
+  </listPresentation>
+  <resources uuid="5bb07697-f3ca-4b72-9f3c-8090b950b93c">
+    <name>Наименование</name>
+    <synonym>
+      <key>ru</key>
+      <value>Наименование</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>150</length>
+      </stringQualifiers>
+    </type>
+  </resources>
+  <resources uuid="125ed1e8-de17-4f64-bb99-c44fb5aa91ad">
+    <name>ГосНомер</name>
+    <synonym>
+      <key>ru</key>
+      <value>Гос. номер</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>20</length>
+      </stringQualifiers>
+    </type>
+  </resources>
+  <resources uuid="10733a38-9965-47cd-8786-f36f71ffd6df">
+    <name>КодТипаТС</name>
+    <synonym>
+      <key>ru</key>
+      <value>Код типа ТС</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>10</precision>
+        <nonNegative>true</nonNegative>
+      </numberQualifiers>
+    </type>
+  </resources>
+  <resources uuid="9fde3e65-6712-454f-a1ef-20636ae9631d">
+    <name>ТипТС</name>
+    <synonym>
+      <key>ru</key>
+      <value>Тип ТС</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>50</length>
+      </stringQualifiers>
+    </type>
+  </resources>
+  <resources uuid="177963fa-6e4d-43e9-a81e-b18af9309fda">
+    <name>Широта</name>
+    <synonym>
+      <key>ru</key>
+      <value>Широта</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>18</precision>
+        <scale>10</scale>
+      </numberQualifiers>
+    </type>
+  </resources>
+  <resources uuid="a4c643e3-7971-44fb-9131-449e7e60ba45">
+    <name>Долгота</name>
+    <synonym>
+      <key>ru</key>
+      <value>Долгота</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>18</precision>
+        <scale>10</scale>
+      </numberQualifiers>
+    </type>
+  </resources>
+  <resources uuid="2b78f2a4-fa2d-46f4-aabd-9a75311bd824">
+    <name>Азимут</name>
+    <synonym>
+      <key>ru</key>
+      <value>Азимут</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>10</precision>
+        <scale>3</scale>
+      </numberQualifiers>
+    </type>
+  </resources>
+  <resources uuid="9b903e24-195b-4c60-8209-02d0976c8914">
+    <name>Скорость</name>
+    <synonym>
+      <key>ru</key>
+      <value>Скорость</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>10</precision>
+        <scale>3</scale>
+      </numberQualifiers>
+    </type>
+  </resources>
+  <resources uuid="e9fdc869-36d2-4e7b-94d4-c1e09c13cd10">
+    <name>КоординатаX</name>
+    <synonym>
+      <key>ru</key>
+      <value>Координата X</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>15</precision>
+        <scale>3</scale>
+      </numberQualifiers>
+    </type>
+  </resources>
+  <resources uuid="155bc903-3821-48c2-945b-ec45b81e3350">
+    <name>КоординатаY</name>
+    <synonym>
+      <key>ru</key>
+      <value>Координата Y</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>15</precision>
+        <scale>3</scale>
+      </numberQualifiers>
+    </type>
+  </resources>
+  <resources uuid="d8122198-c5c3-4357-941d-45ca56df41f1">
+    <name>ДатаПолучения</name>
+    <synonym>
+      <key>ru</key>
+      <value>Дата получения</value>
+    </synonym>
+    <type>
+      <types>Date</types>
+      <dateQualifiers/>
+    </type>
+  </resources>
+  <dimensions uuid="ab442873-0c5b-483e-8857-11fefc128f50">
+    <name>Идентификатор</name>
+    <synonym>
+      <key>ru</key>
+      <value>Идентификатор</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>15</precision>
+        <nonNegative>true</nonNegative>
+      </numberQualifiers>
+    </type>
+    <fillChecking>ShowError</fillChecking>
+    <denyIncompleteValues>true</denyIncompleteValues>
+    <indexing>Index</indexing>
+    <mainFilter>true</mainFilter>
+  </dimensions>
+</mdclass:InformationRegister>

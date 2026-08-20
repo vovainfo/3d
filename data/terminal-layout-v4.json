@@ -275,14 +275,6 @@
             "runsAlong": "rows"
           },
           {
-            "kind": "zone",
-            "zoneId": "B",
-            "numbers": {
-              "from": 45,
-              "to": 46
-            }
-          },
-          {
             "kind": "reeferRack",
             "id": "reefer_rack_bays_B2",
             "widthM": 1.0,
@@ -292,7 +284,7 @@
             "kind": "zone",
             "zoneId": "B",
             "numbers": {
-              "from": 47,
+              "from": 45,
               "to": 48
             }
           }
@@ -348,7 +340,7 @@
           {
             "kind": "canopy",
             "id": "canopy_bays_A1",
-            "widthM": 12.0,
+            "widthM": 18.0,
             "runsAlong": "rows"
           },
           {
@@ -405,7 +397,7 @@
           "D": 63
         },
         "footprintAlongRowsM": 23.31,
-        "footprintAlongBaysM": 203.0
+        "footprintAlongBaysM": 209.0
       }
     },
     {
@@ -722,7 +714,7 @@
             "kind": "cells",
             "numbers": {
               "from": 1,
-              "to": 13
+              "to": 9
             }
           }
         ],
@@ -738,12 +730,12 @@
         ]
       },
       "expected": {
-        "rowCellCount": 13,
+        "rowCellCount": 9,
         "bayCellCount": 11,
         "zoneCellCounts": {
-          "R": 143
+          "R": 99
         },
-        "footprintAlongRowsM": 33.67,
+        "footprintAlongRowsM": 23.31,
         "footprintAlongBaysM": 68.2
       }
     },
@@ -1084,7 +1076,7 @@
             "zoneId": "PR",
             "numbers": {
               "from": 1,
-              "to": 3
+              "to": 2
             }
           },
           {
@@ -1097,8 +1089,8 @@
             "kind": "zone",
             "zoneId": "PR",
             "numbers": {
-              "from": 4,
-              "to": 7
+              "from": 3,
+              "to": 6
             }
           },
           {
@@ -1111,8 +1103,8 @@
             "kind": "zone",
             "zoneId": "PR",
             "numbers": {
-              "from": 8,
-              "to": 11
+              "from": 7,
+              "to": 10
             }
           },
           {
@@ -1125,8 +1117,8 @@
             "kind": "zone",
             "zoneId": "PR",
             "numbers": {
-              "from": 12,
-              "to": 15
+              "from": 11,
+              "to": 14
             }
           },
           {
@@ -1139,8 +1131,8 @@
             "kind": "zone",
             "zoneId": "PR",
             "numbers": {
-              "from": 16,
-              "to": 19
+              "from": 15,
+              "to": 18
             }
           },
           {
@@ -1153,7 +1145,7 @@
             "kind": "zone",
             "zoneId": "PR",
             "numbers": {
-              "from": 20,
+              "from": 19,
               "to": 22
             }
           }
@@ -1188,7 +1180,7 @@
             "kind": "cells",
             "numbers": {
               "from": 1,
-              "to": 8
+              "to": 6
             }
           }
         ],
@@ -1198,19 +1190,19 @@
             "zoneId": "N",
             "numbers": {
               "from": 1,
-              "to": 6
+              "to": 5
             }
           }
         ]
       },
       "expected": {
-        "rowCellCount": 8,
-        "bayCellCount": 6,
+        "rowCellCount": 6,
+        "bayCellCount": 5,
         "zoneCellCounts": {
-          "N": 48
+          "N": 30
         },
-        "footprintAlongRowsM": 20.72,
-        "footprintAlongBaysM": 37.2
+        "footprintAlongRowsM": 15.54,
+        "footprintAlongBaysM": 31.0
       }
     },
     {
@@ -1242,26 +1234,26 @@
             "zoneId": "MR",
             "numbers": {
               "from": 1,
-              "to": 24
+              "to": 22
             }
           }
         ]
       },
       "expected": {
         "rowCellCount": 8,
-        "bayCellCount": 24,
+        "bayCellCount": 22,
         "zoneCellCounts": {
-          "MR": 192
+          "MR": 176
         },
         "footprintAlongRowsM": 20.72,
-        "footprintAlongBaysM": 148.8
+        "footprintAlongBaysM": 136.4
       }
     },
     {
       "id": "kpO",
       "name": "кпO",
       "qgisFeatureId": "kpO",
-      "containerLabelRotationDeg": 180,
+      "containerLabelRotationDeg": 0,
       "maxTier": 6,
       "zones": [
         {
@@ -1276,19 +1268,6 @@
             "kind": "cells",
             "numbers": {
               "from": 1,
-              "to": 8
-            }
-          },
-          {
-            "kind": "aisle",
-            "id": "aisle_rows_O1",
-            "widthM": 6.0,
-            "runsAlong": "bays"
-          },
-          {
-            "kind": "cells",
-            "numbers": {
-              "from": 9,
               "to": 10
             }
           }
@@ -1310,7 +1289,7 @@
         "zoneCellCounts": {
           "O": 610
         },
-        "footprintAlongRowsM": 31.9,
+        "footprintAlongRowsM": 25.9,
         "footprintAlongBaysM": 378.2
       }
     },
@@ -1356,6 +1335,842 @@
         },
         "footprintAlongRowsM": 28.49,
         "footprintAlongBaysM": 31.0
+      }
+    },
+    {
+      "id": "kpJ",
+      "name": "кпJ",
+      "qgisFeatureId": "kpJ",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "J",
+          "name": "Зона J",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 19
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "J",
+            "numbers": {
+              "from": 1,
+              "to": 3
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 19,
+        "bayCellCount": 3,
+        "zoneCellCounts": {
+          "J": 57
+        },
+        "footprintAlongRowsM": 49.21,
+        "footprintAlongBaysM": 18.6
+      }
+    },
+    {
+      "id": "kpS",
+      "name": "кпS",
+      "qgisFeatureId": "kpS",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "S",
+          "name": "Зона S",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 5
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "S",
+            "numbers": {
+              "from": 1,
+              "to": 23
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 5,
+        "bayCellCount": 23,
+        "zoneCellCounts": {
+          "S": 115
+        },
+        "footprintAlongRowsM": 12.95,
+        "footprintAlongBaysM": 142.6
+      }
+    },
+    {
+      "id": "kpS1",
+      "name": "кпS1",
+      "qgisFeatureId": "kpS1",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "S",
+          "name": "Зона S",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 5
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "S",
+            "numbers": {
+              "from": 24,
+              "to": 26
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 5,
+        "bayCellCount": 3,
+        "zoneCellCounts": {
+          "S": 15
+        },
+        "footprintAlongRowsM": 12.95,
+        "footprintAlongBaysM": 18.6
+      }
+    },
+    {
+      "id": "kpQT1",
+      "name": "кпQT1",
+      "qgisFeatureId": "kpQT1",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "QT",
+          "name": "Зона QT",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 2
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "QT",
+            "numbers": {
+              "from": 1,
+              "to": 3
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 2,
+        "bayCellCount": 3,
+        "zoneCellCounts": {
+          "QT": 6
+        },
+        "footprintAlongRowsM": 5.18,
+        "footprintAlongBaysM": 18.6
+      }
+    },
+    {
+      "id": "kpQT",
+      "name": "кпQT",
+      "qgisFeatureId": "kpQT",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "QT",
+          "name": "Зона QT",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 2
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "QT",
+            "numbers": {
+              "from": 6,
+              "to": 21
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 2,
+        "bayCellCount": 16,
+        "zoneCellCounts": {
+          "QT": 32
+        },
+        "footprintAlongRowsM": 5.18,
+        "footprintAlongBaysM": 99.2
+      }
+    },
+    {
+      "id": "kpRF",
+      "name": "кпRF",
+      "qgisFeatureId": "kpRF",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "RF",
+          "name": "Зона RF",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 7
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "RF",
+            "numbers": {
+              "from": 3,
+              "to": 7
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 7,
+        "bayCellCount": 5,
+        "zoneCellCounts": {
+          "RF": 35
+        },
+        "footprintAlongRowsM": 18.13,
+        "footprintAlongBaysM": 31.0
+      }
+    },
+    {
+      "id": "kpRF1",
+      "name": "кпRF1",
+      "qgisFeatureId": "kpRF1",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "RF",
+          "name": "Зона RF",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 19
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "RF",
+            "numbers": {
+              "from": 1,
+              "to": 2
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 19,
+        "bayCellCount": 2,
+        "zoneCellCounts": {
+          "RF": 38
+        },
+        "footprintAlongRowsM": 49.21,
+        "footprintAlongBaysM": 12.4
+      }
+    },
+    {
+      "id": "kpRF2",
+      "name": "кпRF2",
+      "qgisFeatureId": "kpRF2",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "RF",
+          "name": "Зона RF",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 16
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "RF",
+            "numbers": {
+              "from": 8,
+              "to": 25
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 16,
+        "bayCellCount": 18,
+        "zoneCellCounts": {
+          "RF": 288
+        },
+        "footprintAlongRowsM": 41.44,
+        "footprintAlongBaysM": 111.6
+      }
+    },
+    {
+      "id": "kpRF3",
+      "name": "кпRF3",
+      "qgisFeatureId": "kpRF3",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "RF",
+          "name": "Зона RF",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 10
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "RF",
+            "numbers": {
+              "from": 26,
+              "to": 26
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 10,
+        "bayCellCount": 1,
+        "zoneCellCounts": {
+          "RF": 10
+        },
+        "footprintAlongRowsM": 25.9,
+        "footprintAlongBaysM": 6.2
+      }
+    },
+    {
+      "id": "kpREM",
+      "name": "кпREM",
+      "qgisFeatureId": "kpREM",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "REM",
+          "name": "Зона REM",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 3
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "REM",
+            "numbers": {
+              "from": 1,
+              "to": 8
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 3,
+        "bayCellCount": 8,
+        "zoneCellCounts": {
+          "REM": 24
+        },
+        "footprintAlongRowsM": 7.77,
+        "footprintAlongBaysM": 49.6
+      }
+    },
+    {
+      "id": "kpREM2",
+      "name": "кпREM2",
+      "qgisFeatureId": "kpREM2",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "REM",
+          "name": "Зона REM",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 3
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "REM",
+            "numbers": {
+              "from": 9,
+              "to": 20
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 3,
+        "bayCellCount": 12,
+        "zoneCellCounts": {
+          "REM": 36
+        },
+        "footprintAlongRowsM": 7.77,
+        "footprintAlongBaysM": 74.4
+      }
+    },
+    {
+      "id": "kpUR",
+      "name": "кпUR",
+      "qgisFeatureId": "kpUR",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "UR",
+          "name": "Зона UR",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 5
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "UR",
+            "numbers": {
+              "from": 3,
+              "to": 8
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 5,
+        "bayCellCount": 6,
+        "zoneCellCounts": {
+          "UR": 30
+        },
+        "footprintAlongRowsM": 12.95,
+        "footprintAlongBaysM": 37.2
+      }
+    },
+    {
+      "id": "kpBR",
+      "name": "кпBR",
+      "qgisFeatureId": "kpBR",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "BR",
+          "name": "Зона BR",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 3
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "BR",
+            "numbers": {
+              "from": 1,
+              "to": 6
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 3,
+        "bayCellCount": 6,
+        "zoneCellCounts": {
+          "BR": 18
+        },
+        "footprintAlongRowsM": 7.77,
+        "footprintAlongBaysM": 37.2
+      }
+    },
+    {
+      "id": "kpBR2",
+      "name": "кпBR2",
+      "qgisFeatureId": "kpBR2",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "BR",
+          "name": "Зона BR",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 22
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "BR",
+            "numbers": {
+              "from": 13,
+              "to": 14
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 22,
+        "bayCellCount": 2,
+        "zoneCellCounts": {
+          "BR": 44
+        },
+        "footprintAlongRowsM": 56.98,
+        "footprintAlongBaysM": 12.4
+      }
+    },
+    {
+      "id": "kpLM",
+      "name": "кпLM",
+      "qgisFeatureId": "kpLM",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "LM",
+          "name": "Зона LM",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 12
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "LM",
+            "numbers": {
+              "from": 1,
+              "to": 5
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 12,
+        "bayCellCount": 5,
+        "zoneCellCounts": {
+          "LM": 60
+        },
+        "footprintAlongRowsM": 31.08,
+        "footprintAlongBaysM": 31.0
+      }
+    },
+    {
+      "id": "kpLM2",
+      "name": "кпLM2",
+      "qgisFeatureId": "kpLM2",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "LM",
+          "name": "Зона LM",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 11
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "LM",
+            "numbers": {
+              "from": 6,
+              "to": 7
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 11,
+        "bayCellCount": 2,
+        "zoneCellCounts": {
+          "LM": 22
+        },
+        "footprintAlongRowsM": 28.49,
+        "footprintAlongBaysM": 12.4
+      }
+    },
+    {
+      "id": "kpLM3",
+      "name": "кпLM3",
+      "qgisFeatureId": "kpLM3",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "LM",
+          "name": "Зона LM",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 8
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "LM",
+            "numbers": {
+              "from": 8,
+              "to": 9
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 8,
+        "bayCellCount": 2,
+        "zoneCellCounts": {
+          "LM": 16
+        },
+        "footprintAlongRowsM": 20.72,
+        "footprintAlongBaysM": 12.4
+      }
+    },
+    {
+      "id": "kpLM4",
+      "name": "кпLM4",
+      "qgisFeatureId": "kpLM4",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "LM",
+          "name": "Зона LM",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 39
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "LM",
+            "numbers": {
+              "from": 10,
+              "to": 10
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 39,
+        "bayCellCount": 1,
+        "zoneCellCounts": {
+          "LM": 39
+        },
+        "footprintAlongRowsM": 101.01,
+        "footprintAlongBaysM": 6.2
+      }
+    },
+    {
+      "id": "kpOL",
+      "name": "кпOL",
+      "qgisFeatureId": "kpOL",
+      "containerLabelRotationDeg": 180,
+      "maxTier": 6,
+      "zones": [
+        {
+          "id": "OL",
+          "name": "Зона OL",
+          "kind": "storage"
+        }
+      ],
+      "topology": {
+        "rows": [
+          {
+            "kind": "cells",
+            "numbers": {
+              "from": 1,
+              "to": 1
+            }
+          }
+        ],
+        "bays": [
+          {
+            "kind": "zone",
+            "zoneId": "OL",
+            "numbers": {
+              "from": 1,
+              "to": 24
+            }
+          }
+        ]
+      },
+      "expected": {
+        "rowCellCount": 1,
+        "bayCellCount": 24,
+        "zoneCellCounts": {
+          "OL": 24
+        },
+        "footprintAlongRowsM": 2.59,
+        "footprintAlongBaysM": 148.8
       }
     }
   ]

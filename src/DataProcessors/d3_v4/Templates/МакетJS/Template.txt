@@ -337,17 +337,14 @@ function initTerminalPlan2D() {
     }
     recomputeCellCounts();
 
-    var objects = [];
-    var objectById = {};
-    var sourceObjects = sceneData.objects instanceof Array ? sceneData.objects : [];
-    for (var oi = 0; oi < sourceObjects.length; oi++) {
-        var so = sourceObjects[oi] || {};
+    function normalizeSceneObject(sourceObject) {
+        var so = sourceObject || {};
         var oid = String(so.id == null ? '' : so.id);
         var kind = String(so.kind == null ? '' : so.kind);
-        if (!oid || !kind || objectById[oid] || kind === 'cell' || kind === 'placement') {
-            continue;
+        if (!oid || !kind || kind === 'cell' || kind === 'placement') {
+            return null;
         }
-        var obj = {
+        return {
             id: oid,
             kind: kind,
             name: String(so.name || oid),
@@ -381,8 +378,18 @@ function initTerminalPlan2D() {
             cargo: so.cargo || null,
             platformLengthFt: numberOr(so.platformLengthFt, 0)
         };
+    }
+
+    var objects = [];
+    var objectById = {};
+    var sourceObjects = sceneData.objects instanceof Array ? sceneData.objects : [];
+    for (var oi = 0; oi < sourceObjects.length; oi++) {
+        var obj = normalizeSceneObject(sourceObjects[oi]);
+        if (!obj || objectById[obj.id]) {
+            continue;
+        }
         objects.push(obj);
-        objectById[oid] = obj;
+        objectById[obj.id] = obj;
     }
 
     var dpr = 1;
@@ -2259,6 +2266,30 @@ function initTerminalPlan2D() {
         if (kind === 'cranePortal') {
             drawCraneNameLabel(obj, p.x, p.y, s);
         }
+        if (kind === 'scoutVehicle') {
+            drawScoutNameLabel(obj, p.x, p.y, s);
+        }
+    }
+
+    function drawScoutNameLabel(obj, sx, sy, s) {
+        var text = obj.name || '';
+        if (!text) {
+            return;
+        }
+        var radius = Math.max(5, 3.5 * s);
+        var fontSize = Math.max(11, Math.min(16, 4 * s + 8));
+        ctx.save();
+        ctx.font = 'bold ' + fontSize + 'px Segoe UI, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = 'rgba(0,0,0,0.7)';
+        ctx.fillStyle = '#ffffff';
+        if (ctx.strokeText) {
+            ctx.strokeText(text, sx, sy - radius - 3);
+        }
+        ctx.fillText(text, sx, sy - radius - 3);
+        ctx.restore();
     }
 
     function drawCraneNameLabel(obj, sx, sy, s) {
@@ -2543,10 +2574,52 @@ function initTerminalPlan2D() {
         return target;
     }
 
+    function updateScoutVehicles(sourceVehicles) {
+        if (!(sourceVehicles instanceof Array)) {
+            throw new Error('Для обновления техники ожидается массив объектов.');
+        }
+
+        var nextObjects = [];
+        var nextObjectById = {};
+        var objectIndex;
+        for (objectIndex = 0; objectIndex < objects.length; objectIndex++) {
+            if (objects[objectIndex].kind === 'scoutVehicle') {
+                continue;
+            }
+            nextObjects.push(objects[objectIndex]);
+            nextObjectById[objects[objectIndex].id] = objects[objectIndex];
+        }
+
+        for (objectIndex = 0; objectIndex < sourceVehicles.length; objectIndex++) {
+            var vehicle = normalizeSceneObject(sourceVehicles[objectIndex]);
+            if (!vehicle || vehicle.kind !== 'scoutVehicle') {
+                throw new Error('Некорректный объект техники в позиции ' + objectIndex + '.');
+            }
+            if (nextObjectById[vehicle.id]) {
+                throw new Error('Повтор идентификатора объекта "' + vehicle.id + '".');
+            }
+            nextObjects.push(vehicle);
+            nextObjectById[vehicle.id] = vehicle;
+        }
+
+        var selectedScoutId = selected && selected.kind === 'scoutVehicle' ? selected.id : '';
+        objects = nextObjects;
+        objectById = nextObjectById;
+        if (selectedScoutId) {
+            selected = objectById[selectedScoutId] || null;
+        }
+        needsDraw = true;
+        updateStatus();
+        return sourceVehicles.length;
+    }
+
     function applyCommand(command) {
         command = command || {};
         if (command.op === 'focus') {
             return focusObject(command.id);
+        }
+        if (command.op === 'updateScoutVehicles') {
+            return updateScoutVehicles(command.objects);
         }
         throw new Error('Неизвестная операция "' + String(command.op || '') + '".');
     }
@@ -2582,6 +2655,7 @@ function initTerminalPlan2D() {
     window.terminalPlan2d = {
         applyCommand: applyCommand,
         focusObject: focusObject,
+        updateScoutVehicles: updateScoutVehicles,
         getCell: function (id) { return cellById[String(id)] || null; },
         getPlacement: function (id) { return placementById[String(id)] || null; },
         getObject: function (id) {
