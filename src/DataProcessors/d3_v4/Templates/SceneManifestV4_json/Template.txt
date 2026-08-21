@@ -1,6 +1,6 @@
 {
   "schemaVersion": "4.0",
-  "buildId": "55a2693817a09919",
+  "buildId": "c9614c83d267da95",
   "algorithm": "sha256",
   "sources": {
     "bayAxes": {
@@ -8,19 +8,14 @@
       "sha256": "6c5d4aaccdb9df3cb879b1be538f84c1b7e6cf798d2fb083ef5811ef2137683c",
       "characters": 13778
     },
-    "berthHeadingAxes": {
-      "path": "geojson/berth_heading_axes_v4.geojson",
-      "sha256": "b6cebc4e97d1463058503fb0b2a8946ac8663e2dba02669ac0750c5bcc72a642",
-      "characters": 2309
-    },
-    "berthPoints": {
-      "path": "geojson/berth_points_v4.geojson",
-      "sha256": "80493460789461a4aa70606143f631b5a0ad3fad76e5f056a1b45404706e0da5",
-      "characters": 1858
+    "berth": {
+      "path": "geojson/berth.geojson",
+      "sha256": "71a25b5b89478e325788c123688db5c2910faf6e19db73c50a41d08911649fa4",
+      "characters": 2471
     },
     "berths": {
       "path": "berths-v4.json",
-      "sha256": "00839b466a1b55a0a44421b0b3c48e709c3562e422213adae367e79b66714746",
+      "sha256": "4bbf172d5a803a7875e2c6d67758d5a645ff573cc1b49bddf604abe49edf544b",
       "characters": 1234
     },
     "buildings": {

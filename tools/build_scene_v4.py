@@ -32,8 +32,7 @@ SOURCE_FILES = {
     "buildings": "geojson/buildings.geojson",
     "roads": "geojson/roads.geojson",
     "portBoundary": "geojson/port_boundary.geojson",
-    "berthPoints": "geojson/berth_points_v4.geojson",
-    "berthHeadingAxes": "geojson/berth_heading_axes_v4.geojson",
+    "berth": "geojson/berth.geojson",
     "vessels": "vessels-v4.json",
     "portalCranes": "geojson/portal_cranes_v4.geojson",
     "yardCranes": "yard-cranes-v4.json",
@@ -646,14 +645,16 @@ def collect_axes(document: Any, crs: str, validation: Validation) -> dict[str, d
 
 
 def collect_berths(
-    points_document: Any,
     axes_document: Any,
     crs: str,
     validation: Validation,
 ) -> dict[str, Any]:
-    points: dict[str, dict[str, Any]] = {}
-    for feature_index, feature in enumerate(feature_collection(points_document, "berth_points_v4.geojson", validation)):
-        location = f"berth_points_v4.geojson.features[{feature_index}]"
+    berths: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+    for feature_index, feature in enumerate(
+        feature_collection(axes_document, "berth.geojson", validation)
+    ):
+        location = f"berth.geojson.features[{feature_index}]"
         properties = feature.get("properties") if isinstance(feature, dict) else None
         geometry = feature.get("geometry") if isinstance(feature, dict) else None
         berth_id = properties.get("berth_id") if isinstance(properties, dict) else None
@@ -662,31 +663,9 @@ def collect_berths(
         name = name.strip() if isinstance(name, str) else ""
         validation.require(bool(berth_id), f"{location}.properties.berth_id", "berth_id is required")
         validation.require(bool(name), f"{location}.properties.name", "name is required")
-        if berth_id in points:
+        if berth_id in seen_ids:
             validation.add(f"{location}.properties.berth_id", f"duplicate berth_id {berth_id}")
-        if not isinstance(geometry, dict) or geometry.get("type") != "Point":
-            validation.add(f"{location}.geometry", "geometry must be Point")
             continue
-        center = point(geometry.get("coordinates"))
-        if center is None:
-            validation.add(f"{location}.geometry.coordinates", "coordinates must be a finite point")
-            continue
-        if berth_id and berth_id not in points:
-            points[berth_id] = {"id": berth_id, "name": name, "center": center}
-    validation.require(crs_code(points_document) == crs, "berth_points_v4.geojson", f"CRS must be {crs}")
-
-    axes: dict[str, list[tuple[float, float]]] = {}
-    for feature_index, feature in enumerate(
-        feature_collection(axes_document, "berth_heading_axes_v4.geojson", validation)
-    ):
-        location = f"berth_heading_axes_v4.geojson.features[{feature_index}]"
-        properties = feature.get("properties") if isinstance(feature, dict) else None
-        geometry = feature.get("geometry") if isinstance(feature, dict) else None
-        berth_id = properties.get("berth_id") if isinstance(properties, dict) else None
-        berth_id = berth_id.strip() if isinstance(berth_id, str) else ""
-        validation.require(bool(berth_id), f"{location}.properties.berth_id", "berth_id is required")
-        if berth_id in axes:
-            validation.add(f"{location}.properties.berth_id", f"duplicate berth_id {berth_id}")
         if (
             not isinstance(geometry, dict)
             or geometry.get("type") != "LineString"
@@ -701,36 +680,18 @@ def collect_berths(
             continue
         axis = [value for value in parsed if value is not None]
         validation.require(distance(axis[0], axis[1]) >= 0.5, location, "heading axis is too short")
-        if berth_id and berth_id not in axes:
-            axes[berth_id] = axis
-    validation.require(crs_code(axes_document) == crs, "berth_heading_axes_v4.geojson", f"CRS must be {crs}")
-
-    validation.require_ids(
-        set(points),
-        set(axes),
-        "virtual berths",
-        "berth_id sets in points and axes must match",
-        actual_label="berth_points_v4.geojson",
-        expected_label="berth_heading_axes_v4.geojson",
-    )
-    berths: list[dict[str, Any]] = []
-    for berth_id, description in points.items():
-        axis = axes.get(berth_id)
-        if axis is None:
+        if not berth_id:
             continue
-        validation.require(
-            distance(description["center"], axis[0]) <= AXIS_VERTEX_TOLERANCE_M,
-            f"virtual berths.{berth_id}",
-            "heading axis must start at berth point",
-        )
+        seen_ids.add(berth_id)
         berths.append(
             {
                 "id": berth_id,
-                "name": description["name"],
-                "center": list(description["center"]),
+                "name": name,
+                "center": list(axis[0]),
                 "headingPoint": list(axis[1]),
             }
         )
+    validation.require(crs_code(axes_document) == crs, "berth.geojson", f"CRS must be {crs}")
     return {"schemaVersion": "4.0", "crs": crs, "berths": berths}
 
 
@@ -1754,8 +1715,7 @@ def build(data_dir: Path, templates_dir: Path, check_only: bool) -> None:
     validate_roads(source_documents.get("roads", {}), terminal_crs, validation)
     validate_port_boundary(source_documents.get("portBoundary", {}), terminal_crs, validation)
     berths_document = collect_berths(
-        source_documents.get("berthPoints", {}),
-        source_documents.get("berthHeadingAxes", {}),
+        source_documents.get("berth", {}),
         terminal_crs,
         validation,
     )
