@@ -6,9 +6,17 @@
 "features": [
 {"type":"Feature","properties":{"fid":1,"berth_id":"53","name":"Причал 53"},"geometry":{"type":"LineString","coordinates":[[734361.84,4774968.97],[734376.8,4775014.52]]}},
 {"type":"Feature","properties":{"fid":2,"berth_id":"52","name":"Причал 52"},"geometry":{"type":"LineString","coordinates":[[734418.24,4775138.28],[734432.46,4775180.55]]}},
-{"type":"Feature","properties":{"fid":3,"berth_id":"51","name":"Причал 51"},"geometry":{"type":"LineString","coordinates":[[734486.45,4775238.98],[734509.87,4775256.02]]}},
 {"type":"Feature","properties":{"fid":4,"berth_id":"50-2","name":"Причал 50-2"},"geometry":{"type":"LineString","coordinates":[[734555.49,4775361.54],[734572.98,4775414.01]]}},
 {"type":"Feature","properties":{"fid":5,"berth_id":"50","name":"Причал 50"},"geometry":{"type":"LineString","coordinates":[[734585.1,4775450.38],[734604.43,4775508.37]]}},
-{"type":"Feature","properties":{"fid":6,"berth_id":"50-1","name":"Причал 50-1"},"geometry":{"type":"LineString","coordinates":[[734610.76,4775527.37],[734625.85,4775572.62]]}}
+{"type":"Feature","properties":{"fid":6,"berth_id":"50-1","name":"Причал 50-1"},"geometry":{"type":"LineString","coordinates":[[734610.76,4775527.37],[734625.85,4775572.62]]}},
+{"type":"Feature","properties":{"fid":7,"berth_id":"49","name":"Причал 49"},"geometry":{"type":"LineString","coordinates":[[734589.14,4775716.27],[734571.3,4775771.46]]}},
+{"type":"Feature","properties":{"fid":8,"berth_id":"48","name":"Причал 48"},"geometry":{"type":"LineString","coordinates":[[734582.36,4775961.78],[734596.72,4776016.37]]}},
+{"type":"Feature","properties":{"fid":9,"berth_id":"47","name":"Причал 47"},"geometry":{"type":"LineString","coordinates":[[734690.44,4776132.89],[734705.83,4776144.22]]}},
+{"type":"Feature","properties":{"fid":10,"berth_id":"46","name":"Причал 46"},"geometry":{"type":"LineString","coordinates":[[734834.96,4776242.52],[734847.0,4776252.68]]}},
+{"type":"Feature","properties":{"fid":11,"berth_id":"45","name":"Причал 45"},"geometry":{"type":"LineString","coordinates":[[734962.95,4776350.62],[734976.4,4776361.99]]}},
+{"type":"Feature","properties":{"fid":12,"berth_id":"44","name":"Причал 44"},"geometry":{"type":"LineString","coordinates":[[735064.65,4776436.52],[735075.4,4776445.6]]}},
+{"type":"Feature","properties":{"fid":14,"berth_id":"51-1","name":"Причал 51-1"},"geometry":{"type":"LineString","coordinates":[[734459.23,4775219.18],[734469.33,4775226.52]]}},
+{"type":"Feature","properties":{"fid":15,"berth_id":"51-3","name":"Причал 51-3"},"geometry":{"type":"LineString","coordinates":[[734510.85,4775256.73],[734516.92,4775261.15]]}},
+{"type":"Feature","properties":{"fid":16,"berth_id":"51-2","name":"Причал 51-2"},"geometry":{"type":"LineString","coordinates":[[734484.98,4775237.91],[734487.6,4775239.82]]}}
 ]
 }

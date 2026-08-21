@@ -1,6 +1,6 @@
 {
   "schemaVersion": "4.0",
-  "buildId": "c9614c83d267da95",
+  "buildId": "ded6b4ef7e45da6a",
   "algorithm": "sha256",
   "sources": {
     "bayAxes": {
@@ -10,13 +10,13 @@
     },
     "berth": {
       "path": "geojson/berth.geojson",
-      "sha256": "71a25b5b89478e325788c123688db5c2910faf6e19db73c50a41d08911649fa4",
-      "characters": 2471
+      "sha256": "60f4211be91348ddadfc9824d2abf1c168ce1914a2d527646ad0fdd74a27c6b4",
+      "characters": 5483
     },
     "berths": {
       "path": "berths-v4.json",
-      "sha256": "4bbf172d5a803a7875e2c6d67758d5a645ff573cc1b49bddf604abe49edf544b",
-      "characters": 1234
+      "sha256": "db26e545bca286648c60095682b58ada5ef7f84b12681ab3dcbc12cf4033def9",
+      "characters": 2784
     },
     "buildings": {
       "path": "geojson/buildings.geojson",
@@ -50,12 +50,12 @@
     },
     "railways": {
       "path": "railways-v4.json",
-      "sha256": "b16c65802558cf69b584569da50a49c3585fa3b29b8a18f9120799e88478a7bb",
+      "sha256": "131fa5c7697d08d70b680ddd14e9f8ea2521d7b487690cb9edb8854b1261f720",
       "characters": 44921
     },
     "railwaysVisual": {
       "path": "geojson/railways_visual_v4.geojson",
-      "sha256": "51cdc3000279ebeef8495980b550968ce244412d6fab69f88767089dd934cbfb",
+      "sha256": "a3df41be2e13e524dd786ea820834a44e9eea82d86a49bbcd3f4f75c6811eb74",
       "characters": 40686
     },
     "roads": {
@@ -85,8 +85,8 @@
     },
     "vessels": {
       "path": "vessels-v4.json",
-      "sha256": "396906a9ee30e857381e28319a54b802ed9c54b9f36217af649536c0316a8ff8",
-      "characters": 1307
+      "sha256": "b4ba8aa75e58a631db76f730b10c30a73b0bfce144cf0ff2aaa50b10242764e5",
+      "characters": 2644
     },
     "water": {
       "path": "geojson/water.geojson",

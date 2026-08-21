@@ -5,7 +5,7 @@ html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background: #1a1d24;
+    background: #d4d8de;
     font-family: Segoe UI, Tahoma, sans-serif;
 }
 
@@ -18,7 +18,7 @@ html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: linear-gradient(180deg, #2a3140 0%, #1a1d24 100%);
+    background: #d4d8de;
 }
 
 #viewport {
@@ -37,7 +37,7 @@ html, body {
     height: 100%;
     outline: none;
     cursor: grab;
-    background: #1e2430;
+    background: #d4d8de;
 }
 
 #viewport.panning #plan-canvas {
@@ -53,9 +53,6 @@ html, body {
     pointer-events: none;
 }
 
-#help,
-#legend,
-#equip-legend,
 #status {
     font-size: 12px;
     color: #e8ecf2;
@@ -66,28 +63,33 @@ html, body {
     margin-bottom: 6px;
 }
 
-#equip-legend {
-    color: #cbd5e1;
-    font-size: 11px;
-}
-
-#legend span {
+#scale-bar {
     display: inline-block;
-    min-width: 18px;
-    text-align: center;
-    margin-left: 4px;
-    padding: 1px 4px;
-    border-radius: 2px;
-    color: #111;
-    font-weight: 600;
+    font-size: 12px;
+    color: #e8ecf2;
+    background: rgba(20, 24, 32, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
+    padding: 6px 10px;
+    white-space: nowrap;
 }
 
-.lg0 { background: #4a3f3f; color: #d8d0d0; }
-.lg1 { background: #f0a090; }
-.lg2 { background: #e87868; }
-.lg3 { background: #d45040; color: #fff; }
-.lg4 { background: #b83228; color: #fff; }
-.lg5 { background: #8f2018; color: #fff; }
+#scale-bar-line {
+    display: inline-block;
+    width: 100px;
+    height: 8px;
+    border-left: 2px solid #e8ecf2;
+    border-right: 2px solid #e8ecf2;
+    border-bottom: 2px solid #e8ecf2;
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+
+#scale-bar-label {
+    display: inline-block;
+    margin-left: 8px;
+    vertical-align: middle;
+}
 
 #controls {
     position: absolute;

@@ -4,9 +4,9 @@
     {
       "id": "polar-star",
       "name": "Polar Star",
-      "lengthM": 150.0,
-      "beamM": 30.0,
-      "berthId": "52",
+      "lengthM": 145.0,
+      "beamM": 28.0,
+      "berthId": "53",
       "mooringSide": "right",
       "vesselType": "container",
       "refueling": true
@@ -14,49 +14,111 @@
     {
       "id": "fesco-star",
       "name": "FESCO Star",
-      "lengthM": 100.0,
-      "beamM": 20.0,
-      "berthId": "53",
+      "lengthM": 115.0,
+      "beamM": 24.0,
+      "berthId": "52",
       "mooringSide": "left",
-      "vesselType": "carCarrier",
-      "refueling": true
+      "vesselType": "container"
     },
     {
-      "id": "coal-trader",
-      "name": "Coal Trader",
-      "lengthM": 120.0,
-      "beamM": 24.0,
-      "berthId": "51",
+      "id": "nakhodka",
+      "name": "Nakhodka",
+      "lengthM": 52.0,
+      "beamM": 12.0,
+      "berthId": "51-1",
+      "mooringSide": "stern",
+      "vesselType": "empty"
+    },
+    {
+      "id": "vostok",
+      "name": "Vostok",
+      "lengthM": 50.0,
+      "beamM": 12.0,
+      "berthId": "51-2",
+      "mooringSide": "stern",
+      "vesselType": "empty"
+    },
+    {
+      "id": "taiga",
+      "name": "Taiga",
+      "lengthM": 52.0,
+      "beamM": 12.0,
+      "berthId": "51-3",
+      "mooringSide": "stern",
+      "vesselType": "empty"
+    },
+    {
+      "id": "sea-bridge",
+      "name": "Sea Bridge",
+      "lengthM": 85.0,
+      "beamM": 20.0,
+      "berthId": "50-2",
       "mooringSide": "right",
-      "vesselType": "coal"
+      "vesselType": "container"
+    },
+    {
+      "id": "bay-express",
+      "name": "Bay Express",
+      "lengthM": 80.0,
+      "beamM": 18.0,
+      "berthId": "50-1",
+      "mooringSide": "right",
+      "vesselType": "container"
+    },
+    {
+      "id": "orient-trader",
+      "name": "Orient Trader",
+      "lengthM": 130.0,
+      "beamM": 26.0,
+      "berthId": "49",
+      "mooringSide": "right",
+      "vesselType": "container"
     },
     {
       "id": "okhotsk-fish",
       "name": "Okhotsk Fish",
-      "lengthM": 70.0,
-      "beamM": 18.0,
-      "berthId": "50",
+      "lengthM": 80.0,
+      "beamM": 16.0,
+      "berthId": "48",
       "mooringSide": "right",
       "vesselType": "fish"
     },
     {
-      "id": "general-breeze",
-      "name": "General Breeze",
-      "lengthM": 90.0,
-      "beamM": 22.0,
-      "berthId": "50-1",
-      "mooringSide": "left",
-      "vesselType": "general"
+      "id": "pacific-box",
+      "name": "Pacific Box",
+      "lengthM": 140.0,
+      "beamM": 28.0,
+      "berthId": "47",
+      "mooringSide": "right",
+      "vesselType": "container"
     },
     {
-      "id": "empty-harbor",
-      "name": "Empty Harbor",
-      "lengthM": 80.0,
-      "beamM": 18.0,
-      "berthId": "50-2",
-      "mooringSide": "stern",
-      "vesselType": "empty",
+      "id": "coal-trader",
+      "name": "Coal Trader",
+      "lengthM": 145.0,
+      "beamM": 25.0,
+      "berthId": "46",
+      "mooringSide": "right",
+      "vesselType": "coal",
       "refueling": true
+    },
+    {
+      "id": "auto-voyager",
+      "name": "Auto Voyager",
+      "lengthM": 135.0,
+      "beamM": 24.0,
+      "berthId": "45",
+      "mooringSide": "left",
+      "vesselType": "carCarrier"
+    },
+    {
+      "id": "general-breeze",
+      "name": "General Breeze",
+      "lengthM": 105.0,
+      "beamM": 20.0,
+      "berthId": "44",
+      "mooringSide": "right",
+      "vesselType": "general"
     }
   ]
 }

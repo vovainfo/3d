@@ -3,7 +3,7 @@
   "crs": "EPSG:32652",
   "defaults": {
     "railGaugeM": 1.52,
-    "railColor": "#6B7280",
+    "railColor": "#000000",
     "trainGapM": 1.0,
     "wagonTypes": {
       "covered": {
@@ -64,8 +64,8 @@
   "visualPaths": [
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
-      "lengthM": 1684.911,
+      "color": "#000000",
+      "lengthM": 1671.993,
       "coordinates": [
         [
           734428.7,
@@ -312,14 +312,14 @@
           4776430.42
         ],
         [
-          735182.18,
-          4776457.11
+          735165.02,
+          4776464.37
         ]
       ]
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 772.83,
       "coordinates": [
         [
@@ -454,7 +454,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 589.089,
       "coordinates": [
         [
@@ -565,7 +565,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 205.347,
       "coordinates": [
         [
@@ -580,7 +580,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 212.897,
       "coordinates": [
         [
@@ -595,7 +595,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 275.822,
       "coordinates": [
         [
@@ -610,7 +610,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 1010.373,
       "coordinates": [
         [
@@ -725,7 +725,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 1024.981,
       "coordinates": [
         [
@@ -932,7 +932,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 1844.454,
       "coordinates": [
         [
@@ -1239,7 +1239,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 150.597,
       "coordinates": [
         [
@@ -1286,7 +1286,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 792.059,
       "coordinates": [
         [
@@ -1437,7 +1437,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 899.649,
       "coordinates": [
         [
@@ -1556,7 +1556,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 738.318,
       "coordinates": [
         [
@@ -1655,7 +1655,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 381.209,
       "coordinates": [
         [
@@ -1722,7 +1722,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 668.678,
       "coordinates": [
         [
@@ -1809,7 +1809,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 440.116,
       "coordinates": [
         [
@@ -1856,7 +1856,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 466.146,
       "coordinates": [
         [
@@ -1915,7 +1915,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 38.984,
       "coordinates": [
         [
@@ -1934,7 +1934,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 682.18,
       "coordinates": [
         [
@@ -2005,7 +2005,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 382.807,
       "coordinates": [
         [
@@ -2052,7 +2052,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 49.095,
       "coordinates": [
         [
@@ -2075,7 +2075,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 307.23,
       "coordinates": [
         [
@@ -2118,7 +2118,7 @@
     },
     {
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 243.802,
       "coordinates": [
         [
@@ -2165,7 +2165,7 @@
       "id": "1-52",
       "name": "1-52",
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 275.822,
       "coordinates": [
         [
@@ -2182,7 +2182,7 @@
       "id": "4-52",
       "name": "4-52",
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 212.897,
       "coordinates": [
         [
@@ -2199,7 +2199,7 @@
       "id": "5-52",
       "name": "5-52",
       "gaugeM": 1.52,
-      "color": "#6B7280",
+      "color": "#000000",
       "lengthM": 205.347,
       "coordinates": [
         [

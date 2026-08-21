@@ -3,6 +3,8 @@ function initTerminalPlan2D() {
     var viewport = document.getElementById('viewport');
     var canvas = document.getElementById('plan-canvas');
     var statusEl = document.getElementById('status');
+    var scaleBarLine = document.getElementById('scale-bar-line');
+    var scaleBarLabel = document.getElementById('scale-bar-label');
     var bridge = document.getElementById('pick-bridge');
     var commandBridge = document.getElementById('scene-command-bridge');
     var errEl = document.getElementById('plan-error');
@@ -174,7 +176,7 @@ function initTerminalPlan2D() {
                 id: railwayId,
                 name: String(rawRailway.name || railwayId),
                 gaugeM: Math.max(0.1, numberOr(rawRailway.gaugeM, 1.52)),
-                color: String(rawRailway.color || '#6b7280'),
+                color: String(rawRailway.color || '#000000'),
                 points: railwayPoints
             });
         }
@@ -577,7 +579,7 @@ function initTerminalPlan2D() {
         var i;
 
         // суша
-        ctx.fillStyle = '#2a3140';
+        ctx.fillStyle = '#d4d8de';
         ctx.fillRect(p0.x, p0.y, sw, sh);
 
         // море: явный полигон water, иначе legacy-эвристика по shoreline
@@ -586,7 +588,7 @@ function initTerminalPlan2D() {
         } else {
             beginSeaPolygonFallback();
         }
-        ctx.fillStyle = '#1a6a9a';
+        ctx.fillStyle = '#4eb8ff';
         ctx.fill();
 
         ctx.save();
@@ -596,8 +598,6 @@ function initTerminalPlan2D() {
             beginSeaPolygonFallback();
         }
         ctx.clip();
-        ctx.fillStyle = '#2280b5';
-        ctx.fillRect(p0.x, p0.y, sw, Math.max(20, 42 * view.scale));
         ctx.strokeStyle = 'rgba(180, 230, 255, 0.22)';
         ctx.lineWidth = Math.max(1, view.scale * 0.35);
         var wy;
@@ -1603,7 +1603,7 @@ function initTerminalPlan2D() {
             var ny = ux;
 
             if (view.scale >= 0.2) {
-                ctx.strokeStyle = '#57534e';
+                ctx.strokeStyle = '#111111';
                 ctx.lineWidth = Math.max(0.7, 0.18 * view.scale);
                 var sleeperM = distanceToSleeperM;
                 while (sleeperM <= segmentM) {
@@ -1619,7 +1619,7 @@ function initTerminalPlan2D() {
                 distanceToSleeperM = sleeperM - segmentM;
             }
 
-            ctx.strokeStyle = track.color || '#6b7280';
+            ctx.strokeStyle = track.color || '#000000';
             ctx.lineWidth = Math.max(1, 0.22 * view.scale);
             ctx.beginPath();
             ctx.moveTo(first.x + nx * gaugePx, first.y + ny * gaugePx);
@@ -1636,7 +1636,7 @@ function initTerminalPlan2D() {
         var gauge = Math.max(2.4, 1.55 * s);
         var i;
         var step = Math.max(6, 4.5 * s);
-        ctx.strokeStyle = '#78716c';
+        ctx.strokeStyle = '#111111';
         ctx.lineWidth = Math.max(1.5, s * 0.22);
         // шпалы
         for (i = -rl / 2; i <= rl / 2; i += step) {
@@ -1645,7 +1645,7 @@ function initTerminalPlan2D() {
             ctx.lineTo(i, gauge * 1.15);
             ctx.stroke();
         }
-        ctx.strokeStyle = '#d1d5db';
+        ctx.strokeStyle = '#000000';
         ctx.lineWidth = Math.max(2, s * 0.35);
         ctx.beginPath();
         ctx.moveTo(-rl / 2, -gauge);
@@ -2374,34 +2374,67 @@ function initTerminalPlan2D() {
     }
 
     function updateStatus() {
-        if (!statusEl) {
+        var railWagonCount = 0;
+        var vesselCount = 0;
+        var equipmentCount = 0;
+        for (var statusObjectIndex = 0; statusObjectIndex < objects.length; statusObjectIndex++) {
+            var statusKind = objects[statusObjectIndex].kind;
+            if (statusKind === 'railWagon') {
+                railWagonCount++;
+            } else if (statusKind === 'vessel') {
+                vesselCount++;
+            } else if (statusKind.indexOf('crane') === 0 || statusKind === 'containerTruck') {
+                equipmentCount++;
+            }
+        }
+        if (statusEl) {
+            statusEl.textContent = 'Размещений: ' + placements.length +
+                ' · ячеек: ' + cells.length +
+                ' · площадок: ' + containerSites.length +
+                ' · зданий: ' + buildings.length +
+                ' · ж/д веток: ' + railwayBranches.length +
+                ' · вагонов: ' + railWagonCount +
+                ' · техники: ' + equipmentCount +
+                ' · судов: ' + vesselCount;
+        }
+        updateScaleBar();
+    }
+
+    function niceDistanceM(scale) {
+        var targetPx = 110;
+        var rawM = targetPx / Math.max(scale, 0.0001);
+        var mag = Math.pow(10, Math.floor(Math.log(rawM) / Math.LN10));
+        var residual = rawM / mag;
+        var nice = 10;
+        if (residual < 1.5) {
+            nice = 1;
+        } else if (residual < 3) {
+            nice = 2;
+        } else if (residual < 7) {
+            nice = 5;
+        }
+        return nice * mag;
+    }
+
+    function formatDistanceM(meters) {
+        if (meters >= 1000) {
+            var km = meters / 1000;
+            if (km === Math.floor(km)) {
+                return km + ' км';
+            }
+            return (Math.round(km * 10) / 10) + ' км';
+        }
+        return Math.round(meters) + ' м';
+    }
+
+    function updateScaleBar() {
+        if (!scaleBarLine || !scaleBarLabel) {
             return;
         }
-        var railWagonCount = 0;
-        for (var statusObjectIndex = 0; statusObjectIndex < objects.length; statusObjectIndex++) {
-            if (objects[statusObjectIndex].kind === 'railWagon') {
-                railWagonCount++;
-            }
-        }
-        var text = 'Размещений: ' + placements.length +
-            ' · ячеек: ' + cells.length +
-            ' · площадок: ' + containerSites.length +
-            ' · зданий: ' + buildings.length +
-            ' · ж/д веток: ' + railwayBranches.length +
-            ' · вагонов: ' + railWagonCount +
-            ' · масштаб: ' + view.scale.toFixed(2) + ' px/м';
-        if (selected) {
-            if (selected.kind === 'placement') {
-                text += ' · ' + selected.id + ' ' + selected.lengthFt +
-                    " ft · tier " + selected.tier;
-            } else if (selected.kind === 'cell') {
-                text += ' · ' + selected.id + ' count=' + selected.count +
-                    '/' + selected.maxTier;
-            } else {
-                text += ' · ' + selected.name + ' [' + selected.kind + ']';
-            }
-        }
-        statusEl.textContent = text;
+        var meters = niceDistanceM(view.scale);
+        var px = Math.max(24, Math.round(meters * view.scale));
+        scaleBarLine.style.width = px + 'px';
+        scaleBarLabel.textContent = formatDistanceM(meters);
     }
 
     function pointInPolygon(world, polygon) {
@@ -2711,11 +2744,6 @@ function initTerminalPlan2D() {
         resetView();
         needsDraw = true;
         draw();
-        if (statusEl) {
-            statusEl.textContent = 'Ячеек: ' + cells.length +
-                ' · объектов: ' + objects.length +
-                ' · масштаб ' + view.scale.toFixed(2);
-        }
     }
 
     // Сначала рисуем — до API, которые могут упасть в WebKit 1С.
