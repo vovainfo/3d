@@ -61,7 +61,7 @@ TEMPLATE_PATHS = {
 }
 
 DEFAULT_RAIL_GAUGE_M = 1.52
-DEFAULT_RAIL_COLOR = "#000000"
+DEFAULT_RAIL_COLOR = "#6B7280"
 DEFAULT_TRAIN_GAP_M = 1.0
 WAGON_DEFAULTS = {
     "covered": {"lengthM": 15.7, "widthM": 3.25, "heightM": 4.7, "color": "#8B5A2B"},

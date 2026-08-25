@@ -6,13 +6,6 @@
 </head>
 <body>
 <div id="stage">
-  <div id="hud">
-    <div id="status">Загрузка плана…</div>
-    <div id="scale-bar">
-      <span id="scale-bar-line"></span>
-      <span id="scale-bar-label"></span>
-    </div>
-  </div>
   <div id="controls">
     <button type="button" id="btn-reset" title="Сбросить вид">Сброс</button>
   </div>

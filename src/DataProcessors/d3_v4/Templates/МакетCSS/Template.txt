@@ -5,7 +5,7 @@ html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background: #d4d8de;
+    background: #1a1d24;
     font-family: Segoe UI, Tahoma, sans-serif;
 }
 
@@ -18,7 +18,7 @@ html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: #d4d8de;
+    background: linear-gradient(180deg, #2a3140 0%, #1a1d24 100%);
 }
 
 #viewport {
@@ -37,58 +37,11 @@ html, body {
     height: 100%;
     outline: none;
     cursor: grab;
-    background: #d4d8de;
+    background: #1e2430;
 }
 
 #viewport.panning #plan-canvas {
     cursor: grabbing;
-}
-
-#hud {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    z-index: 2;
-    max-width: calc(100% - 120px);
-    pointer-events: none;
-}
-
-#status {
-    font-size: 12px;
-    color: #e8ecf2;
-    background: rgba(20, 24, 32, 0.78);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 4px;
-    padding: 6px 10px;
-    margin-bottom: 6px;
-}
-
-#scale-bar {
-    display: inline-block;
-    font-size: 12px;
-    color: #e8ecf2;
-    background: rgba(20, 24, 32, 0.78);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 4px;
-    padding: 6px 10px;
-    white-space: nowrap;
-}
-
-#scale-bar-line {
-    display: inline-block;
-    width: 100px;
-    height: 8px;
-    border-left: 2px solid #e8ecf2;
-    border-right: 2px solid #e8ecf2;
-    border-bottom: 2px solid #e8ecf2;
-    vertical-align: middle;
-    box-sizing: border-box;
-}
-
-#scale-bar-label {
-    display: inline-block;
-    margin-left: 8px;
-    vertical-align: middle;
 }
 
 #controls {
