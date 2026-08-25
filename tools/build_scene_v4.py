@@ -736,9 +736,9 @@ def validate_vessels(document: Any, berth_ids: set[str], validation: Validation)
             "must be right, left, bow or stern",
         )
         validation.require(
-            vessel.get("vesselType") in ("container", "carCarrier", "coal", "fish", "general", "empty"),
+            vessel.get("vesselType") in ("container", "carCarrier", "coal", "fish", "general", "bunker", "empty"),
             f"{location}.vesselType",
-            "must be container, carCarrier, coal, fish, general or empty",
+            "must be container, carCarrier, coal, fish, general, bunker or empty",
         )
         color = vessel.get("color")
         if color is not None:

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Constant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="1660d0cb-2904-4ab9-a014-6c57e4f68350">
+  <producedTypes>
+    <managerType typeId="378cdff8-212f-4810-9795-47913d2affae" valueTypeId="7c099bee-0c8e-46f7-833f-6baf23bd44a5"/>
+    <valueManagerType typeId="f3da571e-a9fb-498c-9f73-e11bbc05bd89" valueTypeId="dde4b5e3-1882-480c-9ad0-c6bbf2eeeede"/>
+    <valueKeyType typeId="b176d588-05d6-4084-89fe-c50a3120c6e1" valueTypeId="716dab5c-ae70-477a-83c6-6f8662d847ac"/>
+  </producedTypes>
+  <name>EDSПароль</name>
+  <synonym>
+    <key>ru</key>
+    <value>EDSПароль</value>
+  </synonym>
+  <type>
+    <types>String</types>
+    <stringQualifiers>
+      <length>30</length>
+    </stringQualifiers>
+  </type>
+  <useStandardCommands>true</useStandardCommands>
+  <minValue xsi:type="core:UndefinedValue"/>
+  <maxValue xsi:type="core:UndefinedValue"/>
+  <dataLockControlMode>Managed</dataLockControlMode>
+</mdclass:Constant>

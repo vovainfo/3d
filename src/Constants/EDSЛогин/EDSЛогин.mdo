@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Constant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="15b4740e-90f9-4855-b625-ab345d4716a0">
+  <producedTypes>
+    <managerType typeId="fc933abe-30f6-40c7-8895-8602623bac7f" valueTypeId="d40857c5-f6fc-4163-ae8f-1f46ad52d385"/>
+    <valueManagerType typeId="24d2333a-70a7-4b4c-9da3-ed4f5934a6d3" valueTypeId="760724ea-ef94-47f8-a739-8c0f174ec73f"/>
+    <valueKeyType typeId="58bb943c-30a2-4ab6-b9b2-5373e07474bb" valueTypeId="59fa65d1-808b-4a1f-9f84-6386dec76346"/>
+  </producedTypes>
+  <name>EDSЛогин</name>
+  <synonym>
+    <key>ru</key>
+    <value>EDSЛогин</value>
+  </synonym>
+  <type>
+    <types>String</types>
+    <stringQualifiers>
+      <length>20</length>
+    </stringQualifiers>
+  </type>
+  <useStandardCommands>true</useStandardCommands>
+  <minValue xsi:type="core:UndefinedValue"/>
+  <maxValue xsi:type="core:UndefinedValue"/>
+  <dataLockControlMode>Managed</dataLockControlMode>
+</mdclass:Constant>

@@ -41,6 +41,11 @@
   </languages>
   <constants>Constant.ЛогинСкаут</constants>
   <constants>Constant.ПарольСкаут</constants>
+  <constants>Constant.EDSUrl</constants>
+  <constants>Constant.EDSПароль</constants>
+  <constants>Constant.EDSЛогин</constants>
+  <constants>Constant.EDSКодПроверки</constants>
+  <constants>Constant.ИспользоватьСудаИзEDS</constants>
   <commonForms>CommonForm.Стартовая</commonForms>
   <dataProcessors>DataProcessor.d3</dataProcessors>
   <dataProcessors>DataProcessor.d3_v2</dataProcessors>

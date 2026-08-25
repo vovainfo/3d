@@ -1136,6 +1136,24 @@ function initTerminalPlan2D() {
         }
     }
 
+    function drawVesselCargoBunker(x0, y0, len, beam) {
+        var tankY = y0 + beam * 0.5;
+        var tankRx = len * 0.12;
+        var tankRy = beam * 0.22;
+        var tankCenters = [x0 + len * 0.3, x0 + len * 0.55];
+        var i;
+        ctx.fillStyle = '#f59e0b';
+        ctx.strokeStyle = '#92400e';
+        ctx.lineWidth = Math.max(1, beam * 0.025);
+        for (i = 0; i < tankCenters.length; i++) {
+            fillEllipse(tankCenters[i], tankY, tankRx, tankRy);
+            strokeEllipse(tankCenters[i], tankY, tankRx, tankRy);
+            ctx.strokeStyle = '#fef3c7';
+            strokeEllipse(tankCenters[i], tankY, tankRx * 0.72, tankRy * 0.72);
+            ctx.strokeStyle = '#92400e';
+        }
+    }
+
     function drawVesselDeckCargo(vesselType, x0, y0, len, beam, mooringSide) {
         ctx.fillStyle = '#64748b';
         strokeFillRect(x0 + len * 0.14, y0 + beam * 0.22, len * 0.58, beam * 0.56);
@@ -1149,6 +1167,8 @@ function initTerminalPlan2D() {
             drawVesselCargoFish(x0, y0, len, beam);
         } else if (vesselType === 'general') {
             drawVesselCargoGeneral(x0, y0, len, beam);
+        } else if (vesselType === 'bunker') {
+            drawVesselCargoBunker(x0, y0, len, beam);
         } else if (vesselType === 'empty') {
             // пустая палуба / трюмы
             ctx.fillStyle = 'rgba(30, 58, 95, 0.28)';
@@ -2646,6 +2666,45 @@ function initTerminalPlan2D() {
         return sourceVehicles.length;
     }
 
+    function updateVessels(sourceVessels) {
+        if (!(sourceVessels instanceof Array)) {
+            throw new Error('Для обновления судов ожидается массив объектов.');
+        }
+
+        var nextObjects = [];
+        var nextObjectById = {};
+        var objectIndex;
+        for (objectIndex = 0; objectIndex < objects.length; objectIndex++) {
+            if (objects[objectIndex].kind === 'vessel') {
+                continue;
+            }
+            nextObjects.push(objects[objectIndex]);
+            nextObjectById[objects[objectIndex].id] = objects[objectIndex];
+        }
+
+        for (objectIndex = 0; objectIndex < sourceVessels.length; objectIndex++) {
+            var vessel = normalizeSceneObject(sourceVessels[objectIndex]);
+            if (!vessel || vessel.kind !== 'vessel') {
+                throw new Error('Некорректное судно в позиции ' + objectIndex + '.');
+            }
+            if (nextObjectById[vessel.id]) {
+                throw new Error('Повтор идентификатора объекта "' + vessel.id + '".');
+            }
+            nextObjects.push(vessel);
+            nextObjectById[vessel.id] = vessel;
+        }
+
+        var selectedVesselId = selected && selected.kind === 'vessel' ? selected.id : '';
+        objects = nextObjects;
+        objectById = nextObjectById;
+        if (selectedVesselId) {
+            selected = objectById[selectedVesselId] || null;
+        }
+        needsDraw = true;
+        updateStatus();
+        return sourceVessels.length;
+    }
+
     function applyCommand(command) {
         command = command || {};
         if (command.op === 'focus') {
@@ -2653,6 +2712,9 @@ function initTerminalPlan2D() {
         }
         if (command.op === 'updateScoutVehicles') {
             return updateScoutVehicles(command.objects);
+        }
+        if (command.op === 'updateVessels') {
+            return updateVessels(command.objects);
         }
         throw new Error('Неизвестная операция "' + String(command.op || '') + '".');
     }
