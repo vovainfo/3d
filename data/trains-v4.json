@@ -2,15 +2,1173 @@
   "schemaVersion": "4.0",
   "trains": [
     {
-      "id": "TRAIN-LOADED",
-      "name": "Гружёный демонстрационный состав",
-      "branchId": "1-52",
-      "offsetM": 35.0,
+      "id": "TRAIN-1_52",
+      "name": "Состав 1-52",
+      "branchId": "1_52",
+      "offsetM": 0.0,
       "direction": "forward",
       "gapM": 1.0,
       "wagons": [
         {
-          "id": "W-L-COVERED",
+          "id": "W-1_52-001",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Пакетированный груз"
+          }
+        },
+        {
+          "id": "W-1_52-002",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-1_52-003",
+          "type": "refrigerated",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "refrigerated"
+          }
+        },
+        {
+          "id": "W-1_52-004",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        },
+        {
+          "id": "W-1_52-005",
+          "type": "thermos",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "temperatureControlled"
+          }
+        },
+        {
+          "id": "W-1_52-006",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_52-006-01",
+                "lengthFt": 20,
+                "color": "#2563EB"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_52-007",
+          "type": "covered",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_52-008",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_52-009",
+          "type": "carCarrier",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_52-010",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_52-010-01",
+                "lengthFt": 40,
+                "color": "#DC2626"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_52-011",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 40
+        },
+        {
+          "id": "W-1_52-012",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_52-012-01",
+                "lengthFt": 20,
+                "color": "#16A34A"
+              },
+              {
+                "id": "RAIL-CONT-1_52-012-02",
+                "lengthFt": 20,
+                "color": "#F59E0B"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_52-013",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Штучный груз"
+          }
+        },
+        {
+          "id": "W-1_52-014",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-1_52-015",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_52-016",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_52-016-01",
+                "lengthFt": 40,
+                "color": "#7C3AED"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-4_52",
+      "name": "Состав 4_52",
+      "branchId": "4_52",
+      "offsetM": 0.0,
+      "direction": "reverse",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-4_52-001",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-4_52-002",
+          "type": "refrigerated",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "refrigerated"
+          }
+        },
+        {
+          "id": "W-4_52-003",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        },
+        {
+          "id": "W-4_52-004",
+          "type": "thermos",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "temperatureControlled"
+          }
+        },
+        {
+          "id": "W-4_52-005",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-4_52-005-01",
+                "lengthFt": 20,
+                "color": "#F59E0B"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-4_52-006",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-4_52-007",
+          "type": "refrigerated",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-4_52-008",
+          "type": "thermos",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-4_52-009",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-4_52-009-01",
+                "lengthFt": 40,
+                "color": "#7C3AED"
+              },
+              {
+                "id": "RAIL-CONT-4_52-009-02",
+                "lengthFt": 20,
+                "color": "#0EA5E9"
+              },
+              {
+                "id": "RAIL-CONT-4_52-009-03",
+                "lengthFt": 20,
+                "color": "#EA580C"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-4_52-010",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-4_52-010-01",
+                "lengthFt": 40,
+                "color": "#CA8A04"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-4_52-011",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-5_52",
+      "name": "Состав 5_52",
+      "branchId": "5_52",
+      "offsetM": 0.0,
+      "direction": "forward",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-5_52-001",
+          "type": "refrigerated",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "refrigerated"
+          }
+        },
+        {
+          "id": "W-5_52-002",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        },
+        {
+          "id": "W-5_52-003",
+          "type": "thermos",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "temperatureControlled"
+          }
+        },
+        {
+          "id": "W-5_52-004",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-5_52-005",
+          "type": "carCarrier",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-5_52-006",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 60
+        },
+        {
+          "id": "W-5_52-007",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-5_52-007-01",
+                "lengthFt": 40,
+                "color": "#EA580C"
+              },
+              {
+                "id": "RAIL-CONT-5_52-007-02",
+                "lengthFt": 20,
+                "color": "#CA8A04"
+              },
+              {
+                "id": "RAIL-CONT-5_52-007-03",
+                "lengthFt": 20,
+                "color": "#4F46E5"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-5_52-008",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        },
+        {
+          "id": "W-5_52-009",
+          "type": "carCarrier",
+          "loadStatus": "empty"
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-4_49а",
+      "name": "Состав 4_49-50",
+      "branchId": "4_49а",
+      "offsetM": 0.0,
+      "direction": "reverse",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-4_49а-001",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        },
+        {
+          "id": "W-4_49а-002",
+          "type": "thermos",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "temperatureControlled"
+          }
+        },
+        {
+          "id": "W-4_49а-003",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-4_49а-003-01",
+                "lengthFt": 20,
+                "color": "#B91C1C"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-4_49а-004",
+          "type": "covered",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-4_49а-005",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-4_49а-006",
+          "type": "refrigerated",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-4_49а-007",
+          "type": "carCarrier",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-4_49а-008",
+          "type": "thermos",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-4_49а-009",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 60
+        },
+        {
+          "id": "W-4_49а-010",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-4_49а-010-01",
+                "lengthFt": 40,
+                "color": "#15803D"
+              },
+              {
+                "id": "RAIL-CONT-4_49а-010-02",
+                "lengthFt": 20,
+                "color": "#0891B2"
+              },
+              {
+                "id": "RAIL-CONT-4_49а-010-03",
+                "lengthFt": 20,
+                "color": "#2563EB"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-4_49а-011",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-4_49а-011-01",
+                "lengthFt": 40,
+                "color": "#DC2626"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-4_49а-012",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 40
+        },
+        {
+          "id": "W-4_49а-013",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 60,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-4_49а-013-01",
+                "lengthFt": 40,
+                "color": "#16A34A"
+              },
+              {
+                "id": "RAIL-CONT-4_49а-013-02",
+                "lengthFt": 20,
+                "color": "#F59E0B"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-4_49а-014",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 80
+        },
+        {
+          "id": "W-4_49а-015",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-4_49а-015-01",
+                "lengthFt": 20,
+                "color": "#7C3AED"
+              },
+              {
+                "id": "RAIL-CONT-4_49а-015-02",
+                "lengthFt": 20,
+                "color": "#0EA5E9"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-4_49а-016",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Тарный груз"
+          }
+        },
+        {
+          "id": "W-4_49а-017",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-4_49а-018",
+          "type": "refrigerated",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "refrigerated"
+          }
+        },
+        {
+          "id": "W-4_49а-019",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        },
+        {
+          "id": "W-4_49а-020",
+          "type": "thermos",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "temperatureControlled"
+          }
+        },
+        {
+          "id": "W-4_49а-021",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-4_49а-021-01",
+                "lengthFt": 20,
+                "color": "#EA580C"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-4_49а-022",
+          "type": "covered",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-4_49а-023",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-4_49а-024",
+          "type": "refrigerated",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-4_49а-025",
+          "type": "carCarrier",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-4_49а-026",
+          "type": "thermos",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-4_49а-027",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 60
+        },
+        {
+          "id": "W-4_49а-028",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-4_49а-028-01",
+                "lengthFt": 40,
+                "color": "#CA8A04"
+              },
+              {
+                "id": "RAIL-CONT-4_49а-028-02",
+                "lengthFt": 20,
+                "color": "#4F46E5"
+              },
+              {
+                "id": "RAIL-CONT-4_49а-028-03",
+                "lengthFt": 20,
+                "color": "#B91C1C"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-4_49а-029",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-4_49а-029-01",
+                "lengthFt": 40,
+                "color": "#15803D"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-4_49а-030",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 40
+        },
+        {
+          "id": "W-4_49а-031",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 60,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-4_49а-031-01",
+                "lengthFt": 40,
+                "color": "#0891B2"
+              },
+              {
+                "id": "RAIL-CONT-4_49а-031-02",
+                "lengthFt": 20,
+                "color": "#2563EB"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-4_49а-032",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-4_49а-032-01",
+                "lengthFt": 20,
+                "color": "#DC2626"
+              },
+              {
+                "id": "RAIL-CONT-4_49а-032-02",
+                "lengthFt": 20,
+                "color": "#16A34A"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-4_49а-033",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Пакетированный груз"
+          }
+        },
+        {
+          "id": "W-4_49а-034",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-4_49а-035",
+          "type": "covered",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-4_49а-036",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Тарный груз"
+          }
+        },
+        {
+          "id": "W-4_49а-037",
+          "type": "covered",
+          "loadStatus": "empty"
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-1_50",
+      "name": "Состав 1_50",
+      "branchId": "1_50",
+      "offsetM": 0.0,
+      "direction": "forward",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-1_50-001",
+          "type": "thermos",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "temperatureControlled"
+          }
+        },
+        {
+          "id": "W-1_50-002",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_50-002-01",
+                "lengthFt": 20,
+                "color": "#2563EB"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_50-003",
+          "type": "covered",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_50-004",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_50-005",
+          "type": "refrigerated",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_50-006",
+          "type": "carCarrier",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_50-007",
+          "type": "thermos",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_50-008",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 60
+        },
+        {
+          "id": "W-1_50-009",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_50-009-01",
+                "lengthFt": 40,
+                "color": "#DC2626"
+              },
+              {
+                "id": "RAIL-CONT-1_50-009-02",
+                "lengthFt": 20,
+                "color": "#16A34A"
+              },
+              {
+                "id": "RAIL-CONT-1_50-009-03",
+                "lengthFt": 20,
+                "color": "#F59E0B"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_50-010",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_50-010-01",
+                "lengthFt": 40,
+                "color": "#7C3AED"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_50-011",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 40
+        },
+        {
+          "id": "W-1_50-012",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 60,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_50-012-01",
+                "lengthFt": 40,
+                "color": "#0EA5E9"
+              },
+              {
+                "id": "RAIL-CONT-1_50-012-02",
+                "lengthFt": 20,
+                "color": "#EA580C"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_50-013",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 80
+        },
+        {
+          "id": "W-1_50-014",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_50-014-01",
+                "lengthFt": 20,
+                "color": "#CA8A04"
+              },
+              {
+                "id": "RAIL-CONT-1_50-014-02",
+                "lengthFt": 20,
+                "color": "#4F46E5"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_50-015",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Тарный груз"
+          }
+        },
+        {
+          "id": "W-1_50-016",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-1_50-017",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_50-017-01",
+                "lengthFt": 20,
+                "color": "#B91C1C"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_50-018",
+          "type": "gondola",
+          "loadStatus": "empty"
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-5_50",
+      "name": "Состав 5_50",
+      "branchId": "5_50",
+      "offsetM": 0.0,
+      "direction": "reverse",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-5_50-001",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-5_50-001-01",
+                "lengthFt": 20,
+                "color": "#F59E0B"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-5_50-002",
+          "type": "covered",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-5_50-003",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-5_50-004",
+          "type": "refrigerated",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-5_50-005",
+          "type": "carCarrier",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-5_50-006",
+          "type": "thermos",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-5_50-007",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 60
+        },
+        {
+          "id": "W-5_50-008",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-5_50-008-01",
+                "lengthFt": 40,
+                "color": "#7C3AED"
+              },
+              {
+                "id": "RAIL-CONT-5_50-008-02",
+                "lengthFt": 20,
+                "color": "#0EA5E9"
+              },
+              {
+                "id": "RAIL-CONT-5_50-008-03",
+                "lengthFt": 20,
+                "color": "#EA580C"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-5_50-009",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-5_50-009-01",
+                "lengthFt": 40,
+                "color": "#CA8A04"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-5_50-010",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 40
+        },
+        {
+          "id": "W-5_50-011",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 60,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-5_50-011-01",
+                "lengthFt": 40,
+                "color": "#4F46E5"
+              },
+              {
+                "id": "RAIL-CONT-5_50-011-02",
+                "lengthFt": 20,
+                "color": "#B91C1C"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-5_50-012",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 80
+        },
+        {
+          "id": "W-5_50-013",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-5_50-013-01",
+                "lengthFt": 20,
+                "color": "#15803D"
+              },
+              {
+                "id": "RAIL-CONT-5_50-013-02",
+                "lengthFt": 20,
+                "color": "#0891B2"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-5_50-014",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Тарный груз"
+          }
+        },
+        {
+          "id": "W-5_50-015",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-5_50-016",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-5_50-016-01",
+                "lengthFt": 20,
+                "color": "#2563EB"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-5_50-017",
+          "type": "covered",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-5_50-018",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 60
+        },
+        {
+          "id": "W-5_50-019",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 60,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-5_50-019-01",
+                "lengthFt": 40,
+                "color": "#DC2626"
+              },
+              {
+                "id": "RAIL-CONT-5_50-019-02",
+                "lengthFt": 20,
+                "color": "#16A34A"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-5_50-020",
           "type": "covered",
           "loadStatus": "loaded",
           "cargo": {
@@ -19,7 +1177,390 @@
           }
         },
         {
-          "id": "W-L-GONDOLA",
+          "id": "W-5_50-021",
+          "type": "covered",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-5_50-022",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 60
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-2_45",
+      "name": "Состав 2_45",
+      "branchId": "2_45",
+      "offsetM": 0.0,
+      "direction": "forward",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-2_45-001",
+          "type": "covered",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-2_45-002",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-2_45-003",
+          "type": "refrigerated",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-2_45-004",
+          "type": "carCarrier",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-2_45-005",
+          "type": "thermos",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-2_45-006",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-2_45-006-01",
+                "lengthFt": 40,
+                "color": "#EA580C"
+              },
+              {
+                "id": "RAIL-CONT-2_45-006-02",
+                "lengthFt": 20,
+                "color": "#CA8A04"
+              },
+              {
+                "id": "RAIL-CONT-2_45-006-03",
+                "lengthFt": 20,
+                "color": "#4F46E5"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-2_45-007",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 40
+        },
+        {
+          "id": "W-2_45-008",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 80
+        },
+        {
+          "id": "W-2_45-009",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-1_45_46",
+      "name": "Состав 1_45_46",
+      "branchId": "1_45_46",
+      "offsetM": 0.0,
+      "direction": "reverse",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-1_45_46-001",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_45_46-002",
+          "type": "refrigerated",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_45_46-003",
+          "type": "thermos",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_45_46-004",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 60
+        },
+        {
+          "id": "W-1_45_46-005",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 60,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_45_46-005-01",
+                "lengthFt": 40,
+                "color": "#B91C1C"
+              },
+              {
+                "id": "RAIL-CONT-1_45_46-005-02",
+                "lengthFt": 20,
+                "color": "#15803D"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_45_46-006",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Штучный груз"
+          }
+        },
+        {
+          "id": "W-1_45_46-007",
+          "type": "covered",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_45_46-008",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 60
+        },
+        {
+          "id": "W-1_45_46-009",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 60,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_45_46-009-01",
+                "lengthFt": 40,
+                "color": "#0891B2"
+              },
+              {
+                "id": "RAIL-CONT-1_45_46-009-02",
+                "lengthFt": 20,
+                "color": "#2563EB"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_45_46-010",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Мешковой груз"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-3_45",
+      "name": "Состав 3_45",
+      "branchId": "3_45",
+      "offsetM": 0.0,
+      "direction": "forward",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-3_45-001",
+          "type": "refrigerated",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-3_45-002",
+          "type": "carCarrier",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-3_45-003",
+          "type": "thermos",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-3_45-004",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-3_45-004-01",
+                "lengthFt": 40,
+                "color": "#2563EB"
+              },
+              {
+                "id": "RAIL-CONT-3_45-004-02",
+                "lengthFt": 20,
+                "color": "#DC2626"
+              },
+              {
+                "id": "RAIL-CONT-3_45-004-03",
+                "lengthFt": 20,
+                "color": "#16A34A"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-3_45-005",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-3_45-005-01",
+                "lengthFt": 40,
+                "color": "#F59E0B"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-3_45-006",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 40
+        },
+        {
+          "id": "W-3_45-007",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 80
+        },
+        {
+          "id": "W-3_45-008",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Пакетированный груз"
+          }
+        },
+        {
+          "id": "W-3_45-009",
+          "type": "covered",
+          "loadStatus": "empty"
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-1_В",
+      "name": "Состав 1 выст.",
+      "branchId": "1_В",
+      "offsetM": 0.0,
+      "direction": "reverse",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-1_В-001",
+          "type": "carCarrier",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_В-002",
+          "type": "thermos",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_В-003",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_В-003-01",
+                "lengthFt": 40,
+                "color": "#F59E0B"
+              },
+              {
+                "id": "RAIL-CONT-1_В-003-02",
+                "lengthFt": 20,
+                "color": "#7C3AED"
+              },
+              {
+                "id": "RAIL-CONT-1_В-003-03",
+                "lengthFt": 20,
+                "color": "#0EA5E9"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_В-004",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_В-004-01",
+                "lengthFt": 40,
+                "color": "#EA580C"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_В-005",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 40
+        },
+        {
+          "id": "W-1_В-006",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_В-006-01",
+                "lengthFt": 20,
+                "color": "#CA8A04"
+              },
+              {
+                "id": "RAIL-CONT-1_В-006-02",
+                "lengthFt": 20,
+                "color": "#4F46E5"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_В-007",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Пакетированный груз"
+          }
+        },
+        {
+          "id": "W-1_В-008",
           "type": "gondola",
           "loadStatus": "loaded",
           "cargo": {
@@ -27,7 +1568,236 @@
           }
         },
         {
-          "id": "W-L-REFRIGERATED",
+          "id": "W-1_В-009",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-3_47",
+      "name": "Состав 3_47",
+      "branchId": "3_47",
+      "offsetM": 0.0,
+      "direction": "forward",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-3_47-001",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 60
+        },
+        {
+          "id": "W-3_47-002",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-3_47-002-01",
+                "lengthFt": 40,
+                "color": "#EA580C"
+              },
+              {
+                "id": "RAIL-CONT-3_47-002-02",
+                "lengthFt": 20,
+                "color": "#CA8A04"
+              },
+              {
+                "id": "RAIL-CONT-3_47-002-03",
+                "lengthFt": 20,
+                "color": "#4F46E5"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-3_47-003",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-3_47-003-01",
+                "lengthFt": 40,
+                "color": "#B91C1C"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-3_47-004",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-3_47-005",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-3_47-006",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-3_47-006-01",
+                "lengthFt": 40,
+                "color": "#15803D"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-3_47-007",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-2_В",
+      "name": "Состав 2 выст.",
+      "branchId": "2_В",
+      "offsetM": 0.0,
+      "direction": "reverse",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-2_В-001",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 60
+        },
+        {
+          "id": "W-2_В-002",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-2_В-002-01",
+                "lengthFt": 40,
+                "color": "#B91C1C"
+              },
+              {
+                "id": "RAIL-CONT-2_В-002-02",
+                "lengthFt": 20,
+                "color": "#15803D"
+              },
+              {
+                "id": "RAIL-CONT-2_В-002-03",
+                "lengthFt": 20,
+                "color": "#0891B2"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-2_В-003",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-2_В-003-01",
+                "lengthFt": 40,
+                "color": "#2563EB"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-2_В-004",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 40
+        },
+        {
+          "id": "W-2_В-005",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 60,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-2_В-005-01",
+                "lengthFt": 40,
+                "color": "#DC2626"
+              },
+              {
+                "id": "RAIL-CONT-2_В-005-02",
+                "lengthFt": 20,
+                "color": "#16A34A"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-2_В-006",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 80
+        },
+        {
+          "id": "W-2_В-007",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-2_В-007-01",
+                "lengthFt": 20,
+                "color": "#F59E0B"
+              },
+              {
+                "id": "RAIL-CONT-2_В-007-02",
+                "lengthFt": 20,
+                "color": "#7C3AED"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-2_В-008",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Тарный груз"
+          }
+        },
+        {
+          "id": "W-2_В-009",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-2_В-010",
           "type": "refrigerated",
           "loadStatus": "loaded",
           "cargo": {
@@ -35,7 +1805,7 @@
           }
         },
         {
-          "id": "W-L-CAR-CARRIER",
+          "id": "W-2_В-011",
           "type": "carCarrier",
           "loadStatus": "loaded",
           "cargo": {
@@ -43,7 +1813,7 @@
           }
         },
         {
-          "id": "W-L-THERMOS",
+          "id": "W-2_В-012",
           "type": "thermos",
           "loadStatus": "loaded",
           "cargo": {
@@ -51,16 +1821,137 @@
           }
         },
         {
-          "id": "W-L-PLATFORM-40",
+          "id": "W-2_В-013",
           "type": "fittingPlatform",
+          "loadStatus": "loaded",
           "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-2_В-013-01",
+                "lengthFt": 20,
+                "color": "#0EA5E9"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-2_В-014",
+          "type": "covered",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-2_В-015",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-2_В-016",
+          "type": "refrigerated",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-2_В-017",
+          "type": "carCarrier",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-2_В-018",
+          "type": "thermos",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-2_В-019",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-2_В-019-01",
+                "lengthFt": 40,
+                "color": "#EA580C"
+              },
+              {
+                "id": "RAIL-CONT-2_В-019-02",
+                "lengthFt": 20,
+                "color": "#CA8A04"
+              },
+              {
+                "id": "RAIL-CONT-2_В-019-03",
+                "lengthFt": 20,
+                "color": "#4F46E5"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-2_В-020",
+          "type": "gondola",
           "loadStatus": "loaded",
           "cargo": {
             "kind": "containers",
             "containers": [
               {
-                "id": "RAIL-CONT-20-A",
+                "id": "RAIL-CONT-2_В-020-01",
+                "lengthFt": 40,
+                "color": "#B91C1C"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-2_В-021",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 40
+        },
+        {
+          "id": "W-2_В-022",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-2_В-022-01",
                 "lengthFt": 20,
+                "color": "#15803D"
+              },
+              {
+                "id": "RAIL-CONT-2_В-022-02",
+                "lengthFt": 20,
+                "color": "#0891B2"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-2_В-023",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-2_В-024",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-2_В-025",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-2_В-025-01",
+                "lengthFt": 40,
                 "color": "#2563EB"
               }
             ]
@@ -69,75 +1960,1180 @@
       ]
     },
     {
-      "id": "TRAIN-EMPTY",
-      "name": "Порожний демонстрационный состав",
-      "branchId": "4-52",
-      "offsetM": 10.0,
-      "direction": "reverse",
-      "wagons": [
-        {
-          "id": "W-E-COVERED",
-          "type": "covered",
-          "loadStatus": "empty"
-        },
-        {
-          "id": "W-E-GONDOLA",
-          "type": "gondola",
-          "loadStatus": "empty"
-        },
-        {
-          "id": "W-E-REFRIGERATED",
-          "type": "refrigerated",
-          "loadStatus": "empty"
-        },
-        {
-          "id": "W-E-CAR-CARRIER",
-          "type": "carCarrier",
-          "loadStatus": "empty"
-        },
-        {
-          "id": "W-E-THERMOS",
-          "type": "thermos",
-          "loadStatus": "empty"
-        },
-        {
-          "id": "W-E-PLATFORM-60",
-          "type": "fittingPlatform",
-          "platformLengthFt": 60,
-          "loadStatus": "empty"
-        }
-      ]
-    },
-    {
-      "id": "TRAIN-CONTAINERS",
-      "name": "Контейнерный демонстрационный состав",
-      "branchId": "5-52",
-      "offsetM": 10.0,
+      "id": "TRAIN-3_В",
+      "name": "Состав 3 выст.",
+      "branchId": "3_В",
+      "offsetM": 0.0,
       "direction": "forward",
       "gapM": 1.0,
       "wagons": [
         {
-          "id": "W-L-PLATFORM-80",
+          "id": "W-3_В-001",
           "type": "fittingPlatform",
+          "loadStatus": "loaded",
           "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-3_В-001-01",
+                "lengthFt": 40,
+                "color": "#2563EB"
+              },
+              {
+                "id": "RAIL-CONT-3_В-001-02",
+                "lengthFt": 20,
+                "color": "#DC2626"
+              },
+              {
+                "id": "RAIL-CONT-3_В-001-03",
+                "lengthFt": 20,
+                "color": "#16A34A"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-3_В-002",
+          "type": "gondola",
           "loadStatus": "loaded",
           "cargo": {
             "kind": "containers",
             "containers": [
               {
-                "id": "RAIL-CONT-40-A",
+                "id": "RAIL-CONT-3_В-002-01",
                 "lengthFt": 40,
-                "color": "#DC2626"
+                "color": "#F59E0B"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-3_В-003",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 40
+        },
+        {
+          "id": "W-3_В-004",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 60,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-3_В-004-01",
+                "lengthFt": 40,
+                "color": "#7C3AED"
               },
               {
-                "id": "RAIL-CONT-20-B",
+                "id": "RAIL-CONT-3_В-004-02",
                 "lengthFt": 20,
-                "color": "#16A34A"
+                "color": "#0EA5E9"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-3_В-005",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 80
+        },
+        {
+          "id": "W-3_В-006",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-3_В-006-01",
+                "lengthFt": 20,
+                "color": "#EA580C"
               },
               {
-                "id": "RAIL-CONT-20-C",
+                "id": "RAIL-CONT-3_В-006-02",
+                "lengthFt": 20,
+                "color": "#CA8A04"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-3_В-007",
+          "type": "refrigerated",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "refrigerated"
+          }
+        },
+        {
+          "id": "W-3_В-008",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 60
+        },
+        {
+          "id": "W-3_В-009",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-3_В-009-01",
+                "lengthFt": 40,
+                "color": "#4F46E5"
+              },
+              {
+                "id": "RAIL-CONT-3_В-009-02",
+                "lengthFt": 20,
+                "color": "#B91C1C"
+              },
+              {
+                "id": "RAIL-CONT-3_В-009-03",
+                "lengthFt": 20,
+                "color": "#15803D"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-3_В-010",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 80
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-4_В",
+      "name": "Состав 4 выст.",
+      "branchId": "4_В",
+      "offsetM": 0.0,
+      "direction": "reverse",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-4_В-001",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-4_В-001-01",
+                "lengthFt": 40,
+                "color": "#F59E0B"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-4_В-002",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 60,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-4_В-002-01",
+                "lengthFt": 40,
+                "color": "#7C3AED"
+              },
+              {
+                "id": "RAIL-CONT-4_В-002-02",
+                "lengthFt": 20,
+                "color": "#0EA5E9"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-4_В-003",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 80
+        },
+        {
+          "id": "W-4_В-004",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Мешковой груз"
+          }
+        },
+        {
+          "id": "W-4_В-005",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-4_В-006",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        },
+        {
+          "id": "W-4_В-007",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-4_В-008",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-4_В-008-01",
+                "lengthFt": 40,
+                "color": "#EA580C"
+              },
+              {
+                "id": "RAIL-CONT-4_В-008-02",
+                "lengthFt": 20,
+                "color": "#CA8A04"
+              },
+              {
+                "id": "RAIL-CONT-4_В-008-03",
+                "lengthFt": 20,
+                "color": "#4F46E5"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-4_В-009",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-4_В-009-01",
+                "lengthFt": 40,
+                "color": "#B91C1C"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-5_В",
+      "name": "Состав 5 выст.",
+      "branchId": "5_В",
+      "offsetM": 0.0,
+      "direction": "forward",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-5_В-001",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 40
+        },
+        {
+          "id": "W-5_В-002",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 60,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-5_В-002-01",
+                "lengthFt": 40,
+                "color": "#EA580C"
+              },
+              {
+                "id": "RAIL-CONT-5_В-002-02",
+                "lengthFt": 20,
+                "color": "#CA8A04"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-5_В-003",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 80
+        },
+        {
+          "id": "W-5_В-004",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-5_В-004-01",
+                "lengthFt": 20,
+                "color": "#4F46E5"
+              },
+              {
+                "id": "RAIL-CONT-5_В-004-02",
+                "lengthFt": 20,
+                "color": "#B91C1C"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-5_В-005",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Тарный груз"
+          }
+        },
+        {
+          "id": "W-5_В-006",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-5_В-007",
+          "type": "refrigerated",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "refrigerated"
+          }
+        },
+        {
+          "id": "W-5_В-008",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        },
+        {
+          "id": "W-5_В-009",
+          "type": "thermos",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "temperatureControlled"
+          }
+        },
+        {
+          "id": "W-5_В-010",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-5_В-010-01",
+                "lengthFt": 20,
+                "color": "#15803D"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-5_В-011",
+          "type": "covered",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-5_В-012",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-5_В-013",
+          "type": "refrigerated",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-5_В-014",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-5_В-014-01",
+                "lengthFt": 40,
+                "color": "#0891B2"
+              },
+              {
+                "id": "RAIL-CONT-5_В-014-02",
+                "lengthFt": 20,
+                "color": "#2563EB"
+              },
+              {
+                "id": "RAIL-CONT-5_В-014-03",
+                "lengthFt": 20,
+                "color": "#DC2626"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-5_В-015",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-5_В-015-01",
+                "lengthFt": 40,
+                "color": "#16A34A"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-5_В-016",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 40
+        },
+        {
+          "id": "W-5_В-017",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 80
+        },
+        {
+          "id": "W-5_В-018",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Мешковой груз"
+          }
+        },
+        {
+          "id": "W-5_В-019",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-5_В-020",
+          "type": "gondola",
+          "loadStatus": "empty"
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-6_В",
+      "name": "Состав 6 выст.",
+      "branchId": "6_В",
+      "offsetM": 0.0,
+      "direction": "reverse",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-6_В-001",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 60,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-6_В-001-01",
+                "lengthFt": 40,
+                "color": "#B91C1C"
+              },
+              {
+                "id": "RAIL-CONT-6_В-001-02",
+                "lengthFt": 20,
+                "color": "#15803D"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-6_В-002",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 80
+        },
+        {
+          "id": "W-6_В-003",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-6_В-003-01",
+                "lengthFt": 20,
+                "color": "#0891B2"
+              },
+              {
+                "id": "RAIL-CONT-6_В-003-02",
+                "lengthFt": 20,
+                "color": "#2563EB"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-6_В-004",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Тарный груз"
+          }
+        },
+        {
+          "id": "W-6_В-005",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-6_В-006",
+          "type": "refrigerated",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "refrigerated"
+          }
+        },
+        {
+          "id": "W-6_В-007",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        },
+        {
+          "id": "W-6_В-008",
+          "type": "thermos",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "temperatureControlled"
+          }
+        },
+        {
+          "id": "W-6_В-009",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-6_В-009-01",
+                "lengthFt": 20,
+                "color": "#DC2626"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-6_В-010",
+          "type": "covered",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-6_В-011",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-6_В-012",
+          "type": "refrigerated",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-6_В-013",
+          "type": "carCarrier",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-6_В-014",
+          "type": "thermos",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-6_В-015",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 60
+        },
+        {
+          "id": "W-6_В-016",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-6_В-016-01",
+                "lengthFt": 40,
+                "color": "#16A34A"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-6_В-017",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 40
+        },
+        {
+          "id": "W-6_В-018",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 60,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-6_В-018-01",
+                "lengthFt": 40,
+                "color": "#F59E0B"
+              },
+              {
+                "id": "RAIL-CONT-6_В-018-02",
+                "lengthFt": 20,
+                "color": "#7C3AED"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-6_В-019",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-6_В-019-01",
+                "lengthFt": 20,
+                "color": "#0EA5E9"
+              },
+              {
+                "id": "RAIL-CONT-6_В-019-02",
+                "lengthFt": 20,
+                "color": "#EA580C"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-6_В-020",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Тарно-штучный груз"
+          }
+        },
+        {
+          "id": "W-6_В-021",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        },
+        {
+          "id": "W-6_В-022",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 60
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-7_В",
+      "name": "Состав 7 выст.",
+      "branchId": "7_В",
+      "offsetM": 0.0,
+      "direction": "forward",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-7_В-001",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 80
+        },
+        {
+          "id": "W-7_В-002",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-7_В-002-01",
+                "lengthFt": 20,
+                "color": "#2563EB"
+              },
+              {
+                "id": "RAIL-CONT-7_В-002-02",
+                "lengthFt": 20,
+                "color": "#DC2626"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-7_В-003",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Тарный груз"
+          }
+        },
+        {
+          "id": "W-7_В-004",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-7_В-005",
+          "type": "refrigerated",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "refrigerated"
+          }
+        },
+        {
+          "id": "W-7_В-006",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        },
+        {
+          "id": "W-7_В-007",
+          "type": "covered",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-7_В-008",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-7_В-009",
+          "type": "carCarrier",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-7_В-010",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-7_В-010-01",
+                "lengthFt": 40,
+                "color": "#16A34A"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-7_В-011",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        },
+        {
+          "id": "W-7_В-012",
+          "type": "carCarrier",
+          "loadStatus": "empty"
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-8_В",
+      "name": "Состав 8 выст.",
+      "branchId": "8_В",
+      "offsetM": 0.0,
+      "direction": "reverse",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-8_В-001",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-8_В-001-01",
                 "lengthFt": 20,
                 "color": "#F59E0B"
+              },
+              {
+                "id": "RAIL-CONT-8_В-001-02",
+                "lengthFt": 20,
+                "color": "#7C3AED"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-8_В-002",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Тарный груз"
+          }
+        },
+        {
+          "id": "W-8_В-003",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-8_В-004",
+          "type": "refrigerated",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "refrigerated"
+          }
+        },
+        {
+          "id": "W-8_В-005",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        },
+        {
+          "id": "W-8_В-006",
+          "type": "thermos",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "temperatureControlled"
+          }
+        },
+        {
+          "id": "W-8_В-007",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-8_В-007-01",
+                "lengthFt": 20,
+                "color": "#0EA5E9"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-8_В-008",
+          "type": "covered",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-8_В-009",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-8_В-010",
+          "type": "refrigerated",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-8_В-011",
+          "type": "carCarrier",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-8_В-012",
+          "type": "thermos",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-8_В-013",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 60
+        },
+        {
+          "id": "W-8_В-014",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 80,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-8_В-014-01",
+                "lengthFt": 40,
+                "color": "#EA580C"
+              },
+              {
+                "id": "RAIL-CONT-8_В-014-02",
+                "lengthFt": 20,
+                "color": "#CA8A04"
+              },
+              {
+                "id": "RAIL-CONT-8_В-014-03",
+                "lengthFt": 20,
+                "color": "#4F46E5"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-8_В-015",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 40
+        },
+        {
+          "id": "W-8_В-016",
+          "type": "refrigerated",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "refrigerated"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-1_47-49",
+      "name": "Состав 1_47-49",
+      "branchId": "1_47-49",
+      "offsetM": 0.0,
+      "direction": "forward",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-1_47-49-001",
+          "type": "covered",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "general",
+            "description": "Тарный груз"
+          }
+        },
+        {
+          "id": "W-1_47-49-002",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-1_47-49-003",
+          "type": "refrigerated",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "refrigerated"
+          }
+        },
+        {
+          "id": "W-1_47-49-004",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        },
+        {
+          "id": "W-1_47-49-005",
+          "type": "thermos",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "temperatureControlled"
+          }
+        },
+        {
+          "id": "W-1_47-49-006",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_47-49-006-01",
+                "lengthFt": 20,
+                "color": "#EA580C"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_47-49-007",
+          "type": "covered",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_47-49-008",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_47-49-009",
+          "type": "refrigerated",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_47-49-010",
+          "type": "carCarrier",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_47-49-011",
+          "type": "thermos",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_47-49-012",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 60
+        },
+        {
+          "id": "W-1_47-49-013",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_47-49-013-01",
+                "lengthFt": 40,
+                "color": "#CA8A04"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_47-49-014",
+          "type": "fittingPlatform",
+          "loadStatus": "empty",
+          "platformLengthFt": 40
+        },
+        {
+          "id": "W-1_47-49-015",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_47-49-015-01",
+                "lengthFt": 20,
+                "color": "#4F46E5"
+              },
+              {
+                "id": "RAIL-CONT-1_47-49-015-02",
+                "lengthFt": 20,
+                "color": "#B91C1C"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_47-49-016",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "coal"
+          }
+        },
+        {
+          "id": "W-1_47-49-017",
+          "type": "carCarrier",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "automobiles"
+          }
+        },
+        {
+          "id": "W-1_47-49-018",
+          "type": "fittingPlatform",
+          "loadStatus": "loaded",
+          "platformLengthFt": 40,
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_47-49-018-01",
+                "lengthFt": 20,
+                "color": "#15803D"
+              }
+            ]
+          }
+        },
+        {
+          "id": "W-1_47-49-019",
+          "type": "gondola",
+          "loadStatus": "empty"
+        },
+        {
+          "id": "W-1_47-49-020",
+          "type": "gondola",
+          "loadStatus": "loaded",
+          "cargo": {
+            "kind": "containers",
+            "containers": [
+              {
+                "id": "RAIL-CONT-1_47-49-020-01",
+                "lengthFt": 40,
+                "color": "#0891B2"
               }
             ]
           }

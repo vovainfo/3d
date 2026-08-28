@@ -156,4 +156,20 @@
     </synonym>
     <templateType>TextDocument</templateType>
   </templates>
+  <templates uuid="b29d196e-3a49-466f-8994-4eddb27f5f96">
+    <name>Anchorage_geojson</name>
+    <synonym>
+      <key>ru</key>
+      <value>Anchorage geojson</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="aac9286f-5ca1-428c-8c15-43eb3394475e">
+    <name>AnchorageVessels_json</name>
+    <synonym>
+      <key>ru</key>
+      <value>Anchorage vessels json</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
 </mdclass:DataProcessor>

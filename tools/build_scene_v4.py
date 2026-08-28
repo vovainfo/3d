@@ -10,6 +10,7 @@ import math
 import os
 import re
 import sys
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -21,6 +22,9 @@ AXIS_VERTEX_TOLERANCE_M = 0.15
 GEOMETRY_TOLERANCE_M = 0.05
 RAIL_OVERLAY_TOLERANCE_M = 0.5
 RAIL_OVERLAY_SAMPLE_STEP_M = 1.0
+ANCHORAGE_SAMPLE_STEP_M = 1.0
+PLANNED_BERTHING_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$")
+VESSEL_TYPES = frozenset(("container", "carCarrier", "coal", "fish", "general", "bunker", "empty"))
 COORDINATE_PRECISION = 2
 RESIZE_TOLERANCE_M = math.sqrt(2) * 0.5 * 10**-COORDINATE_PRECISION + 1e-9
 
@@ -41,6 +45,8 @@ SOURCE_FILES = {
     "railwaysVisual": "geojson/railways_visual_v4.geojson",
     "railwayBranches": "geojson/railway_branches_v4.geojson",
     "trains": "trains-v4.json",
+    "anchorage": "geojson/anchorage.geojson",
+    "anchorageVessels": "anchorage-vessels.json",
 }
 
 TEMPLATE_PATHS = {
@@ -57,6 +63,8 @@ TEMPLATE_PATHS = {
     "containerSites": "ContainerSitesV4_geojson/Template.txt",
     "bayAxes": "ContainerSiteBayAxesV4_geojson/Template.txt",
     "railways": "RailwaysV4_json/Template.txt",
+    "anchorage": "Anchorage_geojson/Template.txt",
+    "anchorageVessels": "AnchorageVessels_json/Template.txt",
     "manifest": "SceneManifestV4_json/Template.txt",
 }
 
@@ -736,7 +744,7 @@ def validate_vessels(document: Any, berth_ids: set[str], validation: Validation)
             "must be right, left, bow or stern",
         )
         validation.require(
-            vessel.get("vesselType") in ("container", "carCarrier", "coal", "fish", "general", "bunker", "empty"),
+            vessel.get("vesselType") in VESSEL_TYPES,
             f"{location}.vesselType",
             "must be container, carCarrier, coal, fish, general, bunker or empty",
         )
@@ -753,6 +761,205 @@ def validate_vessels(document: Any, berth_ids: set[str], validation: Validation)
         refueling = vessel.get("refueling")
         if refueling is not None:
             validation.require(isinstance(refueling, bool), f"{location}.refueling", "must be boolean")
+
+
+def water_rings(document: Any) -> list[list[tuple[float, float]]]:
+    rings: list[list[tuple[float, float]]] = []
+    if not isinstance(document, dict) or not isinstance(document.get("features"), list):
+        return rings
+    for feature in document["features"]:
+        geometry = feature.get("geometry") if isinstance(feature, dict) else None
+        if not isinstance(geometry, dict):
+            continue
+        geometry_type = geometry.get("type")
+        coordinates = geometry.get("coordinates")
+        polygons = coordinates if geometry_type == "MultiPolygon" else [coordinates] if geometry_type == "Polygon" else []
+        if not isinstance(polygons, list):
+            continue
+        for polygon in polygons:
+            if not isinstance(polygon, list) or not polygon or not isinstance(polygon[0], list):
+                continue
+            parsed = [point(value) for value in polygon[0]]
+            if len(parsed) >= 4 and all(value is not None for value in parsed):
+                rings.append([value for value in parsed if value is not None])
+    return rings
+
+
+def point_in_ring(sample: tuple[float, float], ring: list[tuple[float, float]]) -> bool:
+    vertices = ring[:-1] if len(ring) >= 2 and distance(ring[0], ring[-1]) <= GEOMETRY_TOLERANCE_M else ring
+    if len(vertices) < 3:
+        return False
+    x, y = sample
+    inside = False
+    previous_index = len(vertices) - 1
+    for index, (xi, yi) in enumerate(vertices):
+        xj, yj = vertices[previous_index]
+        if (yi > y) != (yj > y) and abs(yj - yi) > 1e-18:
+            if x < (xj - xi) * (y - yi) / (yj - yi) + xi:
+                inside = not inside
+        previous_index = index
+    return inside
+
+
+def point_in_water(sample: tuple[float, float], rings: list[list[tuple[float, float]]]) -> bool:
+    return any(point_in_ring(sample, ring) for ring in rings)
+
+
+def valid_planned_berthing(value: Any) -> bool:
+    if not isinstance(value, str) or PLANNED_BERTHING_PATTERN.fullmatch(value) is None:
+        return False
+    try:
+        datetime.strptime(value, "%Y-%m-%dT%H:%M:%S")
+    except ValueError:
+        return False
+    return True
+
+
+def non_negative_int(value: Any) -> bool:
+    return number(value) and float(value) >= 0 and float(value) == int(value)
+
+
+PLANNED_CONTAINER_KEYS = ("ft10", "ft20", "ft40")
+
+
+def valid_planned_containers(value: Any) -> bool:
+    if not isinstance(value, dict) or set(value) != set(PLANNED_CONTAINER_KEYS):
+        return False
+    return all(non_negative_int(value[key]) for key in PLANNED_CONTAINER_KEYS)
+
+
+def validate_anchorage(document: Any, water_document: Any, crs: str, validation: Validation) -> None:
+    features = feature_collection(document, "anchorage.geojson", validation)
+    validation.require(
+        len(features) == 1,
+        "anchorage.geojson",
+        "exactly one LineString feature is required",
+    )
+    rings = water_rings(water_document)
+    for feature_index, feature in enumerate(features):
+        location = f"anchorage.geojson.features[{feature_index}]"
+        properties = feature.get("properties") if isinstance(feature, dict) else None
+        if not isinstance(properties, dict):
+            validation.add(location, "properties object is required")
+            properties = {}
+
+        fid = properties.get("fid")
+        gap = properties.get("gap_m")
+        validation.require(
+            fid is not None and fid != "",
+            f"{location}.properties.fid",
+            "fid is required",
+        )
+        validation.require(
+            number(gap) and float(gap) > 0,
+            f"{location}.properties.gap_m",
+            "gap_m must be a positive finite number",
+        )
+
+        geometry = feature.get("geometry") if isinstance(feature, dict) else None
+        if (
+            not isinstance(geometry, dict)
+            or geometry.get("type") != "LineString"
+            or not isinstance(geometry.get("coordinates"), list)
+            or len(geometry["coordinates"]) != 2
+        ):
+            validation.add(f"{location}.geometry", "geometry must be a two-point LineString")
+            continue
+        parsed = [point(value) for value in geometry["coordinates"]]
+        if not all(value is not None for value in parsed):
+            validation.add(f"{location}.geometry.coordinates", "coordinates must be finite points")
+            continue
+        axis = [value for value in parsed if value is not None]
+        validation.require(distance(axis[0], axis[1]) >= 0.5, location, "heading axis is too short")
+        if not rings:
+            validation.add("water.geojson", "water polygon is required to place the anchorage axis")
+            continue
+        if any(
+            not point_in_water(sample, rings)
+            for sample in sample_polyline(geometry["coordinates"], ANCHORAGE_SAMPLE_STEP_M)
+        ):
+            validation.add(location, "axis must lie entirely inside water.geojson")
+    validation.require(crs_code(document) == crs, "anchorage.geojson", f"CRS must be {crs}")
+
+
+def validate_anchorage_vessels(
+    document: Any,
+    berth_vessel_ids: set[str],
+    berth_ids: set[str],
+    validation: Validation,
+) -> None:
+    if not isinstance(document, dict):
+        validation.add("anchorage-vessels.json", "root must be an object")
+        return
+    validation.require(
+        document.get("schemaVersion") == "4.0",
+        "anchorage-vessels.json",
+        "schemaVersion must be 4.0",
+    )
+    vessels = document.get("vessels")
+    if not isinstance(vessels, list):
+        validation.add("anchorage-vessels.json.vessels", "vessels must be an array")
+        return
+    vessel_ids: set[str] = set()
+    for vessel_index, vessel in enumerate(vessels):
+        location = f"anchorage-vessels.json.vessels[{vessel_index}]"
+        if not isinstance(vessel, dict):
+            validation.add(location, "vessel must be an object")
+            continue
+        vessel_id = trimmed_text(vessel.get("id"))
+        name = trimmed_text(vessel.get("name"))
+        validation.require(bool(vessel_id), f"{location}.id", "id is required")
+        validation.require(bool(name), f"{location}.name", "name is required")
+        if vessel_id in vessel_ids:
+            validation.add(f"{location}.id", f"duplicate vessel id {vessel_id}")
+        elif vessel_id in berth_vessel_ids:
+            validation.add(f"{location}.id", f"vessel id {vessel_id} already used in vessels-v4.json")
+        elif vessel_id:
+            vessel_ids.add(vessel_id)
+        validation.require(
+            number(vessel.get("lengthM")) and vessel["lengthM"] > 0,
+            f"{location}.lengthM",
+            "must be positive",
+        )
+        validation.require(
+            number(vessel.get("beamM")) and vessel["beamM"] > 0,
+            f"{location}.beamM",
+            "must be positive",
+        )
+        validation.require(
+            valid_planned_berthing(vessel.get("plannedBerthingAt")),
+            f"{location}.plannedBerthingAt",
+            "must be YYYY-MM-DDTHH:MM:SS",
+        )
+        planned_berth_id = trimmed_text(vessel.get("plannedBerthId"))
+        validation.require(bool(planned_berth_id), f"{location}.plannedBerthId", "plannedBerthId is required")
+        validation.require(
+            planned_berth_id in berth_ids,
+            f"{location}.plannedBerthId",
+            f"unknown plannedBerthId {planned_berth_id!r}",
+        )
+        validation.require(
+            valid_planned_containers(vessel.get("plannedLoad")),
+            f"{location}.plannedLoad",
+            "must be an object with non-negative integer ft10, ft20 and ft40",
+        )
+        validation.require(
+            valid_planned_containers(vessel.get("plannedUnload")),
+            f"{location}.plannedUnload",
+            "must be an object with non-negative integer ft10, ft20 and ft40",
+        )
+        validation.require(
+            vessel.get("vesselType") in VESSEL_TYPES,
+            f"{location}.vesselType",
+            "must be container, carCarrier, coal, fish, general, bunker or empty",
+        )
+        color = vessel.get("color")
+        if color is not None:
+            validation.require(
+                isinstance(color, str) and re.fullmatch(r"#[0-9A-Fa-f]{6}", color) is not None,
+                f"{location}.color",
+                "color must use #RRGGBB format",
+            )
 
 
 def valid_color(value: Any) -> bool:
@@ -1725,6 +1932,26 @@ def build(data_dir: Path, templates_dir: Path, check_only: bool) -> None:
         if isinstance(berth, dict)
     }
     validate_vessels(source_documents.get("vessels", {}), berth_ids, validation)
+    berth_vessel_ids: set[str] = set()
+    vessels_document = source_documents.get("vessels", {})
+    if isinstance(vessels_document, dict) and isinstance(vessels_document.get("vessels"), list):
+        for vessel in vessels_document["vessels"]:
+            if isinstance(vessel, dict):
+                vessel_id = trimmed_text(vessel.get("id"))
+                if vessel_id:
+                    berth_vessel_ids.add(vessel_id)
+    validate_anchorage(
+        source_documents.get("anchorage", {}),
+        source_documents.get("water", {}),
+        terminal_crs,
+        validation,
+    )
+    validate_anchorage_vessels(
+        source_documents.get("anchorageVessels", {}),
+        berth_vessel_ids,
+        berth_ids,
+        validation,
+    )
     sites = collect_sites(source_documents.get("containerSites", {}), terminal_crs, validation)
     axes = collect_axes(source_documents.get("bayAxes", {}), terminal_crs, validation)
     changes = validate_layout(layout, sites, axes, validation)
@@ -1754,6 +1981,7 @@ def build(data_dir: Path, templates_dir: Path, check_only: bool) -> None:
     normalized["berths"] = canonical_json(berths_document)
     normalized["cranes"] = canonical_json(cranes_document)
     normalized["railways"] = canonical_json(railways_document)
+    normalized["anchorageVessels"] = source_texts["anchorageVessels"]
     berths_path = data_dir / "berths-v4.json"
     cranes_path = data_dir / "cranes-v4.json"
     railways_path = data_dir / "railways-v4.json"
@@ -1812,6 +2040,7 @@ def build(data_dir: Path, templates_dir: Path, check_only: bool) -> None:
     site_count = len(layout.get("sites", [])) if isinstance(layout, dict) else 0
     berth_count = len(berths_document.get("berths", []))
     vessel_count = len(source_documents.get("vessels", {}).get("vessels", []))
+    anchorage_vessel_count = len(source_documents.get("anchorageVessels", {}).get("vessels", []))
     crane_count = len(cranes_document.get("cranes", []))
     branch_count = len(railways_document.get("branches", []))
     train_count = len(railways_document.get("trains", []))
@@ -1823,7 +2052,8 @@ def build(data_dir: Path, templates_dir: Path, check_only: bool) -> None:
     action = "validated" if check_only else "synchronized"
     print(
         f"V4 scene {action}: buildId={build_id} "
-        f"sites={site_count} berths={berth_count} vessels={vessel_count} cranes={crane_count} "
+        f"sites={site_count} berths={berth_count} vessels={vessel_count} "
+        f"anchorageVessels={anchorage_vessel_count} cranes={crane_count} "
         f"railwayBranches={branch_count} trains={train_count} wagons={wagon_count}"
     )
     for change in changes:

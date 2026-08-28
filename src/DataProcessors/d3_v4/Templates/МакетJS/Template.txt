@@ -44,6 +44,15 @@ function initTerminalPlan2D() {
         return isFinite(n) ? n : fallback;
     }
 
+    function plannedContainerCounts(value) {
+        var src = (value && typeof value === 'object') ? value : {};
+        return {
+            ft10: Math.max(0, numberOr(src.ft10, 0)),
+            ft20: Math.max(0, numberOr(src.ft20, 0)),
+            ft40: Math.max(0, numberOr(src.ft40, 0))
+        };
+    }
+
     var site = sceneData.site || {};
     site.minX = numberOr(site.minX, 0);
     site.minY = numberOr(site.minY, 0);
@@ -360,6 +369,12 @@ function initTerminalPlan2D() {
             berthId: String(so.berthId || ''),
             mooringSide: String(so.mooringSide || ''),
             refueling: !!so.refueling,
+            locationType: String(so.locationType || ''),
+            plannedBerthingAt: String(so.plannedBerthingAt || ''),
+            plannedBerthId: String(so.plannedBerthId || ''),
+            plannedLoad: plannedContainerCounts(so.plannedLoad),
+            plannedUnload: plannedContainerCounts(so.plannedUnload),
+            queuePosition: numberOr(so.queuePosition, 0),
             model: String(so.model || ''),
             scale: Math.max(0.01, numberOr(so.scale, 1)),
             azimuthDeg: numberOr(so.azimuthDeg, 0),
@@ -851,6 +866,11 @@ function initTerminalPlan2D() {
     function vesselBeam(obj) {
         var size = obj.size || {};
         return numberOr(size.beam, numberOr(size.width, 28));
+    }
+
+    function isCraneKind(kind) {
+        return kind === 'cranePortal' || kind === 'craneRtg' || kind === 'craneRmg'
+            || kind === 'craneReachStacker' || kind === 'craneMobile';
     }
 
     function equipmentBounds(obj) {
@@ -2382,7 +2402,12 @@ function initTerminalPlan2D() {
             }
         }
         for (i = 0; i < objects.length; i++) {
-            if (objects[i].kind !== 'vessel') {
+            if (objects[i].kind !== 'vessel' && !isCraneKind(objects[i].kind)) {
+                drawEquipment(objects[i]);
+            }
+        }
+        for (i = 0; i < objects.length; i++) {
+            if (isCraneKind(objects[i].kind)) {
                 drawEquipment(objects[i]);
             }
         }
@@ -2442,17 +2467,24 @@ function initTerminalPlan2D() {
     function hitTest(sx, sy) {
         var world = screenToWorld(sx, sy);
         var i;
-        for (i = objects.length - 1; i >= 0; i--) {
-            var obj = objects[i];
-            var b = equipmentBounds(obj);
-            var ang = (obj.rotation || 0) * Math.PI / 180;
-            var cosA = Math.cos(ang);
-            var sinA = Math.sin(ang);
-            var lx = (world.x - obj.x) * cosA + (world.y - obj.y) * sinA;
-            var ly = -(world.x - obj.x) * sinA + (world.y - obj.y) * cosA;
-            var pad = (obj.kind === 'craneReachStacker' || obj.kind === 'craneMobile') ? 2 : 0.5;
-            if (Math.abs(lx - numberOr(b.offsetX, 0)) <= b.hw + pad && Math.abs(ly) <= b.hh + pad) {
-                return obj;
+        var pass;
+        for (pass = 0; pass < 2; pass++) {
+            var cranesOnly = pass === 0;
+            for (i = objects.length - 1; i >= 0; i--) {
+                var obj = objects[i];
+                if (isCraneKind(obj.kind) !== cranesOnly) {
+                    continue;
+                }
+                var b = equipmentBounds(obj);
+                var ang = (obj.rotation || 0) * Math.PI / 180;
+                var cosA = Math.cos(ang);
+                var sinA = Math.sin(ang);
+                var lx = (world.x - obj.x) * cosA + (world.y - obj.y) * sinA;
+                var ly = -(world.x - obj.x) * sinA + (world.y - obj.y) * cosA;
+                var pad = (obj.kind === 'craneReachStacker' || obj.kind === 'craneMobile') ? 2 : 0.5;
+                if (Math.abs(lx - numberOr(b.offsetX, 0)) <= b.hw + pad && Math.abs(ly) <= b.hh + pad) {
+                    return obj;
+                }
             }
         }
 

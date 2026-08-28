@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "4.0",
+  "vessels": [
+    {
+      "id": "anchorage-east-wind",
+      "name": "East Wind",
+      "plannedBerthingAt": "2026-08-28T16:00:00",
+      "plannedBerthId": "48",
+      "plannedLoad": {
+        "ft10": 20,
+        "ft20": 100,
+        "ft40": 200
+      },
+      "plannedUnload": {
+        "ft10": 10,
+        "ft20": 80,
+        "ft40": 120
+      },
+      "lengthM": 110.0,
+      "beamM": 20.0,
+      "vesselType": "container"
+    },
+    {
+      "id": "anchorage-okhotsk-wait",
+      "name": "Okhotsk Wait",
+      "plannedBerthingAt": "2026-08-27T08:30:00",
+      "plannedBerthId": "49",
+      "plannedLoad": {
+        "ft10": 0,
+        "ft20": 0,
+        "ft40": 0
+      },
+      "plannedUnload": {
+        "ft10": 0,
+        "ft20": 0,
+        "ft40": 0
+      },
+      "lengthM": 80.0,
+      "beamM": 16.0,
+      "vesselType": "empty"
+    },
+    {
+      "id": "anchorage-morning-star",
+      "name": "Morning Star",
+      "plannedBerthingAt": "2026-08-27T08:30:00",
+      "plannedBerthId": "50",
+      "plannedLoad": {
+        "ft10": 4,
+        "ft20": 16,
+        "ft40": 20
+      },
+      "plannedUnload": {
+        "ft10": 1,
+        "ft20": 6,
+        "ft40": 8
+      },
+      "lengthM": 95.0,
+      "beamM": 18.0,
+      "vesselType": "general",
+      "color": "#CBD5E1"
+    }
+  ]
+}
