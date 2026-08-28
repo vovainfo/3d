@@ -72,30 +72,15 @@ DEFAULT_RAIL_GAUGE_M = 1.52
 DEFAULT_RAIL_COLOR = "#6B7280"
 DEFAULT_TRAIN_GAP_M = 1.0
 WAGON_DEFAULTS = {
-    "covered": {"lengthM": 15.7, "widthM": 3.25, "heightM": 4.7, "color": "#8B5A2B"},
-    "gondola": {"lengthM": 13.92, "widthM": 3.24, "heightM": 3.48, "color": "#4B5563"},
-    "refrigerated": {"lengthM": 21.0, "widthM": 3.1, "heightM": 4.7, "color": "#DCEAF7"},
-    "carCarrier": {"lengthM": 24.0, "widthM": 3.1, "heightM": 4.8, "color": "#94A3B8"},
-    "thermos": {"lengthM": 21.0, "widthM": 3.1, "heightM": 4.7, "color": "#E5E7EB"},
-    "fittingPlatform": {
-        "40": {"lengthM": 13.4, "widthM": 3.1, "heightM": 1.3, "color": "#B45309"},
-        "60": {"lengthM": 19.62, "widthM": 3.1, "heightM": 1.3, "color": "#B45309"},
-        "80": {"lengthM": 25.8, "widthM": 3.1, "heightM": 1.3, "color": "#B45309"},
-    },
+    "фит.пл.": {"widthM": 3.1, "heightM": 1.3, "color": "#B45309"},
+    "пв": {"widthM": 3.24, "heightM": 3.48, "color": "#4B5563"},
+    "тер": {"widthM": 3.1, "heightM": 4.7, "color": "#E5E7EB"},
+    "кр": {"widthM": 3.25, "heightM": 4.7, "color": "#8B5A2B"},
+    "реф": {"widthM": 3.1, "heightM": 4.7, "color": "#DCEAF7"},
+    "сетка а/м": {"widthM": 3.1, "heightM": 4.8, "color": "#94A3B8"},
+    "цистерна": {"widthM": 3.1, "heightM": 4.4, "color": "#A8A29E"},
 }
-WAGON_TYPES = frozenset(WAGON_DEFAULTS)
-LOAD_STATUSES = frozenset(("empty", "loaded"))
-PLATFORM_LENGTHS_FT = frozenset((40, 60, 80))
-CONTAINER_LENGTHS_FT = frozenset((20, 40))
-CONTAINER_CAPACITY_TEU = {"gondola": 2, 40: 2, 60: 3, 80: 4}
-CARGO_KINDS = {
-    "covered": frozenset(("general",)),
-    "gondola": frozenset(("coal", "containers")),
-    "refrigerated": frozenset(("refrigerated",)),
-    "carCarrier": frozenset(("automobiles",)),
-    "thermos": frozenset(("temperatureControlled",)),
-    "fittingPlatform": frozenset(("containers",)),
-}
+UNKNOWN_WAGON_DEFAULTS = {"widthM": 3.1, "heightM": 4.7, "color": "#6B7280"}
 
 
 class Validation:
@@ -1110,89 +1095,12 @@ def interpolate_path(
     return [round(value, 3) for value in coordinates[-1]], fallback_tangent
 
 
-def wagon_defaults(wagon_type: str, platform_length_ft: Any) -> dict[str, Any]:
-    defaults = WAGON_DEFAULTS[wagon_type]
-    if wagon_type == "fittingPlatform":
-        return defaults[str(platform_length_ft)]  # type: ignore[index]
-    return defaults  # type: ignore[return-value]
+def wagon_visual_defaults(wagon_type: str) -> dict[str, Any]:
+    return WAGON_DEFAULTS.get(wagon_type, UNKNOWN_WAGON_DEFAULTS)
 
 
-def normalize_cargo(
-    cargo: Any,
-    wagon_type: str,
-    platform_length_ft: Any,
-    location: str,
-    container_ids: set[str],
-    validation: Validation,
-) -> dict[str, Any] | None:
-    if not isinstance(cargo, dict):
-        validation.add(location, "loaded wagon cargo must be an object")
-        return None
-    kind = cargo.get("kind")
-    if kind not in CARGO_KINDS[wagon_type]:
-        validation.add(
-            f"{location}.kind",
-            f"unsupported cargo kind {kind!r} for wagon type {wagon_type}",
-        )
-        return None
-    if kind == "general":
-        reject_unknown_keys(cargo, {"kind", "description"}, location, validation)
-        description = trimmed_text(cargo.get("description"))
-        validation.require(bool(description), f"{location}.description", "description is required")
-        return {"kind": kind, "description": description}
-    if kind != "containers":
-        reject_unknown_keys(cargo, {"kind"}, location, validation)
-        return {"kind": kind}
-
-    reject_unknown_keys(cargo, {"kind", "containers"}, location, validation)
-    raw_containers = cargo.get("containers")
-    if not isinstance(raw_containers, list) or not raw_containers:
-        validation.add(f"{location}.containers", "loaded container cargo requires a non-empty array")
-        return {"kind": kind, "containers": []}
-    normalized_containers: list[dict[str, Any]] = []
-    total_teu = 0
-    for container_index, container in enumerate(raw_containers):
-        container_location = f"{location}.containers[{container_index}]"
-        if not isinstance(container, dict):
-            validation.add(container_location, "container must be an object")
-            continue
-        reject_unknown_keys(container, {"id", "lengthFt", "color"}, container_location, validation)
-        length_ft = container.get("lengthFt")
-        if length_ft not in CONTAINER_LENGTHS_FT:
-            validation.add(f"{container_location}.lengthFt", "must be 20 or 40")
-            continue
-        normalized_container: dict[str, Any] = {"lengthFt": length_ft}
-        total_teu += int(length_ft) // 20
-        if "id" in container:
-            container_id = trimmed_text(container.get("id"))
-            validation.require(bool(container_id), f"{container_location}.id", "id must be non-empty")
-            if container_id in container_ids:
-                validation.add(f"{container_location}.id", f"duplicate container id {container_id}")
-            elif container_id:
-                container_ids.add(container_id)
-                normalized_container["id"] = container_id
-        if "color" in container:
-            color = container.get("color")
-            validation.require(valid_color(color), f"{container_location}.color", "must use #RRGGBB format")
-            if valid_color(color):
-                normalized_container["color"] = color.upper()
-        normalized_containers.append(normalized_container)
-    capacity = (
-        CONTAINER_CAPACITY_TEU["gondola"]
-        if wagon_type == "gondola"
-        else CONTAINER_CAPACITY_TEU.get(platform_length_ft, 0)
-    )
-    validation.require(
-        total_teu <= capacity,
-        f"{location}.containers",
-        f"container load is {total_teu} TEU but capacity is {capacity} TEU",
-    )
-    return {
-        "kind": kind,
-        "containers": normalized_containers,
-        "usedTeu": total_teu,
-        "capacityTeu": capacity,
-    }
+def valid_wagon_id(value: str) -> bool:
+    return bool(value) and re.fullmatch(r"\S+", value) is not None
 
 
 def collect_railways(
@@ -1231,7 +1139,6 @@ def collect_railways(
 
     train_ids: set[str] = set()
     wagon_ids: set[str] = set()
-    container_ids: set[str] = set()
     normalized_trains: list[dict[str, Any]] = []
     branch_intervals: dict[str, list[tuple[float, float, str, str]]] = {}
     for train_index, train in enumerate(raw_trains):
@@ -1280,36 +1187,36 @@ def collect_railways(
                 continue
             reject_unknown_keys(
                 wagon,
-                {"id", "type", "platformLengthFt", "loadStatus", "cargo"},
+                {"id", "type", "lengthM", "loaded"},
                 wagon_location,
                 validation,
             )
-            wagon_id = trimmed_text(wagon.get("id"))
-            wagon_type = wagon.get("type")
-            load_status = wagon.get("loadStatus")
-            platform_length_ft = wagon.get("platformLengthFt")
-            validation.require(bool(wagon_id), f"{wagon_location}.id", "id is required")
+            raw_id = wagon.get("id")
+            wagon_id = trimmed_text(raw_id)
+            wagon_type = trimmed_text(wagon.get("type"))
+            length_m = wagon.get("lengthM")
+            loaded = wagon.get("loaded")
+            validation.require(
+                isinstance(raw_id, str) and valid_wagon_id(wagon_id),
+                f"{wagon_location}.id",
+                "id must be a unique non-empty string without whitespace",
+            )
             if wagon_id in wagon_ids:
                 validation.add(f"{wagon_location}.id", f"duplicate wagon id {wagon_id}")
             elif wagon_id:
                 wagon_ids.add(wagon_id)
-            if wagon_type not in WAGON_TYPES:
-                validation.add(f"{wagon_location}.type", f"unsupported wagon type {wagon_type!r}")
+            validation.require(bool(wagon_type), f"{wagon_location}.type", "type is required")
+            validation.require(
+                number(length_m) and float(length_m) > 0,
+                f"{wagon_location}.lengthM",
+                "must be a positive finite number",
+            )
+            validation.require(isinstance(loaded, bool), f"{wagon_location}.loaded", "must be a boolean")
+            if not (number(length_m) and float(length_m) > 0):
                 continue
-            validation.require(load_status in LOAD_STATUSES, f"{wagon_location}.loadStatus", "must be empty or loaded")
-            if wagon_type == "fittingPlatform":
-                validation.require(
-                    platform_length_ft in PLATFORM_LENGTHS_FT,
-                    f"{wagon_location}.platformLengthFt",
-                    "must be 40, 60 or 80",
-                )
-                if platform_length_ft not in PLATFORM_LENGTHS_FT:
-                    continue
-            elif "platformLengthFt" in wagon:
-                validation.add(f"{wagon_location}.platformLengthFt", "only fittingPlatform may define platformLengthFt")
 
-            defaults = wagon_defaults(str(wagon_type), platform_length_ft)
-            wagon_length = float(defaults["lengthM"])
+            defaults = wagon_visual_defaults(wagon_type)
+            wagon_length = float(length_m)
             if wagon_index == 0:
                 chainage += wagon_length / 2
             else:
@@ -1334,38 +1241,22 @@ def collect_railways(
             directed_tangent = [round(sign * tangent[0], 6), round(sign * tangent[1], 6)]
             heading = round(math.degrees(math.atan2(directed_tangent[1], directed_tangent[0])), 3)
 
-            cargo: dict[str, Any] | None = None
-            if load_status == "empty":
-                validation.require("cargo" not in wagon, f"{wagon_location}.cargo", "empty wagon must not define cargo")
-            elif load_status == "loaded":
-                cargo = normalize_cargo(
-                    wagon.get("cargo"),
-                    str(wagon_type),
-                    platform_length_ft,
-                    f"{wagon_location}.cargo",
-                    container_ids,
-                    validation,
-                )
             normalized_wagon: dict[str, Any] = {
                 "id": wagon_id,
                 "type": wagon_type,
-                "loadStatus": load_status,
+                "loaded": bool(loaded),
                 "chainageM": round(chainage, 3),
                 "intervalM": [round(interval_start, 3), round(interval_end, 3)],
                 "position": position,
                 "tangent": directed_tangent,
                 "headingDeg": heading,
                 "size": {
-                    "lengthM": defaults["lengthM"],
+                    "lengthM": round(wagon_length, 3),
                     "widthM": defaults["widthM"],
                     "heightM": defaults["heightM"],
                 },
                 "color": defaults["color"],
             }
-            if wagon_type == "fittingPlatform":
-                normalized_wagon["platformLengthFt"] = platform_length_ft
-            if cargo is not None:
-                normalized_wagon["cargo"] = cargo
             normalized_wagons.append(normalized_wagon)
 
         if normalized_wagons:
@@ -1405,20 +1296,13 @@ def collect_railways(
             "railGaugeM": DEFAULT_RAIL_GAUGE_M,
             "railColor": DEFAULT_RAIL_COLOR,
             "trainGapM": DEFAULT_TRAIN_GAP_M,
-            "wagonTypes": {
-                **{
-                    wagon_type: defaults
-                    for wagon_type, defaults in WAGON_DEFAULTS.items()
-                    if wagon_type != "fittingPlatform"
-                },
-                "fittingPlatform": [
-                    {
-                        "platformLengthFt": int(platform_length_ft),
-                        **defaults,
-                    }
-                    for platform_length_ft, defaults in WAGON_DEFAULTS["fittingPlatform"].items()
-                ],
-            },
+            "wagonTypes": [
+                {
+                    "type": wagon_type,
+                    **defaults,
+                }
+                for wagon_type, defaults in WAGON_DEFAULTS.items()
+            ],
         },
         "visualPaths": visual_paths,
         "branches": branches,

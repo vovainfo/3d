@@ -11,35 +11,33 @@
       "wagons": [
         {
           "id": "W-001",
-          "type": "gondola",
-          "loadStatus": "loaded",
-          "cargo": {
-            "kind": "coal"
-          }
+          "type": "пв",
+          "lengthM": 13.92,
+          "loaded": true
         },
         {
           "id": "W-002",
-          "type": "fittingPlatform",
-          "platformLengthFt": 80,
-          "loadStatus": "loaded",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "id": "CONT-001",
-                "lengthFt": 40,
-                "color": "#2563EB"
-              },
-              {
-                "lengthFt": 20
-              }
-            ]
-          }
+          "type": "фит.пл.",
+          "lengthM": 25.8,
+          "loaded": true
         },
         {
           "id": "W-003",
-          "type": "covered",
-          "loadStatus": "empty"
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-004",
+          "type": "хоппер",
+          "lengthM": 15.7,
+          "loaded": false
+        },
+        {
+          "id": "W-005",
+          "type": "кр",
+          "lengthM": 15.7,
+          "loaded": false
         }
       ]
     }

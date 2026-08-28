@@ -5,61 +5,50 @@
     "railGaugeM": 1.52,
     "railColor": "#6B7280",
     "trainGapM": 1.0,
-    "wagonTypes": {
-      "covered": {
-        "lengthM": 15.7,
-        "widthM": 3.25,
-        "heightM": 4.7,
-        "color": "#8B5A2B"
+    "wagonTypes": [
+      {
+        "type": "фит.пл.",
+        "widthM": 3.1,
+        "heightM": 1.3,
+        "color": "#B45309"
       },
-      "gondola": {
-        "lengthM": 13.92,
+      {
+        "type": "пв",
         "widthM": 3.24,
         "heightM": 3.48,
         "color": "#4B5563"
       },
-      "refrigerated": {
-        "lengthM": 21.0,
-        "widthM": 3.1,
-        "heightM": 4.7,
-        "color": "#DCEAF7"
-      },
-      "carCarrier": {
-        "lengthM": 24.0,
-        "widthM": 3.1,
-        "heightM": 4.8,
-        "color": "#94A3B8"
-      },
-      "thermos": {
-        "lengthM": 21.0,
+      {
+        "type": "тер",
         "widthM": 3.1,
         "heightM": 4.7,
         "color": "#E5E7EB"
       },
-      "fittingPlatform": [
-        {
-          "platformLengthFt": 40,
-          "lengthM": 13.4,
-          "widthM": 3.1,
-          "heightM": 1.3,
-          "color": "#B45309"
-        },
-        {
-          "platformLengthFt": 60,
-          "lengthM": 19.62,
-          "widthM": 3.1,
-          "heightM": 1.3,
-          "color": "#B45309"
-        },
-        {
-          "platformLengthFt": 80,
-          "lengthM": 25.8,
-          "widthM": 3.1,
-          "heightM": 1.3,
-          "color": "#B45309"
-        }
-      ]
-    }
+      {
+        "type": "кр",
+        "widthM": 3.25,
+        "heightM": 4.7,
+        "color": "#8B5A2B"
+      },
+      {
+        "type": "реф",
+        "widthM": 3.1,
+        "heightM": 4.7,
+        "color": "#DCEAF7"
+      },
+      {
+        "type": "сетка а/м",
+        "widthM": 3.1,
+        "heightM": 4.8,
+        "color": "#94A3B8"
+      },
+      {
+        "type": "цистерна",
+        "widthM": 3.1,
+        "heightM": 4.4,
+        "color": "#A8A29E"
+      }
+    ]
   },
   "visualPaths": [
     {
@@ -3222,8 +3211,8 @@
       "wagons": [
         {
           "id": "W-1_52-001",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -3240,19 +3229,15 @@
           "headingDeg": 71.228,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Пакетированный груз"
-          }
+          "color": "#A8A29E"
         },
         {
           "id": "W-1_52-002",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
             16.7,
@@ -3272,15 +3257,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-1_52-003",
-          "type": "refrigerated",
-          "loadStatus": "loaded",
+          "type": "реф",
+          "loaded": true,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -3300,15 +3282,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7",
-          "cargo": {
-            "kind": "refrigerated"
-          }
+          "color": "#DCEAF7"
         },
         {
           "id": "W-1_52-004",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "хоппер",
+          "loaded": true,
           "chainageM": 65.62,
           "intervalM": [
             53.62,
@@ -3326,17 +3305,14 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.7
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#6B7280"
         },
         {
           "id": "W-1_52-005",
-          "type": "thermos",
-          "loadStatus": "loaded",
+          "type": "тер",
+          "loaded": true,
           "chainageM": 89.12,
           "intervalM": [
             78.62,
@@ -3356,15 +3332,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB",
-          "cargo": {
-            "kind": "temperatureControlled"
-          }
+          "color": "#E5E7EB"
         },
         {
           "id": "W-1_52-006",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 107.32,
           "intervalM": [
             100.62,
@@ -3384,25 +3357,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_52-006-01",
-                "color": "#2563EB"
-              }
-            ],
-            "usedTeu": 1,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-1_52-007",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "кр",
+          "loaded": false,
           "chainageM": 122.87,
           "intervalM": [
             115.02,
@@ -3426,8 +3386,8 @@
         },
         {
           "id": "W-1_52-008",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "пв",
+          "loaded": false,
           "chainageM": 138.68,
           "intervalM": [
             131.72,
@@ -3451,8 +3411,8 @@
         },
         {
           "id": "W-1_52-009",
-          "type": "carCarrier",
-          "loadStatus": "empty",
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 158.64,
           "intervalM": [
             146.64,
@@ -3476,8 +3436,8 @@
         },
         {
           "id": "W-1_52-010",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 178.6,
           "intervalM": [
             171.64,
@@ -3497,24 +3457,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-1_52-010-01",
-                "color": "#DC2626"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-1_52-011",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "думпкар",
+          "loaded": false,
           "chainageM": 193.26,
           "intervalM": [
             186.56,
@@ -3532,15 +3480,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309",
-          "platformLengthFt": 40
+          "color": "#6B7280"
         },
         {
           "id": "W-1_52-012",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 207.66,
           "intervalM": [
             200.96,
@@ -3560,30 +3507,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_52-012-01",
-                "color": "#16A34A"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_52-012-02",
-                "color": "#F59E0B"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-1_52-013",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "кр",
+          "loaded": true,
           "chainageM": 223.21,
           "intervalM": [
             215.36,
@@ -3603,16 +3532,12 @@
             "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Штучный груз"
-          }
+          "color": "#8B5A2B"
         },
         {
           "id": "W-1_52-014",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 239.02,
           "intervalM": [
             232.06,
@@ -3632,15 +3557,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-1_52-015",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "пв",
+          "loaded": false,
           "chainageM": 253.94,
           "intervalM": [
             246.98,
@@ -3664,8 +3586,8 @@
         },
         {
           "id": "W-1_52-016",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 268.86,
           "intervalM": [
             261.9,
@@ -3682,22 +3604,10 @@
           "headingDeg": 71.228,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-1_52-016-01",
-                "color": "#7C3AED"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#A8A29E"
         }
       ]
     },
@@ -3715,8 +3625,8 @@
       "wagons": [
         {
           "id": "W-4_52-001",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 6.96,
           "intervalM": [
             0.0,
@@ -3736,15 +3646,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-4_52-002",
-          "type": "refrigerated",
-          "loadStatus": "loaded",
+          "type": "хоппер",
+          "loaded": true,
           "chainageM": 25.42,
           "intervalM": [
             14.92,
@@ -3764,15 +3671,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7",
-          "cargo": {
-            "kind": "refrigerated"
-          }
+          "color": "#6B7280"
         },
         {
           "id": "W-4_52-003",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 48.92,
           "intervalM": [
             36.92,
@@ -3792,15 +3696,12 @@
             "widthM": 3.1,
             "heightM": 4.8
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#94A3B8"
         },
         {
           "id": "W-4_52-004",
-          "type": "thermos",
-          "loadStatus": "loaded",
+          "type": "тер",
+          "loaded": true,
           "chainageM": 72.42,
           "intervalM": [
             61.92,
@@ -3820,15 +3721,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB",
-          "cargo": {
-            "kind": "temperatureControlled"
-          }
+          "color": "#E5E7EB"
         },
         {
           "id": "W-4_52-005",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 90.62,
           "intervalM": [
             83.92,
@@ -3848,25 +3746,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_52-005-01",
-                "color": "#F59E0B"
-              }
-            ],
-            "usedTeu": 1,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-4_52-006",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "пв",
+          "loaded": false,
           "chainageM": 105.28,
           "intervalM": [
             98.32,
@@ -3890,8 +3775,8 @@
         },
         {
           "id": "W-4_52-007",
-          "type": "refrigerated",
-          "loadStatus": "empty",
+          "type": "реф",
+          "loaded": false,
           "chainageM": 123.74,
           "intervalM": [
             113.24,
@@ -3915,8 +3800,8 @@
         },
         {
           "id": "W-4_52-008",
-          "type": "thermos",
-          "loadStatus": "empty",
+          "type": "тер",
+          "loaded": false,
           "chainageM": 145.74,
           "intervalM": [
             135.24,
@@ -3940,8 +3825,8 @@
         },
         {
           "id": "W-4_52-009",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "думпкар",
+          "loaded": true,
           "chainageM": 170.14,
           "intervalM": [
             157.24,
@@ -3959,37 +3844,14 @@
           "size": {
             "lengthM": 25.8,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309",
-          "platformLengthFt": 80,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-4_52-009-01",
-                "color": "#7C3AED"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_52-009-02",
-                "color": "#0EA5E9"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_52-009-03",
-                "color": "#EA580C"
-              }
-            ],
-            "usedTeu": 4,
-            "capacityTeu": 4
-          }
+          "color": "#6B7280"
         },
         {
           "id": "W-4_52-010",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 191.0,
           "intervalM": [
             184.04,
@@ -4006,27 +3868,15 @@
           "headingDeg": -108.015,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-4_52-010-01",
-                "color": "#CA8A04"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#A8A29E"
         },
         {
           "id": "W-4_52-011",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 205.92,
           "intervalM": [
             198.96,
@@ -4046,10 +3896,7 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         }
       ]
     },
@@ -4067,8 +3914,8 @@
       "wagons": [
         {
           "id": "W-5_52-001",
-          "type": "refrigerated",
-          "loadStatus": "loaded",
+          "type": "реф",
+          "loaded": true,
           "chainageM": 10.5,
           "intervalM": [
             0.0,
@@ -4088,15 +3935,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7",
-          "cargo": {
-            "kind": "refrigerated"
-          }
+          "color": "#DCEAF7"
         },
         {
           "id": "W-5_52-002",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 34.0,
           "intervalM": [
             22.0,
@@ -4116,15 +3960,12 @@
             "widthM": 3.1,
             "heightM": 4.8
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#94A3B8"
         },
         {
           "id": "W-5_52-003",
-          "type": "thermos",
-          "loadStatus": "loaded",
+          "type": "тер",
+          "loaded": true,
           "chainageM": 57.5,
           "intervalM": [
             47.0,
@@ -4144,15 +3985,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB",
-          "cargo": {
-            "kind": "temperatureControlled"
-          }
+          "color": "#E5E7EB"
         },
         {
           "id": "W-5_52-004",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 75.96,
           "intervalM": [
             69.0,
@@ -4169,15 +4007,15 @@
           "headingDeg": 72.377,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#4B5563"
+          "color": "#A8A29E"
         },
         {
           "id": "W-5_52-005",
-          "type": "carCarrier",
-          "loadStatus": "empty",
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 95.92,
           "intervalM": [
             83.92,
@@ -4195,14 +4033,14 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.7
           },
-          "color": "#94A3B8"
+          "color": "#6B7280"
         },
         {
           "id": "W-5_52-006",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 118.73,
           "intervalM": [
             108.92,
@@ -4222,13 +4060,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60
+          "color": "#B45309"
         },
         {
           "id": "W-5_52-007",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 142.44,
           "intervalM": [
             129.54,
@@ -4248,35 +4085,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-5_52-007-01",
-                "color": "#EA580C"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-5_52-007-02",
-                "color": "#CA8A04"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-5_52-007-03",
-                "color": "#4F46E5"
-              }
-            ],
-            "usedTeu": 4,
-            "capacityTeu": 4
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-5_52-008",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 168.34,
           "intervalM": [
             156.34,
@@ -4296,15 +4110,12 @@
             "widthM": 3.1,
             "heightM": 4.8
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#94A3B8"
         },
         {
           "id": "W-5_52-009",
-          "type": "carCarrier",
-          "loadStatus": "empty",
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 193.34,
           "intervalM": [
             181.34,
@@ -4342,8 +4153,8 @@
       "wagons": [
         {
           "id": "W-4_49а-001",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 12.0,
           "intervalM": [
             0.0,
@@ -4363,15 +4174,12 @@
             "widthM": 3.1,
             "heightM": 4.8
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#94A3B8"
         },
         {
           "id": "W-4_49а-002",
-          "type": "thermos",
-          "loadStatus": "loaded",
+          "type": "тер",
+          "loaded": true,
           "chainageM": 35.5,
           "intervalM": [
             25.0,
@@ -4391,15 +4199,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB",
-          "cargo": {
-            "kind": "temperatureControlled"
-          }
+          "color": "#E5E7EB"
         },
         {
           "id": "W-4_49а-003",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 53.7,
           "intervalM": [
             47.0,
@@ -4419,25 +4224,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_49а-003-01",
-                "color": "#B91C1C"
-              }
-            ],
-            "usedTeu": 1,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-4_49а-004",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "кр",
+          "loaded": false,
           "chainageM": 69.25,
           "intervalM": [
             61.4,
@@ -4461,8 +4253,8 @@
         },
         {
           "id": "W-4_49а-005",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 85.06,
           "intervalM": [
             78.1,
@@ -4479,15 +4271,15 @@
           "headingDeg": -126.362,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#4B5563"
+          "color": "#A8A29E"
         },
         {
           "id": "W-4_49а-006",
-          "type": "refrigerated",
-          "loadStatus": "empty",
+          "type": "реф",
+          "loaded": false,
           "chainageM": 103.52,
           "intervalM": [
             93.02,
@@ -4511,8 +4303,8 @@
         },
         {
           "id": "W-4_49а-007",
-          "type": "carCarrier",
-          "loadStatus": "empty",
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 127.02,
           "intervalM": [
             115.02,
@@ -4536,8 +4328,8 @@
         },
         {
           "id": "W-4_49а-008",
-          "type": "thermos",
-          "loadStatus": "empty",
+          "type": "тер",
+          "loaded": false,
           "chainageM": 150.52,
           "intervalM": [
             140.02,
@@ -4561,8 +4353,8 @@
         },
         {
           "id": "W-4_49а-009",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 171.83,
           "intervalM": [
             162.02,
@@ -4582,13 +4374,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60
+          "color": "#B45309"
         },
         {
           "id": "W-4_49а-010",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 195.54,
           "intervalM": [
             182.64,
@@ -4608,35 +4399,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-4_49а-010-01",
-                "color": "#15803D"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_49а-010-02",
-                "color": "#0891B2"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_49а-010-03",
-                "color": "#2563EB"
-              }
-            ],
-            "usedTeu": 4,
-            "capacityTeu": 4
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-4_49а-011",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 216.4,
           "intervalM": [
             209.44,
@@ -4656,24 +4424,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-4_49а-011-01",
-                "color": "#DC2626"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-4_49а-012",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 231.06,
           "intervalM": [
             224.36,
@@ -4693,13 +4449,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40
+          "color": "#B45309"
         },
         {
           "id": "W-4_49а-013",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 248.57,
           "intervalM": [
             238.76,
@@ -4719,30 +4474,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-4_49а-013-01",
-                "color": "#16A34A"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_49а-013-02",
-                "color": "#F59E0B"
-              }
-            ],
-            "usedTeu": 3,
-            "capacityTeu": 3
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-4_49а-014",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 272.28,
           "intervalM": [
             259.38,
@@ -4762,13 +4499,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80
+          "color": "#B45309"
         },
         {
           "id": "W-4_49а-015",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 292.88,
           "intervalM": [
             286.18,
@@ -4788,30 +4524,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_49а-015-01",
-                "color": "#7C3AED"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_49а-015-02",
-                "color": "#0EA5E9"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-4_49а-016",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "кр",
+          "loaded": true,
           "chainageM": 308.43,
           "intervalM": [
             300.58,
@@ -4831,16 +4549,12 @@
             "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Тарный груз"
-          }
+          "color": "#8B5A2B"
         },
         {
           "id": "W-4_49а-017",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 324.24,
           "intervalM": [
             317.28,
@@ -4860,15 +4574,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-4_49а-018",
-          "type": "refrigerated",
-          "loadStatus": "loaded",
+          "type": "реф",
+          "loaded": true,
           "chainageM": 342.7,
           "intervalM": [
             332.2,
@@ -4888,15 +4599,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7",
-          "cargo": {
-            "kind": "refrigerated"
-          }
+          "color": "#DCEAF7"
         },
         {
           "id": "W-4_49а-019",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 366.2,
           "intervalM": [
             354.2,
@@ -4916,15 +4624,12 @@
             "widthM": 3.1,
             "heightM": 4.8
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#94A3B8"
         },
         {
           "id": "W-4_49а-020",
-          "type": "thermos",
-          "loadStatus": "loaded",
+          "type": "тер",
+          "loaded": true,
           "chainageM": 389.7,
           "intervalM": [
             379.2,
@@ -4944,15 +4649,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB",
-          "cargo": {
-            "kind": "temperatureControlled"
-          }
+          "color": "#E5E7EB"
         },
         {
           "id": "W-4_49а-021",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 407.9,
           "intervalM": [
             401.2,
@@ -4972,25 +4674,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_49а-021-01",
-                "color": "#EA580C"
-              }
-            ],
-            "usedTeu": 1,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-4_49а-022",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "кр",
+          "loaded": false,
           "chainageM": 423.45,
           "intervalM": [
             415.6,
@@ -5014,8 +4703,8 @@
         },
         {
           "id": "W-4_49а-023",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "пв",
+          "loaded": false,
           "chainageM": 439.26,
           "intervalM": [
             432.3,
@@ -5039,8 +4728,8 @@
         },
         {
           "id": "W-4_49а-024",
-          "type": "refrigerated",
-          "loadStatus": "empty",
+          "type": "реф",
+          "loaded": false,
           "chainageM": 457.72,
           "intervalM": [
             447.22,
@@ -5064,8 +4753,8 @@
         },
         {
           "id": "W-4_49а-025",
-          "type": "carCarrier",
-          "loadStatus": "empty",
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 481.22,
           "intervalM": [
             469.22,
@@ -5089,8 +4778,8 @@
         },
         {
           "id": "W-4_49а-026",
-          "type": "thermos",
-          "loadStatus": "empty",
+          "type": "тер",
+          "loaded": false,
           "chainageM": 504.72,
           "intervalM": [
             494.22,
@@ -5114,8 +4803,8 @@
         },
         {
           "id": "W-4_49а-027",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 526.03,
           "intervalM": [
             516.22,
@@ -5135,13 +4824,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60
+          "color": "#B45309"
         },
         {
           "id": "W-4_49а-028",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 549.74,
           "intervalM": [
             536.84,
@@ -5161,35 +4849,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-4_49а-028-01",
-                "color": "#CA8A04"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_49а-028-02",
-                "color": "#4F46E5"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_49а-028-03",
-                "color": "#B91C1C"
-              }
-            ],
-            "usedTeu": 4,
-            "capacityTeu": 4
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-4_49а-029",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 570.6,
           "intervalM": [
             563.64,
@@ -5209,24 +4874,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-4_49а-029-01",
-                "color": "#15803D"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-4_49а-030",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 585.26,
           "intervalM": [
             578.56,
@@ -5246,13 +4899,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40
+          "color": "#B45309"
         },
         {
           "id": "W-4_49а-031",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 602.77,
           "intervalM": [
             592.96,
@@ -5272,30 +4924,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-4_49а-031-01",
-                "color": "#0891B2"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_49а-031-02",
-                "color": "#2563EB"
-              }
-            ],
-            "usedTeu": 3,
-            "capacityTeu": 3
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-4_49а-032",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 620.28,
           "intervalM": [
             613.58,
@@ -5315,30 +4949,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_49а-032-01",
-                "color": "#DC2626"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_49а-032-02",
-                "color": "#16A34A"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-4_49а-033",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "кр",
+          "loaded": true,
           "chainageM": 635.83,
           "intervalM": [
             627.98,
@@ -5358,16 +4974,12 @@
             "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Пакетированный груз"
-          }
+          "color": "#8B5A2B"
         },
         {
           "id": "W-4_49а-034",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 651.64,
           "intervalM": [
             644.68,
@@ -5387,15 +4999,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-4_49а-035",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 667.45,
           "intervalM": [
             659.6,
@@ -5412,15 +5021,15 @@
           "headingDeg": -86.67,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#8B5A2B"
+          "color": "#A8A29E"
         },
         {
           "id": "W-4_49а-036",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "кр",
+          "loaded": true,
           "chainageM": 684.15,
           "intervalM": [
             676.3,
@@ -5440,16 +5049,12 @@
             "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Тарный груз"
-          }
+          "color": "#8B5A2B"
         },
         {
           "id": "W-4_49а-037",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "кр",
+          "loaded": false,
           "chainageM": 700.85,
           "intervalM": [
             693.0,
@@ -5487,8 +5092,8 @@
       "wagons": [
         {
           "id": "W-1_50-001",
-          "type": "thermos",
-          "loadStatus": "loaded",
+          "type": "тер",
+          "loaded": true,
           "chainageM": 10.5,
           "intervalM": [
             0.0,
@@ -5508,15 +5113,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB",
-          "cargo": {
-            "kind": "temperatureControlled"
-          }
+          "color": "#E5E7EB"
         },
         {
           "id": "W-1_50-002",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 28.7,
           "intervalM": [
             22.0,
@@ -5536,25 +5138,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_50-002-01",
-                "color": "#2563EB"
-              }
-            ],
-            "usedTeu": 1,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-1_50-003",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 44.25,
           "intervalM": [
             36.4,
@@ -5571,15 +5160,15 @@
           "headingDeg": 71.557,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#8B5A2B"
+          "color": "#A8A29E"
         },
         {
           "id": "W-1_50-004",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "пв",
+          "loaded": false,
           "chainageM": 60.06,
           "intervalM": [
             53.1,
@@ -5603,8 +5192,8 @@
         },
         {
           "id": "W-1_50-005",
-          "type": "refrigerated",
-          "loadStatus": "empty",
+          "type": "реф",
+          "loaded": false,
           "chainageM": 78.52,
           "intervalM": [
             68.02,
@@ -5628,8 +5217,8 @@
         },
         {
           "id": "W-1_50-006",
-          "type": "carCarrier",
-          "loadStatus": "empty",
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 102.02,
           "intervalM": [
             90.02,
@@ -5653,8 +5242,8 @@
         },
         {
           "id": "W-1_50-007",
-          "type": "thermos",
-          "loadStatus": "empty",
+          "type": "тер",
+          "loaded": false,
           "chainageM": 125.52,
           "intervalM": [
             115.02,
@@ -5678,8 +5267,8 @@
         },
         {
           "id": "W-1_50-008",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 146.83,
           "intervalM": [
             137.02,
@@ -5699,13 +5288,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60
+          "color": "#B45309"
         },
         {
           "id": "W-1_50-009",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 170.54,
           "intervalM": [
             157.64,
@@ -5725,35 +5313,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-1_50-009-01",
-                "color": "#DC2626"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_50-009-02",
-                "color": "#16A34A"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_50-009-03",
-                "color": "#F59E0B"
-              }
-            ],
-            "usedTeu": 4,
-            "capacityTeu": 4
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-1_50-010",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 191.4,
           "intervalM": [
             184.44,
@@ -5773,24 +5338,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-1_50-010-01",
-                "color": "#7C3AED"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-1_50-011",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 206.06,
           "intervalM": [
             199.36,
@@ -5810,13 +5363,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40
+          "color": "#B45309"
         },
         {
           "id": "W-1_50-012",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 223.57,
           "intervalM": [
             213.76,
@@ -5836,30 +5388,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-1_50-012-01",
-                "color": "#0EA5E9"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_50-012-02",
-                "color": "#EA580C"
-              }
-            ],
-            "usedTeu": 3,
-            "capacityTeu": 3
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-1_50-013",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 247.28,
           "intervalM": [
             234.38,
@@ -5879,13 +5413,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80
+          "color": "#B45309"
         },
         {
           "id": "W-1_50-014",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 267.88,
           "intervalM": [
             261.18,
@@ -5905,30 +5438,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_50-014-01",
-                "color": "#CA8A04"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_50-014-02",
-                "color": "#4F46E5"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-1_50-015",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "кр",
+          "loaded": true,
           "chainageM": 283.43,
           "intervalM": [
             275.58,
@@ -5948,16 +5463,12 @@
             "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Тарный груз"
-          }
+          "color": "#8B5A2B"
         },
         {
           "id": "W-1_50-016",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 299.24,
           "intervalM": [
             292.28,
@@ -5977,15 +5488,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-1_50-017",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 313.9,
           "intervalM": [
             307.2,
@@ -6005,25 +5513,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_50-017-01",
-                "color": "#B91C1C"
-              }
-            ],
-            "usedTeu": 1,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-1_50-018",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 328.56,
           "intervalM": [
             321.6,
@@ -6040,10 +5535,10 @@
           "headingDeg": 107.506,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#4B5563"
+          "color": "#A8A29E"
         }
       ]
     },
@@ -6061,8 +5556,8 @@
       "wagons": [
         {
           "id": "W-5_50-001",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 6.7,
           "intervalM": [
             0.0,
@@ -6082,25 +5577,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-5_50-001-01",
-                "color": "#F59E0B"
-              }
-            ],
-            "usedTeu": 1,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-5_50-002",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "кр",
+          "loaded": false,
           "chainageM": 22.25,
           "intervalM": [
             14.4,
@@ -6124,8 +5606,8 @@
         },
         {
           "id": "W-5_50-003",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "пв",
+          "loaded": false,
           "chainageM": 38.06,
           "intervalM": [
             31.1,
@@ -6149,8 +5631,8 @@
         },
         {
           "id": "W-5_50-004",
-          "type": "refrigerated",
-          "loadStatus": "empty",
+          "type": "реф",
+          "loaded": false,
           "chainageM": 56.52,
           "intervalM": [
             46.02,
@@ -6174,8 +5656,8 @@
         },
         {
           "id": "W-5_50-005",
-          "type": "carCarrier",
-          "loadStatus": "empty",
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 80.02,
           "intervalM": [
             68.02,
@@ -6199,8 +5681,8 @@
         },
         {
           "id": "W-5_50-006",
-          "type": "thermos",
-          "loadStatus": "empty",
+          "type": "тер",
+          "loaded": false,
           "chainageM": 103.52,
           "intervalM": [
             93.02,
@@ -6224,8 +5706,8 @@
         },
         {
           "id": "W-5_50-007",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 124.83,
           "intervalM": [
             115.02,
@@ -6245,13 +5727,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60
+          "color": "#B45309"
         },
         {
           "id": "W-5_50-008",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 148.54,
           "intervalM": [
             135.64,
@@ -6271,35 +5752,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-5_50-008-01",
-                "color": "#7C3AED"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-5_50-008-02",
-                "color": "#0EA5E9"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-5_50-008-03",
-                "color": "#EA580C"
-              }
-            ],
-            "usedTeu": 4,
-            "capacityTeu": 4
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-5_50-009",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 169.4,
           "intervalM": [
             162.44,
@@ -6319,24 +5777,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-5_50-009-01",
-                "color": "#CA8A04"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-5_50-010",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 184.06,
           "intervalM": [
             177.36,
@@ -6356,13 +5802,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40
+          "color": "#B45309"
         },
         {
           "id": "W-5_50-011",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 201.57,
           "intervalM": [
             191.76,
@@ -6382,30 +5827,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-5_50-011-01",
-                "color": "#4F46E5"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-5_50-011-02",
-                "color": "#B91C1C"
-              }
-            ],
-            "usedTeu": 3,
-            "capacityTeu": 3
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-5_50-012",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 225.28,
           "intervalM": [
             212.38,
@@ -6425,13 +5852,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80
+          "color": "#B45309"
         },
         {
           "id": "W-5_50-013",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 245.88,
           "intervalM": [
             239.18,
@@ -6451,30 +5877,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-5_50-013-01",
-                "color": "#15803D"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-5_50-013-02",
-                "color": "#0891B2"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-5_50-014",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "кр",
+          "loaded": true,
           "chainageM": 261.43,
           "intervalM": [
             253.58,
@@ -6494,16 +5902,12 @@
             "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Тарный груз"
-          }
+          "color": "#8B5A2B"
         },
         {
           "id": "W-5_50-015",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 277.24,
           "intervalM": [
             270.28,
@@ -6520,18 +5924,15 @@
           "headingDeg": -105.692,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#A8A29E"
         },
         {
           "id": "W-5_50-016",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 291.9,
           "intervalM": [
             285.2,
@@ -6551,25 +5952,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-5_50-016-01",
-                "color": "#2563EB"
-              }
-            ],
-            "usedTeu": 1,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-5_50-017",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "кр",
+          "loaded": false,
           "chainageM": 307.45,
           "intervalM": [
             299.6,
@@ -6593,8 +5981,8 @@
         },
         {
           "id": "W-5_50-018",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 326.11,
           "intervalM": [
             316.3,
@@ -6614,13 +6002,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60
+          "color": "#B45309"
         },
         {
           "id": "W-5_50-019",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 346.73,
           "intervalM": [
             336.92,
@@ -6640,30 +6027,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-5_50-019-01",
-                "color": "#DC2626"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-5_50-019-02",
-                "color": "#16A34A"
-              }
-            ],
-            "usedTeu": 3,
-            "capacityTeu": 3
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-5_50-020",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 365.39,
           "intervalM": [
             357.54,
@@ -6680,19 +6049,15 @@
           "headingDeg": -71.555,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Тарно-штучный груз"
-          }
+          "color": "#A8A29E"
         },
         {
           "id": "W-5_50-021",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "кр",
+          "loaded": false,
           "chainageM": 382.09,
           "intervalM": [
             374.24,
@@ -6716,8 +6081,8 @@
         },
         {
           "id": "W-5_50-022",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 400.75,
           "intervalM": [
             390.94,
@@ -6737,8 +6102,7 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60
+          "color": "#B45309"
         }
       ]
     },
@@ -6756,8 +6120,8 @@
       "wagons": [
         {
           "id": "W-2_45-001",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "кр",
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -6781,8 +6145,8 @@
         },
         {
           "id": "W-2_45-002",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "пв",
+          "loaded": false,
           "chainageM": 23.66,
           "intervalM": [
             16.7,
@@ -6806,8 +6170,8 @@
         },
         {
           "id": "W-2_45-003",
-          "type": "refrigerated",
-          "loadStatus": "empty",
+          "type": "реф",
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -6831,8 +6195,8 @@
         },
         {
           "id": "W-2_45-004",
-          "type": "carCarrier",
-          "loadStatus": "empty",
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 65.62,
           "intervalM": [
             53.62,
@@ -6856,8 +6220,8 @@
         },
         {
           "id": "W-2_45-005",
-          "type": "thermos",
-          "loadStatus": "empty",
+          "type": "тер",
+          "loaded": false,
           "chainageM": 89.12,
           "intervalM": [
             78.62,
@@ -6881,8 +6245,8 @@
         },
         {
           "id": "W-2_45-006",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 113.52,
           "intervalM": [
             100.62,
@@ -6902,35 +6266,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-2_45-006-01",
-                "color": "#EA580C"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-2_45-006-02",
-                "color": "#CA8A04"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-2_45-006-03",
-                "color": "#4F46E5"
-              }
-            ],
-            "usedTeu": 4,
-            "capacityTeu": 4
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-2_45-007",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 134.12,
           "intervalM": [
             127.42,
@@ -6950,13 +6291,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40
+          "color": "#B45309"
         },
         {
           "id": "W-2_45-008",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 154.72,
           "intervalM": [
             141.82,
@@ -6976,13 +6316,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80
+          "color": "#B45309"
         },
         {
           "id": "W-2_45-009",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 180.62,
           "intervalM": [
             168.62,
@@ -7002,10 +6341,7 @@
             "widthM": 3.1,
             "heightM": 4.8
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#94A3B8"
         }
       ]
     },
@@ -7023,8 +6359,8 @@
       "wagons": [
         {
           "id": "W-1_45_46-001",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "пв",
+          "loaded": false,
           "chainageM": 6.96,
           "intervalM": [
             0.0,
@@ -7048,8 +6384,8 @@
         },
         {
           "id": "W-1_45_46-002",
-          "type": "refrigerated",
-          "loadStatus": "empty",
+          "type": "реф",
+          "loaded": false,
           "chainageM": 25.42,
           "intervalM": [
             14.92,
@@ -7073,8 +6409,8 @@
         },
         {
           "id": "W-1_45_46-003",
-          "type": "thermos",
-          "loadStatus": "empty",
+          "type": "тер",
+          "loaded": false,
           "chainageM": 47.42,
           "intervalM": [
             36.92,
@@ -7098,8 +6434,8 @@
         },
         {
           "id": "W-1_45_46-004",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 68.73,
           "intervalM": [
             58.92,
@@ -7119,13 +6455,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60
+          "color": "#B45309"
         },
         {
           "id": "W-1_45_46-005",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 89.35,
           "intervalM": [
             79.54,
@@ -7145,30 +6480,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-1_45_46-005-01",
-                "color": "#B91C1C"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_45_46-005-02",
-                "color": "#15803D"
-              }
-            ],
-            "usedTeu": 3,
-            "capacityTeu": 3
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-1_45_46-006",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "кр",
+          "loaded": true,
           "chainageM": 108.01,
           "intervalM": [
             100.16,
@@ -7188,16 +6505,12 @@
             "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Штучный груз"
-          }
+          "color": "#8B5A2B"
         },
         {
           "id": "W-1_45_46-007",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "кр",
+          "loaded": false,
           "chainageM": 124.71,
           "intervalM": [
             116.86,
@@ -7221,8 +6534,8 @@
         },
         {
           "id": "W-1_45_46-008",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 143.37,
           "intervalM": [
             133.56,
@@ -7242,13 +6555,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60
+          "color": "#B45309"
         },
         {
           "id": "W-1_45_46-009",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 163.99,
           "intervalM": [
             154.18,
@@ -7268,30 +6580,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-1_45_46-009-01",
-                "color": "#0891B2"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_45_46-009-02",
-                "color": "#2563EB"
-              }
-            ],
-            "usedTeu": 3,
-            "capacityTeu": 3
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-1_45_46-010",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "кр",
+          "loaded": true,
           "chainageM": 182.65,
           "intervalM": [
             174.8,
@@ -7311,11 +6605,7 @@
             "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Мешковой груз"
-          }
+          "color": "#8B5A2B"
         }
       ]
     },
@@ -7333,8 +6623,8 @@
       "wagons": [
         {
           "id": "W-3_45-001",
-          "type": "refrigerated",
-          "loadStatus": "empty",
+          "type": "реф",
+          "loaded": false,
           "chainageM": 10.5,
           "intervalM": [
             0.0,
@@ -7358,8 +6648,8 @@
         },
         {
           "id": "W-3_45-002",
-          "type": "carCarrier",
-          "loadStatus": "empty",
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 34.0,
           "intervalM": [
             22.0,
@@ -7383,8 +6673,8 @@
         },
         {
           "id": "W-3_45-003",
-          "type": "thermos",
-          "loadStatus": "empty",
+          "type": "тер",
+          "loaded": false,
           "chainageM": 57.5,
           "intervalM": [
             47.0,
@@ -7408,8 +6698,8 @@
         },
         {
           "id": "W-3_45-004",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 81.9,
           "intervalM": [
             69.0,
@@ -7429,35 +6719,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-3_45-004-01",
-                "color": "#2563EB"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-3_45-004-02",
-                "color": "#DC2626"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-3_45-004-03",
-                "color": "#16A34A"
-              }
-            ],
-            "usedTeu": 4,
-            "capacityTeu": 4
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-3_45-005",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 102.76,
           "intervalM": [
             95.8,
@@ -7477,24 +6744,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-3_45-005-01",
-                "color": "#F59E0B"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-3_45-006",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 117.42,
           "intervalM": [
             110.72,
@@ -7514,13 +6769,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40
+          "color": "#B45309"
         },
         {
           "id": "W-3_45-007",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 138.02,
           "intervalM": [
             125.12,
@@ -7540,13 +6794,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80
+          "color": "#B45309"
         },
         {
           "id": "W-3_45-008",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "кр",
+          "loaded": true,
           "chainageM": 159.77,
           "intervalM": [
             151.92,
@@ -7566,16 +6819,12 @@
             "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Пакетированный груз"
-          }
+          "color": "#8B5A2B"
         },
         {
           "id": "W-3_45-009",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 176.47,
           "intervalM": [
             168.62,
@@ -7592,10 +6841,10 @@
           "headingDeg": 35.906,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#8B5A2B"
+          "color": "#A8A29E"
         }
       ]
     },
@@ -7613,8 +6862,8 @@
       "wagons": [
         {
           "id": "W-1_В-001",
-          "type": "carCarrier",
-          "loadStatus": "empty",
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 12.0,
           "intervalM": [
             0.0,
@@ -7638,8 +6887,8 @@
         },
         {
           "id": "W-1_В-002",
-          "type": "thermos",
-          "loadStatus": "empty",
+          "type": "тер",
+          "loaded": false,
           "chainageM": 35.5,
           "intervalM": [
             25.0,
@@ -7663,8 +6912,8 @@
         },
         {
           "id": "W-1_В-003",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 59.9,
           "intervalM": [
             47.0,
@@ -7684,35 +6933,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-1_В-003-01",
-                "color": "#F59E0B"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_В-003-02",
-                "color": "#7C3AED"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_В-003-03",
-                "color": "#0EA5E9"
-              }
-            ],
-            "usedTeu": 4,
-            "capacityTeu": 4
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-1_В-004",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 80.76,
           "intervalM": [
             73.8,
@@ -7732,24 +6958,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-1_В-004-01",
-                "color": "#EA580C"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-1_В-005",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 95.42,
           "intervalM": [
             88.72,
@@ -7769,13 +6983,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40
+          "color": "#B45309"
         },
         {
           "id": "W-1_В-006",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 109.82,
           "intervalM": [
             103.12,
@@ -7795,30 +7008,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_В-006-01",
-                "color": "#CA8A04"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_В-006-02",
-                "color": "#4F46E5"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-1_В-007",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "кр",
+          "loaded": true,
           "chainageM": 125.37,
           "intervalM": [
             117.52,
@@ -7838,16 +7033,12 @@
             "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Пакетированный груз"
-          }
+          "color": "#8B5A2B"
         },
         {
           "id": "W-1_В-008",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 141.18,
           "intervalM": [
             134.22,
@@ -7867,15 +7058,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-1_В-009",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 161.14,
           "intervalM": [
             149.14,
@@ -7895,10 +7083,7 @@
             "widthM": 3.1,
             "heightM": 4.8
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#94A3B8"
         }
       ]
     },
@@ -7916,8 +7101,8 @@
       "wagons": [
         {
           "id": "W-3_47-001",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 9.81,
           "intervalM": [
             0.0,
@@ -7937,13 +7122,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60
+          "color": "#B45309"
         },
         {
           "id": "W-3_47-002",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 33.52,
           "intervalM": [
             20.62,
@@ -7963,35 +7147,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-3_47-002-01",
-                "color": "#EA580C"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-3_47-002-02",
-                "color": "#CA8A04"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-3_47-002-03",
-                "color": "#4F46E5"
-              }
-            ],
-            "usedTeu": 4,
-            "capacityTeu": 4
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-3_47-003",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 54.38,
           "intervalM": [
             47.42,
@@ -8011,24 +7172,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-3_47-003-01",
-                "color": "#B91C1C"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-3_47-004",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 69.3,
           "intervalM": [
             62.34,
@@ -8048,15 +7197,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-3_47-005",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "пв",
+          "loaded": false,
           "chainageM": 84.22,
           "intervalM": [
             77.26,
@@ -8080,8 +7226,8 @@
         },
         {
           "id": "W-3_47-006",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 99.14,
           "intervalM": [
             92.18,
@@ -8098,27 +7244,15 @@
           "headingDeg": 35.349,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-3_47-006-01",
-                "color": "#15803D"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#A8A29E"
         },
         {
           "id": "W-3_47-007",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 114.06,
           "intervalM": [
             107.1,
@@ -8138,10 +7272,7 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         }
       ]
     },
@@ -8159,8 +7290,8 @@
       "wagons": [
         {
           "id": "W-2_В-001",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 9.81,
           "intervalM": [
             0.0,
@@ -8180,13 +7311,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60
+          "color": "#B45309"
         },
         {
           "id": "W-2_В-002",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 33.52,
           "intervalM": [
             20.62,
@@ -8206,35 +7336,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-2_В-002-01",
-                "color": "#B91C1C"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-2_В-002-02",
-                "color": "#15803D"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-2_В-002-03",
-                "color": "#0891B2"
-              }
-            ],
-            "usedTeu": 4,
-            "capacityTeu": 4
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-2_В-003",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 54.38,
           "intervalM": [
             47.42,
@@ -8254,24 +7361,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-2_В-003-01",
-                "color": "#2563EB"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-2_В-004",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 69.04,
           "intervalM": [
             62.34,
@@ -8291,13 +7386,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40
+          "color": "#B45309"
         },
         {
           "id": "W-2_В-005",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 86.55,
           "intervalM": [
             76.74,
@@ -8317,30 +7411,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-2_В-005-01",
-                "color": "#DC2626"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-2_В-005-02",
-                "color": "#16A34A"
-              }
-            ],
-            "usedTeu": 3,
-            "capacityTeu": 3
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-2_В-006",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 110.26,
           "intervalM": [
             97.36,
@@ -8360,13 +7436,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80
+          "color": "#B45309"
         },
         {
           "id": "W-2_В-007",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 130.86,
           "intervalM": [
             124.16,
@@ -8386,30 +7461,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-2_В-007-01",
-                "color": "#F59E0B"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-2_В-007-02",
-                "color": "#7C3AED"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-2_В-008",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "кр",
+          "loaded": true,
           "chainageM": 146.41,
           "intervalM": [
             138.56,
@@ -8429,16 +7486,12 @@
             "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Тарный груз"
-          }
+          "color": "#8B5A2B"
         },
         {
           "id": "W-2_В-009",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 162.22,
           "intervalM": [
             155.26,
@@ -8455,18 +7508,15 @@
           "headingDeg": -144.448,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#A8A29E"
         },
         {
           "id": "W-2_В-010",
-          "type": "refrigerated",
-          "loadStatus": "loaded",
+          "type": "реф",
+          "loaded": true,
           "chainageM": 180.68,
           "intervalM": [
             170.18,
@@ -8486,15 +7536,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7",
-          "cargo": {
-            "kind": "refrigerated"
-          }
+          "color": "#DCEAF7"
         },
         {
           "id": "W-2_В-011",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 204.18,
           "intervalM": [
             192.18,
@@ -8514,15 +7561,12 @@
             "widthM": 3.1,
             "heightM": 4.8
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#94A3B8"
         },
         {
           "id": "W-2_В-012",
-          "type": "thermos",
-          "loadStatus": "loaded",
+          "type": "тер",
+          "loaded": true,
           "chainageM": 227.68,
           "intervalM": [
             217.18,
@@ -8542,15 +7586,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB",
-          "cargo": {
-            "kind": "temperatureControlled"
-          }
+          "color": "#E5E7EB"
         },
         {
           "id": "W-2_В-013",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 245.88,
           "intervalM": [
             239.18,
@@ -8570,25 +7611,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-2_В-013-01",
-                "color": "#0EA5E9"
-              }
-            ],
-            "usedTeu": 1,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-2_В-014",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 261.43,
           "intervalM": [
             253.58,
@@ -8605,15 +7633,15 @@
           "headingDeg": -140.329,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#8B5A2B"
+          "color": "#A8A29E"
         },
         {
           "id": "W-2_В-015",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "пв",
+          "loaded": false,
           "chainageM": 277.24,
           "intervalM": [
             270.28,
@@ -8637,8 +7665,8 @@
         },
         {
           "id": "W-2_В-016",
-          "type": "refrigerated",
-          "loadStatus": "empty",
+          "type": "реф",
+          "loaded": false,
           "chainageM": 295.7,
           "intervalM": [
             285.2,
@@ -8662,8 +7690,8 @@
         },
         {
           "id": "W-2_В-017",
-          "type": "carCarrier",
-          "loadStatus": "empty",
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 319.2,
           "intervalM": [
             307.2,
@@ -8687,8 +7715,8 @@
         },
         {
           "id": "W-2_В-018",
-          "type": "thermos",
-          "loadStatus": "empty",
+          "type": "тер",
+          "loaded": false,
           "chainageM": 342.7,
           "intervalM": [
             332.2,
@@ -8712,8 +7740,8 @@
         },
         {
           "id": "W-2_В-019",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 367.1,
           "intervalM": [
             354.2,
@@ -8733,35 +7761,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-2_В-019-01",
-                "color": "#EA580C"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-2_В-019-02",
-                "color": "#CA8A04"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-2_В-019-03",
-                "color": "#4F46E5"
-              }
-            ],
-            "usedTeu": 4,
-            "capacityTeu": 4
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-2_В-020",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 387.96,
           "intervalM": [
             381.0,
@@ -8781,24 +7786,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-2_В-020-01",
-                "color": "#B91C1C"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-2_В-021",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 402.62,
           "intervalM": [
             395.92,
@@ -8818,13 +7811,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40
+          "color": "#B45309"
         },
         {
           "id": "W-2_В-022",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 417.02,
           "intervalM": [
             410.32,
@@ -8844,30 +7836,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-2_В-022-01",
-                "color": "#15803D"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-2_В-022-02",
-                "color": "#0891B2"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-2_В-023",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 431.68,
           "intervalM": [
             424.72,
@@ -8887,15 +7861,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-2_В-024",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 446.6,
           "intervalM": [
             439.64,
@@ -8912,15 +7883,15 @@
           "headingDeg": -139.794,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#4B5563"
+          "color": "#A8A29E"
         },
         {
           "id": "W-2_В-025",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 461.52,
           "intervalM": [
             454.56,
@@ -8940,19 +7911,7 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-2_В-025-01",
-                "color": "#2563EB"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#4B5563"
         }
       ]
     },
@@ -8970,8 +7929,8 @@
       "wagons": [
         {
           "id": "W-3_В-001",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 12.9,
           "intervalM": [
             0.0,
@@ -8991,35 +7950,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-3_В-001-01",
-                "color": "#2563EB"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-3_В-001-02",
-                "color": "#DC2626"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-3_В-001-03",
-                "color": "#16A34A"
-              }
-            ],
-            "usedTeu": 4,
-            "capacityTeu": 4
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-3_В-002",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 33.76,
           "intervalM": [
             26.8,
@@ -9039,24 +7975,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-3_В-002-01",
-                "color": "#F59E0B"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-3_В-003",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 48.42,
           "intervalM": [
             41.72,
@@ -9076,13 +8000,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40
+          "color": "#B45309"
         },
         {
           "id": "W-3_В-004",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 65.93,
           "intervalM": [
             56.12,
@@ -9102,30 +8025,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-3_В-004-01",
-                "color": "#7C3AED"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-3_В-004-02",
-                "color": "#0EA5E9"
-              }
-            ],
-            "usedTeu": 3,
-            "capacityTeu": 3
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-3_В-005",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 89.64,
           "intervalM": [
             76.74,
@@ -9145,13 +8050,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80
+          "color": "#B45309"
         },
         {
           "id": "W-3_В-006",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 110.24,
           "intervalM": [
             103.54,
@@ -9171,30 +8075,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-3_В-006-01",
-                "color": "#EA580C"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-3_В-006-02",
-                "color": "#CA8A04"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-3_В-007",
-          "type": "refrigerated",
-          "loadStatus": "loaded",
+          "type": "реф",
+          "loaded": true,
           "chainageM": 128.44,
           "intervalM": [
             117.94,
@@ -9214,15 +8100,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7",
-          "cargo": {
-            "kind": "refrigerated"
-          }
+          "color": "#DCEAF7"
         },
         {
           "id": "W-3_В-008",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 149.75,
           "intervalM": [
             139.94,
@@ -9242,13 +8125,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60
+          "color": "#B45309"
         },
         {
           "id": "W-3_В-009",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 173.46,
           "intervalM": [
             160.56,
@@ -9268,35 +8150,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-3_В-009-01",
-                "color": "#4F46E5"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-3_В-009-02",
-                "color": "#B91C1C"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-3_В-009-03",
-                "color": "#15803D"
-              }
-            ],
-            "usedTeu": 4,
-            "capacityTeu": 4
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-3_В-010",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 200.26,
           "intervalM": [
             187.36,
@@ -9316,8 +8175,7 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80
+          "color": "#B45309"
         }
       ]
     },
@@ -9335,8 +8193,8 @@
       "wagons": [
         {
           "id": "W-4_В-001",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 6.96,
           "intervalM": [
             0.0,
@@ -9356,24 +8214,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-4_В-001-01",
-                "color": "#F59E0B"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-4_В-002",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 24.73,
           "intervalM": [
             14.92,
@@ -9393,30 +8239,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-4_В-002-01",
-                "color": "#7C3AED"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_В-002-02",
-                "color": "#0EA5E9"
-              }
-            ],
-            "usedTeu": 3,
-            "capacityTeu": 3
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-4_В-003",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 48.44,
           "intervalM": [
             35.54,
@@ -9436,13 +8264,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80
+          "color": "#B45309"
         },
         {
           "id": "W-4_В-004",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 70.19,
           "intervalM": [
             62.34,
@@ -9459,19 +8286,15 @@
           "headingDeg": -139.654,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Мешковой груз"
-          }
+          "color": "#A8A29E"
         },
         {
           "id": "W-4_В-005",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 86.0,
           "intervalM": [
             79.04,
@@ -9491,15 +8314,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-4_В-006",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 105.96,
           "intervalM": [
             93.96,
@@ -9519,15 +8339,12 @@
             "widthM": 3.1,
             "heightM": 4.8
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#94A3B8"
         },
         {
           "id": "W-4_В-007",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "пв",
+          "loaded": false,
           "chainageM": 125.92,
           "intervalM": [
             118.96,
@@ -9551,8 +8368,8 @@
         },
         {
           "id": "W-4_В-008",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 146.78,
           "intervalM": [
             133.88,
@@ -9572,35 +8389,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-4_В-008-01",
-                "color": "#EA580C"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_В-008-02",
-                "color": "#CA8A04"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-4_В-008-03",
-                "color": "#4F46E5"
-              }
-            ],
-            "usedTeu": 4,
-            "capacityTeu": 4
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-4_В-009",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 167.64,
           "intervalM": [
             160.68,
@@ -9617,22 +8411,10 @@
           "headingDeg": -140.222,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-4_В-009-01",
-                "color": "#B91C1C"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#A8A29E"
         }
       ]
     },
@@ -9650,8 +8432,8 @@
       "wagons": [
         {
           "id": "W-5_В-001",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 6.7,
           "intervalM": [
             0.0,
@@ -9671,13 +8453,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40
+          "color": "#B45309"
         },
         {
           "id": "W-5_В-002",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 24.21,
           "intervalM": [
             14.4,
@@ -9697,30 +8478,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-5_В-002-01",
-                "color": "#EA580C"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-5_В-002-02",
-                "color": "#CA8A04"
-              }
-            ],
-            "usedTeu": 3,
-            "capacityTeu": 3
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-5_В-003",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 47.92,
           "intervalM": [
             35.02,
@@ -9740,13 +8503,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80
+          "color": "#B45309"
         },
         {
           "id": "W-5_В-004",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 68.52,
           "intervalM": [
             61.82,
@@ -9766,30 +8528,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-5_В-004-01",
-                "color": "#4F46E5"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-5_В-004-02",
-                "color": "#B91C1C"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-5_В-005",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 84.07,
           "intervalM": [
             76.22,
@@ -9806,19 +8550,15 @@
           "headingDeg": 41.52,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Тарный груз"
-          }
+          "color": "#A8A29E"
         },
         {
           "id": "W-5_В-006",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 99.88,
           "intervalM": [
             92.92,
@@ -9838,15 +8578,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-5_В-007",
-          "type": "refrigerated",
-          "loadStatus": "loaded",
+          "type": "реф",
+          "loaded": true,
           "chainageM": 118.34,
           "intervalM": [
             107.84,
@@ -9866,15 +8603,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7",
-          "cargo": {
-            "kind": "refrigerated"
-          }
+          "color": "#DCEAF7"
         },
         {
           "id": "W-5_В-008",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 141.84,
           "intervalM": [
             129.84,
@@ -9894,15 +8628,12 @@
             "widthM": 3.1,
             "heightM": 4.8
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#94A3B8"
         },
         {
           "id": "W-5_В-009",
-          "type": "thermos",
-          "loadStatus": "loaded",
+          "type": "тер",
+          "loaded": true,
           "chainageM": 165.34,
           "intervalM": [
             154.84,
@@ -9922,15 +8653,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB",
-          "cargo": {
-            "kind": "temperatureControlled"
-          }
+          "color": "#E5E7EB"
         },
         {
           "id": "W-5_В-010",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 183.54,
           "intervalM": [
             176.84,
@@ -9950,25 +8678,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-5_В-010-01",
-                "color": "#15803D"
-              }
-            ],
-            "usedTeu": 1,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-5_В-011",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "кр",
+          "loaded": false,
           "chainageM": 199.09,
           "intervalM": [
             191.24,
@@ -9992,8 +8707,8 @@
         },
         {
           "id": "W-5_В-012",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "пв",
+          "loaded": false,
           "chainageM": 214.9,
           "intervalM": [
             207.94,
@@ -10017,8 +8732,8 @@
         },
         {
           "id": "W-5_В-013",
-          "type": "refrigerated",
-          "loadStatus": "empty",
+          "type": "реф",
+          "loaded": false,
           "chainageM": 233.36,
           "intervalM": [
             222.86,
@@ -10042,8 +8757,8 @@
         },
         {
           "id": "W-5_В-014",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 257.76,
           "intervalM": [
             244.86,
@@ -10063,35 +8778,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-5_В-014-01",
-                "color": "#0891B2"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-5_В-014-02",
-                "color": "#2563EB"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-5_В-014-03",
-                "color": "#DC2626"
-              }
-            ],
-            "usedTeu": 4,
-            "capacityTeu": 4
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-5_В-015",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 278.62,
           "intervalM": [
             271.66,
@@ -10108,27 +8800,15 @@
           "headingDeg": 40.52,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-5_В-015-01",
-                "color": "#16A34A"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#A8A29E"
         },
         {
           "id": "W-5_В-016",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 293.28,
           "intervalM": [
             286.58,
@@ -10148,13 +8828,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40
+          "color": "#B45309"
         },
         {
           "id": "W-5_В-017",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 313.88,
           "intervalM": [
             300.98,
@@ -10174,13 +8853,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80
+          "color": "#B45309"
         },
         {
           "id": "W-5_В-018",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "кр",
+          "loaded": true,
           "chainageM": 335.63,
           "intervalM": [
             327.78,
@@ -10200,16 +8878,12 @@
             "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Мешковой груз"
-          }
+          "color": "#8B5A2B"
         },
         {
           "id": "W-5_В-019",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 351.44,
           "intervalM": [
             344.48,
@@ -10229,15 +8903,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-5_В-020",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 366.36,
           "intervalM": [
             359.4,
@@ -10254,10 +8925,10 @@
           "headingDeg": 40.52,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#4B5563"
+          "color": "#A8A29E"
         }
       ]
     },
@@ -10275,8 +8946,8 @@
       "wagons": [
         {
           "id": "W-6_В-001",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 9.81,
           "intervalM": [
             0.0,
@@ -10296,30 +8967,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-6_В-001-01",
-                "color": "#B91C1C"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-6_В-001-02",
-                "color": "#15803D"
-              }
-            ],
-            "usedTeu": 3,
-            "capacityTeu": 3
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-6_В-002",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 33.52,
           "intervalM": [
             20.62,
@@ -10339,13 +8992,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80
+          "color": "#B45309"
         },
         {
           "id": "W-6_В-003",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 54.12,
           "intervalM": [
             47.42,
@@ -10365,30 +9017,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-6_В-003-01",
-                "color": "#0891B2"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-6_В-003-02",
-                "color": "#2563EB"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-6_В-004",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "кр",
+          "loaded": true,
           "chainageM": 69.67,
           "intervalM": [
             61.82,
@@ -10408,16 +9042,12 @@
             "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Тарный груз"
-          }
+          "color": "#8B5A2B"
         },
         {
           "id": "W-6_В-005",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 85.48,
           "intervalM": [
             78.52,
@@ -10434,18 +9064,15 @@
           "headingDeg": -138.228,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#A8A29E"
         },
         {
           "id": "W-6_В-006",
-          "type": "refrigerated",
-          "loadStatus": "loaded",
+          "type": "реф",
+          "loaded": true,
           "chainageM": 103.94,
           "intervalM": [
             93.44,
@@ -10465,15 +9092,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7",
-          "cargo": {
-            "kind": "refrigerated"
-          }
+          "color": "#DCEAF7"
         },
         {
           "id": "W-6_В-007",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 127.44,
           "intervalM": [
             115.44,
@@ -10493,15 +9117,12 @@
             "widthM": 3.1,
             "heightM": 4.8
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#94A3B8"
         },
         {
           "id": "W-6_В-008",
-          "type": "thermos",
-          "loadStatus": "loaded",
+          "type": "тер",
+          "loaded": true,
           "chainageM": 150.94,
           "intervalM": [
             140.44,
@@ -10521,15 +9142,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB",
-          "cargo": {
-            "kind": "temperatureControlled"
-          }
+          "color": "#E5E7EB"
         },
         {
           "id": "W-6_В-009",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 169.14,
           "intervalM": [
             162.44,
@@ -10549,25 +9167,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-6_В-009-01",
-                "color": "#DC2626"
-              }
-            ],
-            "usedTeu": 1,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-6_В-010",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 184.69,
           "intervalM": [
             176.84,
@@ -10584,15 +9189,15 @@
           "headingDeg": -139.397,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#8B5A2B"
+          "color": "#A8A29E"
         },
         {
           "id": "W-6_В-011",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "пв",
+          "loaded": false,
           "chainageM": 200.5,
           "intervalM": [
             193.54,
@@ -10616,8 +9221,8 @@
         },
         {
           "id": "W-6_В-012",
-          "type": "refrigerated",
-          "loadStatus": "empty",
+          "type": "реф",
+          "loaded": false,
           "chainageM": 218.96,
           "intervalM": [
             208.46,
@@ -10641,8 +9246,8 @@
         },
         {
           "id": "W-6_В-013",
-          "type": "carCarrier",
-          "loadStatus": "empty",
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 242.46,
           "intervalM": [
             230.46,
@@ -10666,8 +9271,8 @@
         },
         {
           "id": "W-6_В-014",
-          "type": "thermos",
-          "loadStatus": "empty",
+          "type": "тер",
+          "loaded": false,
           "chainageM": 265.96,
           "intervalM": [
             255.46,
@@ -10691,8 +9296,8 @@
         },
         {
           "id": "W-6_В-015",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 287.27,
           "intervalM": [
             277.46,
@@ -10712,13 +9317,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60
+          "color": "#B45309"
         },
         {
           "id": "W-6_В-016",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 305.04,
           "intervalM": [
             298.08,
@@ -10738,24 +9342,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-6_В-016-01",
-                "color": "#16A34A"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-6_В-017",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 319.7,
           "intervalM": [
             313.0,
@@ -10775,13 +9367,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40
+          "color": "#B45309"
         },
         {
           "id": "W-6_В-018",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 337.21,
           "intervalM": [
             327.4,
@@ -10801,30 +9392,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-6_В-018-01",
-                "color": "#F59E0B"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-6_В-018-02",
-                "color": "#7C3AED"
-              }
-            ],
-            "usedTeu": 3,
-            "capacityTeu": 3
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-6_В-019",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 354.72,
           "intervalM": [
             348.02,
@@ -10844,30 +9417,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-6_В-019-01",
-                "color": "#0EA5E9"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-6_В-019-02",
-                "color": "#EA580C"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-6_В-020",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 370.27,
           "intervalM": [
             362.42,
@@ -10884,19 +9439,15 @@
           "headingDeg": -140.079,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Тарно-штучный груз"
-          }
+          "color": "#A8A29E"
         },
         {
           "id": "W-6_В-021",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 391.12,
           "intervalM": [
             379.12,
@@ -10916,15 +9467,12 @@
             "widthM": 3.1,
             "heightM": 4.8
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#94A3B8"
         },
         {
           "id": "W-6_В-022",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 413.93,
           "intervalM": [
             404.12,
@@ -10944,8 +9492,7 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60
+          "color": "#B45309"
         }
       ]
     },
@@ -10963,8 +9510,8 @@
       "wagons": [
         {
           "id": "W-7_В-001",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 12.9,
           "intervalM": [
             0.0,
@@ -10984,13 +9531,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80
+          "color": "#B45309"
         },
         {
           "id": "W-7_В-002",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 33.5,
           "intervalM": [
             26.8,
@@ -11010,30 +9556,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-7_В-002-01",
-                "color": "#2563EB"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-7_В-002-02",
-                "color": "#DC2626"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-7_В-003",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 49.05,
           "intervalM": [
             41.2,
@@ -11050,19 +9578,15 @@
           "headingDeg": 40.602,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Тарный груз"
-          }
+          "color": "#A8A29E"
         },
         {
           "id": "W-7_В-004",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 64.86,
           "intervalM": [
             57.9,
@@ -11082,15 +9606,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-7_В-005",
-          "type": "refrigerated",
-          "loadStatus": "loaded",
+          "type": "реф",
+          "loaded": true,
           "chainageM": 83.32,
           "intervalM": [
             72.82,
@@ -11110,15 +9631,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7",
-          "cargo": {
-            "kind": "refrigerated"
-          }
+          "color": "#DCEAF7"
         },
         {
           "id": "W-7_В-006",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 106.82,
           "intervalM": [
             94.82,
@@ -11138,15 +9656,12 @@
             "widthM": 3.1,
             "heightM": 4.8
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#94A3B8"
         },
         {
           "id": "W-7_В-007",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "кр",
+          "loaded": false,
           "chainageM": 127.67,
           "intervalM": [
             119.82,
@@ -11170,8 +9685,8 @@
         },
         {
           "id": "W-7_В-008",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 143.48,
           "intervalM": [
             136.52,
@@ -11188,15 +9703,15 @@
           "headingDeg": 41.26,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#4B5563"
+          "color": "#A8A29E"
         },
         {
           "id": "W-7_В-009",
-          "type": "carCarrier",
-          "loadStatus": "empty",
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 163.44,
           "intervalM": [
             151.44,
@@ -11220,8 +9735,8 @@
         },
         {
           "id": "W-7_В-010",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 183.4,
           "intervalM": [
             176.44,
@@ -11241,24 +9756,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-7_В-010-01",
-                "color": "#16A34A"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-7_В-011",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 203.36,
           "intervalM": [
             191.36,
@@ -11278,15 +9781,12 @@
             "widthM": 3.1,
             "heightM": 4.8
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#94A3B8"
         },
         {
           "id": "W-7_В-012",
-          "type": "carCarrier",
-          "loadStatus": "empty",
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 228.36,
           "intervalM": [
             216.36,
@@ -11324,8 +9824,8 @@
       "wagons": [
         {
           "id": "W-8_В-001",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 6.7,
           "intervalM": [
             0.0,
@@ -11345,30 +9845,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-8_В-001-01",
-                "color": "#F59E0B"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-8_В-001-02",
-                "color": "#7C3AED"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-8_В-002",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "кр",
+          "loaded": true,
           "chainageM": 22.25,
           "intervalM": [
             14.4,
@@ -11388,16 +9870,12 @@
             "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Тарный груз"
-          }
+          "color": "#8B5A2B"
         },
         {
           "id": "W-8_В-003",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 38.06,
           "intervalM": [
             31.1,
@@ -11417,15 +9895,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-8_В-004",
-          "type": "refrigerated",
-          "loadStatus": "loaded",
+          "type": "реф",
+          "loaded": true,
           "chainageM": 56.52,
           "intervalM": [
             46.02,
@@ -11445,15 +9920,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7",
-          "cargo": {
-            "kind": "refrigerated"
-          }
+          "color": "#DCEAF7"
         },
         {
           "id": "W-8_В-005",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 80.02,
           "intervalM": [
             68.02,
@@ -11473,15 +9945,12 @@
             "widthM": 3.1,
             "heightM": 4.8
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#94A3B8"
         },
         {
           "id": "W-8_В-006",
-          "type": "thermos",
-          "loadStatus": "loaded",
+          "type": "тер",
+          "loaded": true,
           "chainageM": 103.52,
           "intervalM": [
             93.02,
@@ -11501,15 +9970,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB",
-          "cargo": {
-            "kind": "temperatureControlled"
-          }
+          "color": "#E5E7EB"
         },
         {
           "id": "W-8_В-007",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 121.72,
           "intervalM": [
             115.02,
@@ -11529,25 +9995,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-8_В-007-01",
-                "color": "#0EA5E9"
-              }
-            ],
-            "usedTeu": 1,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-8_В-008",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "кр",
+          "loaded": false,
           "chainageM": 137.27,
           "intervalM": [
             129.42,
@@ -11571,8 +10024,8 @@
         },
         {
           "id": "W-8_В-009",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "пв",
+          "loaded": false,
           "chainageM": 153.08,
           "intervalM": [
             146.12,
@@ -11596,8 +10049,8 @@
         },
         {
           "id": "W-8_В-010",
-          "type": "refrigerated",
-          "loadStatus": "empty",
+          "type": "реф",
+          "loaded": false,
           "chainageM": 171.54,
           "intervalM": [
             161.04,
@@ -11621,8 +10074,8 @@
         },
         {
           "id": "W-8_В-011",
-          "type": "carCarrier",
-          "loadStatus": "empty",
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 195.04,
           "intervalM": [
             183.04,
@@ -11646,8 +10099,8 @@
         },
         {
           "id": "W-8_В-012",
-          "type": "thermos",
-          "loadStatus": "empty",
+          "type": "тер",
+          "loaded": false,
           "chainageM": 218.54,
           "intervalM": [
             208.04,
@@ -11671,8 +10124,8 @@
         },
         {
           "id": "W-8_В-013",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 239.85,
           "intervalM": [
             230.04,
@@ -11692,13 +10145,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60
+          "color": "#B45309"
         },
         {
           "id": "W-8_В-014",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 263.56,
           "intervalM": [
             250.66,
@@ -11718,35 +10170,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 80,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-8_В-014-01",
-                "color": "#EA580C"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-8_В-014-02",
-                "color": "#CA8A04"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-8_В-014-03",
-                "color": "#4F46E5"
-              }
-            ],
-            "usedTeu": 4,
-            "capacityTeu": 4
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-8_В-015",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 284.16,
           "intervalM": [
             277.46,
@@ -11766,13 +10195,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40
+          "color": "#B45309"
         },
         {
           "id": "W-8_В-016",
-          "type": "refrigerated",
-          "loadStatus": "loaded",
+          "type": "реф",
+          "loaded": true,
           "chainageM": 302.36,
           "intervalM": [
             291.86,
@@ -11792,10 +10220,7 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7",
-          "cargo": {
-            "kind": "refrigerated"
-          }
+          "color": "#DCEAF7"
         }
       ]
     },
@@ -11813,8 +10238,8 @@
       "wagons": [
         {
           "id": "W-1_47-49-001",
-          "type": "covered",
-          "loadStatus": "loaded",
+          "type": "кр",
+          "loaded": true,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -11834,16 +10259,12 @@
             "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#8B5A2B",
-          "cargo": {
-            "kind": "general",
-            "description": "Тарный груз"
-          }
+          "color": "#8B5A2B"
         },
         {
           "id": "W-1_47-49-002",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
             16.7,
@@ -11863,15 +10284,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-1_47-49-003",
-          "type": "refrigerated",
-          "loadStatus": "loaded",
+          "type": "реф",
+          "loaded": true,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -11891,15 +10309,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7",
-          "cargo": {
-            "kind": "refrigerated"
-          }
+          "color": "#DCEAF7"
         },
         {
           "id": "W-1_47-49-004",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 65.62,
           "intervalM": [
             53.62,
@@ -11919,15 +10334,12 @@
             "widthM": 3.1,
             "heightM": 4.8
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#94A3B8"
         },
         {
           "id": "W-1_47-49-005",
-          "type": "thermos",
-          "loadStatus": "loaded",
+          "type": "тер",
+          "loaded": true,
           "chainageM": 89.12,
           "intervalM": [
             78.62,
@@ -11947,15 +10359,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB",
-          "cargo": {
-            "kind": "temperatureControlled"
-          }
+          "color": "#E5E7EB"
         },
         {
           "id": "W-1_47-49-006",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 107.32,
           "intervalM": [
             100.62,
@@ -11975,25 +10384,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_47-49-006-01",
-                "color": "#EA580C"
-              }
-            ],
-            "usedTeu": 1,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-1_47-49-007",
-          "type": "covered",
-          "loadStatus": "empty",
+          "type": "кр",
+          "loaded": false,
           "chainageM": 122.87,
           "intervalM": [
             115.02,
@@ -12017,8 +10413,8 @@
         },
         {
           "id": "W-1_47-49-008",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "пв",
+          "loaded": false,
           "chainageM": 138.68,
           "intervalM": [
             131.72,
@@ -12042,8 +10438,8 @@
         },
         {
           "id": "W-1_47-49-009",
-          "type": "refrigerated",
-          "loadStatus": "empty",
+          "type": "реф",
+          "loaded": false,
           "chainageM": 157.14,
           "intervalM": [
             146.64,
@@ -12067,8 +10463,8 @@
         },
         {
           "id": "W-1_47-49-010",
-          "type": "carCarrier",
-          "loadStatus": "empty",
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 180.64,
           "intervalM": [
             168.64,
@@ -12092,8 +10488,8 @@
         },
         {
           "id": "W-1_47-49-011",
-          "type": "thermos",
-          "loadStatus": "empty",
+          "type": "тер",
+          "loaded": false,
           "chainageM": 204.14,
           "intervalM": [
             193.64,
@@ -12117,8 +10513,8 @@
         },
         {
           "id": "W-1_47-49-012",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 225.45,
           "intervalM": [
             215.64,
@@ -12138,13 +10534,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 60
+          "color": "#B45309"
         },
         {
           "id": "W-1_47-49-013",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 243.22,
           "intervalM": [
             236.26,
@@ -12164,24 +10559,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-1_47-49-013-01",
-                "color": "#CA8A04"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-1_47-49-014",
-          "type": "fittingPlatform",
-          "loadStatus": "empty",
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 257.88,
           "intervalM": [
             251.18,
@@ -12201,13 +10584,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40
+          "color": "#B45309"
         },
         {
           "id": "W-1_47-49-015",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 272.28,
           "intervalM": [
             265.58,
@@ -12227,30 +10609,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_47-49-015-01",
-                "color": "#4F46E5"
-              },
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_47-49-015-02",
-                "color": "#B91C1C"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-1_47-49-016",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "пв",
+          "loaded": true,
           "chainageM": 286.94,
           "intervalM": [
             279.98,
@@ -12270,15 +10634,12 @@
             "widthM": 3.24,
             "heightM": 3.48
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "coal"
-          }
+          "color": "#4B5563"
         },
         {
           "id": "W-1_47-49-017",
-          "type": "carCarrier",
-          "loadStatus": "loaded",
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 306.9,
           "intervalM": [
             294.9,
@@ -12298,15 +10659,12 @@
             "widthM": 3.1,
             "heightM": 4.8
           },
-          "color": "#94A3B8",
-          "cargo": {
-            "kind": "automobiles"
-          }
+          "color": "#94A3B8"
         },
         {
           "id": "W-1_47-49-018",
-          "type": "fittingPlatform",
-          "loadStatus": "loaded",
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 326.6,
           "intervalM": [
             319.9,
@@ -12326,25 +10684,12 @@
             "widthM": 3.1,
             "heightM": 1.3
           },
-          "color": "#B45309",
-          "platformLengthFt": 40,
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 20,
-                "id": "RAIL-CONT-1_47-49-018-01",
-                "color": "#15803D"
-              }
-            ],
-            "usedTeu": 1,
-            "capacityTeu": 2
-          }
+          "color": "#B45309"
         },
         {
           "id": "W-1_47-49-019",
-          "type": "gondola",
-          "loadStatus": "empty",
+          "type": "пв",
+          "loaded": false,
           "chainageM": 341.26,
           "intervalM": [
             334.3,
@@ -12368,8 +10713,8 @@
         },
         {
           "id": "W-1_47-49-020",
-          "type": "gondola",
-          "loadStatus": "loaded",
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 356.18,
           "intervalM": [
             349.22,
@@ -12386,22 +10731,10 @@
           "headingDeg": 28.011,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#4B5563",
-          "cargo": {
-            "kind": "containers",
-            "containers": [
-              {
-                "lengthFt": 40,
-                "id": "RAIL-CONT-1_47-49-020-01",
-                "color": "#0891B2"
-              }
-            ],
-            "usedTeu": 2,
-            "capacityTeu": 2
-          }
+          "color": "#A8A29E"
         }
       ]
     }

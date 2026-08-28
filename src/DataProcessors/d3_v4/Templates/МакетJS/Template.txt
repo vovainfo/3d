@@ -388,9 +388,7 @@ function initTerminalPlan2D() {
             wagonType: String(so.wagonType || ''),
             trainId: String(so.trainId || ''),
             branchId: String(so.branchId || ''),
-            loadStatus: String(so.loadStatus || 'empty'),
-            cargo: so.cargo || null,
-            platformLengthFt: numberOr(so.platformLengthFt, 0)
+            loaded: !!so.loaded
         };
     }
 
@@ -1865,42 +1863,29 @@ function initTerminalPlan2D() {
         drawWheels([-len * 0.32, -len * 0.12, len * 0.12, len * 0.32], w * 0.55, Math.max(1.0, 0.55 * s));
     }
 
-    function drawRailWagonContainers(obj, len, w, s) {
-        var cargo = obj.cargo || {};
-        var containers = cargo.containers instanceof Array ? cargo.containers : [];
-        if (!containers.length) {
-            return;
-        }
-        var totalFt = 0;
+    function drawDecorativeContainers(len, w, s) {
+        var count = len > 18 * s ? 3 : 2;
+        var gap = Math.max(0.5, 0.18 * s);
+        var usable = len * 0.9;
+        var boxW = (usable - gap * (count + 1)) / count;
         var i;
-        for (i = 0; i < containers.length; i++) {
-            totalFt += numberOr(containers[i] && containers[i].lengthFt, 20) >= 40 ? 40 : 20;
-        }
-        if (totalFt <= 0) {
-            return;
-        }
-        var usableLength = len * 0.9;
-        var cursor = -usableLength * 0.5;
-        var gap = Math.max(0.4, 0.15 * s);
-        for (i = 0; i < containers.length; i++) {
-            var container = containers[i] || {};
-            var lengthFt = numberOr(container.lengthFt, 20) >= 40 ? 40 : 20;
-            var containerLength = usableLength * lengthFt / totalFt;
-            ctx.fillStyle = String(container.color || (i % 2 ? '#0369a1' : '#1d4ed8'));
+        for (i = 0; i < count; i++) {
+            ctx.fillStyle = i % 2 ? '#1d4ed8' : '#0369a1';
             ctx.strokeStyle = '#172554';
             ctx.lineWidth = Math.max(0.7, 0.12 * s);
-            strokeFillRect(
-                cursor + gap * 0.5,
-                -w * 0.5,
-                Math.max(1, containerLength - gap),
-                w);
-            ctx.strokeStyle = 'rgba(255,255,255,0.38)';
-            ctx.beginPath();
-            ctx.moveTo(cursor + containerLength * 0.5, -w * 0.5);
-            ctx.lineTo(cursor + containerLength * 0.5, w * 0.5);
-            ctx.stroke();
-            cursor += containerLength;
+            strokeFillRect(-usable * 0.5 + gap + i * (boxW + gap), -w * 0.5, boxW, w);
         }
+    }
+
+    function drawUnknownWagonMark(len, w, s) {
+        ctx.save();
+        ctx.rotate(Math.PI / 2);
+        ctx.fillStyle = '#111827';
+        ctx.font = 'bold ' + Math.max(22, Math.min(len * 0.82, w * 1.7)) + 'px Segoe UI, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('?', 0, 0);
+        ctx.restore();
     }
 
     function drawTopCar(cx, cy, carLen, carW, color, s) {
@@ -2052,12 +2037,11 @@ function initTerminalPlan2D() {
     }
 
     function drawRailWagonIcon(obj, s) {
-        var type = obj.wagonType || 'covered';
+        var type = obj.wagonType || '';
         var len = numberOr(obj.size && obj.size.length, 14) * s;
         var w = numberOr(obj.size && obj.size.width, 3.1) * s;
         var color = obj.color || '#4b5563';
-        var loaded = obj.loadStatus === 'loaded';
-        var cargo = obj.cargo || {};
+        var loaded = !!obj.loaded;
         var line = Math.max(0.8, 0.15 * s);
 
         ctx.strokeStyle = '#111827';
@@ -2066,11 +2050,11 @@ function initTerminalPlan2D() {
         strokeFillRect(-len * 0.5, -w * 0.17, len, w * 0.34);
         drawWheels([-len * 0.34, len * 0.34], w * 0.58, Math.max(0.9, 0.45 * s));
 
-        if (type === 'fittingPlatform') {
+        if (type === 'фит.пл.') {
             ctx.fillStyle = color;
             strokeFillRect(-len * 0.5, -w * 0.34, len, w * 0.68);
             if (loaded) {
-                drawRailWagonContainers(obj, len, w * 0.9, s);
+                drawDecorativeContainers(len, w * 0.9, s);
             } else {
                 ctx.fillStyle = '#fbbf24';
                 for (var fittingIndex = -2; fittingIndex <= 2; fittingIndex++) {
@@ -2081,12 +2065,12 @@ function initTerminalPlan2D() {
             return;
         }
 
-        if (type === 'gondola') {
+        if (type === 'пв') {
             ctx.fillStyle = color;
             strokeFillRect(-len * 0.5, -w * 0.5, len, w);
             ctx.fillStyle = '#111827';
             ctx.fillRect(-len * 0.42, -w * 0.32, len * 0.84, w * 0.64);
-            if (loaded && cargo.kind === 'coal') {
+            if (loaded) {
                 ctx.fillStyle = '#27272a';
                 ctx.save();
                 ctx.scale(1, (w * 0.27) / Math.max(1, len * 0.38));
@@ -2094,8 +2078,6 @@ function initTerminalPlan2D() {
                 ctx.arc(0, 0, len * 0.38, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.restore();
-            } else if (loaded && cargo.kind === 'containers') {
-                drawRailWagonContainers(obj, len * 0.82, w * 0.48, s);
             }
             ctx.strokeStyle = '#111';
             ctx.strokeRect(-len * 0.42, -w * 0.32, len * 0.84, w * 0.64);
@@ -2105,7 +2087,7 @@ function initTerminalPlan2D() {
             return;
         }
 
-        if (type === 'carCarrier') {
+        if (type === 'сетка а/м') {
             ctx.fillStyle = loaded ? '#cbd5e1' : '#e2e8f0';
             strokeFillRect(-len * 0.5, -w * 0.5, len, w);
             ctx.strokeStyle = '#94a3b8';
@@ -2139,13 +2121,23 @@ function initTerminalPlan2D() {
             return;
         }
 
-        if (type === 'refrigerated') {
+        if (type === 'реф') {
             ctx.fillStyle = '#e0f2fe';
             strokeFillRect(-len * 0.5, -w * 0.5, len, w);
             ctx.fillStyle = '#7dd3fc';
             ctx.fillRect(-len * 0.5, -w * 0.5, len * 0.16, w);
             ctx.strokeStyle = '#0369a1';
             ctx.strokeRect(-len * 0.5, -w * 0.5, len * 0.16, w);
+            drawSnowflake(0, 0, Math.min(len * 0.16, w * 0.38), s);
+            if (!loaded) {
+                drawEmptyWagonMark(len, w, s);
+            }
+            return;
+        }
+
+        if (type === 'тер') {
+            ctx.fillStyle = '#f5f0e6';
+            strokeFillRect(-len * 0.5, -w * 0.5, len, w);
             ctx.save();
             ctx.translate(len * 0.08, 0);
             ctx.rotate(Math.PI / 2);
@@ -2157,28 +2149,47 @@ function initTerminalPlan2D() {
             return;
         }
 
-        if (type === 'thermos') {
-            ctx.fillStyle = '#f5f0e6';
-            strokeFillRect(-len * 0.5, -w * 0.5, len, w);
-            drawSnowflake(0, 0, Math.min(len * 0.16, w * 0.38), s);
+        if (type === 'цистерна') {
+            ctx.fillStyle = color;
+            ctx.save();
+            ctx.scale((len * 0.46) / Math.max(0.01, w * 0.38), 1);
+            ctx.beginPath();
+            ctx.arc(0, 0, w * 0.38, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+            ctx.fillStyle = '#57534e';
+            ctx.fillRect(-len * 0.08, -w * 0.42, len * 0.16, w * 0.18);
+            ctx.fillRect(-len * 0.22, -w * 0.12, len * 0.12, w * 0.24);
+            ctx.fillRect(len * 0.1, -w * 0.12, len * 0.12, w * 0.24);
             if (!loaded) {
                 drawEmptyWagonMark(len, w, s);
             }
             return;
         }
 
-        ctx.fillStyle = color;
+        if (type === 'кр') {
+            ctx.fillStyle = color;
+            strokeFillRect(-len * 0.5, -w * 0.5, len, w);
+            ctx.strokeStyle = '#94a3b8';
+            ctx.beginPath();
+            ctx.moveTo(-len * 0.5, 0);
+            ctx.lineTo(len * 0.5, 0);
+            ctx.stroke();
+            ctx.strokeStyle = '#111';
+            ctx.strokeRect(-len * 0.12, -w * 0.35, len * 0.24, w * 0.7);
+            if (!loaded) {
+                drawEmptyWagonMark(len, w, s);
+            }
+            return;
+        }
+
+        ctx.fillStyle = '#9ca3af';
         strokeFillRect(-len * 0.5, -w * 0.5, len, w);
-        ctx.strokeStyle = '#94a3b8';
-        ctx.beginPath();
-        ctx.moveTo(-len * 0.5, 0);
-        ctx.lineTo(len * 0.5, 0);
-        ctx.stroke();
-        ctx.strokeStyle = '#111';
-        ctx.strokeRect(-len * 0.12, -w * 0.35, len * 0.24, w * 0.7);
         if (!loaded) {
             drawEmptyWagonMark(len, w, s);
         }
+        drawUnknownWagonMark(len, w, s);
     }
 
     function drawWagonIcon(obj, s) {

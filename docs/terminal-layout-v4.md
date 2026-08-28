@@ -108,50 +108,36 @@ firstCenter = offsetM + firstLength/2
 nextCenter = previousCenter + previousLength/2 + gapM + currentLength/2
 ```
 
-Локомотивы в контракт не входят. Вагон имеет `id`, `type`, `loadStatus`,
-опциональный `cargo`; только `fittingPlatform` дополнительно требует
-`platformLengthFt: 40|60|80`. Типы: `covered`, `gondola`, `refrigerated`,
-`carCarrier`, `thermos`, `fittingPlatform`. Статус — `empty` или `loaded`.
-Пустой вагон не содержит `cargo`, гружёный обязан его содержать.
+Локомотивы в контракт не входят. Вагон имеет ровно `id`, `type`, `lengthM`
+и `loaded`. `id` — номер вагона: непустая уникальная строка без пробелов.
+`lengthM` — длина корпуса в метрах, по ней считается цепаж. `loaded` —
+boolean. Известные типы: `фит.пл.`, `пв`, `тер`, `кр`, `реф`, `сетка а/м`,
+`цистерна`. Любой другой непустой `type` допустим и рисуется нейтральным
+кузовом с вопросительным знаком. Пример: `docs/trains-v4-example.json`.
 
-Допустимые грузы:
-
-- `covered` — `general` с непустым `description`;
-- `gondola` — `coal` или `containers`;
-- `refrigerated` — `refrigerated`;
-- `carCarrier` — `automobiles`;
-- `thermos` — `temperatureControlled`;
-- `fittingPlatform` — только `containers`.
-
-Контейнер задаётся `lengthFt: 20|40` и опциональными `id`, `color`.
-Вместимость считается в TEU: полувагон и платформа 40 ft — 2, платформа
-60 ft — 3, платформа 80 ft — 4. Неполная загрузка разрешена. Пример:
-`docs/trains-v4-example.json`.
+Вид груза и число контейнеров в контракт не входят. На картинке гружёный
+вагон получает условный груз по типу: контейнеры на `фит.пл.`, насыпь в
+`пв`, автомобили в `сетка а/м`. Пустой вагон помечается красным крестом.
 
 Сборщик создаёт `data/railways-v4.json` со следующей нормализованной структурой:
 
 - корень: `schemaVersion`, `crs`, `defaults`, `visualPaths`, `branches`, `trains`;
 - `defaults`: `railGaugeM`, `railColor`, `trainGapM`, `wagonTypes`;
-  размеры обычных вагонов заданы объектами по типу, а
-  `wagonTypes.fittingPlatform` — массив записей с `platformLengthFt`, чтобы
-  производный JSON корректно читался в 1С в объект `Структура`;
+  `wagonTypes` — массив известных типов с `type`, `widthM`, `heightM`, `color`
+  (не объект: коды вроде `фит.пл.` недопустимы как имена свойств `Структура` 1С);
 - путь: опциональные `id`/`name`, затем `gaugeM`, `color`, `lengthM`,
   `coordinates`;
 - ветка: `id`, `name`, `gaugeM`, `color`, `lengthM`, `coordinates`;
 - состав: `id`, `name`, `branchId`, `offsetM`, `direction`, `gapM`,
   `intervalM`, `wagons`;
-- вагон: `id`, `type`, `loadStatus`, `chainageM`, `intervalM`, `position`,
-  `tangent`, `headingDeg`, `size`, `color`, опциональные
-  `platformLengthFt`/`cargo`;
-- контейнерный груз дополнительно получает расчётные `usedTeu` и
-  `capacityTeu`.
+- вагон: `id`, `type`, `loaded`, `chainageM`, `intervalM`, `position`,
+  `tangent`, `headingDeg`, `size`, `color`.
 
 `position` остаётся в координатах `EPSG:32652`, `tangent` направлена по
 ориентации вагона, а `intervalM` содержит минимальный и максимальный цепаж
-корпуса. Каталог и каждый вагон содержат типовые габариты:
-крытый 15,70×3,25×4,70 м; полувагон 13,92×3,24×3,48 м; рефрижераторный
-21,00×3,10×4,70 м; сетка 24,00×3,10×4,80 м; термос 21,00×3,10×4,70 м;
-платформы 40/60/80 ft — соответственно 13,40/19,62/25,80×3,10×1,30 м.
+корпуса. Ширина и цвет берутся из каталога известных типов либо из
+нейтрального fallback для неизвестного `type`. Длина всегда из входного
+`lengthM`.
 
 ## Основные разделы JSON
 
