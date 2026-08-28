@@ -4,7 +4,7 @@
     {
       "id": "TRAIN-001",
       "name": "Контейнерный состав",
-      "branchId": "1 выст.",
+      "branchId": "1_В",
       "offsetM": 25.0,
       "direction": "forward",
       "gapM": 1.0,

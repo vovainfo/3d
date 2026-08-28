@@ -1864,16 +1864,23 @@ function initTerminalPlan2D() {
     }
 
     function drawDecorativeContainers(len, w, s) {
-        var count = len > 18 * s ? 3 : 2;
-        var gap = Math.max(0.5, 0.18 * s);
-        var usable = len * 0.9;
-        var boxW = (usable - gap * (count + 1)) / count;
+        var boxLen = 6.1 * s;
+        var boxW = Math.min(2.5 * s, w);
+        var gap = 0.2 * s;
+        var count = Math.floor((len + gap) / (boxLen + gap));
+        if (count < 1) {
+            count = 1;
+            boxLen = Math.min(boxLen, Math.max(gap, len - gap));
+        }
+        var total = count * boxLen + (count - 1) * gap;
+        var x0 = -total * 0.5;
+        var y0 = -boxW * 0.5;
+        ctx.fillStyle = colorForCount(1);
+        ctx.strokeStyle = 'rgba(0,0,0,0.35)';
+        ctx.lineWidth = 1;
         var i;
         for (i = 0; i < count; i++) {
-            ctx.fillStyle = i % 2 ? '#1d4ed8' : '#0369a1';
-            ctx.strokeStyle = '#172554';
-            ctx.lineWidth = Math.max(0.7, 0.12 * s);
-            strokeFillRect(-usable * 0.5 + gap + i * (boxW + gap), -w * 0.5, boxW, w);
+            strokeFillRect(x0 + i * (boxLen + gap), y0, boxLen, boxW);
         }
     }
 
@@ -2054,7 +2061,7 @@ function initTerminalPlan2D() {
             ctx.fillStyle = color;
             strokeFillRect(-len * 0.5, -w * 0.34, len, w * 0.68);
             if (loaded) {
-                drawDecorativeContainers(len, w * 0.9, s);
+                drawDecorativeContainers(len, w, s);
             } else {
                 ctx.fillStyle = '#fbbf24';
                 for (var fittingIndex = -2; fittingIndex <= 2; fittingIndex++) {
@@ -2068,17 +2075,8 @@ function initTerminalPlan2D() {
         if (type === 'пв') {
             ctx.fillStyle = color;
             strokeFillRect(-len * 0.5, -w * 0.5, len, w);
-            ctx.fillStyle = '#111827';
+            ctx.fillStyle = '#9ca3af';
             ctx.fillRect(-len * 0.42, -w * 0.32, len * 0.84, w * 0.64);
-            if (loaded) {
-                ctx.fillStyle = '#27272a';
-                ctx.save();
-                ctx.scale(1, (w * 0.27) / Math.max(1, len * 0.38));
-                ctx.beginPath();
-                ctx.arc(0, 0, len * 0.38, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            }
             ctx.strokeStyle = '#111';
             ctx.strokeRect(-len * 0.42, -w * 0.32, len * 0.84, w * 0.64);
             if (!loaded) {
@@ -2677,6 +2675,44 @@ function initTerminalPlan2D() {
         return sourceVessels.length;
     }
 
+    function updateRailWagons(sourceWagons) {
+        if (!(sourceWagons instanceof Array)) {
+            throw new Error('Для обновления вагонов ожидается массив объектов.');
+        }
+
+        var nextObjects = [];
+        var nextObjectById = {};
+        var objectIndex;
+        for (objectIndex = 0; objectIndex < objects.length; objectIndex++) {
+            if (objects[objectIndex].kind === 'railWagon') {
+                continue;
+            }
+            nextObjects.push(objects[objectIndex]);
+            nextObjectById[objects[objectIndex].id] = objects[objectIndex];
+        }
+
+        for (objectIndex = 0; objectIndex < sourceWagons.length; objectIndex++) {
+            var wagon = normalizeSceneObject(sourceWagons[objectIndex]);
+            if (!wagon || wagon.kind !== 'railWagon') {
+                throw new Error('Некорректный вагон в позиции ' + objectIndex + '.');
+            }
+            if (nextObjectById[wagon.id]) {
+                throw new Error('Повтор идентификатора объекта "' + wagon.id + '".');
+            }
+            nextObjects.push(wagon);
+            nextObjectById[wagon.id] = wagon;
+        }
+
+        var selectedWagonId = selected && selected.kind === 'railWagon' ? selected.id : '';
+        objects = nextObjects;
+        objectById = nextObjectById;
+        if (selectedWagonId) {
+            selected = objectById[selectedWagonId] || null;
+        }
+        needsDraw = true;
+        return sourceWagons.length;
+    }
+
     function applyCommand(command) {
         command = command || {};
         if (command.op === 'focus') {
@@ -2687,6 +2723,9 @@ function initTerminalPlan2D() {
         }
         if (command.op === 'updateVessels') {
             return updateVessels(command.objects);
+        }
+        if (command.op === 'updateRailWagons') {
+            return updateRailWagons(command.objects);
         }
         throw new Error('Неизвестная операция "' + String(command.op || '') + '".');
     }

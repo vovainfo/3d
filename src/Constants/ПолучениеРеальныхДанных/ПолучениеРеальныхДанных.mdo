@@ -5,10 +5,10 @@
     <valueManagerType typeId="a15eb1e0-f260-42b2-9407-0b5277412946" valueTypeId="1d90ba75-930b-4f2e-91c4-dd2857b09e8b"/>
     <valueKeyType typeId="6c0e2a59-b75a-45d0-9905-b5004d4f7602" valueTypeId="5afa1a50-cf9d-469e-bd8e-7159280cdfb2"/>
   </producedTypes>
-  <name>ИспользоватьСудаИзEDS</name>
+  <name>ПолучениеРеальныхДанных</name>
   <synonym>
     <key>ru</key>
-    <value>Использовать суда из EDS</value>
+    <value>Получение реальных данных</value>
   </synonym>
   <type>
     <types>Boolean</types>

@@ -53,7 +53,7 @@ python tools/build_scene_v4.py
 `docs/anchorage-vessels-example.json`. У судна рейда обязательны
 `plannedBerthId` (существующий причал), `plannedLoad` и `plannedUnload`
 (объекты с неотрицательными целыми `ft10`, `ft20`, `ft40`).
-JSON рейда — демо и fallback; при `ИспользоватьСудаИзEDS` runtime берёт суда
+JSON рейда — демо и fallback; при `ПолучениеРеальныхДанных` runtime берёт суда
 из `Документ.ЕДС_Рейс`. Направляющая рейда задаётся двухточечным
 `geojson/anchorage.geojson`; JSON судов копируется в макет без повторной сериализации.
 Скрипт не изменяет BSL-модули и не затрагивает V3. При ошибках исходники и

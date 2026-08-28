@@ -37,7 +37,7 @@
           "id": "W-1_52-005",
           "type": "тер",
           "lengthM": 21.0,
-          "loaded": true
+          "loaded": false
         },
         {
           "id": "W-1_52-006",
@@ -49,60 +49,48 @@
           "id": "W-1_52-007",
           "type": "кр",
           "lengthM": 15.7,
-          "loaded": false
+          "loaded": true
         },
         {
           "id": "W-1_52-008",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": false
+          "type": "сетка а/м",
+          "lengthM": 24.0,
+          "loaded": true
         },
         {
           "id": "W-1_52-009",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
-          "loaded": false
+          "type": "думпкар",
+          "lengthM": 13.4,
+          "loaded": true
         },
         {
           "id": "W-1_52-010",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": true
-        },
-        {
-          "id": "W-1_52-011",
-          "type": "думпкар",
+          "type": "платформа-х",
           "lengthM": 13.4,
           "loaded": false
         },
         {
-          "id": "W-1_52-012",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": true
-        },
-        {
-          "id": "W-1_52-013",
-          "type": "кр",
+          "id": "W-1_52-011",
+          "type": "цистерна",
           "lengthM": 15.7,
           "loaded": true
         },
         {
-          "id": "W-1_52-014",
+          "id": "W-1_52-012",
           "type": "пв",
           "lengthM": 13.92,
           "loaded": true
         },
         {
-          "id": "W-1_52-015",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": false
+          "id": "W-1_52-013",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
         },
         {
-          "id": "W-1_52-016",
-          "type": "цистерна",
-          "lengthM": 13.92,
+          "id": "W-1_52-014",
+          "type": "хоппер",
+          "lengthM": 24.0,
           "loaded": true
         }
       ]
@@ -117,68 +105,68 @@
       "wagons": [
         {
           "id": "W-4_52-001",
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-4_52-002",
           "type": "пв",
           "lengthM": 13.92,
           "loaded": true
         },
         {
-          "id": "W-4_52-002",
-          "type": "хоппер",
-          "lengthM": 21.0,
-          "loaded": true
-        },
-        {
           "id": "W-4_52-003",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
+          "type": "реф",
+          "lengthM": 21.0,
           "loaded": true
         },
         {
           "id": "W-4_52-004",
-          "type": "тер",
-          "lengthM": 21.0,
+          "type": "хоппер",
+          "lengthM": 24.0,
           "loaded": true
         },
         {
           "id": "W-4_52-005",
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
+        },
+        {
+          "id": "W-4_52-006",
           "type": "фит.пл.",
           "lengthM": 13.4,
           "loaded": true
         },
         {
-          "id": "W-4_52-006",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": false
-        },
-        {
           "id": "W-4_52-007",
-          "type": "реф",
-          "lengthM": 21.0,
-          "loaded": false
+          "type": "кр",
+          "lengthM": 15.7,
+          "loaded": true
         },
         {
           "id": "W-4_52-008",
-          "type": "тер",
-          "lengthM": 21.0,
-          "loaded": false
+          "type": "сетка а/м",
+          "lengthM": 24.0,
+          "loaded": true
         },
         {
           "id": "W-4_52-009",
           "type": "думпкар",
-          "lengthM": 25.8,
+          "lengthM": 13.4,
           "loaded": true
         },
         {
           "id": "W-4_52-010",
-          "type": "цистерна",
-          "lengthM": 13.92,
-          "loaded": true
+          "type": "платформа-х",
+          "lengthM": 13.4,
+          "loaded": false
         },
         {
           "id": "W-4_52-011",
-          "type": "пв",
-          "lengthM": 13.92,
+          "type": "цистерна",
+          "lengthM": 15.7,
           "loaded": true
         }
       ]
@@ -193,44 +181,44 @@
       "wagons": [
         {
           "id": "W-5_52-001",
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-5_52-002",
+          "type": "пв",
+          "lengthM": 13.92,
+          "loaded": true
+        },
+        {
+          "id": "W-5_52-003",
           "type": "реф",
           "lengthM": 21.0,
           "loaded": true
         },
         {
-          "id": "W-5_52-002",
-          "type": "сетка а/м",
+          "id": "W-5_52-004",
+          "type": "хоппер",
           "lengthM": 24.0,
           "loaded": true
-        },
-        {
-          "id": "W-5_52-003",
-          "type": "тер",
-          "lengthM": 21.0,
-          "loaded": true
-        },
-        {
-          "id": "W-5_52-004",
-          "type": "цистерна",
-          "lengthM": 13.92,
-          "loaded": false
         },
         {
           "id": "W-5_52-005",
-          "type": "платформа-х",
-          "lengthM": 24.0,
+          "type": "тер",
+          "lengthM": 21.0,
           "loaded": false
         },
         {
           "id": "W-5_52-006",
           "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": false
+          "lengthM": 13.4,
+          "loaded": true
         },
         {
           "id": "W-5_52-007",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
+          "type": "кр",
+          "lengthM": 15.7,
           "loaded": true
         },
         {
@@ -241,9 +229,21 @@
         },
         {
           "id": "W-5_52-009",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
+          "type": "думпкар",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
+          "id": "W-5_52-010",
+          "type": "платформа-х",
+          "lengthM": 13.4,
           "loaded": false
+        },
+        {
+          "id": "W-5_52-011",
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
         }
       ]
     },
@@ -257,225 +257,225 @@
       "wagons": [
         {
           "id": "W-4_49а-001",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
+          "type": "цистерна",
+          "lengthM": 15.7,
           "loaded": true
         },
         {
           "id": "W-4_49а-002",
-          "type": "тер",
-          "lengthM": 21.0,
+          "type": "пв",
+          "lengthM": 13.92,
           "loaded": true
         },
         {
           "id": "W-4_49а-003",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
+          "type": "реф",
+          "lengthM": 21.0,
           "loaded": true
         },
         {
           "id": "W-4_49а-004",
-          "type": "кр",
-          "lengthM": 15.7,
-          "loaded": false
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
         },
         {
           "id": "W-4_49а-005",
-          "type": "цистерна",
-          "lengthM": 13.92,
+          "type": "тер",
+          "lengthM": 21.0,
           "loaded": false
         },
         {
           "id": "W-4_49а-006",
-          "type": "реф",
-          "lengthM": 21.0,
-          "loaded": false
-        },
-        {
-          "id": "W-4_49а-007",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
-          "loaded": false
-        },
-        {
-          "id": "W-4_49а-008",
-          "type": "тер",
-          "lengthM": 21.0,
-          "loaded": false
-        },
-        {
-          "id": "W-4_49а-009",
           "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": false
-        },
-        {
-          "id": "W-4_49а-010",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
+          "lengthM": 13.4,
           "loaded": true
         },
         {
+          "id": "W-4_49а-007",
+          "type": "кр",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-4_49а-008",
+          "type": "сетка а/м",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-4_49а-009",
+          "type": "думпкар",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
+          "id": "W-4_49а-010",
+          "type": "платформа-х",
+          "lengthM": 13.4,
+          "loaded": false
+        },
+        {
           "id": "W-4_49а-011",
-          "type": "пв",
-          "lengthM": 13.92,
+          "type": "цистерна",
+          "lengthM": 15.7,
           "loaded": true
         },
         {
           "id": "W-4_49а-012",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": false
+          "type": "пв",
+          "lengthM": 13.92,
+          "loaded": true
         },
         {
           "id": "W-4_49а-013",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
+          "type": "реф",
+          "lengthM": 21.0,
           "loaded": true
         },
         {
           "id": "W-4_49а-014",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
-          "loaded": false
-        },
-        {
-          "id": "W-4_49а-015",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
+          "type": "хоппер",
+          "lengthM": 24.0,
           "loaded": true
         },
         {
+          "id": "W-4_49а-015",
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
+        },
+        {
           "id": "W-4_49а-016",
-          "type": "кр",
-          "lengthM": 15.7,
+          "type": "фит.пл.",
+          "lengthM": 13.4,
           "loaded": true
         },
         {
           "id": "W-4_49а-017",
-          "type": "пв",
-          "lengthM": 13.92,
+          "type": "кр",
+          "lengthM": 15.7,
           "loaded": true
         },
         {
           "id": "W-4_49а-018",
-          "type": "реф",
-          "lengthM": 21.0,
-          "loaded": true
-        },
-        {
-          "id": "W-4_49а-019",
           "type": "сетка а/м",
           "lengthM": 24.0,
           "loaded": true
         },
         {
+          "id": "W-4_49а-019",
+          "type": "думпкар",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
           "id": "W-4_49а-020",
-          "type": "тер",
+          "type": "платформа-х",
+          "lengthM": 13.4,
+          "loaded": false
+        },
+        {
+          "id": "W-4_49а-021",
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-4_49а-022",
+          "type": "пв",
+          "lengthM": 13.92,
+          "loaded": true
+        },
+        {
+          "id": "W-4_49а-023",
+          "type": "реф",
           "lengthM": 21.0,
           "loaded": true
         },
         {
-          "id": "W-4_49а-021",
+          "id": "W-4_49а-024",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-4_49а-025",
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
+        },
+        {
+          "id": "W-4_49а-026",
           "type": "фит.пл.",
           "lengthM": 13.4,
           "loaded": true
         },
         {
-          "id": "W-4_49а-022",
+          "id": "W-4_49а-027",
           "type": "кр",
           "lengthM": 15.7,
-          "loaded": false
-        },
-        {
-          "id": "W-4_49а-023",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": false
-        },
-        {
-          "id": "W-4_49а-024",
-          "type": "реф",
-          "lengthM": 21.0,
-          "loaded": false
-        },
-        {
-          "id": "W-4_49а-025",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
-          "loaded": false
-        },
-        {
-          "id": "W-4_49а-026",
-          "type": "тер",
-          "lengthM": 21.0,
-          "loaded": false
-        },
-        {
-          "id": "W-4_49а-027",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": false
+          "loaded": true
         },
         {
           "id": "W-4_49а-028",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
+          "type": "сетка а/м",
+          "lengthM": 24.0,
           "loaded": true
         },
         {
           "id": "W-4_49а-029",
-          "type": "пв",
-          "lengthM": 13.92,
+          "type": "думпкар",
+          "lengthM": 13.4,
           "loaded": true
         },
         {
           "id": "W-4_49а-030",
-          "type": "фит.пл.",
+          "type": "платформа-х",
           "lengthM": 13.4,
           "loaded": false
         },
         {
           "id": "W-4_49а-031",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": true
-        },
-        {
-          "id": "W-4_49а-032",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": true
-        },
-        {
-          "id": "W-4_49а-033",
-          "type": "кр",
+          "type": "цистерна",
           "lengthM": 15.7,
           "loaded": true
         },
         {
-          "id": "W-4_49а-034",
+          "id": "W-4_49а-032",
           "type": "пв",
           "lengthM": 13.92,
           "loaded": true
         },
         {
+          "id": "W-4_49а-033",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
+        },
+        {
+          "id": "W-4_49а-034",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
           "id": "W-4_49а-035",
-          "type": "цистерна",
-          "lengthM": 15.7,
+          "type": "тер",
+          "lengthM": 21.0,
           "loaded": false
         },
         {
           "id": "W-4_49а-036",
-          "type": "кр",
-          "lengthM": 15.7,
+          "type": "фит.пл.",
+          "lengthM": 13.4,
           "loaded": true
         },
         {
           "id": "W-4_49а-037",
           "type": "кр",
           "lengthM": 15.7,
-          "loaded": false
+          "loaded": true
         }
       ]
     },
@@ -489,111 +489,105 @@
       "wagons": [
         {
           "id": "W-1_50-001",
-          "type": "тер",
-          "lengthM": 21.0,
+          "type": "цистерна",
+          "lengthM": 15.7,
           "loaded": true
         },
         {
           "id": "W-1_50-002",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
+          "type": "пв",
+          "lengthM": 13.92,
           "loaded": true
         },
         {
           "id": "W-1_50-003",
-          "type": "цистерна",
-          "lengthM": 15.7,
-          "loaded": false
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
         },
         {
           "id": "W-1_50-004",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": false
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
         },
         {
           "id": "W-1_50-005",
-          "type": "реф",
+          "type": "тер",
           "lengthM": 21.0,
           "loaded": false
         },
         {
           "id": "W-1_50-006",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
-          "loaded": false
+          "type": "фит.пл.",
+          "lengthM": 13.4,
+          "loaded": true
         },
         {
           "id": "W-1_50-007",
-          "type": "тер",
-          "lengthM": 21.0,
-          "loaded": false
-        },
-        {
-          "id": "W-1_50-008",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": false
-        },
-        {
-          "id": "W-1_50-009",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
-          "loaded": true
-        },
-        {
-          "id": "W-1_50-010",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": true
-        },
-        {
-          "id": "W-1_50-011",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": false
-        },
-        {
-          "id": "W-1_50-012",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": true
-        },
-        {
-          "id": "W-1_50-013",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
-          "loaded": false
-        },
-        {
-          "id": "W-1_50-014",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": true
-        },
-        {
-          "id": "W-1_50-015",
           "type": "кр",
           "lengthM": 15.7,
           "loaded": true
         },
         {
-          "id": "W-1_50-016",
+          "id": "W-1_50-008",
+          "type": "сетка а/м",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-1_50-009",
+          "type": "думпкар",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
+          "id": "W-1_50-010",
+          "type": "платформа-х",
+          "lengthM": 13.4,
+          "loaded": false
+        },
+        {
+          "id": "W-1_50-011",
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-1_50-012",
           "type": "пв",
           "lengthM": 13.92,
           "loaded": true
         },
         {
-          "id": "W-1_50-017",
+          "id": "W-1_50-013",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
+        },
+        {
+          "id": "W-1_50-014",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-1_50-015",
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
+        },
+        {
+          "id": "W-1_50-016",
           "type": "фит.пл.",
           "lengthM": 13.4,
           "loaded": true
         },
         {
-          "id": "W-1_50-018",
-          "type": "цистерна",
-          "lengthM": 13.92,
-          "loaded": false
+          "id": "W-1_50-017",
+          "type": "кр",
+          "lengthM": 15.7,
+          "loaded": true
         }
       ]
     },
@@ -607,93 +601,93 @@
       "wagons": [
         {
           "id": "W-5_50-001",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
+          "type": "цистерна",
+          "lengthM": 15.7,
           "loaded": true
         },
         {
           "id": "W-5_50-002",
-          "type": "кр",
-          "lengthM": 15.7,
-          "loaded": false
+          "type": "пв",
+          "lengthM": 13.92,
+          "loaded": true
         },
         {
           "id": "W-5_50-003",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": false
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
         },
         {
           "id": "W-5_50-004",
-          "type": "реф",
-          "lengthM": 21.0,
-          "loaded": false
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
         },
         {
           "id": "W-5_50-005",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
-          "loaded": false
-        },
-        {
-          "id": "W-5_50-006",
           "type": "тер",
           "lengthM": 21.0,
           "loaded": false
         },
         {
+          "id": "W-5_50-006",
+          "type": "фит.пл.",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
           "id": "W-5_50-007",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": false
-        },
-        {
-          "id": "W-5_50-008",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
-          "loaded": true
-        },
-        {
-          "id": "W-5_50-009",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": true
-        },
-        {
-          "id": "W-5_50-010",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": false
-        },
-        {
-          "id": "W-5_50-011",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": true
-        },
-        {
-          "id": "W-5_50-012",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
-          "loaded": false
-        },
-        {
-          "id": "W-5_50-013",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": true
-        },
-        {
-          "id": "W-5_50-014",
           "type": "кр",
           "lengthM": 15.7,
           "loaded": true
         },
         {
-          "id": "W-5_50-015",
+          "id": "W-5_50-008",
+          "type": "сетка а/м",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-5_50-009",
+          "type": "думпкар",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
+          "id": "W-5_50-010",
+          "type": "платформа-х",
+          "lengthM": 13.4,
+          "loaded": false
+        },
+        {
+          "id": "W-5_50-011",
           "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-5_50-012",
+          "type": "пв",
           "lengthM": 13.92,
           "loaded": true
+        },
+        {
+          "id": "W-5_50-013",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
+        },
+        {
+          "id": "W-5_50-014",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-5_50-015",
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
         },
         {
           "id": "W-5_50-016",
@@ -705,37 +699,37 @@
           "id": "W-5_50-017",
           "type": "кр",
           "lengthM": 15.7,
-          "loaded": false
+          "loaded": true
         },
         {
           "id": "W-5_50-018",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": false
+          "type": "сетка а/м",
+          "lengthM": 24.0,
+          "loaded": true
         },
         {
           "id": "W-5_50-019",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
+          "type": "думпкар",
+          "lengthM": 13.4,
           "loaded": true
         },
         {
           "id": "W-5_50-020",
+          "type": "платформа-х",
+          "lengthM": 13.4,
+          "loaded": false
+        },
+        {
+          "id": "W-5_50-021",
           "type": "цистерна",
           "lengthM": 15.7,
           "loaded": true
         },
         {
-          "id": "W-5_50-021",
-          "type": "кр",
-          "lengthM": 15.7,
-          "loaded": false
-        },
-        {
           "id": "W-5_50-022",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": false
+          "type": "пв",
+          "lengthM": 13.92,
+          "loaded": true
         }
       ]
     },
@@ -749,27 +743,27 @@
       "wagons": [
         {
           "id": "W-2_45-001",
-          "type": "кр",
+          "type": "цистерна",
           "lengthM": 15.7,
-          "loaded": false
+          "loaded": true
         },
         {
           "id": "W-2_45-002",
           "type": "пв",
           "lengthM": 13.92,
-          "loaded": false
+          "loaded": true
         },
         {
           "id": "W-2_45-003",
           "type": "реф",
           "lengthM": 21.0,
-          "loaded": false
+          "loaded": true
         },
         {
           "id": "W-2_45-004",
-          "type": "сетка а/м",
+          "type": "хоппер",
           "lengthM": 24.0,
-          "loaded": false
+          "loaded": true
         },
         {
           "id": "W-2_45-005",
@@ -780,96 +774,102 @@
         {
           "id": "W-2_45-006",
           "type": "фит.пл.",
-          "lengthM": 25.8,
+          "lengthM": 13.4,
           "loaded": true
         },
         {
           "id": "W-2_45-007",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": false
+          "type": "кр",
+          "lengthM": 15.7,
+          "loaded": true
         },
         {
           "id": "W-2_45-008",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
-          "loaded": false
-        },
-        {
-          "id": "W-2_45-009",
           "type": "сетка а/м",
           "lengthM": 24.0,
           "loaded": true
+        },
+        {
+          "id": "W-2_45-009",
+          "type": "думпкар",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
+          "id": "W-2_45-010",
+          "type": "платформа-х",
+          "lengthM": 13.4,
+          "loaded": false
         }
       ]
     },
     {
-      "id": "TRAIN-1_45_46",
-      "name": "Состав 1_45_46",
-      "branchId": "1_45_46",
+      "id": "TRAIN-1_45",
+      "name": "Состав 1_45",
+      "branchId": "1_45",
       "offsetM": 0.0,
       "direction": "reverse",
       "gapM": 1.0,
       "wagons": [
         {
-          "id": "W-1_45_46-001",
+          "id": "W-1_45-001",
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-1_45-002",
           "type": "пв",
           "lengthM": 13.92,
-          "loaded": false
+          "loaded": true
         },
         {
-          "id": "W-1_45_46-002",
+          "id": "W-1_45-003",
           "type": "реф",
           "lengthM": 21.0,
-          "loaded": false
+          "loaded": true
         },
         {
-          "id": "W-1_45_46-003",
+          "id": "W-1_45-004",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-1_45-005",
           "type": "тер",
           "lengthM": 21.0,
           "loaded": false
         },
         {
-          "id": "W-1_45_46-004",
+          "id": "W-1_45-006",
           "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": false
-        },
-        {
-          "id": "W-1_45_46-005",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
+          "lengthM": 13.4,
           "loaded": true
         },
         {
-          "id": "W-1_45_46-006",
+          "id": "W-1_45-007",
           "type": "кр",
           "lengthM": 15.7,
           "loaded": true
         },
         {
-          "id": "W-1_45_46-007",
-          "type": "кр",
-          "lengthM": 15.7,
-          "loaded": false
-        },
-        {
-          "id": "W-1_45_46-008",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": false
-        },
-        {
-          "id": "W-1_45_46-009",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
+          "id": "W-1_45-008",
+          "type": "сетка а/м",
+          "lengthM": 24.0,
           "loaded": true
         },
         {
-          "id": "W-1_45_46-010",
-          "type": "кр",
-          "lengthM": 15.7,
+          "id": "W-1_45-009",
+          "type": "думпкар",
+          "lengthM": 13.4,
           "loaded": true
+        },
+        {
+          "id": "W-1_45-010",
+          "type": "платформа-х",
+          "lengthM": 13.4,
+          "loaded": false
         }
       ]
     },
@@ -883,57 +883,57 @@
       "wagons": [
         {
           "id": "W-3_45-001",
-          "type": "реф",
-          "lengthM": 21.0,
-          "loaded": false
-        },
-        {
-          "id": "W-3_45-002",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
-          "loaded": false
-        },
-        {
-          "id": "W-3_45-003",
-          "type": "тер",
-          "lengthM": 21.0,
-          "loaded": false
-        },
-        {
-          "id": "W-3_45-004",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
+          "type": "цистерна",
+          "lengthM": 15.7,
           "loaded": true
         },
         {
-          "id": "W-3_45-005",
+          "id": "W-3_45-002",
           "type": "пв",
           "lengthM": 13.92,
           "loaded": true
         },
         {
+          "id": "W-3_45-003",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
+        },
+        {
+          "id": "W-3_45-004",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-3_45-005",
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
+        },
+        {
           "id": "W-3_45-006",
           "type": "фит.пл.",
           "lengthM": 13.4,
-          "loaded": false
+          "loaded": true
         },
         {
           "id": "W-3_45-007",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
-          "loaded": false
-        },
-        {
-          "id": "W-3_45-008",
           "type": "кр",
           "lengthM": 15.7,
           "loaded": true
         },
         {
+          "id": "W-3_45-008",
+          "type": "сетка а/м",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
           "id": "W-3_45-009",
-          "type": "цистерна",
-          "lengthM": 15.7,
-          "loaded": false
+          "type": "думпкар",
+          "lengthM": 13.4,
+          "loaded": true
         }
       ]
     },
@@ -947,32 +947,32 @@
       "wagons": [
         {
           "id": "W-1_В-001",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
-          "loaded": false
-        },
-        {
-          "id": "W-1_В-002",
-          "type": "тер",
-          "lengthM": 21.0,
-          "loaded": false
-        },
-        {
-          "id": "W-1_В-003",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
+          "type": "цистерна",
+          "lengthM": 15.7,
           "loaded": true
         },
         {
-          "id": "W-1_В-004",
+          "id": "W-1_В-002",
           "type": "пв",
           "lengthM": 13.92,
           "loaded": true
         },
         {
+          "id": "W-1_В-003",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
+        },
+        {
+          "id": "W-1_В-004",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
           "id": "W-1_В-005",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
+          "type": "тер",
+          "lengthM": 21.0,
           "loaded": false
         },
         {
@@ -989,14 +989,14 @@
         },
         {
           "id": "W-1_В-008",
-          "type": "пв",
-          "lengthM": 13.92,
+          "type": "сетка а/м",
+          "lengthM": 24.0,
           "loaded": true
         },
         {
           "id": "W-1_В-009",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
+          "type": "думпкар",
+          "lengthM": 13.4,
           "loaded": true
         }
       ]
@@ -1011,44 +1011,38 @@
       "wagons": [
         {
           "id": "W-3_47-001",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": false
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
         },
         {
           "id": "W-3_47-002",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
+          "type": "пв",
+          "lengthM": 13.92,
           "loaded": true
         },
         {
           "id": "W-3_47-003",
-          "type": "пв",
-          "lengthM": 13.92,
+          "type": "реф",
+          "lengthM": 21.0,
           "loaded": true
         },
         {
           "id": "W-3_47-004",
-          "type": "пв",
-          "lengthM": 13.92,
+          "type": "хоппер",
+          "lengthM": 24.0,
           "loaded": true
         },
         {
           "id": "W-3_47-005",
-          "type": "пв",
-          "lengthM": 13.92,
+          "type": "тер",
+          "lengthM": 21.0,
           "loaded": false
         },
         {
           "id": "W-3_47-006",
-          "type": "цистерна",
-          "lengthM": 13.92,
-          "loaded": true
-        },
-        {
-          "id": "W-3_47-007",
-          "type": "пв",
-          "lengthM": 13.92,
+          "type": "фит.пл.",
+          "lengthM": 13.4,
           "loaded": true
         }
       ]
@@ -1063,152 +1057,140 @@
       "wagons": [
         {
           "id": "W-2_В-001",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": false
-        },
-        {
-          "id": "W-2_В-002",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
+          "type": "цистерна",
+          "lengthM": 15.7,
           "loaded": true
         },
         {
-          "id": "W-2_В-003",
+          "id": "W-2_В-002",
           "type": "пв",
           "lengthM": 13.92,
           "loaded": true
         },
         {
+          "id": "W-2_В-003",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
+        },
+        {
           "id": "W-2_В-004",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": false
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
         },
         {
           "id": "W-2_В-005",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": true
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
         },
         {
           "id": "W-2_В-006",
           "type": "фит.пл.",
-          "lengthM": 25.8,
-          "loaded": false
-        },
-        {
-          "id": "W-2_В-007",
-          "type": "фит.пл.",
           "lengthM": 13.4,
           "loaded": true
         },
         {
-          "id": "W-2_В-008",
+          "id": "W-2_В-007",
           "type": "кр",
           "lengthM": 15.7,
           "loaded": true
         },
         {
+          "id": "W-2_В-008",
+          "type": "сетка а/м",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
           "id": "W-2_В-009",
-          "type": "цистерна",
-          "lengthM": 13.92,
+          "type": "думпкар",
+          "lengthM": 13.4,
           "loaded": true
         },
         {
           "id": "W-2_В-010",
-          "type": "реф",
-          "lengthM": 21.0,
-          "loaded": true
+          "type": "платформа-х",
+          "lengthM": 13.4,
+          "loaded": false
         },
         {
           "id": "W-2_В-011",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
+          "type": "цистерна",
+          "lengthM": 15.7,
           "loaded": true
         },
         {
           "id": "W-2_В-012",
-          "type": "тер",
-          "lengthM": 21.0,
+          "type": "пв",
+          "lengthM": 13.92,
           "loaded": true
         },
         {
           "id": "W-2_В-013",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
+          "type": "реф",
+          "lengthM": 21.0,
           "loaded": true
         },
         {
           "id": "W-2_В-014",
-          "type": "цистерна",
-          "lengthM": 15.7,
-          "loaded": false
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
         },
         {
           "id": "W-2_В-015",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": false
-        },
-        {
-          "id": "W-2_В-016",
-          "type": "реф",
-          "lengthM": 21.0,
-          "loaded": false
-        },
-        {
-          "id": "W-2_В-017",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
-          "loaded": false
-        },
-        {
-          "id": "W-2_В-018",
           "type": "тер",
           "lengthM": 21.0,
           "loaded": false
         },
         {
-          "id": "W-2_В-019",
+          "id": "W-2_В-016",
           "type": "фит.пл.",
-          "lengthM": 25.8,
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
+          "id": "W-2_В-017",
+          "type": "кр",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-2_В-018",
+          "type": "сетка а/м",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-2_В-019",
+          "type": "думпкар",
+          "lengthM": 13.4,
           "loaded": true
         },
         {
           "id": "W-2_В-020",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": true
-        },
-        {
-          "id": "W-2_В-021",
-          "type": "фит.пл.",
+          "type": "платформа-х",
           "lengthM": 13.4,
           "loaded": false
         },
         {
+          "id": "W-2_В-021",
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
           "id": "W-2_В-022",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
+          "type": "пв",
+          "lengthM": 13.92,
           "loaded": true
         },
         {
           "id": "W-2_В-023",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": true
-        },
-        {
-          "id": "W-2_В-024",
-          "type": "цистерна",
-          "lengthM": 13.92,
-          "loaded": false
-        },
-        {
-          "id": "W-2_В-025",
-          "type": "пв",
-          "lengthM": 13.92,
+          "type": "реф",
+          "lengthM": 21.0,
           "loaded": true
         }
       ]
@@ -1223,8 +1205,8 @@
       "wagons": [
         {
           "id": "W-3_В-001",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
+          "type": "цистерна",
+          "lengthM": 15.7,
           "loaded": true
         },
         {
@@ -1235,20 +1217,20 @@
         },
         {
           "id": "W-3_В-003",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": false
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
         },
         {
           "id": "W-3_В-004",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
+          "type": "хоппер",
+          "lengthM": 24.0,
           "loaded": true
         },
         {
           "id": "W-3_В-005",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
+          "type": "тер",
+          "lengthM": 21.0,
           "loaded": false
         },
         {
@@ -1259,27 +1241,33 @@
         },
         {
           "id": "W-3_В-007",
-          "type": "реф",
-          "lengthM": 21.0,
+          "type": "кр",
+          "lengthM": 15.7,
           "loaded": true
         },
         {
           "id": "W-3_В-008",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": false
+          "type": "сетка а/м",
+          "lengthM": 24.0,
+          "loaded": true
         },
         {
           "id": "W-3_В-009",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
+          "type": "думпкар",
+          "lengthM": 13.4,
           "loaded": true
         },
         {
           "id": "W-3_В-010",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
+          "type": "платформа-х",
+          "lengthM": 13.4,
           "loaded": false
+        },
+        {
+          "id": "W-3_В-011",
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
         }
       ]
     },
@@ -1293,56 +1281,56 @@
       "wagons": [
         {
           "id": "W-4_В-001",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": true
-        },
-        {
-          "id": "W-4_В-002",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": true
-        },
-        {
-          "id": "W-4_В-003",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
-          "loaded": false
-        },
-        {
-          "id": "W-4_В-004",
           "type": "цистерна",
           "lengthM": 15.7,
           "loaded": true
         },
         {
-          "id": "W-4_В-005",
+          "id": "W-4_В-002",
           "type": "пв",
           "lengthM": 13.92,
           "loaded": true
         },
         {
+          "id": "W-4_В-003",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
+        },
+        {
+          "id": "W-4_В-004",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-4_В-005",
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
+        },
+        {
           "id": "W-4_В-006",
+          "type": "фит.пл.",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
+          "id": "W-4_В-007",
+          "type": "кр",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-4_В-008",
           "type": "сетка а/м",
           "lengthM": 24.0,
           "loaded": true
         },
         {
-          "id": "W-4_В-007",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": false
-        },
-        {
-          "id": "W-4_В-008",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
-          "loaded": true
-        },
-        {
           "id": "W-4_В-009",
-          "type": "цистерна",
-          "lengthM": 13.92,
+          "type": "думпкар",
+          "lengthM": 13.4,
           "loaded": true
         }
       ]
@@ -1357,44 +1345,44 @@
       "wagons": [
         {
           "id": "W-5_В-001",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": false
-        },
-        {
-          "id": "W-5_В-002",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": true
-        },
-        {
-          "id": "W-5_В-003",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
-          "loaded": false
-        },
-        {
-          "id": "W-5_В-004",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": true
-        },
-        {
-          "id": "W-5_В-005",
           "type": "цистерна",
           "lengthM": 15.7,
           "loaded": true
         },
         {
-          "id": "W-5_В-006",
+          "id": "W-5_В-002",
           "type": "пв",
           "lengthM": 13.92,
           "loaded": true
         },
         {
-          "id": "W-5_В-007",
+          "id": "W-5_В-003",
           "type": "реф",
           "lengthM": 21.0,
+          "loaded": true
+        },
+        {
+          "id": "W-5_В-004",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-5_В-005",
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
+        },
+        {
+          "id": "W-5_В-006",
+          "type": "фит.пл.",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
+          "id": "W-5_В-007",
+          "type": "кр",
+          "lengthM": 15.7,
           "loaded": true
         },
         {
@@ -1405,74 +1393,74 @@
         },
         {
           "id": "W-5_В-009",
-          "type": "тер",
-          "lengthM": 21.0,
-          "loaded": true
-        },
-        {
-          "id": "W-5_В-010",
-          "type": "фит.пл.",
+          "type": "думпкар",
           "lengthM": 13.4,
           "loaded": true
         },
         {
-          "id": "W-5_В-011",
-          "type": "кр",
-          "lengthM": 15.7,
+          "id": "W-5_В-010",
+          "type": "платформа-х",
+          "lengthM": 13.4,
           "loaded": false
+        },
+        {
+          "id": "W-5_В-011",
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
         },
         {
           "id": "W-5_В-012",
           "type": "пв",
           "lengthM": 13.92,
-          "loaded": false
+          "loaded": true
         },
         {
           "id": "W-5_В-013",
           "type": "реф",
           "lengthM": 21.0,
-          "loaded": false
+          "loaded": true
         },
         {
           "id": "W-5_В-014",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
+          "type": "хоппер",
+          "lengthM": 24.0,
           "loaded": true
         },
         {
           "id": "W-5_В-015",
-          "type": "цистерна",
-          "lengthM": 13.92,
-          "loaded": true
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
         },
         {
           "id": "W-5_В-016",
           "type": "фит.пл.",
           "lengthM": 13.4,
-          "loaded": false
+          "loaded": true
         },
         {
           "id": "W-5_В-017",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
-          "loaded": false
-        },
-        {
-          "id": "W-5_В-018",
           "type": "кр",
           "lengthM": 15.7,
           "loaded": true
         },
         {
+          "id": "W-5_В-018",
+          "type": "сетка а/м",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
           "id": "W-5_В-019",
-          "type": "пв",
-          "lengthM": 13.92,
+          "type": "думпкар",
+          "lengthM": 13.4,
           "loaded": true
         },
         {
           "id": "W-5_В-020",
-          "type": "цистерна",
-          "lengthM": 13.92,
+          "type": "платформа-х",
+          "lengthM": 13.4,
           "loaded": false
         }
       ]
@@ -1487,135 +1475,141 @@
       "wagons": [
         {
           "id": "W-6_В-001",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
+          "type": "цистерна",
+          "lengthM": 15.7,
           "loaded": true
         },
         {
           "id": "W-6_В-002",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
-          "loaded": false
+          "type": "пв",
+          "lengthM": 13.92,
+          "loaded": true
         },
         {
           "id": "W-6_В-003",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
+        },
+        {
+          "id": "W-6_В-004",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-6_В-005",
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
+        },
+        {
+          "id": "W-6_В-006",
           "type": "фит.пл.",
           "lengthM": 13.4,
           "loaded": true
         },
         {
-          "id": "W-6_В-004",
+          "id": "W-6_В-007",
           "type": "кр",
           "lengthM": 15.7,
           "loaded": true
         },
         {
-          "id": "W-6_В-005",
-          "type": "цистерна",
-          "lengthM": 13.92,
-          "loaded": true
-        },
-        {
-          "id": "W-6_В-006",
-          "type": "реф",
-          "lengthM": 21.0,
-          "loaded": true
-        },
-        {
-          "id": "W-6_В-007",
+          "id": "W-6_В-008",
           "type": "сетка а/м",
           "lengthM": 24.0,
           "loaded": true
         },
         {
-          "id": "W-6_В-008",
-          "type": "тер",
-          "lengthM": 21.0,
-          "loaded": true
-        },
-        {
           "id": "W-6_В-009",
-          "type": "фит.пл.",
+          "type": "думпкар",
           "lengthM": 13.4,
           "loaded": true
         },
         {
           "id": "W-6_В-010",
-          "type": "цистерна",
-          "lengthM": 15.7,
+          "type": "платформа-х",
+          "lengthM": 13.4,
           "loaded": false
         },
         {
           "id": "W-6_В-011",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": false
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
         },
         {
           "id": "W-6_В-012",
-          "type": "реф",
-          "lengthM": 21.0,
-          "loaded": false
+          "type": "пв",
+          "lengthM": 13.92,
+          "loaded": true
         },
         {
           "id": "W-6_В-013",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
-          "loaded": false
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
         },
         {
           "id": "W-6_В-014",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-6_В-015",
           "type": "тер",
           "lengthM": 21.0,
           "loaded": false
         },
         {
-          "id": "W-6_В-015",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": false
-        },
-        {
           "id": "W-6_В-016",
-          "type": "пв",
-          "lengthM": 13.92,
+          "type": "фит.пл.",
+          "lengthM": 13.4,
           "loaded": true
         },
         {
           "id": "W-6_В-017",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": false
-        },
-        {
-          "id": "W-6_В-018",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": true
-        },
-        {
-          "id": "W-6_В-019",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": true
-        },
-        {
-          "id": "W-6_В-020",
-          "type": "цистерна",
+          "type": "кр",
           "lengthM": 15.7,
           "loaded": true
         },
         {
-          "id": "W-6_В-021",
+          "id": "W-6_В-018",
           "type": "сетка а/м",
           "lengthM": 24.0,
           "loaded": true
         },
         {
-          "id": "W-6_В-022",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
+          "id": "W-6_В-019",
+          "type": "думпкар",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
+          "id": "W-6_В-020",
+          "type": "платформа-х",
+          "lengthM": 13.4,
           "loaded": false
+        },
+        {
+          "id": "W-6_В-021",
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-6_В-022",
+          "type": "пв",
+          "lengthM": 13.92,
+          "loaded": true
+        },
+        {
+          "id": "W-6_В-023",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
         }
       ]
     },
@@ -1629,75 +1623,81 @@
       "wagons": [
         {
           "id": "W-7_В-001",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
-          "loaded": false
-        },
-        {
-          "id": "W-7_В-002",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": true
-        },
-        {
-          "id": "W-7_В-003",
           "type": "цистерна",
           "lengthM": 15.7,
           "loaded": true
         },
         {
-          "id": "W-7_В-004",
+          "id": "W-7_В-002",
           "type": "пв",
           "lengthM": 13.92,
           "loaded": true
         },
         {
-          "id": "W-7_В-005",
+          "id": "W-7_В-003",
           "type": "реф",
           "lengthM": 21.0,
           "loaded": true
         },
         {
-          "id": "W-7_В-006",
-          "type": "сетка а/м",
+          "id": "W-7_В-004",
+          "type": "хоппер",
           "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-7_В-005",
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
+        },
+        {
+          "id": "W-7_В-006",
+          "type": "фит.пл.",
+          "lengthM": 13.4,
           "loaded": true
         },
         {
           "id": "W-7_В-007",
           "type": "кр",
           "lengthM": 15.7,
-          "loaded": false
+          "loaded": true
         },
         {
           "id": "W-7_В-008",
-          "type": "цистерна",
-          "lengthM": 13.92,
-          "loaded": false
+          "type": "сетка а/м",
+          "lengthM": 24.0,
+          "loaded": true
         },
         {
           "id": "W-7_В-009",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
-          "loaded": false
+          "type": "думпкар",
+          "lengthM": 13.4,
+          "loaded": true
         },
         {
           "id": "W-7_В-010",
+          "type": "платформа-х",
+          "lengthM": 13.4,
+          "loaded": false
+        },
+        {
+          "id": "W-7_В-011",
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-7_В-012",
           "type": "пв",
           "lengthM": 13.92,
           "loaded": true
         },
         {
-          "id": "W-7_В-011",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
+          "id": "W-7_В-013",
+          "type": "реф",
+          "lengthM": 21.0,
           "loaded": true
-        },
-        {
-          "id": "W-7_В-012",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
-          "loaded": false
         }
       ]
     },
@@ -1711,228 +1711,516 @@
       "wagons": [
         {
           "id": "W-8_В-001",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
+          "type": "цистерна",
+          "lengthM": 15.7,
           "loaded": true
         },
         {
           "id": "W-8_В-002",
-          "type": "кр",
-          "lengthM": 15.7,
+          "type": "пв",
+          "lengthM": 13.92,
           "loaded": true
         },
         {
           "id": "W-8_В-003",
-          "type": "пв",
-          "lengthM": 13.92,
+          "type": "реф",
+          "lengthM": 21.0,
           "loaded": true
         },
         {
           "id": "W-8_В-004",
-          "type": "реф",
-          "lengthM": 21.0,
+          "type": "хоппер",
+          "lengthM": 24.0,
           "loaded": true
         },
         {
           "id": "W-8_В-005",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
-          "loaded": true
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
         },
         {
           "id": "W-8_В-006",
-          "type": "тер",
-          "lengthM": 21.0,
+          "type": "фит.пл.",
+          "lengthM": 13.4,
           "loaded": true
         },
         {
           "id": "W-8_В-007",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
+          "type": "кр",
+          "lengthM": 15.7,
           "loaded": true
         },
         {
           "id": "W-8_В-008",
-          "type": "кр",
-          "lengthM": 15.7,
-          "loaded": false
+          "type": "сетка а/м",
+          "lengthM": 24.0,
+          "loaded": true
         },
         {
           "id": "W-8_В-009",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": false
+          "type": "думпкар",
+          "lengthM": 13.4,
+          "loaded": true
         },
         {
           "id": "W-8_В-010",
-          "type": "реф",
-          "lengthM": 21.0,
+          "type": "платформа-х",
+          "lengthM": 13.4,
           "loaded": false
         },
         {
           "id": "W-8_В-011",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
-          "loaded": false
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
         },
         {
           "id": "W-8_В-012",
+          "type": "пв",
+          "lengthM": 13.92,
+          "loaded": true
+        },
+        {
+          "id": "W-8_В-013",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
+        },
+        {
+          "id": "W-8_В-014",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-8_В-015",
           "type": "тер",
           "lengthM": 21.0,
           "loaded": false
         },
         {
-          "id": "W-8_В-013",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": false
-        },
-        {
-          "id": "W-8_В-014",
-          "type": "фит.пл.",
-          "lengthM": 25.8,
-          "loaded": true
-        },
-        {
-          "id": "W-8_В-015",
+          "id": "W-8_В-016",
           "type": "фит.пл.",
           "lengthM": 13.4,
-          "loaded": false
-        },
-        {
-          "id": "W-8_В-016",
-          "type": "реф",
-          "lengthM": 21.0,
           "loaded": true
         }
       ]
     },
     {
-      "id": "TRAIN-1_47-49",
-      "name": "Состав 1_47-49",
-      "branchId": "1_47-49",
+      "id": "TRAIN-0_45",
+      "name": "Состав 0_45",
+      "branchId": "0_45",
       "offsetM": 0.0,
       "direction": "forward",
       "gapM": 1.0,
       "wagons": [
         {
-          "id": "W-1_47-49-001",
-          "type": "кр",
-          "lengthM": 15.7,
-          "loaded": true
-        },
-        {
-          "id": "W-1_47-49-002",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": true
-        },
-        {
-          "id": "W-1_47-49-003",
-          "type": "реф",
-          "lengthM": 21.0,
-          "loaded": true
-        },
-        {
-          "id": "W-1_47-49-004",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
-          "loaded": true
-        },
-        {
-          "id": "W-1_47-49-005",
-          "type": "тер",
-          "lengthM": 21.0,
-          "loaded": true
-        },
-        {
-          "id": "W-1_47-49-006",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": true
-        },
-        {
-          "id": "W-1_47-49-007",
-          "type": "кр",
-          "lengthM": 15.7,
-          "loaded": false
-        },
-        {
-          "id": "W-1_47-49-008",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": false
-        },
-        {
-          "id": "W-1_47-49-009",
-          "type": "реф",
-          "lengthM": 21.0,
-          "loaded": false
-        },
-        {
-          "id": "W-1_47-49-010",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
-          "loaded": false
-        },
-        {
-          "id": "W-1_47-49-011",
-          "type": "тер",
-          "lengthM": 21.0,
-          "loaded": false
-        },
-        {
-          "id": "W-1_47-49-012",
-          "type": "фит.пл.",
-          "lengthM": 19.62,
-          "loaded": false
-        },
-        {
-          "id": "W-1_47-49-013",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": true
-        },
-        {
-          "id": "W-1_47-49-014",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": false
-        },
-        {
-          "id": "W-1_47-49-015",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": true
-        },
-        {
-          "id": "W-1_47-49-016",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": true
-        },
-        {
-          "id": "W-1_47-49-017",
-          "type": "сетка а/м",
-          "lengthM": 24.0,
-          "loaded": true
-        },
-        {
-          "id": "W-1_47-49-018",
-          "type": "фит.пл.",
-          "lengthM": 13.4,
-          "loaded": true
-        },
-        {
-          "id": "W-1_47-49-019",
-          "type": "пв",
-          "lengthM": 13.92,
-          "loaded": false
-        },
-        {
-          "id": "W-1_47-49-020",
+          "id": "W-0_45-001",
           "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-0_45-002",
+          "type": "пв",
           "lengthM": 13.92,
+          "loaded": true
+        },
+        {
+          "id": "W-0_45-003",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
+        },
+        {
+          "id": "W-0_45-004",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-0_45-005",
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
+        },
+        {
+          "id": "W-0_45-006",
+          "type": "фит.пл.",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
+          "id": "W-0_45-007",
+          "type": "кр",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-0_45-008",
+          "type": "сетка а/м",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-0_45-009",
+          "type": "думпкар",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
+          "id": "W-0_45-010",
+          "type": "платформа-х",
+          "lengthM": 13.4,
+          "loaded": false
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-0_46",
+      "name": "Состав 0_46",
+      "branchId": "0_46",
+      "offsetM": 0.0,
+      "direction": "reverse",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-0_46-001",
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-0_46-002",
+          "type": "пв",
+          "lengthM": 13.92,
+          "loaded": true
+        },
+        {
+          "id": "W-0_46-003",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
+        },
+        {
+          "id": "W-0_46-004",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-0_46-005",
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
+        },
+        {
+          "id": "W-0_46-006",
+          "type": "фит.пл.",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
+          "id": "W-0_46-007",
+          "type": "кр",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-0_46-008",
+          "type": "сетка а/м",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-0_46-009",
+          "type": "думпкар",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
+          "id": "W-0_46-010",
+          "type": "платформа-х",
+          "lengthM": 13.4,
+          "loaded": false
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-1_47",
+      "name": "Состав 1_47",
+      "branchId": "1_47",
+      "offsetM": 0.0,
+      "direction": "forward",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-1_47-001",
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-1_47-002",
+          "type": "пв",
+          "lengthM": 13.92,
+          "loaded": true
+        },
+        {
+          "id": "W-1_47-003",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
+        },
+        {
+          "id": "W-1_47-004",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-1_47-005",
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
+        },
+        {
+          "id": "W-1_47-006",
+          "type": "фит.пл.",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
+          "id": "W-1_47-007",
+          "type": "кр",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-1_47-008",
+          "type": "сетка а/м",
+          "lengthM": 24.0,
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-2_47",
+      "name": "Состав 2_47",
+      "branchId": "2_47",
+      "offsetM": 0.0,
+      "direction": "reverse",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-2_47-001",
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-2_47-002",
+          "type": "пв",
+          "lengthM": 13.92,
+          "loaded": true
+        },
+        {
+          "id": "W-2_47-003",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
+        },
+        {
+          "id": "W-2_47-004",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-2_47-005",
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
+        },
+        {
+          "id": "W-2_47-006",
+          "type": "фит.пл.",
+          "lengthM": 13.4,
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-4_47",
+      "name": "Состав 4_47",
+      "branchId": "4_47",
+      "offsetM": 0.0,
+      "direction": "forward",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-4_47-001",
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-4_47-002",
+          "type": "пв",
+          "lengthM": 13.92,
+          "loaded": true
+        },
+        {
+          "id": "W-4_47-003",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
+        },
+        {
+          "id": "W-4_47-004",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-4_47-005",
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
+        },
+        {
+          "id": "W-4_47-006",
+          "type": "фит.пл.",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
+          "id": "W-4_47-007",
+          "type": "кр",
+          "lengthM": 15.7,
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-5_47",
+      "name": "Состав 5_47",
+      "branchId": "5_47",
+      "offsetM": 0.0,
+      "direction": "reverse",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-5_47-001",
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-5_47-002",
+          "type": "пв",
+          "lengthM": 13.92,
+          "loaded": true
+        },
+        {
+          "id": "W-5_47-003",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
+        },
+        {
+          "id": "W-5_47-004",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-5_47-005",
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
+        },
+        {
+          "id": "W-5_47-006",
+          "type": "фит.пл.",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
+          "id": "W-5_47-007",
+          "type": "кр",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-5_47-008",
+          "type": "сетка а/м",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-5_47-009",
+          "type": "думпкар",
+          "lengthM": 13.4,
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "id": "TRAIN-6_47",
+      "name": "Состав 6_47",
+      "branchId": "6_47",
+      "offsetM": 0.0,
+      "direction": "forward",
+      "gapM": 1.0,
+      "wagons": [
+        {
+          "id": "W-6_47-001",
+          "type": "цистерна",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-6_47-002",
+          "type": "пв",
+          "lengthM": 13.92,
+          "loaded": true
+        },
+        {
+          "id": "W-6_47-003",
+          "type": "реф",
+          "lengthM": 21.0,
+          "loaded": true
+        },
+        {
+          "id": "W-6_47-004",
+          "type": "хоппер",
+          "lengthM": 24.0,
+          "loaded": true
+        },
+        {
+          "id": "W-6_47-005",
+          "type": "тер",
+          "lengthM": 21.0,
+          "loaded": false
+        },
+        {
+          "id": "W-6_47-006",
+          "type": "фит.пл.",
+          "lengthM": 13.4,
+          "loaded": true
+        },
+        {
+          "id": "W-6_47-007",
+          "type": "кр",
+          "lengthM": 15.7,
+          "loaded": true
+        },
+        {
+          "id": "W-6_47-008",
+          "type": "сетка а/м",
+          "lengthM": 24.0,
           "loaded": true
         }
       ]

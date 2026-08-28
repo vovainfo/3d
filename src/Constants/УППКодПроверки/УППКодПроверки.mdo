@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Constant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="4d10ebb5-c55e-40a6-b16d-03293cd11376">
+  <producedTypes>
+    <managerType typeId="2ee2f43a-a704-4e34-8479-9f6e813401ca" valueTypeId="52e77d21-ada6-4dc8-9337-e5069d7f56c8"/>
+    <valueManagerType typeId="ba88774e-211a-48c9-853f-ed8212d9e55d" valueTypeId="950fad88-4b3a-4321-a3f2-1a6f642205c8"/>
+    <valueKeyType typeId="e35830d3-8190-4a71-ba1e-703e9bdc0cda" valueTypeId="a746e79b-bc9c-4190-90ce-7fe289166b38"/>
+  </producedTypes>
+  <name>УППКодПроверки</name>
+  <synonym>
+    <key>ru</key>
+    <value>УППКод проверки</value>
+  </synonym>
+  <type>
+    <types>String</types>
+    <stringQualifiers>
+      <length>20</length>
+    </stringQualifiers>
+  </type>
+  <useStandardCommands>true</useStandardCommands>
+  <minValue xsi:type="core:UndefinedValue"/>
+  <maxValue xsi:type="core:UndefinedValue"/>
+  <dataLockControlMode>Managed</dataLockControlMode>
+</mdclass:Constant>

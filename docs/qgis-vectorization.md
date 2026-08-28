@@ -170,7 +170,7 @@ terminal_topology.gpkg
 
 Первая точка — центр самого раннего по плановой дате судна. Вторая задаёт направление очереди. Корпуса стоят перпендикулярно оси (курс носа = угол оси + 90°), шаг очереди считается по `beamM`. Длина линии информационная и не ограничивает число судов. Ось на плане не рисуется. Оцифровывайте в акватории поверх `water`; сборщик проверяет выборку точек вдоль отрезка.
 
-Экспортируйте слой в `data/geojson/anchorage.geojson` (`EPSG:32652`). Сборщик загружает файл в макет `Anchorage_geojson`. Суда рейда для демо и fallback задаются в `data/anchorage-vessels.json` (`id`, `name`, `plannedBerthingAt`, `plannedBerthId`, `plannedLoad`, `plannedUnload`, `lengthM`, `beamM`, `vesselType`; `plannedBerthId` ссылается на причал из `berths-v4.json`; `plannedLoad` и `plannedUnload` содержат неотрицательные целые `ft10`, `ft20`, `ft40`) и копируются в макет `AnchorageVessels_json` без перезаписи полей. При `ИспользоватьСудаИзEDS` runtime-список строится из `Документ.ЕДС_Рейс`.
+Экспортируйте слой в `data/geojson/anchorage.geojson` (`EPSG:32652`). Сборщик загружает файл в макет `Anchorage_geojson`. Суда рейда для демо и fallback задаются в `data/anchorage-vessels.json` (`id`, `name`, `plannedBerthingAt`, `plannedBerthId`, `plannedLoad`, `plannedUnload`, `lengthM`, `beamM`, `vesselType`; `plannedBerthId` ссылается на причал из `berths-v4.json`; `plannedLoad` и `plannedUnload` содержат неотрицательные целые `ft10`, `ft20`, `ft40`) и копируются в макет `AnchorageVessels_json` без перезаписи полей. При `ПолучениеРеальныхДанных` runtime-список строится из `Документ.ЕДС_Рейс`.
 
 ### Железнодорожные пути V4
 
@@ -435,7 +435,7 @@ portal_cranes_v4.geojson
 
 **Граница порта:** `port_boundary.geojson` загружается в макет `PortBoundary_geojson`. Экспортируйте ровно одну полилинию с полями `id`, `color` (`#RRGGBB`) и `width_m`; `name` опционален. Viewer рисует пунктир после дорог и до зданий.
 
-**Рейд:** экспортируйте двухточечный `LineString` в `anchorage.geojson` с полями `fid` и `gap_m`. Первая точка — центр первого судна очереди, вторая задаёт направление очереди. Суда стоят перпендикулярно оси, сама линия на плане не рисуется. Демо-суда задаются в `data/anchorage-vessels.json` (включая `plannedBerthId`, `plannedLoad` и `plannedUnload` с разбивкой `ft10`/`ft20`/`ft40`); сборщик проверяет CRS, геометрию, нахождение оси в `water.geojson` и копирует JSON судов в макет без `canonical_json`. При включённой `ИспользоватьСудаИзEDS` на плане показываются суда из EDS, JSON остаётся fallback.
+**Рейд:** экспортируйте двухточечный `LineString` в `anchorage.geojson` с полями `fid` и `gap_m`. Первая точка — центр первого судна очереди, вторая задаёт направление очереди. Суда стоят перпендикулярно оси, сама линия на плане не рисуется. Демо-суда задаются в `data/anchorage-vessels.json` (включая `plannedBerthId`, `plannedLoad` и `plannedUnload` с разбивкой `ft10`/`ft20`/`ft40`); сборщик проверяет CRS, геометрию, нахождение оси в `water.geojson` и копирует JSON судов в макет без `canonical_json`. При включённой `ПолучениеРеальныхДанных` на плане показываются суда из EDS, JSON остаётся fallback.
 
 **Виртуальные причалы:** экспортируйте слой `berth.geojson` с полями `berth_id` и `name`. Сборщик V4 строит из него `berths-v4.json` (`center` — первая вершина, `headingPoint` — вторая); исходный GeoJSON в макеты 1С не загружается.
 
