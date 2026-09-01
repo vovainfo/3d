@@ -50,6 +50,10 @@
   <constants>Constant.УППЛогин</constants>
   <constants>Constant.УПППароль</constants>
   <constants>Constant.УППКодПроверки</constants>
+  <constants>Constant.УКТUrl</constants>
+  <constants>Constant.УКТЛогин</constants>
+  <constants>Constant.УКТПароль</constants>
+  <constants>Constant.УКТКодПроверки</constants>
   <commonForms>CommonForm.Стартовая</commonForms>
   <dataProcessors>DataProcessor.d3</dataProcessors>
   <dataProcessors>DataProcessor.d3_v2</dataProcessors>

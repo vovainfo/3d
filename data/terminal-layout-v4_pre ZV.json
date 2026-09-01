@@ -59,13 +59,13 @@
           "kind": "storage"
         },
         {
-          "id": "ЗВ52",
+          "id": "ZV52",
           "name": "Зона выгрузки 52",
           "kind": "discharge",
           "berthNumber": 52
         },
         {
-          "id": "ЗВ53",
+          "id": "ZV53",
           "name": "Зона выгрузки 53",
           "kind": "discharge",
           "berthNumber": 53
@@ -104,7 +104,7 @@
           },
           {
             "kind": "zone",
-            "zoneId": "ЗВ52",
+            "zoneId": "ZV52",
             "numbers": {
               "from": 1,
               "to": 2
@@ -132,7 +132,7 @@
           },
           {
             "kind": "zone",
-            "zoneId": "ЗВ52",
+            "zoneId": "ZV52",
             "numbers": {
               "from": 3,
               "to": 5
@@ -160,7 +160,7 @@
           },
           {
             "kind": "zone",
-            "zoneId": "ЗВ53",
+            "zoneId": "ZV53",
             "numbers": {
               "from": 1,
               "to": 3
@@ -188,7 +188,7 @@
           },
           {
             "kind": "zone",
-            "zoneId": "ЗВ53",
+            "zoneId": "ZV53",
             "numbers": {
               "from": 4,
               "to": 5
@@ -215,8 +215,8 @@
         "bayCellCount": 39,
         "zoneCellCounts": {
           "C": 290,
-          "ЗВ52": 50,
-          "ЗВ53": 50
+          "ZV52": 50,
+          "ZV53": 50
         },
         "footprintAlongRowsM": 35.9,
         "footprintAlongBaysM": 249.8
@@ -448,7 +448,7 @@
       "id": "kpP",
       "name": "кпP",
       "qgisFeatureId": "kpP",
-      "containerLabelRotationDeg": 0,
+      "containerLabelRotationDeg": 180,
       "maxTier": 6,
       "zones": [
         {
@@ -501,13 +501,19 @@
           "kind": "storage"
         },
         {
-          "id": "ЗВ50",
-          "name": "Зона выгрузки 50",
+          "id": "ZV50_1",
+          "name": "Зона выгрузки 50 №1",
           "kind": "discharge",
           "berthNumber": 50
         },
         {
-          "id": "ЗВ50/2",
+          "id": "ZV50_2",
+          "name": "Зона выгрузки 50 №2",
+          "kind": "discharge",
+          "berthNumber": 50
+        },
+        {
+          "id": "ZV50dr2",
           "name": "Зона выгрузки 50/2",
           "kind": "discharge",
           "berthNumber": 50
@@ -540,7 +546,7 @@
           },
           {
             "kind": "zone",
-            "zoneId": "ЗВ50",
+            "zoneId": "ZV50_1",
             "numbers": {
               "from": 1,
               "to": 2
@@ -568,10 +574,10 @@
           },
           {
             "kind": "zone",
-            "zoneId": "ЗВ50",
+            "zoneId": "ZV50_2",
             "numbers": {
-              "from": 3,
-              "to": 4
+              "from": 1,
+              "to": 2
             }
           },
           {
@@ -582,7 +588,7 @@
           },
           {
             "kind": "zone",
-            "zoneId": "ЗВ50/2",
+            "zoneId": "ZV50dr2",
             "numbers": {
               "from": 1,
               "to": 2
@@ -609,8 +615,9 @@
         "bayCellCount": 43,
         "zoneCellCounts": {
           "T": 296,
-          "ЗВ50": 32,
-          "ЗВ50/2": 16
+          "ZV50_1": 16,
+          "ZV50_2": 16,
+          "ZV50dr2": 16
         },
         "footprintAlongRowsM": 20.72,
         "footprintAlongBaysM": 271.6
@@ -868,7 +875,7 @@
       "id": "kpE2",
       "name": "кпЕ2",
       "qgisFeatureId": "kpE2",
-      "containerLabelRotationDeg": 0,
+      "containerLabelRotationDeg": 180,
       "maxTier": 6,
       "zones": [
         {
@@ -956,7 +963,7 @@
       "id": "kpY2",
       "name": "кпY2",
       "qgisFeatureId": "kpY2",
-      "containerLabelRotationDeg": 0,
+      "containerLabelRotationDeg": 180,
       "maxTier": 6,
       "zones": [
         {
@@ -1000,7 +1007,7 @@
       "id": "kpY",
       "name": "кпY",
       "qgisFeatureId": "kpY",
-      "containerLabelRotationDeg": 0,
+      "containerLabelRotationDeg": 180,
       "maxTier": 6,
       "zones": [
         {
@@ -1044,7 +1051,7 @@
       "id": "kpPR",
       "name": "кпPR",
       "qgisFeatureId": "kpPR",
-      "containerLabelRotationDeg": 0,
+      "containerLabelRotationDeg": 180,
       "maxTier": 6,
       "zones": [
         {
@@ -1158,7 +1165,7 @@
       "id": "kpN",
       "name": "кпN",
       "qgisFeatureId": "kpN",
-      "containerLabelRotationDeg": 0,
+      "containerLabelRotationDeg": 180,
       "maxTier": 6,
       "zones": [
         {
@@ -1202,7 +1209,7 @@
       "id": "kpMR",
       "name": "кпMR",
       "qgisFeatureId": "kpMR",
-      "containerLabelRotationDeg": 0,
+      "containerLabelRotationDeg": 180,
       "maxTier": 6,
       "zones": [
         {
@@ -1246,7 +1253,7 @@
       "id": "kpO",
       "name": "кпO",
       "qgisFeatureId": "kpO",
-      "containerLabelRotationDeg": 180,
+      "containerLabelRotationDeg": 0,
       "maxTier": 6,
       "zones": [
         {
@@ -1510,7 +1517,7 @@
       "id": "kpQT",
       "name": "кпQT",
       "qgisFeatureId": "kpQT",
-      "containerLabelRotationDeg": 0,
+      "containerLabelRotationDeg": 180,
       "maxTier": 6,
       "zones": [
         {
@@ -1554,7 +1561,7 @@
       "id": "kpRF",
       "name": "кпRF",
       "qgisFeatureId": "kpRF",
-      "containerLabelRotationDeg": 0,
+      "containerLabelRotationDeg": 180,
       "maxTier": 6,
       "zones": [
         {
@@ -1642,7 +1649,7 @@
       "id": "kpRF2",
       "name": "кпRF2",
       "qgisFeatureId": "kpRF2",
-      "containerLabelRotationDeg": 0,
+      "containerLabelRotationDeg": 180,
       "maxTier": 6,
       "zones": [
         {
@@ -1818,7 +1825,7 @@
       "id": "kpUR",
       "name": "кпUR",
       "qgisFeatureId": "kpUR",
-      "containerLabelRotationDeg": 0,
+      "containerLabelRotationDeg": 180,
       "maxTier": 6,
       "zones": [
         {
@@ -1906,7 +1913,7 @@
       "id": "kpBR2",
       "name": "кпBR2",
       "qgisFeatureId": "kpBR2",
-      "containerLabelRotationDeg": 0,
+      "containerLabelRotationDeg": 180,
       "maxTier": 6,
       "zones": [
         {
@@ -1950,7 +1957,7 @@
       "id": "kpLM",
       "name": "кпLM",
       "qgisFeatureId": "kpLM",
-      "containerLabelRotationDeg": 0,
+      "containerLabelRotationDeg": 180,
       "maxTier": 6,
       "zones": [
         {

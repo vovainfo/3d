@@ -2713,6 +2713,44 @@ function initTerminalPlan2D() {
         return sourceWagons.length;
     }
 
+    function updatePlacements(sourcePlacements) {
+        if (!(sourcePlacements instanceof Array)) {
+            throw new Error('Для обновления контейнеров ожидается массив размещений.');
+        }
+
+        var nextPlacements = [];
+        var nextPlacementById = {};
+        var nextOccupancy = {};
+        var placementIndex;
+        for (placementIndex = 0; placementIndex < sourcePlacements.length; placementIndex++) {
+            var placement = normalizePlacement(sourcePlacements[placementIndex]);
+            if (nextPlacementById[placement.id]) {
+                throw new Error('Повтор размещения "' + placement.id + '".');
+            }
+            var cellIndex;
+            for (cellIndex = 0; cellIndex < placement.cellIds.length; cellIndex++) {
+                var key = occupancyKey(placement.cellIds[cellIndex], placement.tier);
+                if (nextOccupancy[key]) {
+                    throw new Error('Повторное занятие ячейки "' + key + '".');
+                }
+                nextOccupancy[key] = placement.id;
+            }
+            nextPlacements.push(placement);
+            nextPlacementById[placement.id] = placement;
+        }
+
+        var selectedPlacementId = selected && selected.kind === 'placement' ? selected.id : '';
+        placements = nextPlacements;
+        placementById = nextPlacementById;
+        occupancy = nextOccupancy;
+        recomputeCellCounts();
+        if (selectedPlacementId) {
+            selected = placementById[selectedPlacementId] || null;
+        }
+        needsDraw = true;
+        return sourcePlacements.length;
+    }
+
     function applyCommand(command) {
         command = command || {};
         if (command.op === 'focus') {
@@ -2726,6 +2764,9 @@ function initTerminalPlan2D() {
         }
         if (command.op === 'updateRailWagons') {
             return updateRailWagons(command.objects);
+        }
+        if (command.op === 'updatePlacements') {
+            return updatePlacements(command.objects);
         }
         throw new Error('Неизвестная операция "' + String(command.op || '') + '".');
     }
