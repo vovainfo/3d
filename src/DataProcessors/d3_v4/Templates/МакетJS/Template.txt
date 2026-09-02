@@ -880,6 +880,7 @@ function initTerminalPlan2D() {
         'Штабелёры': { key: 'stacker', hw: 4.1, hh: 6.2, loadedHw: 5.0, loadedHh: 6.2 },
         'Бобкэты': { key: 'bobcat', hw: 4.6, hh: 3.7, loadedHw: 7.1, loadedHh: 3.7 },
         'Фронтальные погрузчики': { key: 'frontLoader', hw: 7.6, hh: 5.2, loadedHw: 10.4, loadedHh: 5.4 },
+        'Экскаваторы': { key: 'excavator', hw: 9.5, hh: 6.5 },
         'Терминальные тягачи': { key: 'terminalTractor', hw: 5.3, hh: 3.5, loadedHw: 8.6, loadedHh: 3.8 },
         'Буксиры': { key: 'tug', hw: 16, hh: 7.5 }
     };
@@ -2600,6 +2601,66 @@ function initTerminalPlan2D() {
         strokeFillRect(9.75, -2.15, 0.7, 1.75);
     }
 
+    function drawScoutExcavatorSide() {
+        ctx.strokeStyle = '#111';
+        ctx.fillStyle = '#1f2937';
+        strokeFillRect(-5.35, 2.35, 10.7, 2.35);
+        ctx.fillStyle = '#111827';
+        ctx.beginPath();
+        ctx.arc(-4.55, 3.55, 1.15, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(4.55, 3.55, 1.15, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = '#4b5563';
+        strokeFillRect(-3.85, 2.85, 7.7, 0.85);
+        ctx.fillStyle = '#78716c';
+        strokeFillRect(-1.05, 1.55, 2.1, 0.95);
+        ctx.fillStyle = '#b45309';
+        strokeFillRect(-5.85, 0.15, 2.55, 2.35);
+        ctx.fillStyle = '#ca8a04';
+        strokeFillRect(-3.35, -1.15, 6.15, 3.55);
+        ctx.strokeStyle = '#111827';
+        ctx.lineWidth = 0.16;
+        ctx.strokeRect(-2.55, -4.55, 2.95, 3.55);
+        ctx.beginPath();
+        ctx.moveTo(-2.55, -2.65);
+        ctx.lineTo(0.4, -2.65);
+        ctx.moveTo(-1.1, -4.55);
+        ctx.lineTo(-1.1, -1.0);
+        ctx.stroke();
+        ctx.fillStyle = '#7dd3fc';
+        strokeFillRect(-2.2, -4.2, 2.25, 1.45);
+        ctx.fillStyle = '#a16207';
+        strokeFillRect(-2.7, -5.05, 3.25, 0.55);
+        ctx.strokeStyle = '#a16207';
+        ctx.lineWidth = 0.55;
+        ctx.beginPath();
+        ctx.moveTo(2.15, 0.15);
+        ctx.lineTo(4.85, -5.85);
+        ctx.lineTo(8.05, -2.55);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(2.45, 0.85);
+        ctx.lineTo(4.55, -4.95);
+        ctx.stroke();
+        ctx.strokeStyle = '#111';
+        ctx.lineWidth = 0.16;
+        ctx.fillStyle = '#78716c';
+        ctx.beginPath();
+        ctx.moveTo(7.35, -2.85);
+        ctx.lineTo(9.25, -1.55);
+        ctx.lineTo(8.95, 0.85);
+        ctx.lineTo(7.05, 0.35);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = '#a8a29e';
+        strokeFillRect(7.55, -0.15, 1.35, 0.4);
+    }
+
     function drawScoutVehicleDot(obj, s) {
         ctx.fillStyle = obj.color || '#1769aa';
         ctx.strokeStyle = '#111';
@@ -2634,6 +2695,8 @@ function initTerminalPlan2D() {
             drawScoutFrontLoaderSide(layout.withContainer);
         } else if (layout.key === 'terminalTractor') {
             drawScoutTerminalTractorSide(layout.withContainer);
+        } else if (layout.key === 'excavator') {
+            drawScoutExcavatorSide();
         } else if (layout.key === 'tug') {
             drawScoutTugSide();
         }
