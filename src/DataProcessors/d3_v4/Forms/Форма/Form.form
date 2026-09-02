@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormField">
+    <name>ПолучениеРеальныхДанных</name>
+    <id>39</id>
+    <title>
+      <key>ru</key>
+      <value>Получение реальных данных</value>
+    </title>
+    <visible>true</visible>
+    <enabled>true</enabled>
+    <userVisible>
+      <common>true</common>
+    </userVisible>
+    <dataPath xsi:type="form:DataPath">
+      <segments>ПолучениеРеальныхДанных</segments>
+    </dataPath>
+    <handlers>
+      <event>OnChange</event>
+      <name>ПолучениеРеальныхДанныхПриИзменении</name>
+    </handlers>
+    <extendedTooltip>
+      <name>ПолучениеРеальныхДанныхРасширеннаяПодсказка</name>
+      <id>41</id>
+      <type>Label</type>
+      <autoMaxWidth>true</autoMaxWidth>
+      <autoMaxHeight>true</autoMaxHeight>
+      <extInfo xsi:type="form:LabelDecorationExtInfo">
+        <horizontalAlign>Left</horizontalAlign>
+      </extInfo>
+    </extendedTooltip>
+    <contextMenu>
+      <name>ПолучениеРеальныхДанныхКонтекстноеМеню</name>
+      <id>40</id>
+      <autoFill>true</autoFill>
+    </contextMenu>
+    <type>CheckBoxField</type>
+    <editMode>Enter</editMode>
+    <showInHeader>true</showInHeader>
+    <headerHorizontalAlign>Left</headerHorizontalAlign>
+    <showInFooter>true</showInFooter>
+    <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
+  </items>
+  <items xsi:type="form:FormField">
     <name>ПоискОбъекта</name>
     <id>12</id>
     <enabled>true</enabled>
@@ -465,6 +506,23 @@
     <valueType>
       <types>String</types>
       <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ПолучениеРеальныхДанных</name>
+    <title>
+      <key>ru</key>
+      <value>Получение реальных данных</value>
+    </title>
+    <id>7</id>
+    <valueType>
+      <types>Boolean</types>
     </valueType>
     <view>
       <common>true</common>

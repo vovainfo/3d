@@ -316,6 +316,87 @@
       <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
     </items>
     <items xsi:type="form:FormField">
+      <name>КоординатыСКонтейнером</name>
+      <id>59</id>
+      <title>
+        <key>ru</key>
+        <value>С контейнером</value>
+      </title>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Координаты.СКонтейнером</segments>
+      </dataPath>
+      <extendedTooltip>
+        <name>КоординатыСКонтейнеромРасширеннаяПодсказка</name>
+        <id>61</id>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <contextMenu>
+        <name>КоординатыСКонтейнеромКонтекстноеМеню</name>
+        <id>60</id>
+        <autoFill>true</autoFill>
+      </contextMenu>
+      <type>CheckBoxField</type>
+      <editMode>Enter</editMode>
+      <showInHeader>true</showInHeader>
+      <headerHorizontalAlign>Left</headerHorizontalAlign>
+      <showInFooter>true</showInFooter>
+      <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
+    </items>
+    <items xsi:type="form:FormField">
+      <name>КоординатыИнформация</name>
+      <id>62</id>
+      <title>
+        <key>ru</key>
+        <value>Информация</value>
+      </title>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Координаты.Информация</segments>
+      </dataPath>
+      <extendedTooltip>
+        <name>КоординатыИнформацияРасширеннаяПодсказка</name>
+        <id>64</id>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <contextMenu>
+        <name>КоординатыИнформацияКонтекстноеМеню</name>
+        <id>63</id>
+        <autoFill>true</autoFill>
+      </contextMenu>
+      <type>InputField</type>
+      <editMode>Enter</editMode>
+      <showInHeader>true</showInHeader>
+      <headerHorizontalAlign>Left</headerHorizontalAlign>
+      <showInFooter>true</showInFooter>
+      <extInfo xsi:type="form:InputFieldExtInfo">
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <wrap>true</wrap>
+        <chooseType>true</chooseType>
+        <typeDomainEnabled>true</typeDomainEnabled>
+        <textEdit>true</textEdit>
+      </extInfo>
+    </items>
+    <items xsi:type="form:FormField">
       <name>КоординатыШирота</name>
       <id>37</id>
       <visible>true</visible>
@@ -767,7 +848,7 @@
       <valueType>
         <types>String</types>
         <stringQualifiers>
-          <length>20</length>
+          <length>30</length>
         </stringQualifiers>
       </valueType>
       <view>
@@ -786,6 +867,43 @@
       <id>114</id>
       <valueType>
         <types>Boolean</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>СКонтейнером</name>
+      <title>
+        <key>ru</key>
+        <value>С контейнером</value>
+      </title>
+      <id>115</id>
+      <valueType>
+        <types>Boolean</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>Информация</name>
+      <title>
+        <key>ru</key>
+        <value>Информация</value>
+      </title>
+      <id>116</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers>
+          <length>100</length>
+        </stringQualifiers>
       </valueType>
       <view>
         <common>true</common>

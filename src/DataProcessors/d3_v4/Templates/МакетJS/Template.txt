@@ -387,6 +387,8 @@ function initTerminalPlan2D() {
             rails: so.rails instanceof Array ? so.rails : [],
             wagonType: String(so.wagonType || ''),
             equipmentType: String(so.equipmentType || ''),
+            withContainer: !!so.withContainer,
+            information: String(so.information || ''),
             trainId: String(so.trainId || ''),
             branchId: String(so.branchId || ''),
             loaded: !!so.loaded
@@ -873,17 +875,36 @@ function initTerminalPlan2D() {
     }
 
     var SCOUT_VEHICLE_LAYOUTS = {
-        'Ричстакеры': { key: 'reachStacker', hw: 9, hh: 5.2 },
-        'Автопогрузчики': { key: 'forklift', hw: 5.6, hh: 5 },
-        'Штабелёры': { key: 'stacker', hw: 4.1, hh: 6.2 },
-        'Бобкэты': { key: 'bobcat', hw: 4.6, hh: 3.7 },
-        'Терминальные тягачи': { key: 'terminalTractor', hw: 5.3, hh: 3.5 },
+        'Ричстакеры': { key: 'reachStacker', hw: 9, hh: 5.2, loadedHw: 10.4, loadedHh: 6.1 },
+        'Автопогрузчики': { key: 'forklift', hw: 5.6, hh: 5, loadedHw: 6.4, loadedHh: 5 },
+        'Штабелёры': { key: 'stacker', hw: 4.1, hh: 6.2, loadedHw: 5.0, loadedHh: 6.2 },
+        'Бобкэты': { key: 'bobcat', hw: 4.6, hh: 3.7, loadedHw: 7.1, loadedHh: 3.7 },
+        'Фронтальные погрузчики': { key: 'frontLoader', hw: 7.6, hh: 5.2, loadedHw: 10.4, loadedHh: 5.4 },
+        'Терминальные тягачи': { key: 'terminalTractor', hw: 5.3, hh: 3.5, loadedHw: 8.6, loadedHh: 3.8 },
         'Буксиры': { key: 'tug', hw: 16, hh: 7.5 }
     };
 
+    function scoutHasContainer(obj) {
+        return !!(obj && obj.withContainer);
+    }
+
     function scoutVehicleLayout(obj) {
         var type = obj && obj.equipmentType != null ? String(obj.equipmentType) : '';
-        return SCOUT_VEHICLE_LAYOUTS[type] || { key: 'dot', hw: 6, hh: 6 };
+        var layout = SCOUT_VEHICLE_LAYOUTS[type] || { key: 'dot', hw: 6, hh: 6 };
+        if (scoutHasContainer(obj) && layout.loadedHw) {
+            return {
+                key: layout.key,
+                hw: layout.loadedHw,
+                hh: layout.loadedHh,
+                withContainer: true
+            };
+        }
+        return {
+            key: layout.key,
+            hw: layout.hw,
+            hh: layout.hh,
+            withContainer: false
+        };
     }
 
     function scoutIconScale(s) {
@@ -2290,7 +2311,30 @@ function initTerminalPlan2D() {
         ctx.fill();
     }
 
-    function drawScoutReachStackerSide() {
+    function drawScoutSideContainer(x, y, w, h) {
+        ctx.strokeStyle = '#111';
+        ctx.lineWidth = 0.16;
+        ctx.fillStyle = colorForCount(1);
+        strokeFillRect(x, y, w, h);
+        ctx.fillStyle = colorForCount(2);
+        strokeFillRect(x, y, w, Math.max(0.22, h * 0.12));
+        strokeFillRect(x, y + h - Math.max(0.22, h * 0.12), w, Math.max(0.22, h * 0.12));
+        ctx.strokeStyle = 'rgba(31, 10, 8, 0.45)';
+        ctx.lineWidth = 0.1;
+        var grooves = 5;
+        var i;
+        for (i = 1; i < grooves; i++) {
+            var gx = x + (w * i) / grooves;
+            ctx.beginPath();
+            ctx.moveTo(gx, y + 0.14);
+            ctx.lineTo(gx, y + h - 0.14);
+            ctx.stroke();
+        }
+        ctx.strokeStyle = '#111';
+        ctx.lineWidth = 0.16;
+    }
+
+    function drawScoutReachStackerSide(withContainer) {
         ctx.strokeStyle = '#111';
         drawScoutSideWheel(-4.6, 4.15, 1.05);
         drawScoutSideWheel(1.6, 4.15, 1.05);
@@ -2311,15 +2355,25 @@ function initTerminalPlan2D() {
         ctx.stroke();
         ctx.strokeStyle = '#111';
         ctx.lineWidth = 0.16;
-        ctx.fillStyle = '#fbbf24';
-        strokeFillRect(7.15, -5.1, 1.7, 2.35);
-        ctx.beginPath();
-        ctx.moveTo(7.15, -3.95);
-        ctx.lineTo(8.85, -3.95);
-        ctx.stroke();
+        if (withContainer) {
+            drawScoutSideContainer(5.85, -4.95, 4.15, 2.7);
+            ctx.fillStyle = '#fbbf24';
+            strokeFillRect(6.35, -5.25, 3.15, 0.45);
+            ctx.beginPath();
+            ctx.moveTo(6.35, -4.8);
+            ctx.lineTo(9.5, -4.8);
+            ctx.stroke();
+        } else {
+            ctx.fillStyle = '#fbbf24';
+            strokeFillRect(7.15, -5.1, 1.7, 2.35);
+            ctx.beginPath();
+            ctx.moveTo(7.15, -3.95);
+            ctx.lineTo(8.85, -3.95);
+            ctx.stroke();
+        }
     }
 
-    function drawScoutForkliftSide() {
+    function drawScoutForkliftSide(withContainer) {
         ctx.strokeStyle = '#111';
         drawScoutSideWheel(-3.1, 4.05, 0.95);
         drawScoutSideWheel(0.85, 4.05, 0.85);
@@ -2342,12 +2396,15 @@ function initTerminalPlan2D() {
         strokeFillRect(1.45, -4.85, 0.72, 9.05);
         ctx.fillStyle = '#94a3b8';
         strokeFillRect(1.25, -4.85, 1.15, 0.55);
+        if (withContainer) {
+            drawScoutSideContainer(2.2, 0.55, 3.85, 2.9);
+        }
         ctx.fillStyle = '#e5e7eb';
         strokeFillRect(2.15, 3.45, 3.25, 0.28);
         strokeFillRect(2.15, 3.95, 3.25, 0.28);
     }
 
-    function drawScoutStackerSide() {
+    function drawScoutStackerSide(withContainer) {
         ctx.strokeStyle = '#111';
         drawScoutSideWheel(-2.15, 5.35, 0.72);
         drawScoutSideWheel(0.55, 5.35, 0.62);
@@ -2363,12 +2420,15 @@ function initTerminalPlan2D() {
         strokeFillRect(0.55, -6.05, 0.58, 11.45);
         ctx.fillStyle = '#94a3b8';
         strokeFillRect(0.35, -6.05, 1.05, 0.5);
+        if (withContainer) {
+            drawScoutSideContainer(1.15, 1.65, 3.55, 2.9);
+        }
         ctx.fillStyle = '#e5e7eb';
         strokeFillRect(1.1, 4.55, 2.75, 0.22);
         strokeFillRect(1.1, 5.0, 2.75, 0.22);
     }
 
-    function drawScoutBobcatSide() {
+    function drawScoutBobcatSide(withContainer) {
         ctx.strokeStyle = '#111';
         drawScoutSideWheel(-2.15, 2.55, 1.05);
         drawScoutSideWheel(0.55, 2.55, 1.05);
@@ -2403,9 +2463,64 @@ function initTerminalPlan2D() {
         ctx.closePath();
         ctx.fill();
         ctx.stroke();
+        if (withContainer) {
+            drawScoutSideContainer(4.15, -0.35, 2.75, 2.85);
+        }
     }
 
-    function drawScoutTerminalTractorSide() {
+    function drawScoutFrontLoaderSide(withContainer) {
+        ctx.strokeStyle = '#111';
+        drawScoutSideWheel(-3.4, 3.55, 1.6);
+        drawScoutSideWheel(2.35, 3.55, 1.5);
+        ctx.fillStyle = '#115e59';
+        strokeFillRect(-6.15, 0.85, 1.35, 2.55);
+        ctx.fillStyle = '#0f766e';
+        strokeFillRect(-5.4, 0.55, 8.4, 2.7);
+        ctx.fillStyle = '#134e4a';
+        strokeFillRect(-5.15, 0.15, 3.05, 0.55);
+        ctx.strokeStyle = '#111827';
+        ctx.lineWidth = 0.16;
+        ctx.strokeRect(-2.55, -3.85, 2.85, 4.55);
+        ctx.beginPath();
+        ctx.moveTo(-2.55, -1.55);
+        ctx.lineTo(0.3, -1.55);
+        ctx.moveTo(-1.15, -3.85);
+        ctx.lineTo(-1.15, 0.55);
+        ctx.stroke();
+        ctx.fillStyle = '#7dd3fc';
+        strokeFillRect(-2.2, -3.45, 2.15, 1.55);
+        ctx.fillStyle = '#0f766e';
+        strokeFillRect(-2.65, -4.25, 3.05, 0.5);
+        ctx.strokeStyle = '#a16207';
+        ctx.lineWidth = 0.48;
+        ctx.beginPath();
+        ctx.moveTo(-0.35, 0.95);
+        ctx.lineTo(4.15, -2.95);
+        ctx.lineTo(6.25, -1.05);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(-0.15, 1.65);
+        ctx.lineTo(4.35, -2.15);
+        ctx.stroke();
+        ctx.strokeStyle = '#111';
+        ctx.lineWidth = 0.16;
+        ctx.fillStyle = '#78716c';
+        ctx.beginPath();
+        ctx.moveTo(5.25, -1.55);
+        ctx.lineTo(7.25, -1.35);
+        ctx.lineTo(7.45, 2.55);
+        ctx.lineTo(5.05, 2.55);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = '#a8a29e';
+        strokeFillRect(5.15, 2.15, 2.2, 0.4);
+        if (withContainer) {
+            drawScoutSideContainer(5.85, -2.25, 4.35, 3.05);
+        }
+    }
+
+    function drawScoutTerminalTractorSide(withContainer) {
         ctx.strokeStyle = '#111';
         drawScoutSideWheel(-3.05, 2.45, 1.0);
         drawScoutSideWheel(2.15, 2.45, 1.0);
@@ -2426,6 +2541,12 @@ function initTerminalPlan2D() {
         strokeFillRect(2.55, -3.05, 1.85, 1.65);
         ctx.fillStyle = '#e5e7eb';
         strokeFillRect(4.35, 0.55, 0.55, 0.85);
+        if (withContainer) {
+            ctx.fillStyle = '#4b5563';
+            strokeFillRect(-8.35, 1.05, 8.2, 0.35);
+            drawScoutSideWheel(-6.85, 2.45, 0.95);
+            drawScoutSideContainer(-8.15, -2.15, 7.55, 3.2);
+        }
     }
 
     function drawScoutTugSide() {
@@ -2502,15 +2623,17 @@ function initTerminalPlan2D() {
         ctx.lineCap = 'round';
         ctx.lineWidth = Math.max(0.12, 1.15 / u);
         if (layout.key === 'reachStacker') {
-            drawScoutReachStackerSide();
+            drawScoutReachStackerSide(layout.withContainer);
         } else if (layout.key === 'forklift') {
-            drawScoutForkliftSide();
+            drawScoutForkliftSide(layout.withContainer);
         } else if (layout.key === 'stacker') {
-            drawScoutStackerSide();
+            drawScoutStackerSide(layout.withContainer);
         } else if (layout.key === 'bobcat') {
-            drawScoutBobcatSide();
+            drawScoutBobcatSide(layout.withContainer);
+        } else if (layout.key === 'frontLoader') {
+            drawScoutFrontLoaderSide(layout.withContainer);
         } else if (layout.key === 'terminalTractor') {
-            drawScoutTerminalTractorSide();
+            drawScoutTerminalTractorSide(layout.withContainer);
         } else if (layout.key === 'tug') {
             drawScoutTugSide();
         }

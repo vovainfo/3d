@@ -185,7 +185,7 @@
     <type>
       <types>String</types>
       <stringQualifiers>
-        <length>20</length>
+        <length>30</length>
       </stringQualifiers>
     </type>
   </resources>
@@ -197,6 +197,29 @@
     </synonym>
     <type>
       <types>Boolean</types>
+    </type>
+  </resources>
+  <resources uuid="5376ba3d-0977-4a6b-9f49-0a6d3e080cb8">
+    <name>СКонтейнером</name>
+    <synonym>
+      <key>ru</key>
+      <value>С контейнером</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+  </resources>
+  <resources uuid="2a74f88b-e2fd-4bb1-bcc0-868210c6d3b4">
+    <name>Информация</name>
+    <synonym>
+      <key>ru</key>
+      <value>Информация</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>100</length>
+      </stringQualifiers>
     </type>
   </resources>
   <dimensions uuid="ab442873-0c5b-483e-8857-11fefc128f50">
