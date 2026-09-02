@@ -176,6 +176,29 @@
       <dateQualifiers/>
     </type>
   </resources>
+  <resources uuid="6a8b31cc-f58a-4745-bc40-3f10642bd82c">
+    <name>ТипТехники</name>
+    <synonym>
+      <key>ru</key>
+      <value>Тип техники</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>20</length>
+      </stringQualifiers>
+    </type>
+  </resources>
+  <resources uuid="5cb20bb9-c53b-475b-8043-873c34a4c508">
+    <name>Отображать</name>
+    <synonym>
+      <key>ru</key>
+      <value>Отображать</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+  </resources>
   <dimensions uuid="ab442873-0c5b-483e-8857-11fefc128f50">
     <name>Идентификатор</name>
     <synonym>
