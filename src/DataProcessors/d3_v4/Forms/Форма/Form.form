@@ -85,6 +85,42 @@
       <showInFooter>true</showInFooter>
       <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
     </items>
+    <items xsi:type="form:FormField">
+      <name>СостояниеОбмена</name>
+      <id>19</id>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <dataPath xsi:type="form:DataPath">
+        <segments>СостояниеОбмена</segments>
+      </dataPath>
+      <titleLocation>None</titleLocation>
+      <extendedTooltip>
+        <name>СостояниеОбменаРасширеннаяПодсказка</name>
+        <id>20</id>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <contextMenu>
+        <name>СостояниеОбменаКонтекстноеМеню</name>
+        <id>21</id>
+        <autoFill>true</autoFill>
+      </contextMenu>
+      <type>InputField</type>
+      <readOnly>true</readOnly>
+      <editMode>Enter</editMode>
+      <headerHorizontalAlign>Left</headerHorizontalAlign>
+      <extInfo xsi:type="form:InputFieldExtInfo">
+        <width>50</width>
+        <autoMaxWidth>true</autoMaxWidth>
+        <horizontalStretch>true</horizontalStretch>
+      </extInfo>
+    </items>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
@@ -112,81 +148,6 @@
       <united>true</united>
       <throughAlign>Auto</throughAlign>
       <currentRowUse>Auto</currentRowUse>
-    </extInfo>
-  </items>
-  <items xsi:type="form:FormField">
-    <name>ПоискОбъекта</name>
-    <id>12</id>
-    <enabled>true</enabled>
-    <userVisible>
-      <common>true</common>
-    </userVisible>
-    <dataPath xsi:type="form:DataPath">
-      <segments>ПоискОбъекта</segments>
-    </dataPath>
-    <titleLocation>Left</titleLocation>
-    <handlers>
-      <event>OnChange</event>
-      <name>ПоискОбъектаПриИзменении</name>
-    </handlers>
-    <extendedTooltip>
-      <name>ПоискОбъектаРасширеннаяПодсказка</name>
-      <id>13</id>
-      <type>Label</type>
-      <autoMaxWidth>true</autoMaxWidth>
-      <autoMaxHeight>true</autoMaxHeight>
-      <extInfo xsi:type="form:LabelDecorationExtInfo">
-        <horizontalAlign>Left</horizontalAlign>
-      </extInfo>
-    </extendedTooltip>
-    <contextMenu>
-      <name>ПоискОбъектаКонтекстноеМеню</name>
-      <id>14</id>
-      <autoFill>true</autoFill>
-    </contextMenu>
-    <type>InputField</type>
-    <editMode>Enter</editMode>
-    <headerHorizontalAlign>Left</headerHorizontalAlign>
-    <extInfo xsi:type="form:InputFieldExtInfo">
-      <width>20</width>
-      <autoMaxWidth>true</autoMaxWidth>
-      <horizontalStretch>false</horizontalStretch>
-    </extInfo>
-  </items>
-  <items xsi:type="form:FormField">
-    <name>СостояниеОбмена</name>
-    <id>19</id>
-    <enabled>true</enabled>
-    <userVisible>
-      <common>true</common>
-    </userVisible>
-    <dataPath xsi:type="form:DataPath">
-      <segments>СостояниеОбмена</segments>
-    </dataPath>
-    <titleLocation>None</titleLocation>
-    <extendedTooltip>
-      <name>СостояниеОбменаРасширеннаяПодсказка</name>
-      <id>20</id>
-      <type>Label</type>
-      <autoMaxWidth>true</autoMaxWidth>
-      <autoMaxHeight>true</autoMaxHeight>
-      <extInfo xsi:type="form:LabelDecorationExtInfo">
-        <horizontalAlign>Left</horizontalAlign>
-      </extInfo>
-    </extendedTooltip>
-    <contextMenu>
-      <name>СостояниеОбменаКонтекстноеМеню</name>
-      <id>21</id>
-      <autoFill>true</autoFill>
-    </contextMenu>
-    <type>InputField</type>
-    <readOnly>true</readOnly>
-    <editMode>Enter</editMode>
-    <headerHorizontalAlign>Left</headerHorizontalAlign>
-    <extInfo xsi:type="form:InputFieldExtInfo">
-      <width>50</width>
-      <autoMaxWidth>true</autoMaxWidth>
-      <horizontalStretch>true</horizontalStretch>
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
@@ -230,31 +191,6 @@
   <items xsi:type="form:FormGroup">
     <name>Кнопки</name>
     <id>27</id>
-    <items xsi:type="form:Button">
-      <name>НайтиОбъект</name>
-      <id>15</id>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <extendedTooltip>
-        <name>НайтиОбъектРасширеннаяПодсказка</name>
-        <id>16</id>
-        <type>Label</type>
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <extInfo xsi:type="form:LabelDecorationExtInfo">
-          <horizontalAlign>Left</horizontalAlign>
-        </extInfo>
-      </extendedTooltip>
-      <type>UsualButton</type>
-      <commandName>Form.Command.НайтиОбъект</commandName>
-      <representation>Auto</representation>
-      <autoMaxWidth>true</autoMaxWidth>
-      <autoMaxHeight>true</autoMaxHeight>
-      <placementArea>UserCmds</placementArea>
-      <representationInContextMenu>Auto</representationInContextMenu>
-    </items>
     <items xsi:type="form:Button">
       <name>ПолучитьТехникуИзСкаут</name>
       <id>31</id>
@@ -496,6 +432,35 @@
   <autoCommandBar>
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
+    <items xsi:type="form:Button">
+      <name>ФормаПереключитьМаксимизациюКарты</name>
+      <id>47</id>
+      <title>
+        <key>ru</key>
+        <value>Развернуть карту</value>
+      </title>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <extendedTooltip>
+        <name>ФормаПереключитьМаксимизациюКартыРасширеннаяПодсказка</name>
+        <id>48</id>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <commandName>Form.Command.ПереключитьМаксимизациюКарты</commandName>
+      <representation>Auto</representation>
+      <autoMaxWidth>true</autoMaxWidth>
+      <autoMaxHeight>true</autoMaxHeight>
+      <placementArea>UserCmds</placementArea>
+      <representationInContextMenu>Auto</representationInContextMenu>
+    </items>
     <horizontalAlign>Left</horizontalAlign>
     <autoFill>true</autoFill>
   </autoCommandBar>
@@ -585,26 +550,6 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПоискОбъекта</name>
-    <title>
-      <key>ru</key>
-      <value>Поиск</value>
-    </title>
-    <id>5</id>
-    <valueType>
-      <types>String</types>
-      <stringQualifiers>
-        <length>100</length>
-      </stringQualifiers>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
-  <attributes>
     <name>СостояниеОбмена</name>
     <title>
       <key>ru</key>
@@ -656,27 +601,23 @@
       <common>true</common>
     </edit>
   </attributes>
-  <formCommands>
-    <name>НайтиОбъект</name>
+  <attributes>
+    <name>КартаМаксимизирована</name>
     <title>
       <key>ru</key>
-      <value>Найти</value>
+      <value>Карта максимизирована</value>
     </title>
-    <id>1</id>
-    <toolTip>
-      <key>ru</key>
-      <value>Найти объект и сфокусировать камеру</value>
-    </toolTip>
-    <use>
+    <id>9</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
       <common>true</common>
-    </use>
-    <action xsi:type="form:FormCommandHandlerContainer">
-      <handler>
-        <name>НайтиОбъект</name>
-      </handler>
-    </action>
-    <currentRowUse>Auto</currentRowUse>
-  </formCommands>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>ОбновитьТехнику</name>
     <title>
@@ -766,6 +707,28 @@
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
         <name>ПолучитьКонтейнеры</name>
+      </handler>
+    </action>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>ПереключитьМаксимизациюКарты</name>
+    <title>
+      <key>ru</key>
+      <value>Развернуть карту</value>
+    </title>
+    <id>7</id>
+    <toolTip>
+      <key>ru</key>
+      <value>Развернуть карту на весь экран (F11)</value>
+    </toolTip>
+    <use>
+      <common>true</common>
+    </use>
+    <shortcut>F11</shortcut>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>ПереключитьМаксимизациюКарты</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>

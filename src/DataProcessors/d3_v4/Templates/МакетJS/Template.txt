@@ -3277,6 +3277,10 @@ function initTerminalPlan2D() {
             needsDraw = true;
             return drawRailwayBranches;
         }
+        if (command.op === 'resize') {
+            resize();
+            return true;
+        }
         throw new Error('Неизвестная операция "' + String(command.op || '') + '".');
     }
 
