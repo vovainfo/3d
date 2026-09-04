@@ -1,27 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
-  <items xsi:type="form:FormField">
-    <name>ПолучениеРеальныхДанных</name>
-    <id>39</id>
-    <title>
-      <key>ru</key>
-      <value>Получение реальных данных</value>
-    </title>
+  <items xsi:type="form:FormGroup">
+    <name>Чекбоксы</name>
+    <id>45</id>
+    <items xsi:type="form:FormField">
+      <name>ПолучениеРеальныхДанных</name>
+      <id>39</id>
+      <title>
+        <key>ru</key>
+        <value>Получение реальных данных</value>
+      </title>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ПолучениеРеальныхДанных</segments>
+      </dataPath>
+      <handlers>
+        <event>OnChange</event>
+        <name>ПолучениеРеальныхДанныхПриИзменении</name>
+      </handlers>
+      <extendedTooltip>
+        <name>ПолучениеРеальныхДанныхРасширеннаяПодсказка</name>
+        <id>41</id>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <contextMenu>
+        <name>ПолучениеРеальныхДанныхКонтекстноеМеню</name>
+        <id>40</id>
+        <autoFill>true</autoFill>
+      </contextMenu>
+      <type>CheckBoxField</type>
+      <editMode>Enter</editMode>
+      <showInHeader>true</showInHeader>
+      <headerHorizontalAlign>Left</headerHorizontalAlign>
+      <showInFooter>true</showInFooter>
+      <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
+    </items>
+    <items xsi:type="form:FormField">
+      <name>ОтрисовкаПутейДляВагонов</name>
+      <id>42</id>
+      <title>
+        <key>ru</key>
+        <value>Отрисовка путей для вагонов</value>
+      </title>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ОтрисовкаПутейДляВагонов</segments>
+      </dataPath>
+      <handlers>
+        <event>OnChange</event>
+        <name>ОтрисовкаПутейДляВагоновПриИзменении</name>
+      </handlers>
+      <extendedTooltip>
+        <name>ОтрисовкаПутейДляВагоновРасширеннаяПодсказка</name>
+        <id>44</id>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <contextMenu>
+        <name>ОтрисовкаПутейДляВагоновКонтекстноеМеню</name>
+        <id>43</id>
+        <autoFill>true</autoFill>
+      </contextMenu>
+      <type>CheckBoxField</type>
+      <editMode>Enter</editMode>
+      <showInHeader>true</showInHeader>
+      <headerHorizontalAlign>Left</headerHorizontalAlign>
+      <showInFooter>true</showInFooter>
+      <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
+    </items>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:DataPath">
-      <segments>ПолучениеРеальныхДанных</segments>
-    </dataPath>
-    <handlers>
-      <event>OnChange</event>
-      <name>ПолучениеРеальныхДанныхПриИзменении</name>
-    </handlers>
+    <title>
+      <key>ru</key>
+      <value>Чекбоксы</value>
+    </title>
     <extendedTooltip>
-      <name>ПолучениеРеальныхДанныхРасширеннаяПодсказка</name>
-      <id>41</id>
+      <name>ЧекбоксыРасширеннаяПодсказка</name>
+      <id>46</id>
       <type>Label</type>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -29,17 +104,15 @@
         <horizontalAlign>Left</horizontalAlign>
       </extInfo>
     </extendedTooltip>
-    <contextMenu>
-      <name>ПолучениеРеальныхДанныхКонтекстноеМеню</name>
-      <id>40</id>
-      <autoFill>true</autoFill>
-    </contextMenu>
-    <type>CheckBoxField</type>
-    <editMode>Enter</editMode>
-    <showInHeader>true</showInHeader>
-    <headerHorizontalAlign>Left</headerHorizontalAlign>
-    <showInFooter>true</showInFooter>
-    <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
+    <type>UsualGroup</type>
+    <extInfo xsi:type="form:UsualGroupExtInfo">
+      <group>HorizontalIfPossible</group>
+      <behavior>Auto</behavior>
+      <showLeftMargin>true</showLeftMargin>
+      <united>true</united>
+      <throughAlign>Auto</throughAlign>
+      <currentRowUse>Auto</currentRowUse>
+    </extInfo>
   </items>
   <items xsi:type="form:FormField">
     <name>ПоискОбъекта</name>
@@ -556,6 +629,23 @@
       <value>Получение реальных данных</value>
     </title>
     <id>7</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ОтрисовкаПутейДляВагонов</name>
+    <title>
+      <key>ru</key>
+      <value>Отрисовка путей для вагонов</value>
+    </title>
+    <id>8</id>
     <valueType>
       <types>Boolean</types>
     </valueType>

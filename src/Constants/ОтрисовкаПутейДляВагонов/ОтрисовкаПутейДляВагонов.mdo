@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Constant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="0003e95b-2685-4997-9370-3386b6393699">
+  <producedTypes>
+    <managerType typeId="d4ff46c4-2edd-49b5-822b-85deea4c65b4" valueTypeId="92cd0d9a-a566-47f4-9e76-745571944193"/>
+    <valueManagerType typeId="18d160b7-a5f4-4c15-9c6e-0a6758b2a595" valueTypeId="222e7854-d508-4851-aa3b-0c3b76d0ee54"/>
+    <valueKeyType typeId="c415e5c7-9e2c-4166-a50f-9bbab01a5611" valueTypeId="135c7562-b716-4c13-b6e8-cfe3acc4c714"/>
+  </producedTypes>
+  <name>ОтрисовкаПутейДляВагонов</name>
+  <synonym>
+    <key>ru</key>
+    <value>Отрисовка путей для вагонов</value>
+  </synonym>
+  <type>
+    <types>Boolean</types>
+  </type>
+  <useStandardCommands>true</useStandardCommands>
+  <minValue xsi:type="core:UndefinedValue"/>
+  <maxValue xsi:type="core:UndefinedValue"/>
+  <dataLockControlMode>Managed</dataLockControlMode>
+</mdclass:Constant>

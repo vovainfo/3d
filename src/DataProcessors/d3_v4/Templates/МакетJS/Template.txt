@@ -192,6 +192,7 @@ function initTerminalPlan2D() {
         ? sceneData.topology.railways : {};
     var visualRailways = normalizeRailwayList(rawRailways.visual, false);
     var railwayBranches = normalizeRailwayList(rawRailways.branches, true);
+    var drawRailwayBranches = Boolean(sceneData.drawRailwayBranches);
     var cells = (sceneData.cells instanceof Array) ? sceneData.cells.slice() : [];
     var cellById = {};
     for (var initialCellIndex = 0; initialCellIndex < cells.length; initialCellIndex++) {
@@ -1711,6 +1712,43 @@ function initTerminalPlan2D() {
         ctx.restore();
     }
 
+    function drawRailwayBranchLabel(point, neighbor, name) {
+        var screen = worldToScreen(point.x, point.y);
+        var neighborScreen = worldToScreen(neighbor.x, neighbor.y);
+        var dx = screen.x - neighborScreen.x;
+        var dy = screen.y - neighborScreen.y;
+        var lengthPx = Math.sqrt(dx * dx + dy * dy) || 1;
+        var offsetPx = 10;
+        var labelX = screen.x + dx / lengthPx * offsetPx;
+        var labelY = screen.y + dy / lengthPx * offsetPx;
+        ctx.save();
+        ctx.font = 'bold ' + Math.max(10, Math.min(14, 4 * view.scale)) + 'px Segoe UI, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = 'rgba(0,0,0,0.72)';
+        ctx.lineWidth = 3;
+        if (ctx.strokeText) {
+            ctx.strokeText(name, labelX, labelY);
+        }
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(name, labelX, labelY);
+        ctx.restore();
+    }
+
+    function drawRailwayBranchLabels(branch) {
+        var points = branch.points || [];
+        if (points.length < 2) {
+            return;
+        }
+        var name = String(branch.name || branch.id || '');
+        if (!name) {
+            return;
+        }
+        drawRailwayBranchLabel(points[0], points[1], name);
+        drawRailwayBranchLabel(points[points.length - 1], points[points.length - 2], name);
+    }
+
     function drawRailwayIcon(obj, s) {
         var rl = numberOr(obj.size.length, 100) * s;
         var gauge = Math.max(2.4, 1.55 * s);
@@ -2837,6 +2875,15 @@ function initTerminalPlan2D() {
         for (i = 0; i < visualRailways.length; i++) {
             drawRailwayTrack(visualRailways[i]);
         }
+        if (drawRailwayBranches) {
+            for (i = 0; i < railwayBranches.length; i++) {
+                drawRailwayTrack({
+                    points: railwayBranches[i].points,
+                    gaugeM: railwayBranches[i].gaugeM,
+                    color: '#0ea5e9'
+                });
+            }
+        }
         for (i = 0; i < containerSites.length; i++) {
             drawPolygonOutline(containerSites[i], 'rgba(30, 41, 59, 0.12)', '#64748b');
         }
@@ -2870,6 +2917,11 @@ function initTerminalPlan2D() {
         for (i = 0; i < objects.length; i++) {
             if (isCraneKind(objects[i].kind)) {
                 drawEquipment(objects[i]);
+            }
+        }
+        if (drawRailwayBranches) {
+            for (i = 0; i < railwayBranches.length; i++) {
+                drawRailwayBranchLabels(railwayBranches[i]);
             }
         }
         needsDraw = false;
@@ -3219,6 +3271,11 @@ function initTerminalPlan2D() {
         }
         if (command.op === 'updatePlacements') {
             return updatePlacements(command.objects);
+        }
+        if (command.op === 'setDrawRailwayBranches') {
+            drawRailwayBranches = Boolean(command.visible);
+            needsDraw = true;
+            return drawRailwayBranches;
         }
         throw new Error('Неизвестная операция "' + String(command.op || '') + '".');
     }
