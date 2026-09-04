@@ -54,6 +54,10 @@
   <constants>Constant.УКТЛогин</constants>
   <constants>Constant.УКТПароль</constants>
   <constants>Constant.УКТКодПроверки</constants>
+  <constants>Constant.ВМКТUrl</constants>
+  <constants>Constant.ВМКТЛогин</constants>
+  <constants>Constant.ВМКТПароль</constants>
+  <constants>Constant.ВМКТКодПроверки</constants>
   <commonForms>CommonForm.Стартовая</commonForms>
   <dataProcessors>DataProcessor.d3</dataProcessors>
   <dataProcessors>DataProcessor.d3_v2</dataProcessors>

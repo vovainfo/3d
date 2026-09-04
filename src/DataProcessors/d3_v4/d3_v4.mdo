@@ -20,6 +20,15 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <forms uuid="0c677c4e-4c60-47bc-8888-3017a248c227">
+    <name>ИнформацияЯчейка</name>
+    <synonym>
+      <key>ru</key>
+      <value>Информация ячейка</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
   <templates uuid="720119db-5d6d-458a-aa3b-e241e0a5b193">
     <name>МакетHTML</name>
     <synonym>
