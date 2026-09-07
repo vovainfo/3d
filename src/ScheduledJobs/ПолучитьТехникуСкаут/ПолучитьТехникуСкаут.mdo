@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:ScheduledJob xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="3f575e2f-6beb-43a4-99cd-48a5d890ea16">
+  <name>ПолучитьТехникуСкаут</name>
+  <synonym>
+    <key>ru</key>
+    <value>Получить технику скаут</value>
+  </synonym>
+  <methodName>CommonModule.ОбновлениеТехникиСкаут.ОбновитьПоложениеТехники</methodName>
+  <key>ПолучитьТехникуСкаут</key>
+  <use>true</use>
+  <predefined>true</predefined>
+  <restartCountOnFailure>3</restartCountOnFailure>
+  <restartIntervalOnFailure>10</restartIntervalOnFailure>
+</mdclass:ScheduledJob>

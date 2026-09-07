@@ -39,6 +39,8 @@
     </synonym>
     <languageCode>ru</languageCode>
   </languages>
+  <commonModules>CommonModule.ОбновлениеТехникиСкаут</commonModules>
+  <scheduledJobs>ScheduledJob.ПолучитьТехникуСкаут</scheduledJobs>
   <constants>Constant.ЛогинСкаут</constants>
   <constants>Constant.ПарольСкаут</constants>
   <constants>Constant.EDSUrl</constants>
