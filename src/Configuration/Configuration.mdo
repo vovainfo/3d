@@ -61,6 +61,7 @@
   <constants>Constant.ВМКТПароль</constants>
   <constants>Constant.ВМКТКодПроверки</constants>
   <constants>Constant.ОтрисовкаПутейДляВагонов</constants>
+  <constants>Constant.ТокенСкаут</constants>
   <commonForms>CommonForm.Стартовая</commonForms>
   <dataProcessors>DataProcessor.d3</dataProcessors>
   <dataProcessors>DataProcessor.d3_v2</dataProcessors>

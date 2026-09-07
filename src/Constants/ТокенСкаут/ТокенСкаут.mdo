@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Constant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="26afd031-9f71-42bf-9526-419ba2abcf85">
+  <producedTypes>
+    <managerType typeId="01f73e69-b8c1-4eb4-85c1-a5d070ebee94" valueTypeId="c873bf38-eb1b-4849-8979-0381f9cfb200"/>
+    <valueManagerType typeId="ecff74d7-7b24-4fbd-8b79-aab8698a2899" valueTypeId="e2c871fd-6ed3-4a64-b94a-7b0bf572edbf"/>
+    <valueKeyType typeId="9bddf38c-ecd9-4037-b027-8ba2636a0d09" valueTypeId="977c36c5-bc2d-4896-88ec-b10e74620190"/>
+  </producedTypes>
+  <name>ТокенСкаут</name>
+  <synonym>
+    <key>ru</key>
+    <value>Токен Скаут</value>
+  </synonym>
+  <type>
+    <types>String</types>
+    <stringQualifiers/>
+  </type>
+  <useStandardCommands>true</useStandardCommands>
+  <passwordMode>true</passwordMode>
+  <minValue xsi:type="core:UndefinedValue"/>
+  <maxValue xsi:type="core:UndefinedValue"/>
+  <dataLockControlMode>Managed</dataLockControlMode>
+</mdclass:Constant>
