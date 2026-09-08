@@ -643,6 +643,10 @@
           4776290.73
         ],
         [
+          734914.98,
+          4776283.71
+        ],
+        [
           734902.53,
           4776273.15
         ],
@@ -2351,7 +2355,7 @@
     {
       "gaugeM": 1.52,
       "color": "#6B7280",
-      "lengthM": 331.976,
+      "lengthM": 523.647,
       "coordinates": [
         [
           735200.19,
@@ -2374,8 +2378,16 @@
           4776191.9
         ],
         [
-          734955.95,
-          4776159.93
+          734873.02,
+          4776091.05
+        ],
+        [
+          734829.75,
+          4776054.84
+        ],
+        [
+          734804.25,
+          4776044.69
         ]
       ]
     },
@@ -2403,6 +2415,25 @@
         [
           734821.6,
           4776218.54
+        ]
+      ]
+    },
+    {
+      "gaugeM": 1.52,
+      "color": "#6B7280",
+      "lengthM": 62.154,
+      "coordinates": [
+        [
+          735191.77,
+          4776365.34
+        ],
+        [
+          735196.66,
+          4776369.47
+        ],
+        [
+          735238.42,
+          4776406.41
         ]
       ]
     }
@@ -2765,8 +2796,12 @@
       "name": "3_45",
       "gaugeM": 1.52,
       "color": "#6B7280",
-      "lengthM": 184.333,
+      "lengthM": 215.881,
       "coordinates": [
+        [
+          734984.33,
+          4776245.26
+        ],
         [
           735008.42,
           4776265.63
@@ -2794,11 +2829,39 @@
       "name": "1 в",
       "gaugeM": 1.52,
       "color": "#6B7280",
-      "lengthM": 173.14,
+      "lengthM": 421.403,
       "coordinates": [
         [
-          735024.38,
-          4776270.81
+          734825.61,
+          4776122.28
+        ],
+        [
+          734833.9,
+          4776128.07
+        ],
+        [
+          734868.08,
+          4776152.37
+        ],
+        [
+          734892.81,
+          4776170.31
+        ],
+        [
+          734926.11,
+          4776194.39
+        ],
+        [
+          734951.88,
+          4776213.01
+        ],
+        [
+          734974.88,
+          4776230.15
+        ],
+        [
+          734990.77,
+          4776241.96
         ],
         [
           735072.87,
@@ -2918,11 +2981,19 @@
       "name": "4 в",
       "gaugeM": 1.52,
       "color": "#6B7280",
-      "lengthM": 174.609,
+      "lengthM": 308.209,
       "coordinates": [
         [
-          735005.99,
-          4776228.22
+          734906.24,
+          4776139.43
+        ],
+        [
+          734936.98,
+          4776169.18
+        ],
+        [
+          734958.55,
+          4776188.14
         ],
         [
           735038.35,
@@ -2980,8 +3051,48 @@
       "name": "6 в",
       "gaugeM": 1.52,
       "color": "#6B7280",
-      "lengthM": 423.742,
+      "lengthM": 628.44,
       "coordinates": [
+        [
+          734705.07,
+          4775956.23
+        ],
+        [
+          734716.99,
+          4775970.54
+        ],
+        [
+          734725.39,
+          4775980.08
+        ],
+        [
+          734736.6,
+          4775991.09
+        ],
+        [
+          734747.96,
+          4776001.31
+        ],
+        [
+          734763.06,
+          4776013.24
+        ],
+        [
+          734777.68,
+          4776024.37
+        ],
+        [
+          734788.7,
+          4776032.99
+        ],
+        [
+          734804.25,
+          4776044.69
+        ],
+        [
+          734840.9,
+          4776072.85
+        ],
         [
           734860.68,
           4776088.27
@@ -2993,6 +3104,10 @@
         [
           734908.8,
           4776129.38
+        ],
+        [
+          734912.23,
+          4776132.44
         ],
         [
           734931.09,
@@ -3061,8 +3176,36 @@
       "name": "7 в",
       "gaugeM": 1.52,
       "color": "#6B7280",
-      "lengthM": 240.367,
+      "lengthM": 405.461,
       "coordinates": [
+        [
+          734862.79,
+          4776087.73
+        ],
+        [
+          734876.64,
+          4776097.83
+        ],
+        [
+          734884.25,
+          4776103.28
+        ],
+        [
+          734903.55,
+          4776119.63
+        ],
+        [
+          734926.55,
+          4776139.39
+        ],
+        [
+          734942.1,
+          4776152.51
+        ],
+        [
+          734957.83,
+          4776166.25
+        ],
         [
           734989.65,
           4776193.27
@@ -3090,11 +3233,15 @@
       "name": "8 в",
       "gaugeM": 1.52,
       "color": "#6B7280",
-      "lengthM": 312.862,
+      "lengthM": 477.086,
       "coordinates": [
         [
-          734955.95,
-          4776159.93
+          734829.75,
+          4776054.84
+        ],
+        [
+          734873.02,
+          4776091.05
         ],
         [
           734993.53,
@@ -3570,6 +3717,44 @@
           4775691.9
         ]
       ]
+    },
+    {
+      "id": "000000061",
+      "name": "8а",
+      "gaugeM": 1.52,
+      "color": "#6B7280",
+      "lengthM": 55.754,
+      "coordinates": [
+        [
+          735196.66,
+          4776369.47
+        ],
+        [
+          735238.42,
+          4776406.41
+        ]
+      ]
+    },
+    {
+      "id": "000000048",
+      "name": "1_46",
+      "gaugeM": 1.52,
+      "color": "#6B7280",
+      "lengthM": 187.849,
+      "coordinates": [
+        [
+          734771.52,
+          4776162.44
+        ],
+        [
+          734902.53,
+          4776273.15
+        ],
+        [
+          734914.98,
+          4776283.71
+        ]
+      ]
     }
   ],
   "trains": [
@@ -3612,8 +3797,8 @@
         },
         {
           "id": "W-000000025-002",
-          "type": "пв",
-          "loaded": true,
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 23.66,
           "intervalM": [
             16.7,
@@ -3630,14 +3815,14 @@
           "headingDeg": 71.228,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#4B5563"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000025-003",
-          "type": "реф",
+          "type": "пв",
           "loaded": true,
           "chainageM": 42.12,
           "intervalM": [
@@ -3655,15 +3840,15 @@
           "headingDeg": 71.228,
           "size": {
             "lengthM": 21.0,
-            "widthM": 3.1,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#DCEAF7"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000025-004",
-          "type": "хоппер",
-          "loaded": true,
+          "type": "пв",
+          "loaded": false,
           "chainageM": 65.62,
           "intervalM": [
             53.62,
@@ -3680,15 +3865,15 @@
           "headingDeg": 71.228,
           "size": {
             "lengthM": 24.0,
-            "widthM": 3.1,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#6B7280"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000025-005",
-          "type": "тер",
-          "loaded": false,
+          "type": "реф",
+          "loaded": true,
           "chainageM": 89.12,
           "intervalM": [
             78.62,
@@ -3708,12 +3893,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000025-006",
-          "type": "фит.пл.",
-          "loaded": true,
+          "type": "реф",
+          "loaded": false,
           "chainageM": 107.32,
           "intervalM": [
             100.62,
@@ -3731,13 +3916,13 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000025-007",
-          "type": "кр",
+          "type": "хоппер",
           "loaded": true,
           "chainageM": 122.87,
           "intervalM": [
@@ -3755,15 +3940,15 @@
           "headingDeg": 71.228,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
+            "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#8B5A2B"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000025-008",
-          "type": "сетка а/м",
-          "loaded": true,
+          "type": "хоппер",
+          "loaded": false,
           "chainageM": 143.72,
           "intervalM": [
             131.72,
@@ -3781,13 +3966,13 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.7
           },
-          "color": "#94A3B8"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000025-009",
-          "type": "думпкар",
+          "type": "тер",
           "loaded": true,
           "chainageM": 163.42,
           "intervalM": [
@@ -3808,11 +3993,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000025-010",
-          "type": "платформа-х",
+          "type": "тер",
           "loaded": false,
           "chainageM": 177.82,
           "intervalM": [
@@ -3833,11 +4018,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000025-011",
-          "type": "цистерна",
+          "type": "фит.пл.",
           "loaded": true,
           "chainageM": 193.37,
           "intervalM": [
@@ -3856,14 +4041,14 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 1.3
           },
-          "color": "#A8A29E"
+          "color": "#B45309"
         },
         {
           "id": "W-000000025-012",
-          "type": "пв",
-          "loaded": true,
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 209.18,
           "intervalM": [
             202.22,
@@ -3880,14 +4065,14 @@
           "headingDeg": 71.228,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 1.3
           },
-          "color": "#4B5563"
+          "color": "#B45309"
         },
         {
           "id": "W-000000025-013",
-          "type": "реф",
+          "type": "кр",
           "loaded": true,
           "chainageM": 227.64,
           "intervalM": [
@@ -3905,15 +4090,15 @@
           "headingDeg": 71.228,
           "size": {
             "lengthM": 21.0,
-            "widthM": 3.1,
+            "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000025-014",
-          "type": "хоппер",
-          "loaded": true,
+          "type": "кр",
+          "loaded": false,
           "chainageM": 251.14,
           "intervalM": [
             239.14,
@@ -3930,10 +4115,10 @@
           "headingDeg": 71.228,
           "size": {
             "lengthM": 24.0,
-            "widthM": 3.1,
+            "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#8B5A2B"
         }
       ]
     },
@@ -3951,7 +4136,7 @@
       "wagons": [
         {
           "id": "W-000000026-001",
-          "type": "цистерна",
+          "type": "сетка а/м",
           "loaded": true,
           "chainageM": 7.85,
           "intervalM": [
@@ -3970,14 +4155,14 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.8
           },
-          "color": "#A8A29E"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000026-002",
-          "type": "пв",
-          "loaded": true,
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 23.66,
           "intervalM": [
             16.7,
@@ -3994,14 +4179,14 @@
           "headingDeg": -108.015,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.8
           },
-          "color": "#4B5563"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000026-003",
-          "type": "реф",
+          "type": "думпкар",
           "loaded": true,
           "chainageM": 42.12,
           "intervalM": [
@@ -4022,12 +4207,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000026-004",
-          "type": "хоппер",
-          "loaded": true,
+          "type": "думпкар",
+          "loaded": false,
           "chainageM": 65.62,
           "intervalM": [
             53.62,
@@ -4051,8 +4236,8 @@
         },
         {
           "id": "W-000000026-005",
-          "type": "тер",
-          "loaded": false,
+          "type": "платформа-х",
+          "loaded": true,
           "chainageM": 89.12,
           "intervalM": [
             78.62,
@@ -4072,12 +4257,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000026-006",
-          "type": "фит.пл.",
-          "loaded": true,
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 107.32,
           "intervalM": [
             100.62,
@@ -4095,13 +4280,13 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000026-007",
-          "type": "кр",
+          "type": "цистерна",
           "loaded": true,
           "chainageM": 122.87,
           "intervalM": [
@@ -4119,15 +4304,15 @@
           "headingDeg": -108.015,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#8B5A2B"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000026-008",
-          "type": "сетка а/м",
-          "loaded": true,
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 143.72,
           "intervalM": [
             131.72,
@@ -4145,13 +4330,13 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.4
           },
-          "color": "#94A3B8"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000026-009",
-          "type": "думпкар",
+          "type": "пв",
           "loaded": true,
           "chainageM": 163.42,
           "intervalM": [
@@ -4169,14 +4354,14 @@
           "headingDeg": -108.015,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#6B7280"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000026-010",
-          "type": "платформа-х",
+          "type": "пв",
           "loaded": false,
           "chainageM": 177.82,
           "intervalM": [
@@ -4194,14 +4379,14 @@
           "headingDeg": -108.015,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#6B7280"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000026-011",
-          "type": "цистерна",
+          "type": "реф",
           "loaded": true,
           "chainageM": 193.37,
           "intervalM": [
@@ -4220,9 +4405,9 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#DCEAF7"
         }
       ]
     },
@@ -4240,8 +4425,8 @@
       "wagons": [
         {
           "id": "W-000000027-001",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "реф",
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -4259,13 +4444,13 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000027-002",
-          "type": "пв",
+          "type": "хоппер",
           "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
@@ -4283,15 +4468,15 @@
           "headingDeg": 72.377,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000027-003",
-          "type": "реф",
-          "loaded": true,
+          "type": "хоппер",
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -4311,11 +4496,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000027-004",
-          "type": "хоппер",
+          "type": "тер",
           "loaded": true,
           "chainageM": 65.62,
           "intervalM": [
@@ -4336,7 +4521,7 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000027-005",
@@ -4390,8 +4575,8 @@
         },
         {
           "id": "W-000000027-007",
-          "type": "кр",
-          "loaded": true,
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 122.87,
           "intervalM": [
             115.02,
@@ -4408,14 +4593,14 @@
           "headingDeg": 72.377,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 1.3
           },
-          "color": "#8B5A2B"
+          "color": "#B45309"
         },
         {
           "id": "W-000000027-008",
-          "type": "сетка а/м",
+          "type": "кр",
           "loaded": true,
           "chainageM": 143.72,
           "intervalM": [
@@ -4433,15 +4618,15 @@
           "headingDeg": 72.377,
           "size": {
             "lengthM": 24.0,
-            "widthM": 3.1,
-            "heightM": 4.8
+            "widthM": 3.25,
+            "heightM": 4.7
           },
-          "color": "#94A3B8"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000027-009",
-          "type": "думпкар",
-          "loaded": true,
+          "type": "кр",
+          "loaded": false,
           "chainageM": 163.42,
           "intervalM": [
             156.72,
@@ -4458,15 +4643,15 @@
           "headingDeg": 72.377,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
+            "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000027-010",
-          "type": "платформа-х",
-          "loaded": false,
+          "type": "сетка а/м",
+          "loaded": true,
           "chainageM": 177.82,
           "intervalM": [
             171.12,
@@ -4484,14 +4669,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#6B7280"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000027-011",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 193.37,
           "intervalM": [
             185.52,
@@ -4509,9 +4694,9 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.8
           },
-          "color": "#A8A29E"
+          "color": "#94A3B8"
         }
       ]
     },
@@ -4529,7 +4714,7 @@
       "wagons": [
         {
           "id": "W-000000022-001",
-          "type": "цистерна",
+          "type": "думпкар",
           "loaded": true,
           "chainageM": 7.85,
           "intervalM": [
@@ -4548,14 +4733,14 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000022-002",
-          "type": "пв",
-          "loaded": true,
+          "type": "думпкар",
+          "loaded": false,
           "chainageM": 23.66,
           "intervalM": [
             16.7,
@@ -4572,14 +4757,14 @@
           "headingDeg": -126.286,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000022-003",
-          "type": "реф",
+          "type": "платформа-х",
           "loaded": true,
           "chainageM": 42.12,
           "intervalM": [
@@ -4600,12 +4785,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000022-004",
-          "type": "хоппер",
-          "loaded": true,
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 65.62,
           "intervalM": [
             53.62,
@@ -4629,8 +4814,8 @@
         },
         {
           "id": "W-000000022-005",
-          "type": "тер",
-          "loaded": false,
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 89.12,
           "intervalM": [
             78.62,
@@ -4648,14 +4833,14 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.4
           },
-          "color": "#E5E7EB"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000022-006",
-          "type": "фит.пл.",
-          "loaded": true,
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 107.32,
           "intervalM": [
             100.62,
@@ -4673,13 +4858,13 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.4
           },
-          "color": "#B45309"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000022-007",
-          "type": "кр",
+          "type": "пв",
           "loaded": true,
           "chainageM": 122.87,
           "intervalM": [
@@ -4697,15 +4882,15 @@
           "headingDeg": -127.453,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#8B5A2B"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000022-008",
-          "type": "сетка а/м",
-          "loaded": true,
+          "type": "пв",
+          "loaded": false,
           "chainageM": 143.72,
           "intervalM": [
             131.72,
@@ -4722,14 +4907,14 @@
           "headingDeg": -119.265,
           "size": {
             "lengthM": 24.0,
-            "widthM": 3.1,
-            "heightM": 4.8
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#94A3B8"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000022-009",
-          "type": "думпкар",
+          "type": "реф",
           "loaded": true,
           "chainageM": 163.42,
           "intervalM": [
@@ -4750,11 +4935,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000022-010",
-          "type": "платформа-х",
+          "type": "реф",
           "loaded": false,
           "chainageM": 177.82,
           "intervalM": [
@@ -4775,11 +4960,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000022-011",
-          "type": "цистерна",
+          "type": "хоппер",
           "loaded": true,
           "chainageM": 193.37,
           "intervalM": [
@@ -4798,14 +4983,14 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000022-012",
-          "type": "пв",
-          "loaded": true,
+          "type": "хоппер",
+          "loaded": false,
           "chainageM": 209.18,
           "intervalM": [
             202.22,
@@ -4822,14 +5007,14 @@
           "headingDeg": -108.363,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000022-013",
-          "type": "реф",
+          "type": "тер",
           "loaded": true,
           "chainageM": 227.64,
           "intervalM": [
@@ -4850,12 +5035,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000022-014",
-          "type": "хоппер",
-          "loaded": true,
+          "type": "тер",
+          "loaded": false,
           "chainageM": 251.14,
           "intervalM": [
             239.14,
@@ -4875,12 +5060,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000022-015",
-          "type": "тер",
-          "loaded": false,
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 274.64,
           "intervalM": [
             264.14,
@@ -4898,14 +5083,14 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 1.3
           },
-          "color": "#E5E7EB"
+          "color": "#B45309"
         },
         {
           "id": "W-000000022-016",
           "type": "фит.пл.",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 292.84,
           "intervalM": [
             286.14,
@@ -4954,8 +5139,8 @@
         },
         {
           "id": "W-000000022-018",
-          "type": "сетка а/м",
-          "loaded": true,
+          "type": "кр",
+          "loaded": false,
           "chainageM": 329.24,
           "intervalM": [
             317.24,
@@ -4972,14 +5157,14 @@
           "headingDeg": -108.185,
           "size": {
             "lengthM": 24.0,
-            "widthM": 3.1,
-            "heightM": 4.8
+            "widthM": 3.25,
+            "heightM": 4.7
           },
-          "color": "#94A3B8"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000022-019",
-          "type": "думпкар",
+          "type": "сетка а/м",
           "loaded": true,
           "chainageM": 348.94,
           "intervalM": [
@@ -4998,13 +5183,13 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#6B7280"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000022-020",
-          "type": "платформа-х",
+          "type": "сетка а/м",
           "loaded": false,
           "chainageM": 363.34,
           "intervalM": [
@@ -5023,13 +5208,13 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#6B7280"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000022-021",
-          "type": "цистерна",
+          "type": "думпкар",
           "loaded": true,
           "chainageM": 378.89,
           "intervalM": [
@@ -5048,14 +5233,14 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000022-022",
-          "type": "пв",
-          "loaded": true,
+          "type": "думпкар",
+          "loaded": false,
           "chainageM": 394.7,
           "intervalM": [
             387.74,
@@ -5072,14 +5257,14 @@
           "headingDeg": -107.89,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000022-023",
-          "type": "реф",
+          "type": "платформа-х",
           "loaded": true,
           "chainageM": 413.16,
           "intervalM": [
@@ -5100,12 +5285,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000022-024",
-          "type": "хоппер",
-          "loaded": true,
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 436.66,
           "intervalM": [
             424.66,
@@ -5129,8 +5314,8 @@
         },
         {
           "id": "W-000000022-025",
-          "type": "тер",
-          "loaded": false,
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 460.16,
           "intervalM": [
             449.66,
@@ -5148,14 +5333,14 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.4
           },
-          "color": "#E5E7EB"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000022-026",
-          "type": "фит.пл.",
-          "loaded": true,
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 478.36,
           "intervalM": [
             471.66,
@@ -5173,13 +5358,13 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.4
           },
-          "color": "#B45309"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000022-027",
-          "type": "кр",
+          "type": "пв",
           "loaded": true,
           "chainageM": 493.91,
           "intervalM": [
@@ -5197,15 +5382,15 @@
           "headingDeg": -72.065,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#8B5A2B"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000022-028",
-          "type": "сетка а/м",
-          "loaded": true,
+          "type": "пв",
+          "loaded": false,
           "chainageM": 514.76,
           "intervalM": [
             502.76,
@@ -5222,14 +5407,14 @@
           "headingDeg": -71.812,
           "size": {
             "lengthM": 24.0,
-            "widthM": 3.1,
-            "heightM": 4.8
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#94A3B8"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000022-029",
-          "type": "думпкар",
+          "type": "реф",
           "loaded": true,
           "chainageM": 534.46,
           "intervalM": [
@@ -5250,11 +5435,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000022-030",
-          "type": "платформа-х",
+          "type": "реф",
           "loaded": false,
           "chainageM": 548.86,
           "intervalM": [
@@ -5275,11 +5460,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000022-031",
-          "type": "цистерна",
+          "type": "хоппер",
           "loaded": true,
           "chainageM": 564.41,
           "intervalM": [
@@ -5298,14 +5483,14 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000022-032",
-          "type": "пв",
-          "loaded": true,
+          "type": "хоппер",
+          "loaded": false,
           "chainageM": 580.22,
           "intervalM": [
             573.26,
@@ -5322,14 +5507,14 @@
           "headingDeg": -71.791,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000022-033",
-          "type": "реф",
+          "type": "тер",
           "loaded": true,
           "chainageM": 598.68,
           "intervalM": [
@@ -5350,12 +5535,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000022-034",
-          "type": "хоппер",
-          "loaded": true,
+          "type": "тер",
+          "loaded": false,
           "chainageM": 622.18,
           "intervalM": [
             610.18,
@@ -5375,12 +5560,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000022-035",
-          "type": "тер",
-          "loaded": false,
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 645.68,
           "intervalM": [
             635.18,
@@ -5398,14 +5583,14 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 1.3
           },
-          "color": "#E5E7EB"
+          "color": "#B45309"
         },
         {
           "id": "W-000000022-036",
           "type": "фит.пл.",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 663.88,
           "intervalM": [
             657.18,
@@ -5468,8 +5653,8 @@
       "wagons": [
         {
           "id": "W-000000053-001",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "кр",
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -5486,14 +5671,14 @@
           "headingDeg": 71.557,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.1,
-            "heightM": 4.4
+            "widthM": 3.25,
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000053-002",
-          "type": "пв",
+          "type": "сетка а/м",
           "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
@@ -5511,15 +5696,15 @@
           "headingDeg": 71.557,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.8
           },
-          "color": "#4B5563"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000053-003",
-          "type": "реф",
-          "loaded": true,
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -5537,13 +5722,13 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#DCEAF7"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000053-004",
-          "type": "хоппер",
+          "type": "думпкар",
           "loaded": true,
           "chainageM": 65.62,
           "intervalM": [
@@ -5568,7 +5753,7 @@
         },
         {
           "id": "W-000000053-005",
-          "type": "тер",
+          "type": "думпкар",
           "loaded": false,
           "chainageM": 89.12,
           "intervalM": [
@@ -5589,11 +5774,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000053-006",
-          "type": "фит.пл.",
+          "type": "платформа-х",
           "loaded": true,
           "chainageM": 107.32,
           "intervalM": [
@@ -5612,14 +5797,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000053-007",
-          "type": "кр",
-          "loaded": true,
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 122.87,
           "intervalM": [
             115.02,
@@ -5636,14 +5821,14 @@
           "headingDeg": 71.295,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
+            "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#8B5A2B"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000053-008",
-          "type": "сетка а/м",
+          "type": "цистерна",
           "loaded": true,
           "chainageM": 143.72,
           "intervalM": [
@@ -5662,14 +5847,14 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.4
           },
-          "color": "#94A3B8"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000053-009",
-          "type": "думпкар",
-          "loaded": true,
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 163.42,
           "intervalM": [
             156.72,
@@ -5687,14 +5872,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.4
           },
-          "color": "#6B7280"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000053-010",
-          "type": "платформа-х",
-          "loaded": false,
+          "type": "пв",
+          "loaded": true,
           "chainageM": 177.82,
           "intervalM": [
             171.12,
@@ -5711,15 +5896,15 @@
           "headingDeg": 71.74,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#6B7280"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000053-011",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "пв",
+          "loaded": false,
           "chainageM": 193.37,
           "intervalM": [
             185.52,
@@ -5736,14 +5921,14 @@
           "headingDeg": 71.74,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.1,
-            "heightM": 4.4
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#A8A29E"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000053-012",
-          "type": "пв",
+          "type": "реф",
           "loaded": true,
           "chainageM": 209.18,
           "intervalM": [
@@ -5761,15 +5946,15 @@
           "headingDeg": 71.74,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000053-013",
           "type": "реф",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 227.64,
           "intervalM": [
             217.14,
@@ -5818,7 +6003,7 @@
         },
         {
           "id": "W-000000053-015",
-          "type": "тер",
+          "type": "хоппер",
           "loaded": false,
           "chainageM": 274.64,
           "intervalM": [
@@ -5839,7 +6024,7 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#6B7280"
         }
       ]
     },
@@ -5857,7 +6042,7 @@
       "wagons": [
         {
           "id": "W-000000023-001",
-          "type": "цистерна",
+          "type": "тер",
           "loaded": true,
           "chainageM": 7.85,
           "intervalM": [
@@ -5876,14 +6061,14 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000023-002",
-          "type": "пв",
-          "loaded": true,
+          "type": "тер",
+          "loaded": false,
           "chainageM": 23.66,
           "intervalM": [
             16.7,
@@ -5900,14 +6085,14 @@
           "headingDeg": -108.763,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000023-003",
-          "type": "реф",
+          "type": "фит.пл.",
           "loaded": true,
           "chainageM": 42.12,
           "intervalM": [
@@ -5926,14 +6111,14 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 1.3
           },
-          "color": "#DCEAF7"
+          "color": "#B45309"
         },
         {
           "id": "W-000000023-004",
-          "type": "хоппер",
-          "loaded": true,
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 65.62,
           "intervalM": [
             53.62,
@@ -5951,14 +6136,14 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 1.3
           },
-          "color": "#6B7280"
+          "color": "#B45309"
         },
         {
           "id": "W-000000023-005",
-          "type": "тер",
-          "loaded": false,
+          "type": "кр",
+          "loaded": true,
           "chainageM": 89.12,
           "intervalM": [
             78.62,
@@ -5975,15 +6160,15 @@
           "headingDeg": -108.54,
           "size": {
             "lengthM": 21.0,
-            "widthM": 3.1,
+            "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000023-006",
-          "type": "фит.пл.",
-          "loaded": true,
+          "type": "кр",
+          "loaded": false,
           "chainageM": 107.32,
           "intervalM": [
             100.62,
@@ -6000,14 +6185,14 @@
           "headingDeg": -108.503,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 1.3
+            "widthM": 3.25,
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000023-007",
-          "type": "кр",
+          "type": "сетка а/м",
           "loaded": true,
           "chainageM": 122.87,
           "intervalM": [
@@ -6025,15 +6210,15 @@
           "headingDeg": -108.33,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 4.8
           },
-          "color": "#8B5A2B"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000023-008",
           "type": "сетка а/м",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 143.72,
           "intervalM": [
             131.72,
@@ -6082,7 +6267,7 @@
         },
         {
           "id": "W-000000023-010",
-          "type": "платформа-х",
+          "type": "думпкар",
           "loaded": false,
           "chainageM": 177.82,
           "intervalM": [
@@ -6107,7 +6292,7 @@
         },
         {
           "id": "W-000000023-011",
-          "type": "цистерна",
+          "type": "платформа-х",
           "loaded": true,
           "chainageM": 193.37,
           "intervalM": [
@@ -6126,14 +6311,14 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000023-012",
-          "type": "пв",
-          "loaded": true,
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 209.18,
           "intervalM": [
             202.22,
@@ -6150,14 +6335,14 @@
           "headingDeg": -108.199,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000023-013",
-          "type": "реф",
+          "type": "цистерна",
           "loaded": true,
           "chainageM": 227.64,
           "intervalM": [
@@ -6176,14 +6361,14 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.4
           },
-          "color": "#DCEAF7"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000023-014",
-          "type": "хоппер",
-          "loaded": true,
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 251.14,
           "intervalM": [
             239.14,
@@ -6201,14 +6386,14 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.4
           },
-          "color": "#6B7280"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000023-015",
-          "type": "тер",
-          "loaded": false,
+          "type": "пв",
+          "loaded": true,
           "chainageM": 274.64,
           "intervalM": [
             264.14,
@@ -6225,15 +6410,15 @@
           "headingDeg": -107.013,
           "size": {
             "lengthM": 21.0,
-            "widthM": 3.1,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#E5E7EB"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000023-016",
-          "type": "фит.пл.",
-          "loaded": true,
+          "type": "пв",
+          "loaded": false,
           "chainageM": 292.84,
           "intervalM": [
             286.14,
@@ -6250,10 +6435,10 @@
           "headingDeg": -98.78,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 1.3
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#B45309"
+          "color": "#4B5563"
         }
       ]
     },
@@ -6271,7 +6456,7 @@
       "wagons": [
         {
           "id": "W-000000011-001",
-          "type": "цистерна",
+          "type": "реф",
           "loaded": true,
           "chainageM": 7.85,
           "intervalM": [
@@ -6290,14 +6475,14 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000011-002",
-          "type": "пв",
-          "loaded": true,
+          "type": "реф",
+          "loaded": false,
           "chainageM": 23.66,
           "intervalM": [
             16.7,
@@ -6314,14 +6499,14 @@
           "headingDeg": 40.396,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000011-003",
-          "type": "реф",
+          "type": "хоппер",
           "loaded": true,
           "chainageM": 42.12,
           "intervalM": [
@@ -6342,12 +6527,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000011-004",
           "type": "хоппер",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 65.62,
           "intervalM": [
             53.62,
@@ -6372,7 +6557,7 @@
         {
           "id": "W-000000011-005",
           "type": "тер",
-          "loaded": false,
+          "loaded": true,
           "chainageM": 89.12,
           "intervalM": [
             78.62,
@@ -6396,8 +6581,8 @@
         },
         {
           "id": "W-000000011-006",
-          "type": "фит.пл.",
-          "loaded": true,
+          "type": "тер",
+          "loaded": false,
           "chainageM": 107.32,
           "intervalM": [
             100.62,
@@ -6415,13 +6600,13 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000011-007",
-          "type": "кр",
+          "type": "фит.пл.",
           "loaded": true,
           "chainageM": 122.87,
           "intervalM": [
@@ -6439,15 +6624,15 @@
           "headingDeg": 40.289,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 1.3
           },
-          "color": "#8B5A2B"
+          "color": "#B45309"
         },
         {
           "id": "W-000000011-008",
-          "type": "сетка а/м",
-          "loaded": true,
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 143.72,
           "intervalM": [
             131.72,
@@ -6465,13 +6650,13 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 1.3
           },
-          "color": "#94A3B8"
+          "color": "#B45309"
         },
         {
           "id": "W-000000011-009",
-          "type": "думпкар",
+          "type": "кр",
           "loaded": true,
           "chainageM": 163.42,
           "intervalM": [
@@ -6489,14 +6674,14 @@
           "headingDeg": 39.448,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
+            "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000011-010",
-          "type": "платформа-х",
+          "type": "кр",
           "loaded": false,
           "chainageM": 177.82,
           "intervalM": [
@@ -6514,10 +6699,10 @@
           "headingDeg": 39.448,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
+            "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#8B5A2B"
         }
       ]
     },
@@ -6535,7 +6720,7 @@
       "wagons": [
         {
           "id": "W-000000010-001",
-          "type": "цистерна",
+          "type": "сетка а/м",
           "loaded": true,
           "chainageM": 7.85,
           "intervalM": [
@@ -6554,14 +6739,14 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.8
           },
-          "color": "#A8A29E"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000010-002",
-          "type": "пв",
-          "loaded": true,
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 23.66,
           "intervalM": [
             16.7,
@@ -6578,14 +6763,14 @@
           "headingDeg": -139.72,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.8
           },
-          "color": "#4B5563"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000010-003",
-          "type": "реф",
+          "type": "думпкар",
           "loaded": true,
           "chainageM": 42.12,
           "intervalM": [
@@ -6606,12 +6791,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000010-004",
-          "type": "хоппер",
-          "loaded": true,
+          "type": "думпкар",
+          "loaded": false,
           "chainageM": 65.62,
           "intervalM": [
             53.62,
@@ -6635,8 +6820,8 @@
         },
         {
           "id": "W-000000010-005",
-          "type": "тер",
-          "loaded": false,
+          "type": "платформа-х",
+          "loaded": true,
           "chainageM": 89.12,
           "intervalM": [
             78.62,
@@ -6656,12 +6841,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000010-006",
-          "type": "фит.пл.",
-          "loaded": true,
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 107.32,
           "intervalM": [
             100.62,
@@ -6679,13 +6864,13 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000010-007",
-          "type": "кр",
+          "type": "цистерна",
           "loaded": true,
           "chainageM": 122.87,
           "intervalM": [
@@ -6703,15 +6888,15 @@
           "headingDeg": -139.877,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#8B5A2B"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000010-008",
-          "type": "сетка а/м",
-          "loaded": true,
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 143.72,
           "intervalM": [
             131.72,
@@ -6729,13 +6914,13 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.4
           },
-          "color": "#94A3B8"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000010-009",
-          "type": "думпкар",
+          "type": "пв",
           "loaded": true,
           "chainageM": 163.42,
           "intervalM": [
@@ -6753,14 +6938,14 @@
           "headingDeg": -140.361,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#6B7280"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000010-010",
-          "type": "платформа-х",
+          "type": "пв",
           "loaded": false,
           "chainageM": 177.82,
           "intervalM": [
@@ -6778,10 +6963,10 @@
           "headingDeg": -140.361,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#6B7280"
+          "color": "#4B5563"
         }
       ]
     },
@@ -6799,7 +6984,7 @@
       "wagons": [
         {
           "id": "W-000000012-001",
-          "type": "цистерна",
+          "type": "реф",
           "loaded": true,
           "chainageM": 7.85,
           "intervalM": [
@@ -6807,49 +6992,49 @@
             15.7
           ],
           "position": [
-            735014.418,
-            4776270.694
+            734990.324,
+            4776250.329
           ],
           "tangent": [
-            0.764077,
-            0.645125
+            0.763603,
+            0.645686
           ],
-          "headingDeg": 40.175,
+          "headingDeg": 40.217,
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000012-002",
-          "type": "пв",
-          "loaded": true,
+          "type": "реф",
+          "loaded": false,
           "chainageM": 23.66,
           "intervalM": [
             16.7,
             30.62
           ],
           "position": [
-            735026.498,
-            4776280.894
+            735002.397,
+            4776260.537
           ],
           "tangent": [
-            0.764077,
-            0.645125
+            0.763603,
+            0.645686
           ],
-          "headingDeg": 40.175,
+          "headingDeg": 40.217,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000012-003",
-          "type": "реф",
+          "type": "хоппер",
           "loaded": true,
           "chainageM": 42.12,
           "intervalM": [
@@ -6857,8 +7042,8 @@
             52.62
           ],
           "position": [
-            735040.603,
-            4776292.803
+            735016.498,
+            4776272.45
           ],
           "tangent": [
             0.764077,
@@ -6870,26 +7055,26 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000012-004",
           "type": "хоппер",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 65.62,
           "intervalM": [
             53.62,
             77.62
           ],
           "position": [
-            735058.576,
-            4776307.942
+            735034.454,
+            4776287.611
           ],
           "tangent": [
-            0.765922,
-            0.642934
+            0.764077,
+            0.645125
           ],
-          "headingDeg": 40.011,
+          "headingDeg": 40.175,
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
@@ -6900,15 +7085,15 @@
         {
           "id": "W-000000012-005",
           "type": "тер",
-          "loaded": false,
+          "loaded": true,
           "chainageM": 89.12,
           "intervalM": [
             78.62,
             99.62
           ],
           "position": [
-            735076.576,
-            4776323.051
+            735052.412,
+            4776302.768
           ],
           "tangent": [
             0.765922,
@@ -6924,16 +7109,16 @@
         },
         {
           "id": "W-000000012-006",
-          "type": "фит.пл.",
-          "loaded": true,
+          "type": "тер",
+          "loaded": false,
           "chainageM": 107.32,
           "intervalM": [
             100.62,
             114.02
           ],
           "position": [
-            735090.515,
-            4776334.752
+            735066.352,
+            4776314.469
           ],
           "tangent": [
             0.765922,
@@ -6943,13 +7128,13 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000012-007",
-          "type": "кр",
+          "type": "фит.пл.",
           "loaded": true,
           "chainageM": 122.87,
           "intervalM": [
@@ -6957,33 +7142,33 @@
             130.72
           ],
           "position": [
-            735102.423,
-            4776344.753
+            735078.262,
+            4776324.467
           ],
           "tangent": [
-            0.765708,
-            0.643188
+            0.765922,
+            0.642934
           ],
-          "headingDeg": 40.03,
+          "headingDeg": 40.011,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 1.3
           },
-          "color": "#8B5A2B"
+          "color": "#B45309"
         },
         {
           "id": "W-000000012-008",
-          "type": "сетка а/м",
-          "loaded": true,
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 143.72,
           "intervalM": [
             131.72,
             155.72
           ],
           "position": [
-            735118.388,
-            4776358.163
+            735094.232,
+            4776337.872
           ],
           "tangent": [
             0.765708,
@@ -6993,13 +7178,13 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 1.3
           },
-          "color": "#94A3B8"
+          "color": "#B45309"
         },
         {
           "id": "W-000000012-009",
-          "type": "думпкар",
+          "type": "кр",
           "loaded": true,
           "chainageM": 163.42,
           "intervalM": [
@@ -7007,8 +7192,8 @@
             170.12
           ],
           "position": [
-            735133.473,
-            4776370.834
+            735109.316,
+            4776350.543
           ],
           "tangent": [
             0.765708,
@@ -7017,10 +7202,10 @@
           "headingDeg": 40.03,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
+            "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#8B5A2B"
         }
       ]
     },
@@ -7038,32 +7223,32 @@
       "wagons": [
         {
           "id": "W-000000002-001",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "кр",
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
             15.7
           ],
           "position": [
-            735030.387,
-            4776275.863
+            734832.046,
+            4776126.775
           ],
           "tangent": [
-            -0.765251,
-            -0.643732
+            -0.819835,
+            -0.572599
           ],
-          "headingDeg": -139.929,
+          "headingDeg": -145.068,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.1,
-            "heightM": 4.4
+            "widthM": 3.25,
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000002-002",
-          "type": "пв",
+          "type": "сетка а/м",
           "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
@@ -7071,49 +7256,49 @@
             30.62
           ],
           "position": [
-            735042.486,
-            4776286.041
+            734844.942,
+            4776135.92
           ],
           "tangent": [
-            -0.765251,
-            -0.643732
+            -0.81502,
+            -0.579432
           ],
-          "headingDeg": -139.929,
+          "headingDeg": -144.589,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.8
           },
-          "color": "#4B5563"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000002-003",
-          "type": "реф",
-          "loaded": true,
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
             52.62
           ],
           "position": [
-            735056.612,
-            4776297.924
+            734859.987,
+            4776146.617
           ],
           "tangent": [
-            -0.765251,
-            -0.643732
+            -0.81502,
+            -0.579432
           ],
-          "headingDeg": -139.929,
+          "headingDeg": -144.589,
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#DCEAF7"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000002-004",
-          "type": "хоппер",
+          "type": "думпкар",
           "loaded": true,
           "chainageM": 65.62,
           "intervalM": [
@@ -7121,14 +7306,14 @@
             77.62
           ],
           "position": [
-            735074.597,
-            4776313.05
+            734879.065,
+            4776160.339
           ],
           "tangent": [
-            -0.766021,
-            -0.642815
+            -0.809443,
+            -0.587198
           ],
-          "headingDeg": -139.998,
+          "headingDeg": -144.042,
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
@@ -7138,7 +7323,7 @@
         },
         {
           "id": "W-000000002-005",
-          "type": "тер",
+          "type": "думпкар",
           "loaded": false,
           "chainageM": 89.12,
           "intervalM": [
@@ -7146,24 +7331,24 @@
             99.62
           ],
           "position": [
-            735092.575,
-            4776328.184
+            734898.092,
+            4776174.13
           ],
           "tangent": [
-            -0.764825,
-            -0.644238
+            -0.810333,
+            -0.58597
           ],
-          "headingDeg": -139.891,
+          "headingDeg": -144.128,
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000002-006",
-          "type": "фит.пл.",
+          "type": "платформа-х",
           "loaded": true,
           "chainageM": 107.32,
           "intervalM": [
@@ -7171,49 +7356,49 @@
             114.02
           ],
           "position": [
-            735106.495,
-            4776339.909
+            734912.84,
+            4776184.794
           ],
           "tangent": [
-            -0.765056,
-            -0.643963
+            -0.810333,
+            -0.58597
           ],
-          "headingDeg": -139.912,
+          "headingDeg": -144.128,
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000002-007",
-          "type": "кр",
-          "loaded": true,
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 122.87,
           "intervalM": [
             115.02,
             130.72
           ],
           "position": [
-            735118.392,
-            4776349.923
+            734925.441,
+            4776193.906
           ],
           "tangent": [
-            -0.765056,
-            -0.643963
+            -0.810333,
+            -0.58597
           ],
-          "headingDeg": -139.912,
+          "headingDeg": -144.128,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
+            "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#8B5A2B"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000002-008",
-          "type": "сетка а/м",
+          "type": "цистерна",
           "loaded": true,
           "chainageM": 143.72,
           "intervalM": [
@@ -7221,45 +7406,45 @@
             155.72
           ],
           "position": [
-            735134.361,
-            4776363.329
+            734942.341,
+            4776206.118
           ],
           "tangent": [
-            -0.767155,
-            -0.641462
+            -0.810555,
+            -0.585663
           ],
-          "headingDeg": -140.099,
+          "headingDeg": -144.15,
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.4
           },
-          "color": "#94A3B8"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000002-009",
-          "type": "думпкар",
-          "loaded": true,
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 163.42,
           "intervalM": [
             156.72,
             170.12
           ],
           "position": [
-            735149.474,
-            4776375.965
+            734958.24,
+            4776217.749
           ],
           "tangent": [
-            -0.767155,
-            -0.641462
+            -0.801837,
+            -0.597543
           ],
-          "headingDeg": -140.099,
+          "headingDeg": -143.306,
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.4
           },
-          "color": "#6B7280"
+          "color": "#A8A29E"
         }
       ]
     },
@@ -7277,7 +7462,7 @@
       "wagons": [
         {
           "id": "W-000000015-001",
-          "type": "цистерна",
+          "type": "пв",
           "loaded": true,
           "chainageM": 7.85,
           "intervalM": [
@@ -7295,15 +7480,15 @@
           "headingDeg": 35.267,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.1,
-            "heightM": 4.4
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#A8A29E"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000015-002",
           "type": "пв",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 23.66,
           "intervalM": [
             16.7,
@@ -7352,8 +7537,8 @@
         },
         {
           "id": "W-000000015-004",
-          "type": "хоппер",
-          "loaded": true,
+          "type": "реф",
+          "loaded": false,
           "chainageM": 65.62,
           "intervalM": [
             53.62,
@@ -7373,12 +7558,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000015-005",
-          "type": "тер",
-          "loaded": false,
+          "type": "хоппер",
+          "loaded": true,
           "chainageM": 89.12,
           "intervalM": [
             78.62,
@@ -7398,12 +7583,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000015-006",
-          "type": "фит.пл.",
-          "loaded": true,
+          "type": "хоппер",
+          "loaded": false,
           "chainageM": 107.32,
           "intervalM": [
             100.62,
@@ -7421,9 +7606,9 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#6B7280"
         }
       ]
     },
@@ -7441,7 +7626,7 @@
       "wagons": [
         {
           "id": "W-000000003-001",
-          "type": "цистерна",
+          "type": "тер",
           "loaded": true,
           "chainageM": 7.85,
           "intervalM": [
@@ -7460,14 +7645,14 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000003-002",
-          "type": "пв",
-          "loaded": true,
+          "type": "тер",
+          "loaded": false,
           "chainageM": 23.66,
           "intervalM": [
             16.7,
@@ -7484,14 +7669,14 @@
           "headingDeg": -144.03,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000003-003",
-          "type": "реф",
+          "type": "фит.пл.",
           "loaded": true,
           "chainageM": 42.12,
           "intervalM": [
@@ -7510,14 +7695,14 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 1.3
           },
-          "color": "#DCEAF7"
+          "color": "#B45309"
         },
         {
           "id": "W-000000003-004",
-          "type": "хоппер",
-          "loaded": true,
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 65.62,
           "intervalM": [
             53.62,
@@ -7535,14 +7720,14 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 1.3
           },
-          "color": "#6B7280"
+          "color": "#B45309"
         },
         {
           "id": "W-000000003-005",
-          "type": "тер",
-          "loaded": false,
+          "type": "кр",
+          "loaded": true,
           "chainageM": 89.12,
           "intervalM": [
             78.62,
@@ -7559,15 +7744,15 @@
           "headingDeg": -144.448,
           "size": {
             "lengthM": 21.0,
-            "widthM": 3.1,
+            "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000003-006",
-          "type": "фит.пл.",
-          "loaded": true,
+          "type": "кр",
+          "loaded": false,
           "chainageM": 107.32,
           "intervalM": [
             100.62,
@@ -7584,14 +7769,14 @@
           "headingDeg": -144.448,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 1.3
+            "widthM": 3.25,
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000003-007",
-          "type": "кр",
+          "type": "сетка а/м",
           "loaded": true,
           "chainageM": 122.87,
           "intervalM": [
@@ -7609,15 +7794,15 @@
           "headingDeg": -144.448,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 4.8
           },
-          "color": "#8B5A2B"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000003-008",
           "type": "сетка а/м",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 143.72,
           "intervalM": [
             131.72,
@@ -7666,7 +7851,7 @@
         },
         {
           "id": "W-000000003-010",
-          "type": "платформа-х",
+          "type": "думпкар",
           "loaded": false,
           "chainageM": 177.82,
           "intervalM": [
@@ -7691,7 +7876,7 @@
         },
         {
           "id": "W-000000003-011",
-          "type": "цистерна",
+          "type": "платформа-х",
           "loaded": true,
           "chainageM": 193.37,
           "intervalM": [
@@ -7710,14 +7895,14 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000003-012",
-          "type": "пв",
-          "loaded": true,
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 209.18,
           "intervalM": [
             202.22,
@@ -7734,14 +7919,14 @@
           "headingDeg": -143.664,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000003-013",
-          "type": "реф",
+          "type": "цистерна",
           "loaded": true,
           "chainageM": 227.64,
           "intervalM": [
@@ -7760,14 +7945,14 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.4
           },
-          "color": "#DCEAF7"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000003-014",
-          "type": "хоппер",
-          "loaded": true,
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 251.14,
           "intervalM": [
             239.14,
@@ -7785,14 +7970,14 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.4
           },
-          "color": "#6B7280"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000003-015",
-          "type": "тер",
-          "loaded": false,
+          "type": "пв",
+          "loaded": true,
           "chainageM": 274.64,
           "intervalM": [
             264.14,
@@ -7809,15 +7994,15 @@
           "headingDeg": -139.903,
           "size": {
             "lengthM": 21.0,
-            "widthM": 3.1,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#E5E7EB"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000003-016",
-          "type": "фит.пл.",
-          "loaded": true,
+          "type": "пв",
+          "loaded": false,
           "chainageM": 292.84,
           "intervalM": [
             286.14,
@@ -7834,14 +8019,14 @@
           "headingDeg": -139.903,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 1.3
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#B45309"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000003-017",
-          "type": "кр",
+          "type": "реф",
           "loaded": true,
           "chainageM": 308.39,
           "intervalM": [
@@ -7859,15 +8044,15 @@
           "headingDeg": -139.738,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
+            "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#8B5A2B"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000003-018",
-          "type": "сетка а/м",
-          "loaded": true,
+          "type": "реф",
+          "loaded": false,
           "chainageM": 329.24,
           "intervalM": [
             317.24,
@@ -7885,13 +8070,13 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.7
           },
-          "color": "#94A3B8"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000003-019",
-          "type": "думпкар",
+          "type": "хоппер",
           "loaded": true,
           "chainageM": 348.94,
           "intervalM": [
@@ -7916,7 +8101,7 @@
         },
         {
           "id": "W-000000003-020",
-          "type": "платформа-х",
+          "type": "хоппер",
           "loaded": false,
           "chainageM": 363.34,
           "intervalM": [
@@ -7941,7 +8126,7 @@
         },
         {
           "id": "W-000000003-021",
-          "type": "цистерна",
+          "type": "тер",
           "loaded": true,
           "chainageM": 378.89,
           "intervalM": [
@@ -7960,14 +8145,14 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000003-022",
-          "type": "пв",
-          "loaded": true,
+          "type": "тер",
+          "loaded": false,
           "chainageM": 394.7,
           "intervalM": [
             387.74,
@@ -7984,14 +8169,14 @@
           "headingDeg": -139.794,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000003-023",
-          "type": "реф",
+          "type": "фит.пл.",
           "loaded": true,
           "chainageM": 413.16,
           "intervalM": [
@@ -8010,9 +8195,9 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 1.3
           },
-          "color": "#DCEAF7"
+          "color": "#B45309"
         }
       ]
     },
@@ -8030,8 +8215,8 @@
       "wagons": [
         {
           "id": "W-000000004-001",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -8049,13 +8234,13 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 1.3
           },
-          "color": "#A8A29E"
+          "color": "#B45309"
         },
         {
           "id": "W-000000004-002",
-          "type": "пв",
+          "type": "кр",
           "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
@@ -8073,15 +8258,15 @@
           "headingDeg": 38.709,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.25,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000004-003",
-          "type": "реф",
-          "loaded": true,
+          "type": "кр",
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -8098,14 +8283,14 @@
           "headingDeg": 38.709,
           "size": {
             "lengthM": 21.0,
-            "widthM": 3.1,
+            "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000004-004",
-          "type": "хоппер",
+          "type": "сетка а/м",
           "loaded": true,
           "chainageM": 65.62,
           "intervalM": [
@@ -8124,13 +8309,13 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#6B7280"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000004-005",
-          "type": "тер",
+          "type": "сетка а/м",
           "loaded": false,
           "chainageM": 89.12,
           "intervalM": [
@@ -8149,13 +8334,13 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#E5E7EB"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000004-006",
-          "type": "фит.пл.",
+          "type": "думпкар",
           "loaded": true,
           "chainageM": 107.32,
           "intervalM": [
@@ -8174,14 +8359,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000004-007",
-          "type": "кр",
-          "loaded": true,
+          "type": "думпкар",
+          "loaded": false,
           "chainageM": 122.87,
           "intervalM": [
             115.02,
@@ -8198,14 +8383,14 @@
           "headingDeg": 40.334,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
+            "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#8B5A2B"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000004-008",
-          "type": "сетка а/м",
+          "type": "платформа-х",
           "loaded": true,
           "chainageM": 143.72,
           "intervalM": [
@@ -8224,14 +8409,14 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.7
           },
-          "color": "#94A3B8"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000004-009",
-          "type": "думпкар",
-          "loaded": true,
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 163.42,
           "intervalM": [
             156.72,
@@ -8255,8 +8440,8 @@
         },
         {
           "id": "W-000000004-010",
-          "type": "платформа-х",
-          "loaded": false,
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 177.82,
           "intervalM": [
             171.12,
@@ -8274,14 +8459,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.4
           },
-          "color": "#6B7280"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000004-011",
           "type": "цистерна",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 193.37,
           "intervalM": [
             185.52,
@@ -8319,7 +8504,7 @@
       "wagons": [
         {
           "id": "W-000000005-001",
-          "type": "цистерна",
+          "type": "пв",
           "loaded": true,
           "chainageM": 7.85,
           "intervalM": [
@@ -8327,39 +8512,39 @@
             15.7
           ],
           "position": [
-            735011.943,
-            4776233.337
+            734911.881,
+            4776144.889
           ],
           "tangent": [
-            -0.758296,
-            -0.65191
+            -0.718583,
+            -0.695441
           ],
-          "headingDeg": -139.314,
+          "headingDeg": -135.938,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.1,
-            "heightM": 4.4
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#A8A29E"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000005-002",
           "type": "пв",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 23.66,
           "intervalM": [
             16.7,
             30.62
           ],
           "position": [
-            735023.931,
-            4776243.644
+            734923.242,
+            4776155.884
           ],
           "tangent": [
-            -0.758296,
-            -0.65191
+            -0.718583,
+            -0.695441
           ],
-          "headingDeg": -139.314,
+          "headingDeg": -135.938,
           "size": {
             "lengthM": 13.92,
             "widthM": 3.24,
@@ -8377,14 +8562,14 @@
             52.62
           ],
           "position": [
-            735037.929,
-            4776255.678
+            734936.507,
+            4776168.722
           ],
           "tangent": [
-            -0.758296,
-            -0.65191
+            -0.718583,
+            -0.695441
           ],
-          "headingDeg": -139.314,
+          "headingDeg": -135.938,
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
@@ -8394,82 +8579,82 @@
         },
         {
           "id": "W-000000005-004",
-          "type": "хоппер",
-          "loaded": true,
+          "type": "реф",
+          "loaded": false,
           "chainageM": 65.62,
           "intervalM": [
             53.62,
             77.62
           ],
           "position": [
-            735055.838,
-            4776270.895
+            734954.136,
+            4776184.26
           ],
           "tangent": [
-            -0.762145,
-            -0.647406
+            -0.751086,
+            -0.660204
           ],
-          "headingDeg": -139.654,
+          "headingDeg": -138.685,
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000005-005",
-          "type": "тер",
-          "loaded": false,
+          "type": "хоппер",
+          "loaded": true,
           "chainageM": 89.12,
           "intervalM": [
             78.62,
             99.62
           ],
           "position": [
-            735073.748,
-            4776286.109
+            734971.972,
+            4776199.56
           ],
           "tangent": [
-            -0.762145,
-            -0.647406
+            -0.76161,
+            -0.648036
           ],
-          "headingDeg": -139.654,
+          "headingDeg": -139.606,
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000005-006",
-          "type": "фит.пл.",
-          "loaded": true,
+          "type": "хоппер",
+          "loaded": false,
           "chainageM": 107.32,
           "intervalM": [
             100.62,
             114.02
           ],
           "position": [
-            735087.619,
-            4776297.892
+            734985.833,
+            4776211.355
           ],
           "tangent": [
-            -0.762145,
-            -0.647406
+            -0.76161,
+            -0.648036
           ],
-          "headingDeg": -139.654,
+          "headingDeg": -139.606,
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000005-007",
-          "type": "кр",
+          "type": "тер",
           "loaded": true,
           "chainageM": 122.87,
           "intervalM": [
@@ -8477,49 +8662,49 @@
             130.72
           ],
           "position": [
-            735099.471,
-            4776307.959
+            734997.676,
+            4776221.432
           ],
           "tangent": [
-            -0.762145,
-            -0.647406
+            -0.76161,
+            -0.648036
           ],
-          "headingDeg": -139.654,
+          "headingDeg": -139.606,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
+            "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#8B5A2B"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000005-008",
-          "type": "сетка а/м",
-          "loaded": true,
+          "type": "тер",
+          "loaded": false,
           "chainageM": 143.72,
           "intervalM": [
             131.72,
             155.72
           ],
           "position": [
-            735115.471,
-            4776321.327
+            735013.556,
+            4776234.943
           ],
           "tangent": [
-            -0.768528,
-            -0.639816
+            -0.76161,
+            -0.648036
           ],
-          "headingDeg": -140.222,
+          "headingDeg": -139.606,
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.7
           },
-          "color": "#94A3B8"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000005-009",
-          "type": "думпкар",
+          "type": "фит.пл.",
           "loaded": true,
           "chainageM": 163.42,
           "intervalM": [
@@ -8527,20 +8712,20 @@
             170.12
           ],
           "position": [
-            735130.611,
-            4776333.931
+            735028.559,
+            4776247.709
           ],
           "tangent": [
-            -0.768528,
-            -0.639816
+            -0.76161,
+            -0.648036
           ],
-          "headingDeg": -140.222,
+          "headingDeg": -139.606,
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 1.3
           },
-          "color": "#6B7280"
+          "color": "#B45309"
         }
       ]
     },
@@ -8558,8 +8743,8 @@
       "wagons": [
         {
           "id": "W-000000006-001",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -8577,13 +8762,13 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 1.3
           },
-          "color": "#A8A29E"
+          "color": "#B45309"
         },
         {
           "id": "W-000000006-002",
-          "type": "пв",
+          "type": "кр",
           "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
@@ -8601,15 +8786,15 @@
           "headingDeg": 40.255,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.25,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000006-003",
-          "type": "реф",
-          "loaded": true,
+          "type": "кр",
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -8626,14 +8811,14 @@
           "headingDeg": 42.635,
           "size": {
             "lengthM": 21.0,
-            "widthM": 3.1,
+            "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000006-004",
-          "type": "хоппер",
+          "type": "сетка а/м",
           "loaded": true,
           "chainageM": 65.62,
           "intervalM": [
@@ -8652,13 +8837,13 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#6B7280"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000006-005",
-          "type": "тер",
+          "type": "сетка а/м",
           "loaded": false,
           "chainageM": 89.12,
           "intervalM": [
@@ -8677,13 +8862,13 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#E5E7EB"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000006-006",
-          "type": "фит.пл.",
+          "type": "думпкар",
           "loaded": true,
           "chainageM": 107.32,
           "intervalM": [
@@ -8702,14 +8887,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000006-007",
-          "type": "кр",
-          "loaded": true,
+          "type": "думпкар",
+          "loaded": false,
           "chainageM": 122.87,
           "intervalM": [
             115.02,
@@ -8726,14 +8911,14 @@
           "headingDeg": 41.52,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
+            "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#8B5A2B"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000006-008",
-          "type": "сетка а/м",
+          "type": "платформа-х",
           "loaded": true,
           "chainageM": 143.72,
           "intervalM": [
@@ -8752,14 +8937,14 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.7
           },
-          "color": "#94A3B8"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000006-009",
-          "type": "думпкар",
-          "loaded": true,
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 163.42,
           "intervalM": [
             156.72,
@@ -8783,8 +8968,8 @@
         },
         {
           "id": "W-000000006-010",
-          "type": "платформа-х",
-          "loaded": false,
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 177.82,
           "intervalM": [
             171.12,
@@ -8802,14 +8987,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.4
           },
-          "color": "#6B7280"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000006-011",
           "type": "цистерна",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 193.37,
           "intervalM": [
             185.52,
@@ -8858,8 +9043,8 @@
         },
         {
           "id": "W-000000006-013",
-          "type": "реф",
-          "loaded": true,
+          "type": "пв",
+          "loaded": false,
           "chainageM": 227.64,
           "intervalM": [
             217.14,
@@ -8876,14 +9061,14 @@
           "headingDeg": 40.522,
           "size": {
             "lengthM": 21.0,
-            "widthM": 3.1,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#DCEAF7"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000006-014",
-          "type": "хоппер",
+          "type": "реф",
           "loaded": true,
           "chainageM": 251.14,
           "intervalM": [
@@ -8904,11 +9089,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000006-015",
-          "type": "тер",
+          "type": "реф",
           "loaded": false,
           "chainageM": 274.64,
           "intervalM": [
@@ -8929,11 +9114,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000006-016",
-          "type": "фит.пл.",
+          "type": "хоппер",
           "loaded": true,
           "chainageM": 292.84,
           "intervalM": [
@@ -8952,14 +9137,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000006-017",
-          "type": "кр",
-          "loaded": true,
+          "type": "хоппер",
+          "loaded": false,
           "chainageM": 308.39,
           "intervalM": [
             300.54,
@@ -8976,14 +9161,14 @@
           "headingDeg": 40.52,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
+            "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#8B5A2B"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000006-018",
-          "type": "сетка а/м",
+          "type": "тер",
           "loaded": true,
           "chainageM": 329.24,
           "intervalM": [
@@ -9002,14 +9187,14 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.7
           },
-          "color": "#94A3B8"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000006-019",
-          "type": "думпкар",
-          "loaded": true,
+          "type": "тер",
+          "loaded": false,
           "chainageM": 348.94,
           "intervalM": [
             342.24,
@@ -9029,12 +9214,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000006-020",
-          "type": "платформа-х",
-          "loaded": false,
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 363.34,
           "intervalM": [
             356.64,
@@ -9052,9 +9237,9 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 1.3
           },
-          "color": "#6B7280"
+          "color": "#B45309"
         }
       ]
     },
@@ -9072,32 +9257,32 @@
       "wagons": [
         {
           "id": "W-000000007-001",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
             15.7
           ],
           "position": [
-            734866.734,
-            4776093.267
+            734710.094,
+            4775962.262
           ],
           "tangent": [
-            -0.77126,
-            -0.63652
+            -0.640026,
+            -0.768353
           ],
-          "headingDeg": -140.467,
+          "headingDeg": -129.794,
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 1.3
           },
-          "color": "#A8A29E"
+          "color": "#B45309"
         },
         {
           "id": "W-000000007-002",
-          "type": "пв",
+          "type": "кр",
           "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
@@ -9105,49 +9290,49 @@
             30.62
           ],
           "position": [
-            734878.928,
-            4776103.33
+            734720.318,
+            4775974.319
           ],
           "tangent": [
-            -0.77126,
-            -0.63652
+            -0.660841,
+            -0.750526
           ],
-          "headingDeg": -140.467,
+          "headingDeg": -131.364,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.25,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000007-003",
-          "type": "реф",
-          "loaded": true,
+          "type": "кр",
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
             52.62
           ],
           "position": [
-            734893.004,
-            4776115.269
+            734733.084,
+            4775987.637
           ],
           "tangent": [
-            -0.745764,
-            -0.666211
+            -0.713442,
+            -0.700714
           ],
-          "headingDeg": -138.225,
+          "headingDeg": -135.516,
           "size": {
             "lengthM": 21.0,
-            "widthM": 3.1,
+            "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000007-004",
-          "type": "хоппер",
+          "type": "сетка а/м",
           "loaded": true,
           "chainageM": 65.62,
           "intervalM": [
@@ -9155,114 +9340,14 @@
             77.62
           ],
           "position": [
-            734910.529,
-            4776130.925
+            734750.543,
+            4776003.35
           ],
           "tangent": [
-            -0.745801,
-            -0.666169
+            -0.784657,
+            -0.619931
           ],
-          "headingDeg": -138.228,
-          "size": {
-            "lengthM": 24.0,
-            "widthM": 3.1,
-            "heightM": 4.7
-          },
-          "color": "#6B7280"
-        },
-        {
-          "id": "W-000000007-005",
-          "type": "тер",
-          "loaded": false,
-          "chainageM": 89.12,
-          "intervalM": [
-            78.62,
-            99.62
-          ],
-          "position": [
-            734928.055,
-            4776146.58
-          ],
-          "tangent": [
-            -0.745801,
-            -0.666169
-          ],
-          "headingDeg": -138.228,
-          "size": {
-            "lengthM": 21.0,
-            "widthM": 3.1,
-            "heightM": 4.7
-          },
-          "color": "#E5E7EB"
-        },
-        {
-          "id": "W-000000007-006",
-          "type": "фит.пл.",
-          "loaded": true,
-          "chainageM": 107.32,
-          "intervalM": [
-            100.62,
-            114.02
-          ],
-          "position": [
-            734941.633,
-            4776158.699
-          ],
-          "tangent": [
-            -0.746101,
-            -0.665833
-          ],
-          "headingDeg": -138.254,
-          "size": {
-            "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 1.3
-          },
-          "color": "#B45309"
-        },
-        {
-          "id": "W-000000007-007",
-          "type": "кр",
-          "loaded": true,
-          "chainageM": 122.87,
-          "intervalM": [
-            115.02,
-            130.72
-          ],
-          "position": [
-            734953.082,
-            4776169.221
-          ],
-          "tangent": [
-            -0.735909,
-            -0.67708
-          ],
-          "headingDeg": -137.384,
-          "size": {
-            "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
-          },
-          "color": "#8B5A2B"
-        },
-        {
-          "id": "W-000000007-008",
-          "type": "сетка а/м",
-          "loaded": true,
-          "chainageM": 143.72,
-          "intervalM": [
-            131.72,
-            155.72
-          ],
-          "position": [
-            734968.427,
-            4776183.337
-          ],
-          "tangent": [
-            -0.736104,
-            -0.676868
-          ],
-          "headingDeg": -137.401,
+          "headingDeg": -141.689,
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
@@ -9271,23 +9356,123 @@
           "color": "#94A3B8"
         },
         {
-          "id": "W-000000007-009",
+          "id": "W-000000007-005",
+          "type": "сетка а/м",
+          "loaded": false,
+          "chainageM": 89.12,
+          "intervalM": [
+            78.62,
+            99.62
+          ],
+          "position": [
+            734769.065,
+            4776017.812
+          ],
+          "tangent": [
+            -0.795669,
+            -0.605732
+          ],
+          "headingDeg": -142.718,
+          "size": {
+            "lengthM": 21.0,
+            "widthM": 3.1,
+            "heightM": 4.8
+          },
+          "color": "#94A3B8"
+        },
+        {
+          "id": "W-000000007-006",
           "type": "думпкар",
           "loaded": true,
+          "chainageM": 107.32,
+          "intervalM": [
+            100.62,
+            114.02
+          ],
+          "position": [
+            734783.487,
+            4776028.913
+          ],
+          "tangent": [
+            -0.787656,
+            -0.616116
+          ],
+          "headingDeg": -141.967,
+          "size": {
+            "lengthM": 13.4,
+            "widthM": 3.1,
+            "heightM": 4.7
+          },
+          "color": "#6B7280"
+        },
+        {
+          "id": "W-000000007-007",
+          "type": "думпкар",
+          "loaded": false,
+          "chainageM": 122.87,
+          "intervalM": [
+            115.02,
+            130.72
+          ],
+          "position": [
+            734795.837,
+            4776038.36
+          ],
+          "tangent": [
+            -0.799074,
+            -0.601233
+          ],
+          "headingDeg": -143.042,
+          "size": {
+            "lengthM": 15.7,
+            "widthM": 3.1,
+            "heightM": 4.7
+          },
+          "color": "#6B7280"
+        },
+        {
+          "id": "W-000000007-008",
+          "type": "платформа-х",
+          "loaded": true,
+          "chainageM": 143.72,
+          "intervalM": [
+            131.72,
+            155.72
+          ],
+          "position": [
+            734812.435,
+            4776050.979
+          ],
+          "tangent": [
+            -0.792962,
+            -0.609272
+          ],
+          "headingDeg": -142.463,
+          "size": {
+            "lengthM": 24.0,
+            "widthM": 3.1,
+            "heightM": 4.7
+          },
+          "color": "#6B7280"
+        },
+        {
+          "id": "W-000000007-009",
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 163.42,
           "intervalM": [
             156.72,
             170.12
           ],
           "position": [
-            734983.214,
-            4776196.35
+            734828.056,
+            4776062.982
           ],
           "tangent": [
-            -0.759235,
-            -0.650817
+            -0.792962,
+            -0.609272
           ],
-          "headingDeg": -139.397,
+          "headingDeg": -142.463,
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
@@ -9297,47 +9482,47 @@
         },
         {
           "id": "W-000000007-010",
-          "type": "платформа-х",
-          "loaded": false,
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 177.82,
           "intervalM": [
             171.12,
             184.52
           ],
           "position": [
-            734994.147,
-            4776205.721
+            734839.475,
+            4776071.755
           ],
           "tangent": [
-            -0.759235,
-            -0.650817
+            -0.792962,
+            -0.609272
           ],
-          "headingDeg": -139.397,
+          "headingDeg": -142.463,
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.4
           },
-          "color": "#6B7280"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000007-011",
           "type": "цистерна",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 193.37,
           "intervalM": [
             185.52,
             201.22
           ],
           "position": [
-            735005.953,
-            4776215.841
+            734851.746,
+            4776081.306
           ],
           "tangent": [
-            -0.759235,
-            -0.650817
+            -0.788665,
+            -0.614824
           ],
-          "headingDeg": -139.397,
+          "headingDeg": -142.061,
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
@@ -9355,14 +9540,14 @@
             216.14
           ],
           "position": [
-            735017.9,
-            4776226.197
+            734864.137,
+            4776091.123
           ],
           "tangent": [
-            -0.755504,
-            -0.655144
+            -0.77126,
+            -0.63652
           ],
-          "headingDeg": -139.069,
+          "headingDeg": -140.467,
           "size": {
             "lengthM": 13.92,
             "widthM": 3.24,
@@ -9372,22 +9557,72 @@
         },
         {
           "id": "W-000000007-013",
-          "type": "реф",
-          "loaded": true,
+          "type": "пв",
+          "loaded": false,
           "chainageM": 227.64,
           "intervalM": [
             217.14,
             238.14
           ],
           "position": [
-            735031.847,
-            4776238.29
+            734878.375,
+            4776102.873
           ],
           "tangent": [
-            -0.755762,
-            -0.654847
+            -0.77126,
+            -0.63652
           ],
-          "headingDeg": -139.092,
+          "headingDeg": -140.467,
+          "size": {
+            "lengthM": 21.0,
+            "widthM": 3.24,
+            "heightM": 3.48
+          },
+          "color": "#4B5563"
+        },
+        {
+          "id": "W-000000007-014",
+          "type": "реф",
+          "loaded": true,
+          "chainageM": 251.14,
+          "intervalM": [
+            239.14,
+            263.14
+          ],
+          "position": [
+            734896.227,
+            4776118.148
+          ],
+          "tangent": [
+            -0.745764,
+            -0.666211
+          ],
+          "headingDeg": -138.225,
+          "size": {
+            "lengthM": 24.0,
+            "widthM": 3.1,
+            "heightM": 4.7
+          },
+          "color": "#DCEAF7"
+        },
+        {
+          "id": "W-000000007-015",
+          "type": "реф",
+          "loaded": false,
+          "chainageM": 274.64,
+          "intervalM": [
+            264.14,
+            285.14
+          ],
+          "position": [
+            734913.755,
+            4776133.802
+          ],
+          "tangent": [
+            -0.745727,
+            -0.666251
+          ],
+          "headingDeg": -138.222,
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
@@ -9396,58 +9631,8 @@
           "color": "#DCEAF7"
         },
         {
-          "id": "W-000000007-014",
-          "type": "хоппер",
-          "loaded": true,
-          "chainageM": 251.14,
-          "intervalM": [
-            239.14,
-            263.14
-          ],
-          "position": [
-            735049.607,
-            4776253.679
-          ],
-          "tangent": [
-            -0.755762,
-            -0.654847
-          ],
-          "headingDeg": -139.092,
-          "size": {
-            "lengthM": 24.0,
-            "widthM": 3.1,
-            "heightM": 4.7
-          },
-          "color": "#6B7280"
-        },
-        {
-          "id": "W-000000007-015",
-          "type": "тер",
-          "loaded": false,
-          "chainageM": 274.64,
-          "intervalM": [
-            264.14,
-            285.14
-          ],
-          "position": [
-            735067.42,
-            4776269.007
-          ],
-          "tangent": [
-            -0.764394,
-            -0.64475
-          ],
-          "headingDeg": -139.853,
-          "size": {
-            "lengthM": 21.0,
-            "widthM": 3.1,
-            "heightM": 4.7
-          },
-          "color": "#E5E7EB"
-        },
-        {
           "id": "W-000000007-016",
-          "type": "фит.пл.",
+          "type": "хоппер",
           "loaded": true,
           "chainageM": 292.84,
           "intervalM": [
@@ -9455,14 +9640,114 @@
             299.54
           ],
           "position": [
-            735081.332,
-            4776280.742
+            734927.327,
+            4776145.928
           ],
           "tangent": [
-            -0.764394,
-            -0.64475
+            -0.745727,
+            -0.666251
           ],
-          "headingDeg": -139.853,
+          "headingDeg": -138.222,
+          "size": {
+            "lengthM": 13.4,
+            "widthM": 3.1,
+            "heightM": 4.7
+          },
+          "color": "#6B7280"
+        },
+        {
+          "id": "W-000000007-017",
+          "type": "хоппер",
+          "loaded": false,
+          "chainageM": 308.39,
+          "intervalM": [
+            300.54,
+            316.24
+          ],
+          "position": [
+            734938.927,
+            4776156.284
+          ],
+          "tangent": [
+            -0.746101,
+            -0.665833
+          ],
+          "headingDeg": -138.254,
+          "size": {
+            "lengthM": 15.7,
+            "widthM": 3.1,
+            "heightM": 4.7
+          },
+          "color": "#6B7280"
+        },
+        {
+          "id": "W-000000007-018",
+          "type": "тер",
+          "loaded": true,
+          "chainageM": 329.24,
+          "intervalM": [
+            317.24,
+            341.24
+          ],
+          "position": [
+            734954.313,
+            4776170.354
+          ],
+          "tangent": [
+            -0.735909,
+            -0.67708
+          ],
+          "headingDeg": -137.384,
+          "size": {
+            "lengthM": 24.0,
+            "widthM": 3.1,
+            "heightM": 4.7
+          },
+          "color": "#E5E7EB"
+        },
+        {
+          "id": "W-000000007-019",
+          "type": "тер",
+          "loaded": false,
+          "chainageM": 348.94,
+          "intervalM": [
+            342.24,
+            355.64
+          ],
+          "position": [
+            734968.812,
+            4776183.691
+          ],
+          "tangent": [
+            -0.736104,
+            -0.676868
+          ],
+          "headingDeg": -137.401,
+          "size": {
+            "lengthM": 13.4,
+            "widthM": 3.1,
+            "heightM": 4.7
+          },
+          "color": "#E5E7EB"
+        },
+        {
+          "id": "W-000000007-020",
+          "type": "фит.пл.",
+          "loaded": true,
+          "chainageM": 363.34,
+          "intervalM": [
+            356.64,
+            370.04
+          ],
+          "position": [
+            734979.588,
+            4776193.24
+          ],
+          "tangent": [
+            -0.759054,
+            -0.651028
+          ],
+          "headingDeg": -139.381,
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
@@ -9471,133 +9756,33 @@
           "color": "#B45309"
         },
         {
-          "id": "W-000000007-017",
-          "type": "кр",
-          "loaded": true,
-          "chainageM": 308.39,
-          "intervalM": [
-            300.54,
-            316.24
-          ],
-          "position": [
-            735093.215,
-            4776290.771
-          ],
-          "tangent": [
-            -0.764073,
-            -0.64513
-          ],
-          "headingDeg": -139.825,
-          "size": {
-            "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
-          },
-          "color": "#8B5A2B"
-        },
-        {
-          "id": "W-000000007-018",
-          "type": "сетка а/м",
-          "loaded": true,
-          "chainageM": 329.24,
-          "intervalM": [
-            317.24,
-            341.24
-          ],
-          "position": [
-            735109.146,
-            4776304.222
-          ],
-          "tangent": [
-            -0.764073,
-            -0.64513
-          ],
-          "headingDeg": -139.825,
-          "size": {
-            "lengthM": 24.0,
-            "widthM": 3.1,
-            "heightM": 4.8
-          },
-          "color": "#94A3B8"
-        },
-        {
-          "id": "W-000000007-019",
-          "type": "думпкар",
-          "loaded": true,
-          "chainageM": 348.94,
-          "intervalM": [
-            342.24,
-            355.64
-          ],
-          "position": [
-            735124.226,
-            4776316.898
-          ],
-          "tangent": [
-            -0.766934,
-            -0.641726
-          ],
-          "headingDeg": -140.079,
-          "size": {
-            "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 4.7
-          },
-          "color": "#6B7280"
-        },
-        {
-          "id": "W-000000007-020",
-          "type": "платформа-х",
-          "loaded": false,
-          "chainageM": 363.34,
-          "intervalM": [
-            356.64,
-            370.04
-          ],
-          "position": [
-            735135.27,
-            4776326.139
-          ],
-          "tangent": [
-            -0.766934,
-            -0.641726
-          ],
-          "headingDeg": -140.079,
-          "size": {
-            "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 4.7
-          },
-          "color": "#6B7280"
-        },
-        {
           "id": "W-000000007-021",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 378.89,
           "intervalM": [
             371.04,
             386.74
           ],
           "position": [
-            735147.158,
-            4776336.162
+            734991.393,
+            4776203.36
           ],
           "tangent": [
-            -0.753569,
-            -0.657369
+            -0.759235,
+            -0.650817
           ],
-          "headingDeg": -138.9,
+          "headingDeg": -139.397,
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 1.3
           },
-          "color": "#A8A29E"
+          "color": "#B45309"
         },
         {
           "id": "W-000000007-022",
-          "type": "пв",
+          "type": "кр",
           "loaded": true,
           "chainageM": 394.7,
           "intervalM": [
@@ -9605,45 +9790,45 @@
             401.66
           ],
           "position": [
-            735159.072,
-            4776346.555
+            735003.397,
+            4776213.65
           ],
           "tangent": [
-            -0.753569,
-            -0.657369
+            -0.759235,
+            -0.650817
           ],
-          "headingDeg": -138.9,
+          "headingDeg": -139.397,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.25,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000007-023",
-          "type": "реф",
-          "loaded": true,
+          "type": "кр",
+          "loaded": false,
           "chainageM": 413.16,
           "intervalM": [
             402.66,
             423.66
           ],
           "position": [
-            735173.071,
-            4776358.588
+            735017.358,
+            4776225.727
           ],
           "tangent": [
-            -0.75962,
-            -0.650367
+            -0.755504,
+            -0.655144
           ],
-          "headingDeg": -139.431,
+          "headingDeg": -139.069,
           "size": {
             "lengthM": 21.0,
-            "widthM": 3.1,
+            "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#8B5A2B"
         }
       ]
     },
@@ -9661,7 +9846,7 @@
       "wagons": [
         {
           "id": "W-000000029-001",
-          "type": "цистерна",
+          "type": "сетка а/м",
           "loaded": true,
           "chainageM": 7.85,
           "intervalM": [
@@ -9669,49 +9854,49 @@
             15.7
           ],
           "position": [
-            734995.61,
-            4776198.379
+            734869.133,
+            4776092.355
           ],
           "tangent": [
-            0.759245,
-            0.650805
+            0.807979,
+            0.589212
           ],
-          "headingDeg": 40.602,
+          "headingDeg": 36.101,
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.8
           },
-          "color": "#A8A29E"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000029-002",
-          "type": "пв",
-          "loaded": true,
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 23.66,
           "intervalM": [
             16.7,
             30.62
           ],
           "position": [
-            735007.614,
-            4776208.668
+            734881.94,
+            4776101.625
           ],
           "tangent": [
-            0.759245,
-            0.650805
+            0.813011,
+            0.582248
           ],
-          "headingDeg": 40.602,
+          "headingDeg": 35.609,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.8
           },
-          "color": "#4B5563"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000029-003",
-          "type": "реф",
+          "type": "думпкар",
           "loaded": true,
           "chainageM": 42.12,
           "intervalM": [
@@ -9719,39 +9904,39 @@
             52.62
           ],
           "position": [
-            735021.629,
-            4776220.682
+            734896.167,
+            4776113.375
           ],
           "tangent": [
-            0.759245,
-            0.650805
+            0.763011,
+            0.646385
           ],
-          "headingDeg": 40.602,
+          "headingDeg": 40.27,
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000029-004",
-          "type": "хоппер",
-          "loaded": true,
+          "type": "думпкар",
+          "loaded": false,
           "chainageM": 65.62,
           "intervalM": [
             53.62,
             77.62
           ],
           "position": [
-            735039.472,
-            4776235.976
+            734914.035,
+            4776128.638
           ],
           "tangent": [
-            0.759245,
-            0.650805
+            0.758511,
+            0.65166
           ],
-          "headingDeg": 40.602,
+          "headingDeg": 40.667,
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
@@ -9761,57 +9946,57 @@
         },
         {
           "id": "W-000000029-005",
-          "type": "тер",
-          "loaded": false,
+          "type": "платформа-х",
+          "loaded": true,
           "chainageM": 89.12,
           "intervalM": [
             78.62,
             99.62
           ],
           "position": [
-            735057.314,
-            4776251.27
+            734931.901,
+            4776143.905
           ],
           "tangent": [
-            0.759245,
-            0.650805
+            0.764299,
+            0.644862
           ],
-          "headingDeg": 40.602,
+          "headingDeg": 40.155,
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000029-006",
-          "type": "фит.пл.",
-          "loaded": true,
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 107.32,
           "intervalM": [
             100.62,
             114.02
           ],
           "position": [
-            735071.132,
-            4776263.114
+            734945.757,
+            4776155.704
           ],
           "tangent": [
-            0.759245,
-            0.650805
+            0.75314,
+            0.65786
           ],
-          "headingDeg": 40.602,
+          "headingDeg": 41.137,
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000029-007",
-          "type": "кр",
+          "type": "цистерна",
           "loaded": true,
           "chainageM": 122.87,
           "intervalM": [
@@ -9819,114 +10004,14 @@
             130.72
           ],
           "position": [
-            735082.902,
-            4776273.276
+            734957.468,
+            4776165.934
           ],
           "tangent": [
-            0.751721,
-            0.659482
+            0.75314,
+            0.65786
           ],
-          "headingDeg": 41.26,
-          "size": {
-            "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
-          },
-          "color": "#8B5A2B"
-        },
-        {
-          "id": "W-000000029-008",
-          "type": "сетка а/м",
-          "loaded": true,
-          "chainageM": 143.72,
-          "intervalM": [
-            131.72,
-            155.72
-          ],
-          "position": [
-            735098.575,
-            4776287.027
-          ],
-          "tangent": [
-            0.751721,
-            0.659482
-          ],
-          "headingDeg": 41.26,
-          "size": {
-            "lengthM": 24.0,
-            "widthM": 3.1,
-            "heightM": 4.8
-          },
-          "color": "#94A3B8"
-        },
-        {
-          "id": "W-000000029-009",
-          "type": "думпкар",
-          "loaded": true,
-          "chainageM": 163.42,
-          "intervalM": [
-            156.72,
-            170.12
-          ],
-          "position": [
-            735113.384,
-            4776300.018
-          ],
-          "tangent": [
-            0.751721,
-            0.659482
-          ],
-          "headingDeg": 41.26,
-          "size": {
-            "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 4.7
-          },
-          "color": "#6B7280"
-        },
-        {
-          "id": "W-000000029-010",
-          "type": "платформа-х",
-          "loaded": false,
-          "chainageM": 177.82,
-          "intervalM": [
-            171.12,
-            184.52
-          ],
-          "position": [
-            735124.209,
-            4776309.515
-          ],
-          "tangent": [
-            0.751721,
-            0.659482
-          ],
-          "headingDeg": 41.26,
-          "size": {
-            "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 4.7
-          },
-          "color": "#6B7280"
-        },
-        {
-          "id": "W-000000029-011",
-          "type": "цистерна",
-          "loaded": true,
-          "chainageM": 193.37,
-          "intervalM": [
-            185.52,
-            201.22
-          ],
-          "position": [
-            735135.898,
-            4776319.77
-          ],
-          "tangent": [
-            0.751721,
-            0.659482
-          ],
-          "headingDeg": 41.26,
+          "headingDeg": 41.137,
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
@@ -9935,33 +10020,133 @@
           "color": "#A8A29E"
         },
         {
-          "id": "W-000000029-012",
-          "type": "пв",
-          "loaded": true,
-          "chainageM": 209.18,
+          "id": "W-000000029-008",
+          "type": "цистерна",
+          "loaded": false,
+          "chainageM": 143.72,
           "intervalM": [
-            202.22,
-            216.14
+            131.72,
+            155.72
           ],
           "position": [
-            735147.262,
-            4776330.747
+            734973.357,
+            4776179.435
           ],
           "tangent": [
-            0.699839,
-            0.714301
+            0.762258,
+            0.647273
           ],
-          "headingDeg": 45.586,
+          "headingDeg": 40.336,
           "size": {
-            "lengthM": 13.92,
+            "lengthM": 24.0,
+            "widthM": 3.1,
+            "heightM": 4.4
+          },
+          "color": "#A8A29E"
+        },
+        {
+          "id": "W-000000029-009",
+          "type": "пв",
+          "loaded": true,
+          "chainageM": 163.42,
+          "intervalM": [
+            156.72,
+            170.12
+          ],
+          "position": [
+            734988.374,
+            4776192.186
+          ],
+          "tangent": [
+            0.762258,
+            0.647273
+          ],
+          "headingDeg": 40.336,
+          "size": {
+            "lengthM": 13.4,
             "widthM": 3.24,
             "heightM": 3.48
           },
           "color": "#4B5563"
         },
         {
-          "id": "W-000000029-013",
+          "id": "W-000000029-010",
+          "type": "пв",
+          "loaded": false,
+          "chainageM": 177.82,
+          "intervalM": [
+            171.12,
+            184.52
+          ],
+          "position": [
+            734999.312,
+            4776201.552
+          ],
+          "tangent": [
+            0.759245,
+            0.650805
+          ],
+          "headingDeg": 40.602,
+          "size": {
+            "lengthM": 13.4,
+            "widthM": 3.24,
+            "heightM": 3.48
+          },
+          "color": "#4B5563"
+        },
+        {
+          "id": "W-000000029-011",
           "type": "реф",
+          "loaded": true,
+          "chainageM": 193.37,
+          "intervalM": [
+            185.52,
+            201.22
+          ],
+          "position": [
+            735011.118,
+            4776211.672
+          ],
+          "tangent": [
+            0.759245,
+            0.650805
+          ],
+          "headingDeg": 40.602,
+          "size": {
+            "lengthM": 15.7,
+            "widthM": 3.1,
+            "heightM": 4.7
+          },
+          "color": "#DCEAF7"
+        },
+        {
+          "id": "W-000000029-012",
+          "type": "реф",
+          "loaded": false,
+          "chainageM": 209.18,
+          "intervalM": [
+            202.22,
+            216.14
+          ],
+          "position": [
+            735023.122,
+            4776221.961
+          ],
+          "tangent": [
+            0.759245,
+            0.650805
+          ],
+          "headingDeg": 40.602,
+          "size": {
+            "lengthM": 13.92,
+            "widthM": 3.1,
+            "heightM": 4.7
+          },
+          "color": "#DCEAF7"
+        },
+        {
+          "id": "W-000000029-013",
+          "type": "хоппер",
           "loaded": true,
           "chainageM": 227.64,
           "intervalM": [
@@ -9969,20 +10154,20 @@
             238.14
           ],
           "position": [
-            735160.157,
-            4776343.956
+            735037.137,
+            4776233.975
           ],
           "tangent": [
-            0.697969,
-            0.716128
+            0.759245,
+            0.650805
           ],
-          "headingDeg": 45.736,
+          "headingDeg": 40.602,
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#6B7280"
         }
       ]
     },
@@ -10000,32 +10185,32 @@
       "wagons": [
         {
           "id": "W-000000058-001",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "хоппер",
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
             15.7
           ],
           "position": [
-            734961.929,
-            4776165.017
+            734835.77,
+            4776059.878
           ],
           "tangent": [
-            -0.761669,
-            -0.647966
+            -0.766898,
+            -0.641769
           ],
-          "headingDeg": -139.612,
+          "headingDeg": -140.076,
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000058-002",
-          "type": "пв",
+          "type": "тер",
           "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
@@ -10033,89 +10218,39 @@
             30.62
           ],
           "position": [
-            734973.971,
-            4776175.261
+            734847.895,
+            4776070.024
           ],
           "tangent": [
-            -0.761669,
-            -0.647966
+            -0.766898,
+            -0.641769
           ],
-          "headingDeg": -139.612,
+          "headingDeg": -140.076,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000058-003",
-          "type": "реф",
-          "loaded": true,
+          "type": "тер",
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
             52.62
           ],
           "position": [
-            734988.032,
-            4776187.222
+            734862.052,
+            4776081.871
           ],
           "tangent": [
-            -0.761669,
-            -0.647966
+            -0.766898,
+            -0.641769
           ],
-          "headingDeg": -139.612,
-          "size": {
-            "lengthM": 21.0,
-            "widthM": 3.1,
-            "heightM": 4.7
-          },
-          "color": "#DCEAF7"
-        },
-        {
-          "id": "W-000000058-004",
-          "type": "хоппер",
-          "loaded": true,
-          "chainageM": 65.62,
-          "intervalM": [
-            53.62,
-            77.62
-          ],
-          "position": [
-            735005.937,
-            4776202.442
-          ],
-          "tangent": [
-            -0.762067,
-            -0.647499
-          ],
-          "headingDeg": -139.647,
-          "size": {
-            "lengthM": 24.0,
-            "widthM": 3.1,
-            "heightM": 4.7
-          },
-          "color": "#6B7280"
-        },
-        {
-          "id": "W-000000058-005",
-          "type": "тер",
-          "loaded": false,
-          "chainageM": 89.12,
-          "intervalM": [
-            78.62,
-            99.62
-          ],
-          "position": [
-            735023.846,
-            4776217.658
-          ],
-          "tangent": [
-            -0.762067,
-            -0.647499
-          ],
-          "headingDeg": -139.647,
+          "headingDeg": -140.076,
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
@@ -10124,8 +10259,58 @@
           "color": "#E5E7EB"
         },
         {
-          "id": "W-000000058-006",
+          "id": "W-000000058-004",
           "type": "фит.пл.",
+          "loaded": true,
+          "chainageM": 65.62,
+          "intervalM": [
+            53.62,
+            77.62
+          ],
+          "position": [
+            734880.074,
+            4776096.953
+          ],
+          "tangent": [
+            -0.76689,
+            -0.641779
+          ],
+          "headingDeg": -140.075,
+          "size": {
+            "lengthM": 24.0,
+            "widthM": 3.1,
+            "heightM": 1.3
+          },
+          "color": "#B45309"
+        },
+        {
+          "id": "W-000000058-005",
+          "type": "фит.пл.",
+          "loaded": false,
+          "chainageM": 89.12,
+          "intervalM": [
+            78.62,
+            99.62
+          ],
+          "position": [
+            734898.096,
+            4776112.035
+          ],
+          "tangent": [
+            -0.76689,
+            -0.641779
+          ],
+          "headingDeg": -140.075,
+          "size": {
+            "lengthM": 21.0,
+            "widthM": 3.1,
+            "heightM": 1.3
+          },
+          "color": "#B45309"
+        },
+        {
+          "id": "W-000000058-006",
+          "type": "кр",
           "loaded": true,
           "chainageM": 107.32,
           "intervalM": [
@@ -10133,39 +10318,39 @@
             114.02
           ],
           "position": [
-            735037.715,
-            4776229.443
+            734912.053,
+            4776123.715
           ],
           "tangent": [
-            -0.762067,
-            -0.647499
+            -0.76689,
+            -0.641779
           ],
-          "headingDeg": -139.647,
+          "headingDeg": -140.075,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 1.3
+            "widthM": 3.25,
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000058-007",
           "type": "кр",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 122.87,
           "intervalM": [
             115.02,
             130.72
           ],
           "position": [
-            735049.566,
-            4776239.511
+            734923.978,
+            4776133.695
           ],
           "tangent": [
-            -0.762067,
-            -0.647499
+            -0.76689,
+            -0.641779
           ],
-          "headingDeg": -139.647,
+          "headingDeg": -140.075,
           "size": {
             "lengthM": 15.7,
             "widthM": 3.25,
@@ -10183,14 +10368,14 @@
             155.72
           ],
           "position": [
-            735065.455,
-            4776253.012
+            734939.968,
+            4776147.076
           ],
           "tangent": [
-            -0.762067,
-            -0.647499
+            -0.76689,
+            -0.641779
           ],
-          "headingDeg": -139.647,
+          "headingDeg": -140.075,
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
@@ -10200,47 +10385,47 @@
         },
         {
           "id": "W-000000058-009",
-          "type": "думпкар",
-          "loaded": true,
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 163.42,
           "intervalM": [
             156.72,
             170.12
           ],
           "position": [
-            735080.467,
-            4776265.767
+            734955.076,
+            4776159.719
           ],
           "tangent": [
-            -0.762067,
-            -0.647499
+            -0.76689,
+            -0.641779
           ],
-          "headingDeg": -139.647,
+          "headingDeg": -140.075,
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#6B7280"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000058-010",
-          "type": "платформа-х",
-          "loaded": false,
+          "type": "думпкар",
+          "loaded": true,
           "chainageM": 177.82,
           "intervalM": [
             171.12,
             184.52
           ],
           "position": [
-            735091.441,
-            4776275.091
+            734966.119,
+            4776168.961
           ],
           "tangent": [
-            -0.762067,
-            -0.647499
+            -0.76689,
+            -0.641779
           ],
-          "headingDeg": -139.647,
+          "headingDeg": -140.075,
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
@@ -10250,32 +10435,32 @@
         },
         {
           "id": "W-000000058-011",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "думпкар",
+          "loaded": false,
           "chainageM": 193.37,
           "intervalM": [
             185.52,
             201.22
           ],
           "position": [
-            735103.291,
-            4776285.16
+            734978.044,
+            4776178.94
           ],
           "tangent": [
-            -0.762067,
-            -0.647499
+            -0.76689,
+            -0.641779
           ],
-          "headingDeg": -139.647,
+          "headingDeg": -140.075,
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000058-012",
-          "type": "пв",
+          "type": "платформа-х",
           "loaded": true,
           "chainageM": 209.18,
           "intervalM": [
@@ -10283,33 +10468,33 @@
             216.14
           ],
           "position": [
-            735115.339,
-            4776295.397
+            734990.168,
+            4776189.087
           ],
           "tangent": [
-            -0.762067,
-            -0.647499
+            -0.76689,
+            -0.641779
           ],
-          "headingDeg": -139.647,
+          "headingDeg": -140.075,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000058-013",
-          "type": "реф",
-          "loaded": true,
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 227.64,
           "intervalM": [
             217.14,
             238.14
           ],
           "position": [
-            735129.407,
-            4776307.35
+            735004.257,
+            4776201.015
           ],
           "tangent": [
             -0.762067,
@@ -10321,11 +10506,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000058-014",
-          "type": "хоппер",
+          "type": "цистерна",
           "loaded": true,
           "chainageM": 251.14,
           "intervalM": [
@@ -10333,24 +10518,24 @@
             263.14
           ],
           "position": [
-            735147.083,
-            4776322.828
+            735022.166,
+            4776216.231
           ],
           "tangent": [
-            -0.733355,
-            -0.679845
+            -0.762067,
+            -0.647499
           ],
-          "headingDeg": -137.168,
+          "headingDeg": -139.647,
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.4
           },
-          "color": "#6B7280"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000058-015",
-          "type": "тер",
+          "type": "цистерна",
           "loaded": false,
           "chainageM": 274.64,
           "intervalM": [
@@ -10358,24 +10543,24 @@
             285.14
           ],
           "position": [
-            735164.317,
-            4776338.805
+            735040.074,
+            4776231.447
           ],
           "tangent": [
-            -0.733355,
-            -0.679845
+            -0.762067,
+            -0.647499
           ],
-          "headingDeg": -137.168,
+          "headingDeg": -139.647,
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.4
           },
-          "color": "#E5E7EB"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000058-016",
-          "type": "фит.пл.",
+          "type": "пв",
           "loaded": true,
           "chainageM": 292.84,
           "intervalM": [
@@ -10383,20 +10568,20 @@
             299.54
           ],
           "position": [
-            735177.664,
-            4776351.178
+            735053.944,
+            4776243.231
           ],
           "tangent": [
-            -0.733355,
-            -0.679845
+            -0.762067,
+            -0.647499
           ],
-          "headingDeg": -137.168,
+          "headingDeg": -139.647,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 1.3
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#B45309"
+          "color": "#4B5563"
         }
       ]
     },
@@ -10414,8 +10599,8 @@
       "wagons": [
         {
           "id": "W-000000013-001",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "пв",
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -10432,14 +10617,14 @@
           "headingDeg": 39.953,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.1,
-            "heightM": 4.4
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#A8A29E"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000013-002",
-          "type": "пв",
+          "type": "реф",
           "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
@@ -10457,15 +10642,15 @@
           "headingDeg": 39.953,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000013-003",
           "type": "реф",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -10514,7 +10699,7 @@
         },
         {
           "id": "W-000000013-005",
-          "type": "тер",
+          "type": "хоппер",
           "loaded": false,
           "chainageM": 89.12,
           "intervalM": [
@@ -10535,11 +10720,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000013-006",
-          "type": "фит.пл.",
+          "type": "тер",
           "loaded": true,
           "chainageM": 107.32,
           "intervalM": [
@@ -10558,14 +10743,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000013-007",
-          "type": "кр",
-          "loaded": true,
+          "type": "тер",
+          "loaded": false,
           "chainageM": 122.87,
           "intervalM": [
             115.02,
@@ -10582,14 +10767,14 @@
           "headingDeg": 39.953,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
+            "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#8B5A2B"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000013-008",
-          "type": "сетка а/м",
+          "type": "фит.пл.",
           "loaded": true,
           "chainageM": 143.72,
           "intervalM": [
@@ -10608,14 +10793,14 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 1.3
           },
-          "color": "#94A3B8"
+          "color": "#B45309"
         },
         {
           "id": "W-000000013-009",
-          "type": "думпкар",
-          "loaded": true,
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 163.42,
           "intervalM": [
             156.72,
@@ -10633,14 +10818,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 1.3
           },
-          "color": "#6B7280"
+          "color": "#B45309"
         },
         {
           "id": "W-000000013-010",
-          "type": "платформа-х",
-          "loaded": false,
+          "type": "кр",
+          "loaded": true,
           "chainageM": 177.82,
           "intervalM": [
             171.12,
@@ -10657,10 +10842,10 @@
           "headingDeg": 28.011,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
+            "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#8B5A2B"
         }
       ]
     },
@@ -10678,8 +10863,8 @@
       "wagons": [
         {
           "id": "W-000000047-001",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "кр",
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -10696,14 +10881,14 @@
           "headingDeg": -141.292,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.1,
-            "heightM": 4.4
+            "widthM": 3.25,
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000047-002",
-          "type": "пв",
+          "type": "сетка а/м",
           "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
@@ -10721,15 +10906,15 @@
           "headingDeg": -138.988,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.8
           },
-          "color": "#4B5563"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000047-003",
-          "type": "реф",
-          "loaded": true,
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -10747,13 +10932,13 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#DCEAF7"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000047-004",
-          "type": "хоппер",
+          "type": "думпкар",
           "loaded": true,
           "chainageM": 65.62,
           "intervalM": [
@@ -10778,7 +10963,7 @@
         },
         {
           "id": "W-000000047-005",
-          "type": "тер",
+          "type": "думпкар",
           "loaded": false,
           "chainageM": 89.12,
           "intervalM": [
@@ -10799,11 +10984,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000047-006",
-          "type": "фит.пл.",
+          "type": "платформа-х",
           "loaded": true,
           "chainageM": 107.32,
           "intervalM": [
@@ -10822,14 +11007,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000047-007",
-          "type": "кр",
-          "loaded": true,
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 122.87,
           "intervalM": [
             115.02,
@@ -10846,14 +11031,14 @@
           "headingDeg": -139.622,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
+            "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#8B5A2B"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000047-008",
-          "type": "сетка а/м",
+          "type": "цистерна",
           "loaded": true,
           "chainageM": 143.72,
           "intervalM": [
@@ -10872,14 +11057,14 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.4
           },
-          "color": "#94A3B8"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000047-009",
-          "type": "думпкар",
-          "loaded": true,
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 163.42,
           "intervalM": [
             156.72,
@@ -10897,14 +11082,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.4
           },
-          "color": "#6B7280"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000047-010",
-          "type": "платформа-х",
-          "loaded": false,
+          "type": "пв",
+          "loaded": true,
           "chainageM": 177.82,
           "intervalM": [
             171.12,
@@ -10921,10 +11106,10 @@
           "headingDeg": -139.622,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#6B7280"
+          "color": "#4B5563"
         }
       ]
     },
@@ -10942,8 +11127,8 @@
       "wagons": [
         {
           "id": "W-000000054-001",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "пв",
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -10960,14 +11145,14 @@
           "headingDeg": 41.595,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.1,
-            "heightM": 4.4
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#A8A29E"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000054-002",
-          "type": "пв",
+          "type": "реф",
           "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
@@ -10985,15 +11170,15 @@
           "headingDeg": 38.492,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000054-003",
           "type": "реф",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -11042,7 +11227,7 @@
         },
         {
           "id": "W-000000054-005",
-          "type": "тер",
+          "type": "хоппер",
           "loaded": false,
           "chainageM": 89.12,
           "intervalM": [
@@ -11063,11 +11248,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000054-006",
-          "type": "фит.пл.",
+          "type": "тер",
           "loaded": true,
           "chainageM": 107.32,
           "intervalM": [
@@ -11086,14 +11271,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000054-007",
-          "type": "кр",
-          "loaded": true,
+          "type": "тер",
+          "loaded": false,
           "chainageM": 122.87,
           "intervalM": [
             115.02,
@@ -11110,14 +11295,14 @@
           "headingDeg": 34.316,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
+            "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#8B5A2B"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000054-008",
-          "type": "сетка а/м",
+          "type": "фит.пл.",
           "loaded": true,
           "chainageM": 143.72,
           "intervalM": [
@@ -11136,9 +11321,9 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 1.3
           },
-          "color": "#94A3B8"
+          "color": "#B45309"
         }
       ]
     },
@@ -11156,8 +11341,8 @@
       "wagons": [
         {
           "id": "W-000000014-001",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -11175,13 +11360,13 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 1.3
           },
-          "color": "#A8A29E"
+          "color": "#B45309"
         },
         {
           "id": "W-000000014-002",
-          "type": "пв",
+          "type": "кр",
           "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
@@ -11199,15 +11384,15 @@
           "headingDeg": -143.365,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.25,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000014-003",
-          "type": "реф",
-          "loaded": true,
+          "type": "кр",
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -11224,14 +11409,14 @@
           "headingDeg": -143.365,
           "size": {
             "lengthM": 21.0,
-            "widthM": 3.1,
+            "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000014-004",
-          "type": "хоппер",
+          "type": "сетка а/м",
           "loaded": true,
           "chainageM": 65.62,
           "intervalM": [
@@ -11250,13 +11435,13 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#6B7280"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000014-005",
-          "type": "тер",
+          "type": "сетка а/м",
           "loaded": false,
           "chainageM": 89.12,
           "intervalM": [
@@ -11275,13 +11460,13 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#E5E7EB"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000014-006",
-          "type": "фит.пл.",
+          "type": "думпкар",
           "loaded": true,
           "chainageM": 107.32,
           "intervalM": [
@@ -11300,9 +11485,9 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#6B7280"
         }
       ]
     },
@@ -11320,8 +11505,8 @@
       "wagons": [
         {
           "id": "W-000000016-001",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "думпкар",
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -11339,13 +11524,13 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000016-002",
-          "type": "пв",
+          "type": "платформа-х",
           "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
@@ -11363,15 +11548,15 @@
           "headingDeg": 52.505,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000016-003",
-          "type": "реф",
-          "loaded": true,
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -11391,11 +11576,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000016-004",
-          "type": "хоппер",
+          "type": "цистерна",
           "loaded": true,
           "chainageM": 65.62,
           "intervalM": [
@@ -11414,13 +11599,13 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.4
           },
-          "color": "#6B7280"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000016-005",
-          "type": "тер",
+          "type": "цистерна",
           "loaded": false,
           "chainageM": 89.12,
           "intervalM": [
@@ -11439,13 +11624,13 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.4
           },
-          "color": "#E5E7EB"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000016-006",
-          "type": "фит.пл.",
+          "type": "пв",
           "loaded": true,
           "chainageM": 107.32,
           "intervalM": [
@@ -11463,15 +11648,15 @@
           "headingDeg": 35.374,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
-            "heightM": 1.3
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#B45309"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000016-007",
-          "type": "кр",
-          "loaded": true,
+          "type": "пв",
+          "loaded": false,
           "chainageM": 122.87,
           "intervalM": [
             115.02,
@@ -11488,10 +11673,10 @@
           "headingDeg": 35.374,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#8B5A2B"
+          "color": "#4B5563"
         }
       ]
     },
@@ -11509,7 +11694,7 @@
       "wagons": [
         {
           "id": "W-000000043-001",
-          "type": "цистерна",
+          "type": "реф",
           "loaded": true,
           "chainageM": 7.85,
           "intervalM": [
@@ -11528,14 +11713,14 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000043-002",
-          "type": "пв",
-          "loaded": true,
+          "type": "реф",
+          "loaded": false,
           "chainageM": 23.66,
           "intervalM": [
             16.7,
@@ -11552,14 +11737,14 @@
           "headingDeg": -115.031,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000043-003",
-          "type": "реф",
+          "type": "хоппер",
           "loaded": true,
           "chainageM": 42.12,
           "intervalM": [
@@ -11580,12 +11765,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000043-004",
           "type": "хоппер",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 65.62,
           "intervalM": [
             53.62,
@@ -11610,7 +11795,7 @@
         {
           "id": "W-000000043-005",
           "type": "тер",
-          "loaded": false,
+          "loaded": true,
           "chainageM": 89.12,
           "intervalM": [
             78.62,
@@ -11634,8 +11819,8 @@
         },
         {
           "id": "W-000000043-006",
-          "type": "фит.пл.",
-          "loaded": true,
+          "type": "тер",
+          "loaded": false,
           "chainageM": 107.32,
           "intervalM": [
             100.62,
@@ -11653,13 +11838,13 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000043-007",
-          "type": "кр",
+          "type": "фит.пл.",
           "loaded": true,
           "chainageM": 122.87,
           "intervalM": [
@@ -11677,15 +11862,15 @@
           "headingDeg": -143.781,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
-            "heightM": 4.7
+            "widthM": 3.1,
+            "heightM": 1.3
           },
-          "color": "#8B5A2B"
+          "color": "#B45309"
         },
         {
           "id": "W-000000043-008",
-          "type": "сетка а/м",
-          "loaded": true,
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 143.72,
           "intervalM": [
             131.72,
@@ -11703,13 +11888,13 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 1.3
           },
-          "color": "#94A3B8"
+          "color": "#B45309"
         },
         {
           "id": "W-000000043-009",
-          "type": "думпкар",
+          "type": "кр",
           "loaded": true,
           "chainageM": 163.42,
           "intervalM": [
@@ -11727,10 +11912,10 @@
           "headingDeg": -143.686,
           "size": {
             "lengthM": 13.4,
-            "widthM": 3.1,
+            "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#8B5A2B"
         }
       ]
     },
@@ -11748,8 +11933,8 @@
       "wagons": [
         {
           "id": "W-000000044-001",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "кр",
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -11766,14 +11951,14 @@
           "headingDeg": 47.135,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.1,
-            "heightM": 4.4
+            "widthM": 3.25,
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000044-002",
-          "type": "пв",
+          "type": "сетка а/м",
           "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
@@ -11791,15 +11976,15 @@
           "headingDeg": 41.203,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.8
           },
-          "color": "#4B5563"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000044-003",
-          "type": "реф",
-          "loaded": true,
+          "type": "сетка а/м",
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -11817,13 +12002,13 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#DCEAF7"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000044-004",
-          "type": "хоппер",
+          "type": "думпкар",
           "loaded": true,
           "chainageM": 65.62,
           "intervalM": [
@@ -11848,7 +12033,7 @@
         },
         {
           "id": "W-000000044-005",
-          "type": "тер",
+          "type": "думпкар",
           "loaded": false,
           "chainageM": 89.12,
           "intervalM": [
@@ -11869,11 +12054,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000044-006",
-          "type": "фит.пл.",
+          "type": "платформа-х",
           "loaded": true,
           "chainageM": 107.32,
           "intervalM": [
@@ -11892,14 +12077,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000044-007",
-          "type": "кр",
-          "loaded": true,
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 122.87,
           "intervalM": [
             115.02,
@@ -11916,14 +12101,14 @@
           "headingDeg": 37.611,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
+            "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#8B5A2B"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000044-008",
-          "type": "сетка а/м",
+          "type": "цистерна",
           "loaded": true,
           "chainageM": 143.72,
           "intervalM": [
@@ -11942,9 +12127,9 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.4
           },
-          "color": "#94A3B8"
+          "color": "#A8A29E"
         }
       ]
     },
@@ -11963,7 +12148,7 @@
         {
           "id": "W-000000017-001",
           "type": "цистерна",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -12012,8 +12197,8 @@
         },
         {
           "id": "W-000000017-003",
-          "type": "реф",
-          "loaded": true,
+          "type": "пв",
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -12030,14 +12215,14 @@
           "headingDeg": -104.07,
           "size": {
             "lengthM": 21.0,
-            "widthM": 3.1,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#DCEAF7"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000017-004",
-          "type": "хоппер",
+          "type": "реф",
           "loaded": true,
           "chainageM": 65.62,
           "intervalM": [
@@ -12058,11 +12243,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000017-005",
-          "type": "тер",
+          "type": "реф",
           "loaded": false,
           "chainageM": 89.12,
           "intervalM": [
@@ -12083,11 +12268,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000017-006",
-          "type": "фит.пл.",
+          "type": "хоппер",
           "loaded": true,
           "chainageM": 107.32,
           "intervalM": [
@@ -12106,14 +12291,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000017-007",
-          "type": "кр",
-          "loaded": true,
+          "type": "хоппер",
+          "loaded": false,
           "chainageM": 122.87,
           "intervalM": [
             115.02,
@@ -12130,14 +12315,14 @@
           "headingDeg": -104.457,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
+            "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#8B5A2B"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000017-008",
-          "type": "сетка а/м",
+          "type": "тер",
           "loaded": true,
           "chainageM": 143.72,
           "intervalM": [
@@ -12156,14 +12341,14 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.7
           },
-          "color": "#94A3B8"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000017-009",
-          "type": "думпкар",
-          "loaded": true,
+          "type": "тер",
+          "loaded": false,
           "chainageM": 163.42,
           "intervalM": [
             156.72,
@@ -12183,12 +12368,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000017-010",
-          "type": "платформа-х",
-          "loaded": false,
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 177.82,
           "intervalM": [
             171.12,
@@ -12206,9 +12391,9 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 1.3
           },
-          "color": "#6B7280"
+          "color": "#B45309"
         }
       ]
     },
@@ -12226,8 +12411,8 @@
       "wagons": [
         {
           "id": "W-000000020-001",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -12245,13 +12430,13 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 1.3
           },
-          "color": "#A8A29E"
+          "color": "#B45309"
         },
         {
           "id": "W-000000020-002",
-          "type": "пв",
+          "type": "кр",
           "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
@@ -12269,15 +12454,15 @@
           "headingDeg": 110.788,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.25,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000020-003",
-          "type": "реф",
-          "loaded": true,
+          "type": "кр",
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -12294,14 +12479,14 @@
           "headingDeg": 108.063,
           "size": {
             "lengthM": 21.0,
-            "widthM": 3.1,
+            "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000020-004",
-          "type": "хоппер",
+          "type": "сетка а/м",
           "loaded": true,
           "chainageM": 65.62,
           "intervalM": [
@@ -12320,13 +12505,13 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#6B7280"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000020-005",
-          "type": "тер",
+          "type": "сетка а/м",
           "loaded": false,
           "chainageM": 89.12,
           "intervalM": [
@@ -12345,13 +12530,13 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#E5E7EB"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000020-006",
-          "type": "фит.пл.",
+          "type": "думпкар",
           "loaded": true,
           "chainageM": 107.32,
           "intervalM": [
@@ -12370,14 +12555,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000020-007",
-          "type": "кр",
-          "loaded": true,
+          "type": "думпкар",
+          "loaded": false,
           "chainageM": 122.87,
           "intervalM": [
             115.02,
@@ -12394,14 +12579,14 @@
           "headingDeg": 108.177,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
+            "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#8B5A2B"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000020-008",
-          "type": "сетка а/м",
+          "type": "платформа-х",
           "loaded": true,
           "chainageM": 143.72,
           "intervalM": [
@@ -12420,14 +12605,14 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.7
           },
-          "color": "#94A3B8"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000020-009",
-          "type": "думпкар",
-          "loaded": true,
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 163.42,
           "intervalM": [
             156.72,
@@ -12451,8 +12636,8 @@
         },
         {
           "id": "W-000000020-010",
-          "type": "платформа-х",
-          "loaded": false,
+          "type": "цистерна",
+          "loaded": true,
           "chainageM": 177.82,
           "intervalM": [
             171.12,
@@ -12470,9 +12655,9 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.4
           },
-          "color": "#6B7280"
+          "color": "#A8A29E"
         }
       ]
     },
@@ -12491,7 +12676,7 @@
         {
           "id": "W-000000059-001",
           "type": "цистерна",
-          "loaded": true,
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -12540,8 +12725,8 @@
         },
         {
           "id": "W-000000059-003",
-          "type": "реф",
-          "loaded": true,
+          "type": "пв",
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -12558,14 +12743,14 @@
           "headingDeg": -130.259,
           "size": {
             "lengthM": 21.0,
-            "widthM": 3.1,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#DCEAF7"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000059-004",
-          "type": "хоппер",
+          "type": "реф",
           "loaded": true,
           "chainageM": 65.62,
           "intervalM": [
@@ -12586,11 +12771,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000059-005",
-          "type": "тер",
+          "type": "реф",
           "loaded": false,
           "chainageM": 89.12,
           "intervalM": [
@@ -12611,11 +12796,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000059-006",
-          "type": "фит.пл.",
+          "type": "хоппер",
           "loaded": true,
           "chainageM": 107.32,
           "intervalM": [
@@ -12634,14 +12819,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000059-007",
-          "type": "кр",
-          "loaded": true,
+          "type": "хоппер",
+          "loaded": false,
           "chainageM": 122.87,
           "intervalM": [
             115.02,
@@ -12658,14 +12843,14 @@
           "headingDeg": -142.683,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
+            "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#8B5A2B"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000059-008",
-          "type": "сетка а/м",
+          "type": "тер",
           "loaded": true,
           "chainageM": 143.72,
           "intervalM": [
@@ -12684,14 +12869,14 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.7
           },
-          "color": "#94A3B8"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000059-009",
-          "type": "думпкар",
-          "loaded": true,
+          "type": "тер",
+          "loaded": false,
           "chainageM": 163.42,
           "intervalM": [
             156.72,
@@ -12711,12 +12896,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#6B7280"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000059-010",
-          "type": "платформа-х",
-          "loaded": false,
+          "type": "фит.пл.",
+          "loaded": true,
           "chainageM": 177.82,
           "intervalM": [
             171.12,
@@ -12734,9 +12919,9 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 1.3
           },
-          "color": "#6B7280"
+          "color": "#B45309"
         }
       ]
     },
@@ -12754,8 +12939,8 @@
       "wagons": [
         {
           "id": "W-000000018-001",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "фит.пл.",
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -12773,13 +12958,13 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 1.3
           },
-          "color": "#A8A29E"
+          "color": "#B45309"
         },
         {
           "id": "W-000000018-002",
-          "type": "пв",
+          "type": "кр",
           "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
@@ -12797,15 +12982,15 @@
           "headingDeg": 77.841,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.25,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000018-003",
-          "type": "реф",
-          "loaded": true,
+          "type": "кр",
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -12822,14 +13007,14 @@
           "headingDeg": 75.503,
           "size": {
             "lengthM": 21.0,
-            "widthM": 3.1,
+            "widthM": 3.25,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#8B5A2B"
         },
         {
           "id": "W-000000018-004",
-          "type": "хоппер",
+          "type": "сетка а/м",
           "loaded": true,
           "chainageM": 65.62,
           "intervalM": [
@@ -12848,13 +13033,13 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#6B7280"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000018-005",
-          "type": "тер",
+          "type": "сетка а/м",
           "loaded": false,
           "chainageM": 89.12,
           "intervalM": [
@@ -12873,13 +13058,13 @@
           "size": {
             "lengthM": 21.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 4.8
           },
-          "color": "#E5E7EB"
+          "color": "#94A3B8"
         },
         {
           "id": "W-000000018-006",
-          "type": "фит.пл.",
+          "type": "думпкар",
           "loaded": true,
           "chainageM": 107.32,
           "intervalM": [
@@ -12898,14 +13083,14 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000018-007",
-          "type": "кр",
-          "loaded": true,
+          "type": "думпкар",
+          "loaded": false,
           "chainageM": 122.87,
           "intervalM": [
             115.02,
@@ -12922,14 +13107,14 @@
           "headingDeg": 75.503,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
+            "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#8B5A2B"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000018-008",
-          "type": "сетка а/м",
+          "type": "платформа-х",
           "loaded": true,
           "chainageM": 143.72,
           "intervalM": [
@@ -12948,14 +13133,14 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.8
+            "heightM": 4.7
           },
-          "color": "#94A3B8"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000018-009",
-          "type": "думпкар",
-          "loaded": true,
+          "type": "платформа-х",
+          "loaded": false,
           "chainageM": 163.42,
           "intervalM": [
             156.72,
@@ -13018,8 +13203,8 @@
         },
         {
           "id": "W-000000019-002",
-          "type": "пв",
-          "loaded": true,
+          "type": "цистерна",
+          "loaded": false,
           "chainageM": 23.66,
           "intervalM": [
             16.7,
@@ -13036,14 +13221,14 @@
           "headingDeg": -104.987,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.4
           },
-          "color": "#4B5563"
+          "color": "#A8A29E"
         },
         {
           "id": "W-000000019-003",
-          "type": "реф",
+          "type": "пв",
           "loaded": true,
           "chainageM": 42.12,
           "intervalM": [
@@ -13061,15 +13246,15 @@
           "headingDeg": -104.533,
           "size": {
             "lengthM": 21.0,
-            "widthM": 3.1,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#DCEAF7"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000019-004",
-          "type": "хоппер",
-          "loaded": true,
+          "type": "пв",
+          "loaded": false,
           "chainageM": 65.62,
           "intervalM": [
             53.62,
@@ -13086,15 +13271,15 @@
           "headingDeg": -104.533,
           "size": {
             "lengthM": 24.0,
-            "widthM": 3.1,
-            "heightM": 4.7
+            "widthM": 3.24,
+            "heightM": 3.48
           },
-          "color": "#6B7280"
+          "color": "#4B5563"
         },
         {
           "id": "W-000000019-005",
-          "type": "тер",
-          "loaded": false,
+          "type": "реф",
+          "loaded": true,
           "chainageM": 89.12,
           "intervalM": [
             78.62,
@@ -13114,12 +13299,12 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#E5E7EB"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000019-006",
-          "type": "фит.пл.",
-          "loaded": true,
+          "type": "реф",
+          "loaded": false,
           "chainageM": 107.32,
           "intervalM": [
             100.62,
@@ -13137,13 +13322,13 @@
           "size": {
             "lengthM": 13.4,
             "widthM": 3.1,
-            "heightM": 1.3
+            "heightM": 4.7
           },
-          "color": "#B45309"
+          "color": "#DCEAF7"
         },
         {
           "id": "W-000000019-007",
-          "type": "кр",
+          "type": "хоппер",
           "loaded": true,
           "chainageM": 122.87,
           "intervalM": [
@@ -13161,10 +13346,10 @@
           "headingDeg": -104.682,
           "size": {
             "lengthM": 15.7,
-            "widthM": 3.25,
+            "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#8B5A2B"
+          "color": "#6B7280"
         }
       ]
     },
@@ -13182,8 +13367,8 @@
       "wagons": [
         {
           "id": "W-000000021-001",
-          "type": "цистерна",
-          "loaded": true,
+          "type": "хоппер",
+          "loaded": false,
           "chainageM": 7.85,
           "intervalM": [
             0.0,
@@ -13201,13 +13386,13 @@
           "size": {
             "lengthM": 15.7,
             "widthM": 3.1,
-            "heightM": 4.4
+            "heightM": 4.7
           },
-          "color": "#A8A29E"
+          "color": "#6B7280"
         },
         {
           "id": "W-000000021-002",
-          "type": "пв",
+          "type": "тер",
           "loaded": true,
           "chainageM": 23.66,
           "intervalM": [
@@ -13225,15 +13410,15 @@
           "headingDeg": 107.926,
           "size": {
             "lengthM": 13.92,
-            "widthM": 3.24,
-            "heightM": 3.48
+            "widthM": 3.1,
+            "heightM": 4.7
           },
-          "color": "#4B5563"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000021-003",
-          "type": "реф",
-          "loaded": true,
+          "type": "тер",
+          "loaded": false,
           "chainageM": 42.12,
           "intervalM": [
             31.62,
@@ -13253,11 +13438,11 @@
             "widthM": 3.1,
             "heightM": 4.7
           },
-          "color": "#DCEAF7"
+          "color": "#E5E7EB"
         },
         {
           "id": "W-000000021-004",
-          "type": "хоппер",
+          "type": "фит.пл.",
           "loaded": true,
           "chainageM": 65.62,
           "intervalM": [
@@ -13276,9 +13461,9 @@
           "size": {
             "lengthM": 24.0,
             "widthM": 3.1,
-            "heightM": 4.7
+            "heightM": 1.3
           },
-          "color": "#6B7280"
+          "color": "#B45309"
         }
       ]
     }
