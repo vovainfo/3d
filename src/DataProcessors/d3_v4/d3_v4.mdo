@@ -29,6 +29,15 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <forms uuid="1a0f1ae1-8c54-4ead-8ad0-3d62895b326f">
+    <name>ИнформацияТехника</name>
+    <synonym>
+      <key>ru</key>
+      <value>Информация техника</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
   <templates uuid="720119db-5d6d-458a-aa3b-e241e0a5b193">
     <name>МакетHTML</name>
     <synonym>
