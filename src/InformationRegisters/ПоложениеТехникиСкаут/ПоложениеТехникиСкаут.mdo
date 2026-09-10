@@ -222,6 +222,19 @@
       </stringQualifiers>
     </type>
   </resources>
+  <resources uuid="53b5fd51-1bff-4bba-bdac-ae464ba626c6">
+    <name>Водитель</name>
+    <synonym>
+      <key>ru</key>
+      <value>Водитель</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>100</length>
+      </stringQualifiers>
+    </type>
+  </resources>
   <dimensions uuid="ab442873-0c5b-483e-8857-11fefc128f50">
     <name>Идентификатор</name>
     <synonym>
