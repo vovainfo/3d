@@ -193,6 +193,7 @@ function initTerminalPlan2D() {
     var visualRailways = normalizeRailwayList(rawRailways.visual, false);
     var railwayBranches = normalizeRailwayList(rawRailways.branches, true);
     var drawRailwayBranches = Boolean(sceneData.drawRailwayBranches);
+    var showCellCapacity = true;
     var cells = (sceneData.cells instanceof Array) ? sceneData.cells.slice() : [];
     var cellById = {};
     for (var initialCellIndex = 0; initialCellIndex < cells.length; initialCellIndex++) {
@@ -207,6 +208,7 @@ function initTerminalPlan2D() {
         initialCell.length = Math.max(0.1, numberOr(initialCell.length, 6.1));
         initialCell.width = Math.max(0.1, numberOr(initialCell.width, 2.5));
         initialCell.count = 0;
+        initialCell.capacity = Math.max(0, Math.round(numberOr(initialCell.capacity, 0)));
         initialCell.maxTier = Math.max(1, numberOr(initialCell.maxTier, 1));
         initialCell.disabled = Boolean(initialCell.disabled);
         cellById[initialCell.id] = initialCell;
@@ -219,6 +221,14 @@ function initTerminalPlan2D() {
 
     function occupancyKey(cellId, tier) {
         return String(cellId) + '|' + String(tier);
+    }
+
+    function cellLabelText(count, capacity, disabled) {
+        var withCapacity = showCellCapacity && capacity > 0 && !disabled;
+        if (count > 0) {
+            return withCapacity ? String(count) + '/' + String(capacity) : String(count);
+        }
+        return withCapacity ? '/' + String(capacity) : '';
     }
 
     function recomputeCellCounts() {
@@ -706,6 +716,19 @@ function initTerminalPlan2D() {
             ctx.lineWidth = 1;
             ctx.strokeRect(-sw / 2, -sh / 2, sw, sh);
         }
+        if (view.scale > 3 && cell.count === 0) {
+            var emptyLabel = cellLabelText(0, cell.capacity, cell.disabled);
+            if (emptyLabel) {
+                ctx.fillStyle = 'rgba(255,255,255,0.7)';
+                ctx.font = Math.max(8, Math.min(12, 3.2 * view.scale)) + 'px Segoe UI, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.save();
+                ctx.rotate(numberOr(cell.labelRotationDeg, 0) * Math.PI / 180);
+                ctx.fillText(emptyLabel, 0, 0);
+                ctx.restore();
+            }
+        }
         ctx.restore();
     }
 
@@ -747,14 +770,21 @@ function initTerminalPlan2D() {
             ctx.strokeRect(-sw / 2 - 1, -sh / 2 - 1, sw + 2, sh + 2);
         }
         if (view.scale > 3) {
-            ctx.fillStyle = '#fff';
-            ctx.font = Math.max(8, Math.min(12, 3.2 * view.scale)) + 'px Segoe UI, sans-serif';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.save();
-            ctx.rotate(numberOr(pl.labelRotationDeg, 0) * Math.PI / 180);
-            ctx.fillText(String(stackH), 0, 0);
-            ctx.restore();
+            var occupiedLabel = cellLabelText(
+                stackH,
+                anchorCell ? anchorCell.capacity : 0,
+                anchorCell ? anchorCell.disabled : false
+            );
+            if (occupiedLabel) {
+                ctx.fillStyle = '#fff';
+                ctx.font = Math.max(8, Math.min(12, 3.2 * view.scale)) + 'px Segoe UI, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.save();
+                ctx.rotate(numberOr(pl.labelRotationDeg, 0) * Math.PI / 180);
+                ctx.fillText(occupiedLabel, 0, 0);
+                ctx.restore();
+            }
         }
         ctx.restore();
     }
@@ -3394,6 +3424,11 @@ function initTerminalPlan2D() {
             drawRailwayBranches = Boolean(command.visible);
             needsDraw = true;
             return drawRailwayBranches;
+        }
+        if (command.op === 'setShowCellCapacity') {
+            showCellCapacity = Boolean(command.visible);
+            needsDraw = true;
+            return showCellCapacity;
         }
         if (command.op === 'resize') {
             resize();
