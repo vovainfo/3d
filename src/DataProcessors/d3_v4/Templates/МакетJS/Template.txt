@@ -208,6 +208,7 @@ function initTerminalPlan2D() {
         initialCell.width = Math.max(0.1, numberOr(initialCell.width, 2.5));
         initialCell.count = 0;
         initialCell.maxTier = Math.max(1, numberOr(initialCell.maxTier, 1));
+        initialCell.disabled = Boolean(initialCell.disabled);
         cellById[initialCell.id] = initialCell;
     }
     var placements = [];
@@ -439,6 +440,8 @@ function initTerminalPlan2D() {
         '#19466c',
         '#10324f'
     ];
+    var DISABLED_CELL_FILL = '#82878f';
+    var DISABLED_CELL_MARK = '#c9ced6';
 
     function colorForCount(count, zoneKind) {
         var palette = zoneKind === 'discharge'
@@ -696,7 +699,7 @@ function initTerminalPlan2D() {
         var sw = w * view.scale;
         var sh = h * view.scale;
         // пустая сетка 20 ft; занятость рисуется placements
-        ctx.fillStyle = '#454b55';
+        ctx.fillStyle = cell.disabled ? DISABLED_CELL_FILL : '#454b55';
         ctx.fillRect(-sw / 2, -sh / 2, sw, sh);
         if (view.scale > 2.5) {
             ctx.strokeStyle = 'rgba(0,0,0,0.2)';
@@ -732,6 +735,11 @@ function initTerminalPlan2D() {
         ctx.strokeStyle = pl.lengthFt === 40 ? '#1f0a08' : 'rgba(0,0,0,0.35)';
         ctx.lineWidth = pl.lengthFt === 40 ? Math.max(1.5, view.scale * 0.2) : 1;
         ctx.strokeRect(-sw / 2, -sh / 2, sw, sh);
+        if (anchorCell && anchorCell.disabled) {
+            ctx.strokeStyle = DISABLED_CELL_MARK;
+            ctx.lineWidth = Math.max(1.5, view.scale * 0.18);
+            ctx.strokeRect(-sw / 2, -sh / 2, sw, sh);
+        }
         if (selected && (selected.id === pl.id ||
                 (selected.kind === 'cell' && pl.cellIds.indexOf(selected.id) >= 0))) {
             ctx.strokeStyle = '#ffcc33';
