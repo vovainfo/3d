@@ -3223,8 +3223,9 @@ function initTerminalPlan2D() {
         }
     }
 
-    function focusObject(id) {
+    function focusObject(id, options) {
         id = String(id == null ? '' : id);
+        options = options || {};
         var target = placementById[id] || cellById[id] || objectById[id] || buildingById[id];
         if (!target && cellById[id]) {
             target = topPlacementForCell(id) || cellById[id];
@@ -3242,7 +3243,16 @@ function initTerminalPlan2D() {
         if (!target) {
             throw new Error('Объект с id "' + id + '" не найден.');
         }
-        selectTarget(target);
+        if (options.notify === false) {
+            selected = target;
+            needsDraw = true;
+        } else {
+            selectTarget(target);
+        }
+        var minScale = numberOr(options.minScale, 0);
+        if (minScale > 0 && view.scale < minScale) {
+            view.scale = Math.max(0.05, Math.min(20, minScale));
+        }
         var width = viewport.clientWidth || 800;
         var height = viewport.clientHeight || 600;
         view.offsetX = width / 2 - (target.x - site.minX) * view.scale;
@@ -3406,7 +3416,10 @@ function initTerminalPlan2D() {
     function applyCommand(command) {
         command = command || {};
         if (command.op === 'focus') {
-            return focusObject(command.id);
+            return focusObject(command.id, {
+                notify: command.notify !== false,
+                minScale: command.minScale
+            });
         }
         if (command.op === 'updateScoutVehicles') {
             return updateScoutVehicles(command.objects);
