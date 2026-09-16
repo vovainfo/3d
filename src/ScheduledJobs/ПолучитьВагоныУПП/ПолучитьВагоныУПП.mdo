@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:ScheduledJob xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="4a293a5a-9594-4351-825c-00ed380df233">
+  <name>ПолучитьВагоныУПП</name>
+  <synonym>
+    <key>ru</key>
+    <value>Получить вагоны УПП</value>
+  </synonym>
+  <methodName>CommonModule.ОбновлениеОнлайнДанныхТерминала.ОбновитьВагоныУПП</methodName>
+  <key>ПолучитьВагоныУПП</key>
+  <use>true</use>
+  <predefined>true</predefined>
+  <restartCountOnFailure>3</restartCountOnFailure>
+  <restartIntervalOnFailure>10</restartIntervalOnFailure>
+</mdclass:ScheduledJob>

@@ -40,7 +40,11 @@
     <languageCode>ru</languageCode>
   </languages>
   <commonModules>CommonModule.ОбновлениеТехникиСкаут</commonModules>
+  <commonModules>CommonModule.ОбновлениеОнлайнДанныхТерминала</commonModules>
   <scheduledJobs>ScheduledJob.ПолучитьТехникуСкаут</scheduledJobs>
+  <scheduledJobs>ScheduledJob.ПолучитьСудаEDS</scheduledJobs>
+  <scheduledJobs>ScheduledJob.ПолучитьВагоныУПП</scheduledJobs>
+  <scheduledJobs>ScheduledJob.ПолучитьНаполнениеПлощадокУКТ</scheduledJobs>
   <constants>Constant.ЛогинСкаут</constants>
   <constants>Constant.ПарольСкаут</constants>
   <constants>Constant.EDSUrl</constants>
@@ -69,4 +73,5 @@
   <dataProcessors>DataProcessor.d3_v4</dataProcessors>
   <dataProcessors>DataProcessor.Скаут</dataProcessors>
   <informationRegisters>InformationRegister.ПоложениеТехникиСкаут</informationRegisters>
+  <informationRegisters>InformationRegister.СнимкиОнлайнДанныхТерминала</informationRegisters>
 </mdclass:Configuration>

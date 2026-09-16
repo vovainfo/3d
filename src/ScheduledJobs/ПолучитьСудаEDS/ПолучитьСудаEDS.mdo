@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:ScheduledJob xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="6803c4f8-6554-410b-8139-2d7280751d20">
+  <name>ПолучитьСудаEDS</name>
+  <synonym>
+    <key>ru</key>
+    <value>Получить суда EDS</value>
+  </synonym>
+  <methodName>CommonModule.ОбновлениеОнлайнДанныхТерминала.ОбновитьСудаEDS</methodName>
+  <key>ПолучитьСудаEDS</key>
+  <use>true</use>
+  <predefined>true</predefined>
+  <restartCountOnFailure>3</restartCountOnFailure>
+  <restartIntervalOnFailure>10</restartIntervalOnFailure>
+</mdclass:ScheduledJob>

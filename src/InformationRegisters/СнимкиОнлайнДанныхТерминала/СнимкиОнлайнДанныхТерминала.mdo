@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:InformationRegister xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="1958b20a-c320-4d64-abc7-32e6410a8599">
+  <producedTypes>
+    <selectionType typeId="8f5dd6b6-bf10-41bd-afb0-2011426bed7c" valueTypeId="e3b16b90-8f1d-43fd-93d4-2ff2a2d7ba8b"/>
+    <listType typeId="4262fd22-46e1-4ab7-bc29-6d20fc2438ba" valueTypeId="06536ded-d977-414a-9019-969d31515193"/>
+    <managerType typeId="0377a911-aa5d-4891-b3fe-b3987553befb" valueTypeId="3fbbf18a-43bc-4aa6-9d31-7b47fead2f58"/>
+    <recordSetType typeId="4fc6d564-a6b4-4f48-a1bd-baff39992595" valueTypeId="30b63938-6127-4469-91bf-3e639a668df7"/>
+    <recordKeyType typeId="80081f7c-6e7f-4470-926b-1c7ceea9ae0d" valueTypeId="4f4ef52a-935e-4a09-8586-39667815dd02"/>
+    <recordType typeId="9c46e417-1e3e-478b-8f0d-e099ec5322cf" valueTypeId="506606dc-656c-44b1-9b43-c739f0a05ce2"/>
+    <recordManagerType typeId="cb18857e-3752-48fe-982b-6cdadfd7d9d2" valueTypeId="4d1fa62a-6248-4311-9b24-f105f1ec3d46"/>
+  </producedTypes>
+  <name>СнимкиОнлайнДанныхТерминала</name>
+  <synonym>
+    <key>ru</key>
+    <value>Снимки онлайн-данных терминала</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <editType>InDialog</editType>
+  <dataLockControlMode>Managed</dataLockControlMode>
+  <resources uuid="5b7f8505-b133-4ba8-a8dc-b83d045974d3">
+    <name>ДатаПолучения</name>
+    <synonym>
+      <key>ru</key>
+      <value>Дата получения</value>
+    </synonym>
+    <type>
+      <types>Date</types>
+      <dateQualifiers/>
+    </type>
+  </resources>
+  <resources uuid="d82d8879-20cc-4bf6-a38a-52bf3455e2ad">
+    <name>BuildId</name>
+    <synonym>
+      <key>ru</key>
+      <value>Build id</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>50</length>
+      </stringQualifiers>
+    </type>
+  </resources>
+  <resources uuid="a2cf6e7c-a5fc-4db4-9c76-e12e6fd60b92">
+    <name>ДанныеJSON</name>
+    <synonym>
+      <key>ru</key>
+      <value>Данные JSON</value>
+    </synonym>
+    <type>
+      <types>String</types>
+    </type>
+  </resources>
+  <resources uuid="1a9f5275-4c20-46ef-98fa-012632a83981">
+    <name>КоличествоОбъектов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Количество объектов</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>10</precision>
+        <nonNegative>true</nonNegative>
+      </numberQualifiers>
+    </type>
+  </resources>
+  <resources uuid="6b2ea462-ee67-4dab-b262-50922b3095fb">
+    <name>ПредупрежденияJSON</name>
+    <synonym>
+      <key>ru</key>
+      <value>Предупреждения JSON</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+  </resources>
+  <resources uuid="660eb156-3c11-44e3-a489-0d5fa589695e">
+    <name>ДлительностьОбновления</name>
+    <synonym>
+      <key>ru</key>
+      <value>Длительность обновления</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>10</precision>
+        <nonNegative>true</nonNegative>
+      </numberQualifiers>
+    </type>
+  </resources>
+  <resources uuid="90dfacd9-8256-4597-8653-5948399aea8b">
+    <name>ХэшДанных</name>
+    <synonym>
+      <key>ru</key>
+      <value>Хэш данных</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>64</length>
+      </stringQualifiers>
+    </type>
+  </resources>
+  <dimensions uuid="60e08b16-41b2-40f2-a175-4b04e24a4b6e">
+    <name>Источник</name>
+    <synonym>
+      <key>ru</key>
+      <value>Источник</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>10</length>
+      </stringQualifiers>
+    </type>
+    <indexing>Index</indexing>
+  </dimensions>
+  <dimensions uuid="e85cb0da-b0a3-4a84-a560-f799836a03ec">
+    <name>Раздел</name>
+    <synonym>
+      <key>ru</key>
+      <value>Раздел</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>20</length>
+      </stringQualifiers>
+    </type>
+    <indexing>Index</indexing>
+  </dimensions>
+</mdclass:InformationRegister>

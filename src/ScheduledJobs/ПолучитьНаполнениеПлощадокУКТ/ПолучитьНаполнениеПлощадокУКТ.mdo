@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:ScheduledJob xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="8be4553a-166d-47f0-a3aa-451d55301325">
+  <name>ПолучитьНаполнениеПлощадокУКТ</name>
+  <synonym>
+    <key>ru</key>
+    <value>Получить наполнение площадок УКТ</value>
+  </synonym>
+  <methodName>CommonModule.ОбновлениеОнлайнДанныхТерминала.ОбновитьНаполнениеПлощадокУКТ</methodName>
+  <key>ПолучитьНаполнениеПлощадокУКТ</key>
+  <use>true</use>
+  <predefined>true</predefined>
+  <restartCountOnFailure>3</restartCountOnFailure>
+  <restartIntervalOnFailure>10</restartIntervalOnFailure>
+</mdclass:ScheduledJob>
