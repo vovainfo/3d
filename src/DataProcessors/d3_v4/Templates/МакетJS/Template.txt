@@ -218,6 +218,7 @@ function initTerminalPlan2D() {
     var topPlacementList = [];
     // cellId|tier -> placementId
     var occupancy = {};
+    var occupancyDirty = false;
 
     function occupancyKey(cellId, tier) {
         return String(cellId) + '|' + String(tier);
@@ -281,6 +282,35 @@ function initTerminalPlan2D() {
         }
     }
 
+    function isReadyPlacement(raw) {
+        return raw
+            && raw.id
+            && raw.cellIds instanceof Array
+            && raw.cellIds.length
+            && typeof raw.x === 'number'
+            && typeof raw.y === 'number'
+            && typeof raw.tier === 'number';
+    }
+
+    function adoptPlacement(raw) {
+        raw.kind = 'placement';
+        raw.name = raw.id;
+        if (raw.z == null) {
+            raw.z = 0;
+        }
+        if (!raw.spanCells) {
+            raw.spanCells = numberOr(raw.lengthFt, 20) >= 40 ? 2 : 1;
+        }
+        return raw;
+    }
+
+    function adoptOrNormalizePlacement(raw) {
+        if (isReadyPlacement(raw)) {
+            return adoptPlacement(raw);
+        }
+        return normalizePlacement(raw);
+    }
+
     function normalizePlacement(raw) {
         raw = raw || {};
         var blockId = String(raw.blockId || '');
@@ -341,7 +371,20 @@ function initTerminalPlan2D() {
         }
     }
 
+    function ensureOccupancy() {
+        if (!occupancyDirty) {
+            return;
+        }
+        occupancy = {};
+        var pi;
+        for (pi = 0; pi < placements.length; pi++) {
+            markOccupancy(placements[pi]);
+        }
+        occupancyDirty = false;
+    }
+
     function topPlacementForCell(cellId) {
+        ensureOccupancy();
         var cell = cellById[String(cellId)];
         if (!cell || cell.count <= 0) {
             return null;
@@ -358,7 +401,7 @@ function initTerminalPlan2D() {
 
     var sourcePlacements = sceneData.placements instanceof Array ? sceneData.placements : [];
     for (var spi = 0; spi < sourcePlacements.length; spi++) {
-        var sourcePlacement = normalizePlacement(sourcePlacements[spi]);
+        var sourcePlacement = adoptOrNormalizePlacement(sourcePlacements[spi]);
         if (placementById[sourcePlacement.id]) {
             throw new Error('Повтор размещения "' + sourcePlacement.id + '".');
         }
@@ -3404,46 +3447,57 @@ function initTerminalPlan2D() {
         }
 
         var startedNormalize = nowMs();
-        var nextPlacements = [];
-        var nextPlacementById = {};
-        var nextOccupancy = {};
-        var placementIndex;
-        for (placementIndex = 0; placementIndex < sourcePlacements.length; placementIndex++) {
-            var placement = normalizePlacement(sourcePlacements[placementIndex]);
-            if (nextPlacementById[placement.id]) {
-                throw new Error('Повтор размещения "' + placement.id + '".');
-            }
-            var cellIndex;
-            for (cellIndex = 0; cellIndex < placement.cellIds.length; cellIndex++) {
-                var key = occupancyKey(placement.cellIds[cellIndex], placement.tier);
-                if (nextOccupancy[key]) {
-                    throw new Error('Повторное занятие ячейки "' + key + '".');
+        var nextById = {};
+        var ci;
+        for (ci = 0; ci < cells.length; ci++) {
+            cells[ci].count = 0;
+        }
+        var i;
+        for (i = 0; i < sourcePlacements.length; i++) {
+            var pl = sourcePlacements[i];
+            if (!pl || !pl.id || !(pl.cellIds instanceof Array) || !pl.cellIds.length
+                    || typeof pl.x !== 'number' || typeof pl.y !== 'number'
+                    || typeof pl.tier !== 'number') {
+                pl = normalizePlacement(pl);
+                sourcePlacements[i] = pl;
+            } else {
+                pl.kind = 'placement';
+                pl.name = pl.id;
+                if (pl.z == null) {
+                    pl.z = 0;
                 }
-                nextOccupancy[key] = placement.id;
+                if (!pl.spanCells) {
+                    pl.spanCells = pl.lengthFt >= 40 ? 2 : 1;
+                }
             }
-            nextPlacements.push(placement);
-            nextPlacementById[placement.id] = placement;
+            nextById[pl.id] = pl;
+            var ids = pl.cellIds;
+            var j;
+            for (j = 0; j < ids.length; j++) {
+                var occupiedCell = cellById[ids[j]];
+                if (occupiedCell && pl.tier > occupiedCell.count) {
+                    occupiedCell.count = pl.tier;
+                }
+            }
         }
         var normalizeMs = elapsedMs(startedNormalize);
 
         var selectedPlacementId = selected && selected.kind === 'placement' ? selected.id : '';
-        placements = nextPlacements;
-        placementById = nextPlacementById;
-        occupancy = nextOccupancy;
+        placements = sourcePlacements;
+        placementById = nextById;
+        occupancy = {};
+        occupancyDirty = true;
         var startedRecompute = nowMs();
-        recomputeCellCounts();
+        rebuildTopPlacementList();
         var recomputeMs = elapsedMs(startedRecompute);
         if (selectedPlacementId) {
             selected = placementById[selectedPlacementId] || null;
         }
-        var startedDraw = nowMs();
-        draw();
-        var drawMs = elapsedMs(startedDraw);
-        needsDraw = false;
+        needsDraw = true;
         return {
             normalize: normalizeMs,
             recompute: recomputeMs,
-            draw: drawMs
+            draw: 0
         };
     }
 

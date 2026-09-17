@@ -47,7 +47,6 @@
         <key>ru</key>
         <value>Получение реальных данных</value>
       </title>
-      <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
@@ -88,7 +87,6 @@
         <key>ru</key>
         <value>Отрисовка путей для вагонов</value>
       </title>
-      <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
@@ -171,7 +169,7 @@
         <id>56</id>
         <title>
           <key>ru</key>
-          <value>Суда EDS</value>
+          <value>Суда</value>
         </title>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -216,7 +214,7 @@
         <id>59</id>
         <title>
           <key>ru</key>
-          <value>Вагоны УПП</value>
+          <value>Вагоны</value>
         </title>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -261,7 +259,7 @@
         <id>62</id>
         <title>
           <key>ru</key>
-          <value>Контейнеры УКТ</value>
+          <value>Конт</value>
         </title>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -306,7 +304,7 @@
         <id>65</id>
         <title>
           <key>ru</key>
-          <value>Техника Скаут</value>
+          <value>Скаут</value>
         </title>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -604,7 +602,6 @@
       </picture>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
-    <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
       <common>true</common>
