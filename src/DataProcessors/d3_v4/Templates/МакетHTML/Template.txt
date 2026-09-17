@@ -11,7 +11,7 @@
   </div>
   <div id="viewport"><canvas id="plan-canvas"></canvas></div>
   <a id="pick-bridge" href="#pick" style="display:none">pick</a>
-  <a id="scene-command-bridge" href="#scene-command" data-ready="false" data-seq="" data-ack="" data-payload="" data-error="" style="display:none">command</a>
+  <a id="scene-command-bridge" href="#scene-command" data-ready="false" data-seq="" data-ack="" data-payload="" data-error="" data-metrics="" style="display:none">command</a>
   <div id="plan-error" style="display:none">Не удалось инициализировать план.</div>
 </div>
 <script type="application/json" id="scene-data">@SceneData</script>

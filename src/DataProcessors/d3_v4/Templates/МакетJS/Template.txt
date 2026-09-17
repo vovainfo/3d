@@ -223,6 +223,17 @@ function initTerminalPlan2D() {
         return String(cellId) + '|' + String(tier);
     }
 
+    function nowMs() {
+        if (window.performance && typeof performance.now === 'function') {
+            return performance.now();
+        }
+        return new Date().getTime();
+    }
+
+    function elapsedMs(startedAt) {
+        return Math.max(0, Math.round(nowMs() - startedAt));
+    }
+
     function cellLabelText(count, capacity, disabled) {
         var withCapacity = showCellCapacity && capacity > 0 && !disabled;
         if (count > 0) {
@@ -3197,6 +3208,17 @@ function initTerminalPlan2D() {
             bridge.setAttribute('data-block', target.blockId);
             bridge.setAttribute('data-row', JSON.stringify(target.row));
             bridge.setAttribute('data-bay', JSON.stringify(target.bay));
+            bridge.setAttribute('data-zone', String(target.zoneId || ''));
+            var topPl = topPlacementForCell(target.id);
+            if (topPl) {
+                bridge.setAttribute('data-top-id', topPl.id);
+                bridge.setAttribute('data-top-lengthft', JSON.stringify(topPl.lengthFt));
+                bridge.setAttribute('data-top-tier', JSON.stringify(topPl.tier));
+            } else {
+                bridge.setAttribute('data-top-id', '');
+                bridge.setAttribute('data-top-lengthft', '');
+                bridge.setAttribute('data-top-tier', '');
+            }
         }
         if (target.kind === 'placement') {
             bridge.setAttribute('data-lengthft', JSON.stringify(target.lengthFt));
@@ -3204,6 +3226,7 @@ function initTerminalPlan2D() {
             bridge.setAttribute('data-block', target.blockId);
             bridge.setAttribute('data-row', JSON.stringify(target.row));
             bridge.setAttribute('data-bay', JSON.stringify(target.bay));
+            bridge.setAttribute('data-zone', String(target.zoneId || ''));
             bridge.setAttribute('data-cells', (target.cellIds || []).join(','));
         }
         if (typeof bridge.click === 'function') {
@@ -3380,6 +3403,7 @@ function initTerminalPlan2D() {
             throw new Error('Для обновления контейнеров ожидается массив размещений.');
         }
 
+        var startedNormalize = nowMs();
         var nextPlacements = [];
         var nextPlacementById = {};
         var nextOccupancy = {};
@@ -3400,17 +3424,27 @@ function initTerminalPlan2D() {
             nextPlacements.push(placement);
             nextPlacementById[placement.id] = placement;
         }
+        var normalizeMs = elapsedMs(startedNormalize);
 
         var selectedPlacementId = selected && selected.kind === 'placement' ? selected.id : '';
         placements = nextPlacements;
         placementById = nextPlacementById;
         occupancy = nextOccupancy;
+        var startedRecompute = nowMs();
         recomputeCellCounts();
+        var recomputeMs = elapsedMs(startedRecompute);
         if (selectedPlacementId) {
             selected = placementById[selectedPlacementId] || null;
         }
-        needsDraw = true;
-        return sourcePlacements.length;
+        var startedDraw = nowMs();
+        draw();
+        var drawMs = elapsedMs(startedDraw);
+        needsDraw = false;
+        return {
+            normalize: normalizeMs,
+            recompute: recomputeMs,
+            draw: drawMs
+        };
     }
 
     function applyCommand(command) {
@@ -3467,12 +3501,28 @@ function initTerminalPlan2D() {
             return false;
         }
         processBridgeCommand.lastSequence = sequence;
+        var metrics = { jsParse: 0, normalize: 0, recompute: 0, draw: 0 };
         try {
-            applyCommand(JSON.parse(commandBridge.getAttribute('data-payload') || ''));
+            var startedParse = nowMs();
+            var command = JSON.parse(commandBridge.getAttribute('data-payload') || '');
+            metrics.jsParse = elapsedMs(startedParse);
+            var commandResult = applyCommand(command);
+            if (commandResult && typeof commandResult === 'object') {
+                if (commandResult.normalize != null) {
+                    metrics.normalize = commandResult.normalize;
+                }
+                if (commandResult.recompute != null) {
+                    metrics.recompute = commandResult.recompute;
+                }
+                if (commandResult.draw != null) {
+                    metrics.draw = commandResult.draw;
+                }
+            }
             commandBridge.setAttribute('data-error', '');
         } catch (commandError) {
             commandBridge.setAttribute('data-error', commandError.message || String(commandError));
         }
+        commandBridge.setAttribute('data-metrics', JSON.stringify(metrics));
         commandBridge.setAttribute('data-ack', sequence);
         return false;
     }

@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
+  <items xsi:type="form:FormField">
+    <name>СостояниеОбмена</name>
+    <id>19</id>
+    <visible>true</visible>
+    <enabled>true</enabled>
+    <userVisible>
+      <common>true</common>
+    </userVisible>
+    <dataPath xsi:type="form:DataPath">
+      <segments>СостояниеОбмена</segments>
+    </dataPath>
+    <titleLocation>None</titleLocation>
+    <extendedTooltip>
+      <name>СостояниеОбменаРасширеннаяПодсказка</name>
+      <id>20</id>
+      <type>Label</type>
+      <autoMaxWidth>true</autoMaxWidth>
+      <autoMaxHeight>true</autoMaxHeight>
+      <extInfo xsi:type="form:LabelDecorationExtInfo">
+        <horizontalAlign>Left</horizontalAlign>
+      </extInfo>
+    </extendedTooltip>
+    <contextMenu>
+      <name>СостояниеОбменаКонтекстноеМеню</name>
+      <id>21</id>
+      <autoFill>true</autoFill>
+    </contextMenu>
+    <type>InputField</type>
+    <readOnly>true</readOnly>
+    <editMode>Enter</editMode>
+    <headerHorizontalAlign>Left</headerHorizontalAlign>
+    <extInfo xsi:type="form:InputFieldExtInfo">
+      <width>50</width>
+      <autoMaxWidth>true</autoMaxWidth>
+      <horizontalStretch>true</horizontalStretch>
+    </extInfo>
+  </items>
   <items xsi:type="form:FormGroup">
     <name>Чекбоксы</name>
     <id>45</id>
@@ -125,42 +162,6 @@
       <headerHorizontalAlign>Left</headerHorizontalAlign>
       <showInFooter>true</showInFooter>
       <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
-    </items>
-    <items xsi:type="form:FormField">
-      <name>СостояниеОбмена</name>
-      <id>19</id>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>СостояниеОбмена</segments>
-      </dataPath>
-      <titleLocation>None</titleLocation>
-      <extendedTooltip>
-        <name>СостояниеОбменаРасширеннаяПодсказка</name>
-        <id>20</id>
-        <type>Label</type>
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <extInfo xsi:type="form:LabelDecorationExtInfo">
-          <horizontalAlign>Left</horizontalAlign>
-        </extInfo>
-      </extendedTooltip>
-      <contextMenu>
-        <name>СостояниеОбменаКонтекстноеМеню</name>
-        <id>21</id>
-        <autoFill>true</autoFill>
-      </contextMenu>
-      <type>InputField</type>
-      <readOnly>true</readOnly>
-      <editMode>Enter</editMode>
-      <headerHorizontalAlign>Left</headerHorizontalAlign>
-      <extInfo xsi:type="form:InputFieldExtInfo">
-        <width>50</width>
-        <autoMaxWidth>true</autoMaxWidth>
-        <horizontalStretch>true</horizontalStretch>
-      </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
       <name>ДатыАктуализации</name>
