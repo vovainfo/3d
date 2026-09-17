@@ -67,11 +67,13 @@
   <constants>Constant.ОтрисовкаПутейДляВагонов</constants>
   <constants>Constant.ТокенСкаут</constants>
   <commonForms>CommonForm.Стартовая</commonForms>
+  <catalogs>Catalog.ИнформационныеБазыПорта</catalogs>
   <dataProcessors>DataProcessor.d3</dataProcessors>
   <dataProcessors>DataProcessor.d3_v2</dataProcessors>
   <dataProcessors>DataProcessor.d3_v3</dataProcessors>
   <dataProcessors>DataProcessor.d3_v4</dataProcessors>
   <dataProcessors>DataProcessor.Скаут</dataProcessors>
+  <dataProcessors>DataProcessor.ЗаполнениеПараметровПодключения</dataProcessors>
   <informationRegisters>InformationRegister.ПоложениеТехникиСкаут</informationRegisters>
   <informationRegisters>InformationRegister.СнимкиОнлайнДанныхТерминала</informationRegisters>
 </mdclass:Configuration>

@@ -8,7 +8,7 @@
   <name>УППКодПроверки</name>
   <synonym>
     <key>ru</key>
-    <value>УППКод проверки</value>
+    <value>УППКод проверки (не используется, см. справочник Информационные базы порта)</value>
   </synonym>
   <type>
     <types>String</types>

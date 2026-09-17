@@ -8,7 +8,7 @@
   <name>ПарольСкаут</name>
   <synonym>
     <key>ru</key>
-    <value>Пароль скаут</value>
+    <value>Пароль скаут (не используется, см. справочник Информационные базы порта)</value>
   </synonym>
   <type>
     <types>String</types>

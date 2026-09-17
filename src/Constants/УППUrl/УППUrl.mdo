@@ -8,7 +8,7 @@
   <name>УППUrl</name>
   <synonym>
     <key>ru</key>
-    <value>УППUrl</value>
+    <value>УППUrl (не используется, см. справочник Информационные базы порта)</value>
   </synonym>
   <type>
     <types>String</types>

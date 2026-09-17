@@ -8,7 +8,7 @@
   <name>УКТКодПроверки</name>
   <synonym>
     <key>ru</key>
-    <value>УКТКод проверки</value>
+    <value>УКТКод проверки (не используется, см. справочник Информационные базы порта)</value>
   </synonym>
   <type>
     <types>String</types>

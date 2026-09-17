@@ -8,7 +8,7 @@
   <name>EDSUrl</name>
   <synonym>
     <key>ru</key>
-    <value>EDSUrl</value>
+    <value>EDSUrl (не используется, см. справочник Информационные базы порта)</value>
   </synonym>
   <type>
     <types>String</types>

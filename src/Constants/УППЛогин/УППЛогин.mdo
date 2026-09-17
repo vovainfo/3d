@@ -8,7 +8,7 @@
   <name>УППЛогин</name>
   <synonym>
     <key>ru</key>
-    <value>УППЛогин</value>
+    <value>УППЛогин (не используется, см. справочник Информационные базы порта)</value>
   </synonym>
   <type>
     <types>String</types>

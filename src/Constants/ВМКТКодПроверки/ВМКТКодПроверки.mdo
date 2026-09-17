@@ -8,7 +8,7 @@
   <name>ВМКТКодПроверки</name>
   <synonym>
     <key>ru</key>
-    <value>ВМКТ Код проверки</value>
+    <value>ВМКТ Код проверки (не используется, см. справочник Информационные базы порта)</value>
   </synonym>
   <type>
     <types>String</types>

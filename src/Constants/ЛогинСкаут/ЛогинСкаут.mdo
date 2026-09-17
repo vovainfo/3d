@@ -8,7 +8,7 @@
   <name>ЛогинСкаут</name>
   <synonym>
     <key>ru</key>
-    <value>Логин скаут</value>
+    <value>Логин скаут (не используется, см. справочник Информационные базы порта)</value>
   </synonym>
   <type>
     <types>String</types>

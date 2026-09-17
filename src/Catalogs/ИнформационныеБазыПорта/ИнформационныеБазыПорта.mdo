@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="4cd01a21-8a13-4ea7-a495-a7c3bb7d26f4">
+  <producedTypes>
+    <objectType typeId="a86346c3-4d8d-4c0e-9985-b5a31bc851f6" valueTypeId="13e9296e-10fa-40cb-a476-11c61ccde548"/>
+    <refType typeId="abd7b4ea-c262-4f5e-b87f-3d1a7e857ca0" valueTypeId="9d5b7ec8-1d88-47c8-a137-d550f98f65c3"/>
+    <selectionType typeId="92c10298-b4b3-4eb9-a97e-e7a761a22105" valueTypeId="4aed0552-0c8c-4dd8-b4c3-7e4edd866a6a"/>
+    <listType typeId="123a8eba-ac35-4a21-bd67-70575a7b5c96" valueTypeId="4ed0f424-dc32-4f9b-ab78-33a67ae6ec04"/>
+    <managerType typeId="48f4289b-2d0e-4f99-9a79-b7fc0c0d308d" valueTypeId="d1afc0eb-cf87-435c-912e-a5f1877df254"/>
+  </producedTypes>
+  <name>ИнформационныеБазыПорта</name>
+  <synonym>
+    <key>ru</key>
+    <value>Информационные базы порта</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <inputByString>Catalog.ИнформационныеБазыПорта.StandardAttribute.Code</inputByString>
+  <inputByString>Catalog.ИнформационныеБазыПорта.StandardAttribute.Description</inputByString>
+  <fullTextSearchOnInputByString>DontUse</fullTextSearchOnInputByString>
+  <createOnInput>Use</createOnInput>
+  <fullTextSearch>Use</fullTextSearch>
+  <objectPresentation>
+    <key>ru</key>
+    <value>Информационная база порта</value>
+  </objectPresentation>
+  <listPresentation>
+    <key>ru</key>
+    <value>Информационные базы порта</value>
+  </listPresentation>
+  <levelCount>2</levelCount>
+  <foldersOnTop>true</foldersOnTop>
+  <codeLength>5</codeLength>
+  <descriptionLength>50</descriptionLength>
+  <codeType>String</codeType>
+  <checkUnique>true</checkUnique>
+  <autonumbering>true</autonumbering>
+  <defaultPresentation>AsDescription</defaultPresentation>
+  <predefined>
+    <items id="f4ee1a09-30d5-45e8-a02d-3c73111caa4a">
+      <name>EDS</name>
+      <description>EDS</description>
+      <code xsi:type="core:StringValue">
+        <value>EDS</value>
+      </code>
+    </items>
+    <items id="39813ea9-64ed-4490-b856-549e55f9ae18">
+      <name>УПП</name>
+      <description>УПП</description>
+      <code xsi:type="core:StringValue">
+        <value>УПП</value>
+      </code>
+    </items>
+    <items id="cddbb9fc-b003-41bf-bf06-0928be67e197">
+      <name>УКТ</name>
+      <description>УКТ</description>
+      <code xsi:type="core:StringValue">
+        <value>УКТ</value>
+      </code>
+    </items>
+    <items id="4c0749e3-bc60-4e43-a2f0-8ca4b0c43fc1">
+      <name>ВМКТ</name>
+      <description>ВМКТ</description>
+      <code xsi:type="core:StringValue">
+        <value>ВМКТ</value>
+      </code>
+    </items>
+    <items id="70052925-24af-4cd9-a505-3be85ddee4c1">
+      <name>Скаут</name>
+      <description>Скаут</description>
+      <code xsi:type="core:StringValue">
+        <value>Скаут</value>
+      </code>
+    </items>
+  </predefined>
+  <editType>InDialog</editType>
+  <choiceMode>BothWays</choiceMode>
+  <attributes uuid="a253e29e-0d39-4dd8-b998-057f1716c35a">
+    <name>АдресWSDL</name>
+    <synonym>
+      <key>ru</key>
+      <value>Адрес WSDL</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>300</length>
+      </stringQualifiers>
+    </type>
+  </attributes>
+  <attributes uuid="a81b328e-52fc-45b7-a8f3-5c714450e987">
+    <name>ПользовательСервиса</name>
+    <synonym>
+      <key>ru</key>
+      <value>Пользователь сервиса</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>50</length>
+      </stringQualifiers>
+    </type>
+  </attributes>
+  <attributes uuid="2a7005cb-61e8-46ad-8750-f0a739f916f7">
+    <name>ПарольСервиса</name>
+    <synonym>
+      <key>ru</key>
+      <value>Пароль сервиса</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>50</length>
+      </stringQualifiers>
+    </type>
+    <passwordMode>true</passwordMode>
+  </attributes>
+  <attributes uuid="37a68226-7497-46cb-af7d-d7974edeb49e">
+    <name>ИмяСервиса</name>
+    <synonym>
+      <key>ru</key>
+      <value>Имя сервиса</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>100</length>
+      </stringQualifiers>
+    </type>
+  </attributes>
+  <attributes uuid="bfd77170-3d40-450e-8312-ecda7a56a7c1">
+    <name>ИмяТочкиПодключения</name>
+    <synonym>
+      <key>ru</key>
+      <value>Имя точки подключения</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>100</length>
+      </stringQualifiers>
+    </type>
+  </attributes>
+  <attributes uuid="5c1dd694-83d3-4d8d-a9f6-8b229ad0d61e">
+    <name>КодПроверки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Код проверки</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>100</length>
+      </stringQualifiers>
+    </type>
+  </attributes>
+  <attributes uuid="5632cfb7-c1e0-4a53-9b97-b9d7102b50e9">
+    <name>Путь</name>
+    <synonym>
+      <key>ru</key>
+      <value>Путь</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>255</length>
+      </stringQualifiers>
+    </type>
+  </attributes>
+  <attributes uuid="dcc49e22-a0d8-4027-80e1-60c6b5c9a616">
+    <name>Порт</name>
+    <synonym>
+      <key>ru</key>
+      <value>Порт</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>5</precision>
+        <nonNegative>true</nonNegative>
+      </numberQualifiers>
+    </type>
+  </attributes>
+  <attributes uuid="780dd210-8f09-4727-ab6a-f0ccc838cc63">
+    <name>ТаймаутЗапроса</name>
+    <synonym>
+      <key>ru</key>
+      <value>Таймаут запроса</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>3</precision>
+        <nonNegative>true</nonNegative>
+      </numberQualifiers>
+    </type>
+  </attributes>
+  <attributes uuid="fc69a692-13f1-4f27-95a9-f3a7d176e429">
+    <name>ТаймаутЗапросаКарточки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Таймаут запроса карточки</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>3</precision>
+        <nonNegative>true</nonNegative>
+      </numberQualifiers>
+    </type>
+  </attributes>
+  <attributes uuid="3b7345f0-872a-44d6-be9b-69b5be34a916">
+    <name>ИдентификаторКлиента</name>
+    <synonym>
+      <key>ru</key>
+      <value>Идентификатор клиента</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>50</length>
+      </stringQualifiers>
+    </type>
+  </attributes>
+  <attributes uuid="f2a4c71a-8961-453f-8521-b79f45f1bdf3">
+    <name>URIПространстваИмен</name>
+    <synonym>
+      <key>ru</key>
+      <value>URIПространства имен</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>100</length>
+      </stringQualifiers>
+    </type>
+  </attributes>
+</mdclass:Catalog>

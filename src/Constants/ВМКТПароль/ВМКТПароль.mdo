@@ -8,7 +8,7 @@
   <name>ВМКТПароль</name>
   <synonym>
     <key>ru</key>
-    <value>ВМКТ Пароль</value>
+    <value>ВМКТ Пароль (не используется, см. справочник Информационные базы порта)</value>
   </synonym>
   <type>
     <types>String</types>
