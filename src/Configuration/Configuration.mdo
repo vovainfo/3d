@@ -45,25 +45,7 @@
   <scheduledJobs>ScheduledJob.ПолучитьСудаEDS</scheduledJobs>
   <scheduledJobs>ScheduledJob.ПолучитьВагоныУПП</scheduledJobs>
   <scheduledJobs>ScheduledJob.ПолучитьНаполнениеПлощадокУКТ</scheduledJobs>
-  <constants>Constant.ЛогинСкаут</constants>
-  <constants>Constant.ПарольСкаут</constants>
-  <constants>Constant.EDSUrl</constants>
-  <constants>Constant.EDSПароль</constants>
-  <constants>Constant.EDSЛогин</constants>
-  <constants>Constant.EDSКодПроверки</constants>
   <constants>Constant.ПолучениеРеальныхДанных</constants>
-  <constants>Constant.УППUrl</constants>
-  <constants>Constant.УППЛогин</constants>
-  <constants>Constant.УПППароль</constants>
-  <constants>Constant.УППКодПроверки</constants>
-  <constants>Constant.УКТUrl</constants>
-  <constants>Constant.УКТЛогин</constants>
-  <constants>Constant.УКТПароль</constants>
-  <constants>Constant.УКТКодПроверки</constants>
-  <constants>Constant.ВМКТUrl</constants>
-  <constants>Constant.ВМКТЛогин</constants>
-  <constants>Constant.ВМКТПароль</constants>
-  <constants>Constant.ВМКТКодПроверки</constants>
   <constants>Constant.ОтрисовкаПутейДляВагонов</constants>
   <constants>Constant.ТокенСкаут</constants>
   <commonForms>CommonForm.Стартовая</commonForms>
@@ -73,7 +55,6 @@
   <dataProcessors>DataProcessor.d3_v3</dataProcessors>
   <dataProcessors>DataProcessor.d3_v4</dataProcessors>
   <dataProcessors>DataProcessor.Скаут</dataProcessors>
-  <dataProcessors>DataProcessor.ЗаполнениеПараметровПодключения</dataProcessors>
   <informationRegisters>InformationRegister.ПоложениеТехникиСкаут</informationRegisters>
   <informationRegisters>InformationRegister.СнимкиОнлайнДанныхТерминала</informationRegisters>
 </mdclass:Configuration>
