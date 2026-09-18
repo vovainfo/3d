@@ -54,6 +54,15 @@
       <value>Поиск объектов</value>
     </synonym>
   </forms>
+  <forms uuid="24ad4586-ce62-4193-9acc-007580c28d1c">
+    <name>ИнформацияВагон</name>
+    <synonym>
+      <key>ru</key>
+      <value>Информация вагон</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
   <templates uuid="720119db-5d6d-458a-aa3b-e241e0a5b193">
     <name>МакетHTML</name>
     <synonym>
