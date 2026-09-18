@@ -1,6 +1,6 @@
 {
   "schemaVersion": "4.0",
-  "buildId": "5f8f732ee872f0ec",
+  "buildId": "8fd90c2aede64434",
   "algorithm": "sha256",
   "sources": {
     "anchorage": {
@@ -15,7 +15,7 @@
     },
     "bayAxes": {
       "path": "geojson/container_site_bay_axes_v4.geojson",
-      "sha256": "25014e6f94368f2eedf6fe953688a37c24f43fd59b2e644e504229ab0dac768b",
+      "sha256": "dc4490fef24e704d999f7390530ebb005422d984d7edca7fe441702e8175f056",
       "characters": 13778
     },
     "berth": {
@@ -35,7 +35,7 @@
     },
     "containerSites": {
       "path": "geojson/container_sites_v4.geojson",
-      "sha256": "17aa46f69ecdd34b4dc477b9dc7ca4abf47f438ed0ac341358554e2890dabf7d",
+      "sha256": "ab69db4299248072ce0a10d12321fde7d2adc3ef0cd1465399a50bc8a450e3fe",
       "characters": 24437
     },
     "cranes": {
@@ -85,7 +85,7 @@
     },
     "terminalLayout": {
       "path": "terminal-layout-v4.json",
-      "sha256": "882f8ed018912abc2675204d071067e61491996caeef90e2bcef42797348d08b",
+      "sha256": "b63334372c00521ba0190b3a114dec5cef29e49e16286efacd87231e7f05ea15",
       "characters": 44578
     },
     "trains": {

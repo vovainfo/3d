@@ -1271,19 +1271,19 @@
             "zoneId": "O",
             "numbers": {
               "from": 1,
-              "to": 61
+              "to": 66
             }
           }
         ]
       },
       "expected": {
         "rowCellCount": 10,
-        "bayCellCount": 61,
+        "bayCellCount": 66,
         "zoneCellCounts": {
-          "O": 610
+          "O": 660
         },
         "footprintAlongRowsM": 25.9,
-        "footprintAlongBaysM": 378.2
+        "footprintAlongBaysM": 409.2
       }
     },
     {
