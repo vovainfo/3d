@@ -457,7 +457,9 @@ function initTerminalPlan2D() {
             information: String(so.information || ''),
             trainId: String(so.trainId || ''),
             branchId: String(so.branchId || ''),
-            loaded: !!so.loaded
+            loaded: !!so.loaded,
+            lengthUnknown: !!so.lengthUnknown || so.lengthStatus === 'unknown',
+            lengthStatus: String(so.lengthStatus || '')
         };
     }
 

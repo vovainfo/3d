@@ -205,7 +205,6 @@
     <type>UsualGroup</type>
     <extInfo xsi:type="form:UsualGroupExtInfo">
       <group>AlwaysHorizontal</group>
-      <showTitle>false</showTitle>
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
@@ -345,10 +344,6 @@
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <wrap>true</wrap>
-        <format>
-          <key>ru</key>
-          <value>ЧДЦ=2</value>
-        </format>
         <chooseType>true</chooseType>
         <typeDomainEnabled>true</typeDomainEnabled>
         <textEdit>true</textEdit>
@@ -376,7 +371,6 @@
     <type>UsualGroup</type>
     <extInfo xsi:type="form:UsualGroupExtInfo">
       <group>AlwaysHorizontal</group>
-      <showTitle>false</showTitle>
     </extInfo>
   </items>
   <autoCommandBar>
@@ -419,10 +413,10 @@
     <event>OnCreateAtServer</event>
     <name>ПриСозданииНаСервере</name>
   </handlers>
-  <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
-  <saveWindowSettings>true</saveWindowSettings>
   <width>72</width>
   <height>10</height>
+  <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
+  <saveWindowSettings>true</saveWindowSettings>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -576,12 +570,10 @@
     </title>
     <id>8</id>
     <valueType>
-      <types>Number</types>
-      <numberQualifiers>
-        <precision>10</precision>
-        <scale>2</scale>
-        <nonNegative>true</nonNegative>
-      </numberQualifiers>
+      <types>String</types>
+      <stringQualifiers>
+        <length>20</length>
+      </stringQualifiers>
     </valueType>
     <view>
       <common>true</common>
@@ -641,7 +633,7 @@
     </valueType>
   </parameters>
   <parameters>
-    <name>Длина</name>
+    <name>Позиция</name>
     <valueType>
       <types>Number</types>
       <numberQualifiers>
@@ -652,7 +644,13 @@
     </valueType>
   </parameters>
   <parameters>
-    <name>Позиция</name>
+    <name>ДлинаУказана</name>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+  </parameters>
+  <parameters>
+    <name>ДлинаМ</name>
     <valueType>
       <types>Number</types>
       <numberQualifiers>
