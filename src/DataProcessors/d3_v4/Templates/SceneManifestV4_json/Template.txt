@@ -1,6 +1,6 @@
 {
   "schemaVersion": "4.0",
-  "buildId": "697de3c4ee78c3bb",
+  "buildId": "b550f7e6967fb532",
   "algorithm": "sha256",
   "sources": {
     "anchorage": {
@@ -35,7 +35,7 @@
     },
     "containerSites": {
       "path": "geojson/container_sites_v4.geojson",
-      "sha256": "ef5d1123dae1b44de0add9c7cff41266583b8bf557bc7b473cac2fb2589ee12f",
+      "sha256": "2a1507f4e11c6ff82dc92cc880b748a75a2a76a3f579964e1061116b23dff07b",
       "characters": 25318
     },
     "cranes": {
@@ -85,8 +85,8 @@
     },
     "terminalLayout": {
       "path": "terminal-layout-v4.json",
-      "sha256": "b63334372c00521ba0190b3a114dec5cef29e49e16286efacd87231e7f05ea15",
-      "characters": 44578
+      "sha256": "fffb3fe8d67901edb900dea9854db859f6c7a84fa4581fee49be592f8e5ef94a",
+      "characters": 44430
     },
     "trains": {
       "path": "trains-v4.json",

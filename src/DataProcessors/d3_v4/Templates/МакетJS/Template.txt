@@ -526,6 +526,8 @@ function initTerminalPlan2D() {
     ];
     var DISABLED_CELL_FILL = '#82878f';
     var DISABLED_CELL_MARK = '#c9ced6';
+    var EMPTY_CELL_FILL = '#454b55';
+    var EMPTY_DISCHARGE_CELL_FILL = '#2e405a';
     var SITE_LABEL_FILL = '#f8fafc';
     var SITE_LABEL_STROKE = 'rgba(15, 23, 42, 0.78)';
 
@@ -840,7 +842,9 @@ function initTerminalPlan2D() {
         var sw = w * view.scale;
         var sh = h * view.scale;
         // пустая сетка 20 ft; занятость рисуется placements
-        ctx.fillStyle = cell.disabled ? DISABLED_CELL_FILL : '#454b55';
+        ctx.fillStyle = cell.disabled
+            ? DISABLED_CELL_FILL
+            : (cell.zoneKind === 'discharge' ? EMPTY_DISCHARGE_CELL_FILL : EMPTY_CELL_FILL);
         ctx.fillRect(-sw / 2, -sh / 2, sw, sh);
         if (view.scale > 2.5) {
             ctx.strokeStyle = 'rgba(0,0,0,0.2)';

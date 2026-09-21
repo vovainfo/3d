@@ -79,12 +79,6 @@
               "from": 1,
               "to": 10
             }
-          },
-          {
-            "kind": "aisle",
-            "id": "aisle_rows_1",
-            "widthM": 10.0,
-            "runsAlong": "bays"
           }
         ],
         "bays": [
@@ -218,7 +212,7 @@
           "ЗВ52": 50,
           "ЗВ53": 50
         },
-        "footprintAlongRowsM": 35.9,
+        "footprintAlongRowsM": 25.9,
         "footprintAlongBaysM": 249.8
       }
     },
