@@ -70,7 +70,7 @@ TEMPLATE_PATHS = {
 
 DEFAULT_RAIL_GAUGE_M = 1.52
 DEFAULT_RAIL_COLOR = "#6B7280"
-DEFAULT_TRAIN_GAP_M = 1.0
+DEFAULT_TRAIN_GAP_M = 0.0
 WAGON_DEFAULTS = {
     "фит.пл.": {"widthM": 3.1, "heightM": 1.3, "color": "#B45309"},
     "пв": {"widthM": 3.24, "heightM": 3.48, "color": "#4B5563"},

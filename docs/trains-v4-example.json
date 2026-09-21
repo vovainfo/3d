@@ -7,7 +7,7 @@
       "branchId": "000000002",
       "offsetM": 25.0,
       "direction": "forward",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-001",

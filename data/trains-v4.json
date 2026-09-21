@@ -7,7 +7,7 @@
       "branchId": "000000025",
       "offsetM": 0.0,
       "direction": "forward",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000025-001",
@@ -101,7 +101,7 @@
       "branchId": "000000026",
       "offsetM": 0.0,
       "direction": "reverse",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000026-001",
@@ -177,7 +177,7 @@
       "branchId": "000000027",
       "offsetM": 0.0,
       "direction": "forward",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000027-001",
@@ -253,7 +253,7 @@
       "branchId": "000000022",
       "offsetM": 0.0,
       "direction": "reverse",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000022-001",
@@ -485,7 +485,7 @@
       "branchId": "000000053",
       "offsetM": 0.0,
       "direction": "forward",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000053-001",
@@ -585,7 +585,7 @@
       "branchId": "000000023",
       "offsetM": 0.0,
       "direction": "reverse",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000023-001",
@@ -691,7 +691,7 @@
       "branchId": "000000011",
       "offsetM": 0.0,
       "direction": "forward",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000011-001",
@@ -761,7 +761,7 @@
       "branchId": "000000010",
       "offsetM": 0.0,
       "direction": "reverse",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000010-001",
@@ -831,7 +831,7 @@
       "branchId": "000000012",
       "offsetM": 0.0,
       "direction": "forward",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000012-001",
@@ -895,7 +895,7 @@
       "branchId": "000000002",
       "offsetM": 0.0,
       "direction": "reverse",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000002-001",
@@ -959,7 +959,7 @@
       "branchId": "000000015",
       "offsetM": 0.0,
       "direction": "forward",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000015-001",
@@ -1005,7 +1005,7 @@
       "branchId": "000000003",
       "offsetM": 0.0,
       "direction": "reverse",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000003-001",
@@ -1153,7 +1153,7 @@
       "branchId": "000000004",
       "offsetM": 0.0,
       "direction": "forward",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000004-001",
@@ -1229,7 +1229,7 @@
       "branchId": "000000005",
       "offsetM": 0.0,
       "direction": "reverse",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000005-001",
@@ -1293,7 +1293,7 @@
       "branchId": "000000006",
       "offsetM": 0.0,
       "direction": "forward",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000006-001",
@@ -1423,7 +1423,7 @@
       "branchId": "000000007",
       "offsetM": 0.0,
       "direction": "reverse",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000007-001",
@@ -1571,7 +1571,7 @@
       "branchId": "000000029",
       "offsetM": 0.0,
       "direction": "forward",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000029-001",
@@ -1659,7 +1659,7 @@
       "branchId": "000000058",
       "offsetM": 0.0,
       "direction": "reverse",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000058-001",
@@ -1765,7 +1765,7 @@
       "branchId": "000000013",
       "offsetM": 0.0,
       "direction": "forward",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000013-001",
@@ -1835,7 +1835,7 @@
       "branchId": "000000047",
       "offsetM": 0.0,
       "direction": "reverse",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000047-001",
@@ -1905,7 +1905,7 @@
       "branchId": "000000054",
       "offsetM": 0.0,
       "direction": "forward",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000054-001",
@@ -1963,7 +1963,7 @@
       "branchId": "000000014",
       "offsetM": 0.0,
       "direction": "reverse",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000014-001",
@@ -2009,7 +2009,7 @@
       "branchId": "000000016",
       "offsetM": 0.0,
       "direction": "forward",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000016-001",
@@ -2061,7 +2061,7 @@
       "branchId": "000000043",
       "offsetM": 0.0,
       "direction": "reverse",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000043-001",
@@ -2125,7 +2125,7 @@
       "branchId": "000000044",
       "offsetM": 0.0,
       "direction": "forward",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000044-001",
@@ -2183,7 +2183,7 @@
       "branchId": "000000017",
       "offsetM": 0.0,
       "direction": "reverse",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000017-001",
@@ -2253,7 +2253,7 @@
       "branchId": "000000020",
       "offsetM": 0.0,
       "direction": "forward",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000020-001",
@@ -2323,7 +2323,7 @@
       "branchId": "000000059",
       "offsetM": 0.0,
       "direction": "reverse",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000059-001",
@@ -2393,7 +2393,7 @@
       "branchId": "000000018",
       "offsetM": 0.0,
       "direction": "forward",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000018-001",
@@ -2457,7 +2457,7 @@
       "branchId": "000000019",
       "offsetM": 0.0,
       "direction": "reverse",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000019-001",
@@ -2509,7 +2509,7 @@
       "branchId": "000000021",
       "offsetM": 0.0,
       "direction": "forward",
-      "gapM": 1.0,
+      "gapM": 0.0,
       "wagons": [
         {
           "id": "W-000000021-001",

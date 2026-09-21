@@ -44,6 +44,15 @@ function initTerminalPlan2D() {
         return isFinite(n) ? n : fallback;
     }
 
+    var DEFAULT_RAIL_WAGON_LENGTH_M = 14;
+
+    function railWagonLengthM(obj) {
+        if (obj && (obj.lengthUnknown || obj.lengthStatus === 'unknown')) {
+            return DEFAULT_RAIL_WAGON_LENGTH_M;
+        }
+        return numberOr(obj && obj.size && obj.size.length, DEFAULT_RAIL_WAGON_LENGTH_M);
+    }
+
     function plannedContainerCounts(value) {
         var src = (value && typeof value === 'object') ? value : {};
         return {
@@ -418,6 +427,14 @@ function initTerminalPlan2D() {
         if (!oid || !kind || kind === 'cell' || kind === 'placement') {
             return null;
         }
+        var lengthUnknown = !!so.lengthUnknown || so.lengthStatus === 'unknown';
+        var size = so.size || {};
+        if (kind === 'railWagon' && lengthUnknown) {
+            size = {
+                length: DEFAULT_RAIL_WAGON_LENGTH_M,
+                width: numberOr(size.width, 3.1)
+            };
+        }
         return {
             id: oid,
             kind: kind,
@@ -427,7 +444,7 @@ function initTerminalPlan2D() {
             z: numberOr(so.z, 0),
             rotation: numberOr(so.rotation, 0),
             color: String(so.color || '#94a3b8'),
-            size: so.size || {},
+            size: size,
             load: String(so.load || 'none'),
             length: numberOr(so.length, numberOr(so.size && so.size.length, 0)),
             vesselId: String(so.vesselId || ''),
@@ -458,7 +475,7 @@ function initTerminalPlan2D() {
             trainId: String(so.trainId || ''),
             branchId: String(so.branchId || ''),
             loaded: !!so.loaded,
-            lengthUnknown: !!so.lengthUnknown || so.lengthStatus === 'unknown',
+            lengthUnknown: lengthUnknown,
             lengthStatus: String(so.lengthStatus || '')
         };
     }
@@ -1062,13 +1079,13 @@ function initTerminalPlan2D() {
         }
         if (kind === 'railWagon') {
             return {
-                hw: numberOr(size.length, 14) * 0.55,
+                hw: railWagonLengthM(obj) * 0.55,
                 hh: numberOr(size.width, 3.1) * 0.7
             };
         }
         if (kind.indexOf('wagon') === 0) {
             return {
-                hw: numberOr(size.length, 14) * 0.55,
+                hw: railWagonLengthM(obj) * 0.55,
                 hh: numberOr(size.width, 3.1) * 0.7
             };
         }
@@ -2041,14 +2058,31 @@ function initTerminalPlan2D() {
         drawWheels([-len * 0.32, -len * 0.12, len * 0.12, len * 0.32], w * 0.55, Math.max(1.0, 0.55 * s));
     }
 
+    function railWagonSeamPx(s) {
+        return Math.max(1.5, 0.3 * s);
+    }
+
+    function drawRailWagonEndSeams(len, halfW, s) {
+        var seam = railWagonSeamPx(s);
+        if (seam * 2 >= len) {
+            seam = Math.max(1, len * 0.12);
+        }
+        ctx.save();
+        ctx.fillStyle = '#111827';
+        ctx.fillRect(-len * 0.5, -halfW, seam, halfW * 2);
+        ctx.fillRect(len * 0.5 - seam, -halfW, seam, halfW * 2);
+        ctx.restore();
+    }
+
     function drawDecorativeContainers(len, w, s) {
+        var usable = Math.max(s, len - 2 * railWagonSeamPx(s));
         var boxLen = 6.1 * s;
         var boxW = Math.min(2.5 * s, w);
         var gap = 0.2 * s;
-        var count = Math.floor((len + gap) / (boxLen + gap));
+        var count = Math.floor((usable + gap) / (boxLen + gap));
         if (count < 1) {
             count = 1;
-            boxLen = Math.min(boxLen, Math.max(gap, len - gap));
+            boxLen = Math.min(boxLen, Math.max(gap, usable - gap));
         }
         var total = count * boxLen + (count - 1) * gap;
         var x0 = -total * 0.5;
@@ -2223,7 +2257,7 @@ function initTerminalPlan2D() {
 
     function drawRailWagonIcon(obj, s) {
         var type = obj.wagonType || '';
-        var len = numberOr(obj.size && obj.size.length, 14) * s;
+        var len = railWagonLengthM(obj) * s;
         var w = numberOr(obj.size && obj.size.width, 3.1) * s;
         var color = obj.color || '#4b5563';
         var loaded = !!obj.loaded;
@@ -2233,7 +2267,6 @@ function initTerminalPlan2D() {
         ctx.lineWidth = line;
         ctx.fillStyle = '#374151';
         strokeFillRect(-len * 0.5, -w * 0.17, len, w * 0.34);
-        drawWheels([-len * 0.34, len * 0.34], w * 0.58, Math.max(0.9, 0.45 * s));
 
         if (type === 'фит.пл.') {
             ctx.fillStyle = color;
@@ -2247,6 +2280,10 @@ function initTerminalPlan2D() {
                 }
                 drawEmptyWagonMark(len, w, s);
             }
+            drawRailWagonEndSeams(
+                len,
+                loaded ? Math.max(w * 0.34, Math.min(2.5 * s, w) * 0.5) : Math.max(w * 0.34, w * 0.42),
+                s);
             return;
         }
 
@@ -2260,6 +2297,7 @@ function initTerminalPlan2D() {
             if (!loaded) {
                 drawEmptyWagonMark(len, w, s);
             }
+            drawRailWagonEndSeams(len, w * 0.5, s);
             return;
         }
 
@@ -2294,6 +2332,7 @@ function initTerminalPlan2D() {
             } else {
                 drawEmptyWagonMark(len, w, s);
             }
+            drawRailWagonEndSeams(len, w * 0.5, s);
             return;
         }
 
@@ -2308,6 +2347,7 @@ function initTerminalPlan2D() {
             if (!loaded) {
                 drawEmptyWagonMark(len, w, s);
             }
+            drawRailWagonEndSeams(len, w * 0.5, s);
             return;
         }
 
@@ -2322,6 +2362,7 @@ function initTerminalPlan2D() {
             if (!loaded) {
                 drawEmptyWagonMark(len, w, s);
             }
+            drawRailWagonEndSeams(len, w * 0.5, s);
             return;
         }
 
@@ -2341,6 +2382,7 @@ function initTerminalPlan2D() {
             if (!loaded) {
                 drawEmptyWagonMark(len, w, s);
             }
+            drawRailWagonEndSeams(len, Math.max(w * 0.17, w * 0.42), s);
             return;
         }
 
@@ -2357,6 +2399,7 @@ function initTerminalPlan2D() {
             if (!loaded) {
                 drawEmptyWagonMark(len, w, s);
             }
+            drawRailWagonEndSeams(len, w * 0.5, s);
             return;
         }
 
@@ -2366,11 +2409,12 @@ function initTerminalPlan2D() {
             drawEmptyWagonMark(len, w, s);
         }
         drawUnknownWagonMark(len, w, s);
+        drawRailWagonEndSeams(len, w * 0.5, s);
     }
 
     function drawWagonIcon(obj, s) {
         var kind = obj.kind;
-        var len = numberOr(obj.size && obj.size.length, 14) * s;
+        var len = railWagonLengthM(obj) * s;
         var w = numberOr(obj.size && obj.size.width, 3.05) * s;
         var color = obj.color || '#4b5563';
         ctx.strokeStyle = '#111';
@@ -2378,7 +2422,6 @@ function initTerminalPlan2D() {
         // рама
         ctx.fillStyle = '#374151';
         strokeFillRect(-len / 2, -w * 0.22, len, w * 0.44);
-        drawWheels([-len * 0.32, len * 0.32], w * 0.55, Math.max(0.9, 0.5 * s));
 
         if (kind === 'wagonTank') {
             ctx.fillStyle = color;

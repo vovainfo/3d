@@ -260,7 +260,7 @@
       <id>20</id>
       <title>
         <key>ru</key>
-        <value>Позиция, м</value>
+        <value>Позиция</value>
       </title>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -297,7 +297,7 @@
         <wrap>true</wrap>
         <format>
           <key>ru</key>
-          <value>ЧДЦ=2</value>
+          <value>ЧГ=0</value>
         </format>
         <chooseType>true</chooseType>
         <typeDomainEnabled>true</typeDomainEnabled>
@@ -551,7 +551,6 @@
       <types>Number</types>
       <numberQualifiers>
         <precision>10</precision>
-        <scale>2</scale>
         <nonNegative>true</nonNegative>
       </numberQualifiers>
     </valueType>
@@ -638,7 +637,6 @@
       <types>Number</types>
       <numberQualifiers>
         <precision>10</precision>
-        <scale>2</scale>
         <nonNegative>true</nonNegative>
       </numberQualifiers>
     </valueType>

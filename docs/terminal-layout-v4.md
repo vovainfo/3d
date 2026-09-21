@@ -102,14 +102,18 @@ RTG/RMG задают `siteId`, `movementAxis` (`bays` или `rows`) и `positio
 
 Состав имеет только поля `id`, `name`, `branchId`, `offsetM`, `direction`,
 `gapM`, `wagons`. `direction` равен `forward` или `reverse`, `gapM`
-опционален и по умолчанию равен 1 м. `offsetM` — цепаж начала занятого
-составом интервала, то есть торца первого вагона с меньшим цепажом. Вагоны
-всегда раскладываются по списку в сторону роста цепажа. `direction` задаёт
-только ориентацию вагонов: `reverse` разворачивает их на 180°.
+опционален и по умолчанию равен 0 м. Поле `offsetM` остаётся в JSON, но
+runtime 1С его не использует: занятый интервал центрируется на ветке. Если
+состав длиннее ветки, на ветку попадает префикс списка (сколько влезает),
+и этот префикс тоже центрируется. Вагоны раскладываются по списку в сторону
+роста цепажа. `direction` задаёт только ориентацию вагонов: `reverse`
+разворачивает их на 180°.
 
 Центры вагонов рассчитываются так:
 
 ```text
+occupied = sum(prefix lengths) + (n - 1) * gapM
+offsetM = (branchLength - occupied) / 2
 firstCenter = offsetM + firstLength/2
 nextCenter = previousCenter + previousLength/2 + gapM + currentLength/2
 ```
