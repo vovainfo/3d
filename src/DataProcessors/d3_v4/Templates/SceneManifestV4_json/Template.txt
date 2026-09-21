@@ -1,6 +1,6 @@
 {
   "schemaVersion": "4.0",
-  "buildId": "4aabc37f77dd9056",
+  "buildId": "697de3c4ee78c3bb",
   "algorithm": "sha256",
   "sources": {
     "anchorage": {
@@ -35,8 +35,8 @@
     },
     "containerSites": {
       "path": "geojson/container_sites_v4.geojson",
-      "sha256": "ab69db4299248072ce0a10d12321fde7d2adc3ef0cd1465399a50bc8a450e3fe",
-      "characters": 24437
+      "sha256": "ef5d1123dae1b44de0add9c7cff41266583b8bf557bc7b473cac2fb2589ee12f",
+      "characters": 25318
     },
     "cranes": {
       "path": "cranes-v4.json",
@@ -55,17 +55,17 @@
     },
     "railwayBranches": {
       "path": "geojson/railway_branches_v4.geojson",
-      "sha256": "39a1d6dd33dbc390c34a044ef7d5ab879247f8b029fc6ab887736d009acf9b99",
-      "characters": 29938
+      "sha256": "1e62358bad95ba8e79cc97d8ca1caac735ef90f21f3b5854171ca460bf894a6a",
+      "characters": 30080
     },
     "railways": {
       "path": "railways-v4.json",
-      "sha256": "34cb1b19b36a05eba7f013b436762cdca02778000beb802e5964b81f322a3aa4",
-      "characters": 278648
+      "sha256": "4ec98eb99f39fbabb268825a5f13fbae2982b958c5ffcd56f266fd2e11f2b728",
+      "characters": 278758
     },
     "railwaysVisual": {
       "path": "geojson/railways_visual_v4.geojson",
-      "sha256": "b0a7fa3552efdaed46796cfcb7a40c5d028c290173a9386bc29c681a0b4c5cc0",
+      "sha256": "a4ac4c0d63bbe26b49c040b2394aa2c65cf6b4bda704ba4a3e3b7f2578d90089",
       "characters": 48088
     },
     "roads": {

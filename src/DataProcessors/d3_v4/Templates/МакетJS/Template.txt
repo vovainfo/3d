@@ -203,6 +203,7 @@ function initTerminalPlan2D() {
     var railwayBranches = normalizeRailwayList(rawRailways.branches, true);
     var drawRailwayBranches = Boolean(sceneData.drawRailwayBranches);
     var showCellCapacity = true;
+    var showSiteLabels = true;
     var cells = (sceneData.cells instanceof Array) ? sceneData.cells.slice() : [];
     var cellById = {};
     for (var initialCellIndex = 0; initialCellIndex < cells.length; initialCellIndex++) {
@@ -525,6 +526,8 @@ function initTerminalPlan2D() {
     ];
     var DISABLED_CELL_FILL = '#82878f';
     var DISABLED_CELL_MARK = '#c9ced6';
+    var SITE_LABEL_FILL = '#f8fafc';
+    var SITE_LABEL_STROKE = 'rgba(15, 23, 42, 0.78)';
 
     function colorForCount(count, zoneKind) {
         var palette = zoneKind === 'discharge'
@@ -578,6 +581,61 @@ function initTerminalPlan2D() {
         view.offsetX = (width - site.width * view.scale) / 2;
         view.offsetY = (height - site.length * view.scale) / 2;
         needsDraw = true;
+    }
+
+    function fitWorldBounds(minX, minY, maxX, maxY, padding) {
+        var width = viewport.clientWidth || 800;
+        var height = viewport.clientHeight || 600;
+        var pad = numberOr(padding, 60);
+        pad = Math.max(0, Math.min(pad, width / 4, height / 4));
+        var bboxW = Math.max(1, numberOr(maxX, 0) - numberOr(minX, 0));
+        var bboxH = Math.max(1, numberOr(maxY, 0) - numberOr(minY, 0));
+        var usableW = Math.max(1, width - pad * 2);
+        var usableH = Math.max(1, height - pad * 2);
+        view.scale = Math.max(0.05, Math.min(20, Math.min(usableW / bboxW, usableH / bboxH)));
+        var centerX = (numberOr(minX, 0) + numberOr(maxX, 0)) / 2;
+        var centerY = (numberOr(minY, 0) + numberOr(maxY, 0)) / 2;
+        view.offsetX = width / 2 - (centerX - site.minX) * view.scale;
+        view.offsetY = height / 2 - (site.maxY - centerY) * view.scale;
+        needsDraw = true;
+    }
+
+    function focusSiteLabel(label, padding) {
+        label = String(label == null ? '' : label).trim();
+        if (!label) {
+            throw new Error('Не указана подпись площадки.');
+        }
+        var minX = Infinity;
+        var minY = Infinity;
+        var maxX = -Infinity;
+        var maxY = -Infinity;
+        var found = 0;
+        var i;
+        var p;
+        var x;
+        var y;
+        var polygon;
+        for (i = 0; i < containerSites.length; i++) {
+            if (String(containerSites[i].label || '').trim() !== label) {
+                continue;
+            }
+            polygon = containerSites[i].polygon instanceof Array ? containerSites[i].polygon : [];
+            for (p = 0; p < polygon.length; p++) {
+                x = numberOr(polygon[p].x, 0);
+                y = numberOr(polygon[p].y, 0);
+                if (x < minX) { minX = x; }
+                if (y < minY) { minY = y; }
+                if (x > maxX) { maxX = x; }
+                if (y > maxY) { maxY = y; }
+            }
+            found += 1;
+        }
+        if (!found || !isFinite(minX) || !isFinite(minY) || !isFinite(maxX) || !isFinite(maxY)) {
+            throw new Error('Площадки с подписью "' + label + '" не найдены.');
+        }
+        selected = null;
+        fitWorldBounds(minX, minY, maxX, maxY, padding);
+        return found;
     }
 
     function ringCentroid(ring) {
@@ -914,6 +972,30 @@ function initTerminalPlan2D() {
         ctx.strokeText(building.name, center.x, center.y);
         ctx.fillStyle = buildingTextColor(building.color);
         ctx.fillText(building.name, center.x, center.y);
+        ctx.restore();
+    }
+
+    function drawContainerSiteLabel(site) {
+        var label = site && site.label != null ? String(site.label).trim() : '';
+        if (!label) {
+            return;
+        }
+        var polygon = site.polygon instanceof Array ? site.polygon : [];
+        if (polygon.length < 3) {
+            return;
+        }
+        var centroid = ringCentroid(polygon);
+        var center = worldToScreen(centroid.x, centroid.y);
+        ctx.save();
+        ctx.font = 'bold ' + Math.max(24, Math.min(44, 10 * view.scale)) + 'px Segoe UI, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = SITE_LABEL_STROKE;
+        ctx.lineWidth = 3;
+        ctx.strokeText(label, center.x, center.y);
+        ctx.fillStyle = SITE_LABEL_FILL;
+        ctx.fillText(label, center.x, center.y);
         ctx.restore();
     }
 
@@ -3166,6 +3248,11 @@ function initTerminalPlan2D() {
                 drawEquipment(objects[i]);
             }
         }
+        if (showSiteLabels) {
+            for (i = 0; i < containerSites.length; i++) {
+                drawContainerSiteLabel(containerSites[i]);
+            }
+        }
         if (drawRailwayBranches) {
             for (i = 0; i < railwayBranches.length; i++) {
                 drawRailwayBranchLabels(railwayBranches[i]);
@@ -3554,6 +3641,9 @@ function initTerminalPlan2D() {
                 minScale: command.minScale
             });
         }
+        if (command.op === 'focusSites') {
+            return focusSiteLabel(command.label, command.padding);
+        }
         if (command.op === 'updateScoutVehicles') {
             return updateScoutVehicles(command.objects);
         }
@@ -3575,6 +3665,11 @@ function initTerminalPlan2D() {
             showCellCapacity = Boolean(command.visible);
             needsDraw = true;
             return showCellCapacity;
+        }
+        if (command.op === 'setShowSiteLabels') {
+            showSiteLabels = Boolean(command.visible);
+            needsDraw = true;
+            return showSiteLabels;
         }
         if (command.op === 'resize') {
             resize();
@@ -3630,6 +3725,7 @@ function initTerminalPlan2D() {
     window.terminalPlan2d = {
         applyCommand: applyCommand,
         focusObject: focusObject,
+        focusSiteLabel: focusSiteLabel,
         updateScoutVehicles: updateScoutVehicles,
         getCell: function (id) { return cellById[String(id)] || null; },
         getPlacement: function (id) { return placementById[String(id)] || null; },

@@ -596,6 +596,11 @@ def collect_sites(document: Any, crs: str, validation: Validation) -> dict[str, 
             site_id = ""
         if not validation.require(bool(site_id), location, "site_id is required"):
             continue
+        try:
+            label = str(feature["properties"].get("label", "")).strip()
+        except (AttributeError, TypeError):
+            label = ""
+        validation.require(bool(label), location, "label is required")
         if site_id in sites:
             validation.add(location, f"duplicate site_id {site_id}")
             continue

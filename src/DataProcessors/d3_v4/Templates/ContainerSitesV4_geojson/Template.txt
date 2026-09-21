@@ -13,7 +13,8 @@
       "type": "Feature",
       "properties": {
         "fid": 1,
-        "site_id": "kpC"
+        "site_id": "kpC",
+        "label": "C"
       },
       "geometry": {
         "type": "Polygon",
@@ -47,7 +48,8 @@
       "type": "Feature",
       "properties": {
         "fid": 2,
-        "site_id": "kpB"
+        "site_id": "kpB",
+        "label": "B"
       },
       "geometry": {
         "type": "Polygon",
@@ -81,7 +83,8 @@
       "type": "Feature",
       "properties": {
         "fid": 3,
-        "site_id": "kpAD"
+        "site_id": "kpAD",
+        "label": "A, D"
       },
       "geometry": {
         "type": "Polygon",
@@ -115,7 +118,8 @@
       "type": "Feature",
       "properties": {
         "fid": 4,
-        "site_id": "kpF"
+        "site_id": "kpF",
+        "label": "F"
       },
       "geometry": {
         "type": "Polygon",
@@ -149,7 +153,8 @@
       "type": "Feature",
       "properties": {
         "fid": 5,
-        "site_id": "kpP"
+        "site_id": "kpP",
+        "label": "P"
       },
       "geometry": {
         "type": "Polygon",
@@ -183,7 +188,8 @@
       "type": "Feature",
       "properties": {
         "fid": 6,
-        "site_id": "kpT"
+        "site_id": "kpT",
+        "label": "T"
       },
       "geometry": {
         "type": "Polygon",
@@ -217,7 +223,8 @@
       "type": "Feature",
       "properties": {
         "fid": 8,
-        "site_id": "kpR1"
+        "site_id": "kpR1",
+        "label": "R"
       },
       "geometry": {
         "type": "Polygon",
@@ -251,7 +258,8 @@
       "type": "Feature",
       "properties": {
         "fid": 9,
-        "site_id": "kpR2"
+        "site_id": "kpR2",
+        "label": "R"
       },
       "geometry": {
         "type": "Polygon",
@@ -285,7 +293,8 @@
       "type": "Feature",
       "properties": {
         "fid": 10,
-        "site_id": "kpR3"
+        "site_id": "kpR3",
+        "label": "R"
       },
       "geometry": {
         "type": "Polygon",
@@ -319,7 +328,8 @@
       "type": "Feature",
       "properties": {
         "fid": 11,
-        "site_id": "kpE1"
+        "site_id": "kpE1",
+        "label": "E"
       },
       "geometry": {
         "type": "Polygon",
@@ -353,7 +363,8 @@
       "type": "Feature",
       "properties": {
         "fid": 12,
-        "site_id": "kpE2"
+        "site_id": "kpE2",
+        "label": "E"
       },
       "geometry": {
         "type": "Polygon",
@@ -387,7 +398,8 @@
       "type": "Feature",
       "properties": {
         "fid": 13,
-        "site_id": "kpX"
+        "site_id": "kpX",
+        "label": "X"
       },
       "geometry": {
         "type": "Polygon",
@@ -421,7 +433,8 @@
       "type": "Feature",
       "properties": {
         "fid": 14,
-        "site_id": "kpQ"
+        "site_id": "kpQ",
+        "label": "Q"
       },
       "geometry": {
         "type": "Polygon",
@@ -455,7 +468,8 @@
       "type": "Feature",
       "properties": {
         "fid": 15,
-        "site_id": "kpY2"
+        "site_id": "kpY2",
+        "label": "Y"
       },
       "geometry": {
         "type": "Polygon",
@@ -489,7 +503,8 @@
       "type": "Feature",
       "properties": {
         "fid": 16,
-        "site_id": "kpY"
+        "site_id": "kpY",
+        "label": "Y"
       },
       "geometry": {
         "type": "Polygon",
@@ -523,7 +538,8 @@
       "type": "Feature",
       "properties": {
         "fid": 17,
-        "site_id": "kpN"
+        "site_id": "kpN",
+        "label": "N"
       },
       "geometry": {
         "type": "Polygon",
@@ -557,7 +573,8 @@
       "type": "Feature",
       "properties": {
         "fid": 18,
-        "site_id": "kpPR"
+        "site_id": "kpPR",
+        "label": "PR"
       },
       "geometry": {
         "type": "Polygon",
@@ -591,7 +608,8 @@
       "type": "Feature",
       "properties": {
         "fid": 19,
-        "site_id": "kpMR"
+        "site_id": "kpMR",
+        "label": "MR"
       },
       "geometry": {
         "type": "Polygon",
@@ -625,7 +643,8 @@
       "type": "Feature",
       "properties": {
         "fid": 20,
-        "site_id": "kpO"
+        "site_id": "kpO",
+        "label": "O"
       },
       "geometry": {
         "type": "Polygon",
@@ -659,7 +678,8 @@
       "type": "Feature",
       "properties": {
         "fid": 21,
-        "site_id": "kpL"
+        "site_id": "kpL",
+        "label": "L"
       },
       "geometry": {
         "type": "Polygon",
@@ -693,7 +713,8 @@
       "type": "Feature",
       "properties": {
         "fid": 22,
-        "site_id": "kpJ"
+        "site_id": "kpJ",
+        "label": "J"
       },
       "geometry": {
         "type": "Polygon",
@@ -727,7 +748,8 @@
       "type": "Feature",
       "properties": {
         "fid": 23,
-        "site_id": "kpS"
+        "site_id": "kpS",
+        "label": "S"
       },
       "geometry": {
         "type": "Polygon",
@@ -761,7 +783,8 @@
       "type": "Feature",
       "properties": {
         "fid": 24,
-        "site_id": "kpS1"
+        "site_id": "kpS1",
+        "label": "S"
       },
       "geometry": {
         "type": "Polygon",
@@ -795,7 +818,8 @@
       "type": "Feature",
       "properties": {
         "fid": 25,
-        "site_id": "kpQT1"
+        "site_id": "kpQT1",
+        "label": "QT"
       },
       "geometry": {
         "type": "Polygon",
@@ -829,7 +853,8 @@
       "type": "Feature",
       "properties": {
         "fid": 26,
-        "site_id": "kpQT"
+        "site_id": "kpQT",
+        "label": "QT"
       },
       "geometry": {
         "type": "Polygon",
@@ -863,7 +888,8 @@
       "type": "Feature",
       "properties": {
         "fid": 27,
-        "site_id": "kpRF"
+        "site_id": "kpRF",
+        "label": "RF"
       },
       "geometry": {
         "type": "Polygon",
@@ -897,7 +923,8 @@
       "type": "Feature",
       "properties": {
         "fid": 28,
-        "site_id": "kpRF1"
+        "site_id": "kpRF1",
+        "label": "RF"
       },
       "geometry": {
         "type": "Polygon",
@@ -931,7 +958,8 @@
       "type": "Feature",
       "properties": {
         "fid": 29,
-        "site_id": "kpRF2"
+        "site_id": "kpRF2",
+        "label": "RF"
       },
       "geometry": {
         "type": "Polygon",
@@ -965,7 +993,8 @@
       "type": "Feature",
       "properties": {
         "fid": 30,
-        "site_id": "kpRF3"
+        "site_id": "kpRF3",
+        "label": "RF"
       },
       "geometry": {
         "type": "Polygon",
@@ -999,7 +1028,8 @@
       "type": "Feature",
       "properties": {
         "fid": 31,
-        "site_id": "kpREM"
+        "site_id": "kpREM",
+        "label": "REM"
       },
       "geometry": {
         "type": "Polygon",
@@ -1033,7 +1063,8 @@
       "type": "Feature",
       "properties": {
         "fid": 32,
-        "site_id": "kpREM2"
+        "site_id": "kpREM2",
+        "label": "REM"
       },
       "geometry": {
         "type": "Polygon",
@@ -1067,7 +1098,8 @@
       "type": "Feature",
       "properties": {
         "fid": 33,
-        "site_id": "kpUR"
+        "site_id": "kpUR",
+        "label": "UR"
       },
       "geometry": {
         "type": "Polygon",
@@ -1101,7 +1133,8 @@
       "type": "Feature",
       "properties": {
         "fid": 34,
-        "site_id": "kpBR"
+        "site_id": "kpBR",
+        "label": "BR"
       },
       "geometry": {
         "type": "Polygon",
@@ -1135,7 +1168,8 @@
       "type": "Feature",
       "properties": {
         "fid": 35,
-        "site_id": "kpBR2"
+        "site_id": "kpBR2",
+        "label": "BR"
       },
       "geometry": {
         "type": "Polygon",
@@ -1169,7 +1203,8 @@
       "type": "Feature",
       "properties": {
         "fid": 36,
-        "site_id": "kpLM"
+        "site_id": "kpLM",
+        "label": "LM"
       },
       "geometry": {
         "type": "Polygon",
@@ -1203,7 +1238,8 @@
       "type": "Feature",
       "properties": {
         "fid": 37,
-        "site_id": "kpLM2"
+        "site_id": "kpLM2",
+        "label": "LM"
       },
       "geometry": {
         "type": "Polygon",
@@ -1237,7 +1273,8 @@
       "type": "Feature",
       "properties": {
         "fid": 38,
-        "site_id": "kpLM3"
+        "site_id": "kpLM3",
+        "label": "LM"
       },
       "geometry": {
         "type": "Polygon",
@@ -1271,7 +1308,8 @@
       "type": "Feature",
       "properties": {
         "fid": 39,
-        "site_id": "kpLM4"
+        "site_id": "kpLM4",
+        "label": "LM"
       },
       "geometry": {
         "type": "Polygon",
@@ -1305,7 +1343,8 @@
       "type": "Feature",
       "properties": {
         "fid": 40,
-        "site_id": "kpOL"
+        "site_id": "kpOL",
+        "label": "OL"
       },
       "geometry": {
         "type": "Polygon",
