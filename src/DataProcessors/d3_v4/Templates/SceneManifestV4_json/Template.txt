@@ -1,6 +1,6 @@
 {
   "schemaVersion": "4.0",
-  "buildId": "b550f7e6967fb532",
+  "buildId": "cabd033860109097",
   "algorithm": "sha256",
   "sources": {
     "anchorage": {
@@ -40,8 +40,8 @@
     },
     "cranes": {
       "path": "cranes-v4.json",
-      "sha256": "a1a467bd62070a404475fe9667d787179303c73e685392035bd39c8f94d6de49",
-      "characters": 9146
+      "sha256": "7e52765c614a64ee69ee785fd26319468a75e5db728b2f53d92ba9b06f930da2",
+      "characters": 9616
     },
     "portBoundary": {
       "path": "geojson/port_boundary.geojson",
@@ -105,8 +105,8 @@
     },
     "yardCranes": {
       "path": "yard-cranes-v4.json",
-      "sha256": "e4cd938513474a70c4ce022d74ec4e746059511a0bc7ef8116a39d617d18a4d1",
-      "characters": 1866
+      "sha256": "235a971849d960b8c5dba32db3e000c48eb132e4b2f746f719bfd6086477e98e",
+      "characters": 2336
     }
   }
 }

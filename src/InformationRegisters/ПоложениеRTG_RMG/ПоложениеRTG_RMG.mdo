@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:InformationRegister xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="d1e74953-dd86-47d7-a5ae-c28bc0393063">
+  <producedTypes>
+    <selectionType typeId="1c911660-ecfc-4166-9d33-353f7741ba33" valueTypeId="bec06e3a-eff9-4461-9f97-3397595da2f1"/>
+    <listType typeId="25dc43e5-e52e-4ecf-a195-8c9365b7f8b8" valueTypeId="4d07956a-3eb6-46aa-a4d2-71f3712c3496"/>
+    <managerType typeId="d42300bb-9315-41e0-88ab-e495f5b30fd8" valueTypeId="f02372b7-350e-4aff-8c18-a1c50fb093fc"/>
+    <recordSetType typeId="97e6f442-eacf-4483-a9da-4d42cb23a8cc" valueTypeId="d175d84c-9ca8-4a12-9a91-923a94f47d21"/>
+    <recordKeyType typeId="1c8111fe-4989-44c2-b4b4-2075e06418fe" valueTypeId="5234f502-4bf7-465b-beb3-a0041cf86462"/>
+    <recordType typeId="a6a87fb9-24ea-43d4-8328-9e4ea7c33117" valueTypeId="da6639fb-a0bd-4b29-a2eb-345ad80d4be0"/>
+    <recordManagerType typeId="a5354770-e06a-4e4d-896e-0426502e46d5" valueTypeId="75844cd3-6f97-47ff-8a53-eac04468d08e"/>
+  </producedTypes>
+  <name>ПоложениеRTG_RMG</name>
+  <synonym>
+    <key>ru</key>
+    <value>Положение RTG RMG</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <editType>InDialog</editType>
+  <dataLockControlMode>Managed</dataLockControlMode>
+  <recordPresentation>
+    <key>ru</key>
+    <value>Положение RTG RMG</value>
+  </recordPresentation>
+  <listPresentation>
+    <key>ru</key>
+    <value>Положения RTG RMG</value>
+  </listPresentation>
+  <resources uuid="36b16ede-ae0b-4ee9-984d-a6a8bf8822cd">
+    <name>Наименование</name>
+    <synonym>
+      <key>ru</key>
+      <value>Наименование</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>150</length>
+      </stringQualifiers>
+    </type>
+  </resources>
+  <resources uuid="8b4ec207-b72c-4855-8540-f156a1baf7c0">
+    <name>УктИД</name>
+    <synonym>
+      <key>ru</key>
+      <value>УКТ ИД</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>20</length>
+      </stringQualifiers>
+    </type>
+  </resources>
+  <resources uuid="5beae768-d0d6-4534-b6e2-8a3f56285492">
+    <name>УппИД</name>
+    <synonym>
+      <key>ru</key>
+      <value>УПП ИД</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>20</length>
+      </stringQualifiers>
+    </type>
+  </resources>
+  <resources uuid="2a9fe98f-c1b3-4637-9f74-2c784cbabe57">
+    <name>Контейнер</name>
+    <synonym>
+      <key>ru</key>
+      <value>Контейнер</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>20</length>
+      </stringQualifiers>
+    </type>
+  </resources>
+  <resources uuid="526c9500-ccc4-4b9f-b211-920fd4e34f9b">
+    <name>Ячейка</name>
+    <synonym>
+      <key>ru</key>
+      <value>Ячейка</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>15</length>
+      </stringQualifiers>
+    </type>
+  </resources>
+  <resources uuid="aa7f593f-9a48-4abe-82d2-16ed38092c73">
+    <name>СКАУТ_ИД</name>
+    <synonym>
+      <key>ru</key>
+      <value>СКАУТ ИД</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>15</precision>
+        <nonNegative>true</nonNegative>
+      </numberQualifiers>
+    </type>
+  </resources>
+  <resources uuid="3a7edda3-ba15-4382-8edc-1aeb6044d4eb">
+    <name>ДатаСтатуса</name>
+    <synonym>
+      <key>ru</key>
+      <value>Дата статуса</value>
+    </synonym>
+    <type>
+      <types>Date</types>
+      <dateQualifiers/>
+    </type>
+  </resources>
+  <resources uuid="92a0bef9-39ba-4f72-8632-a60713a963f2">
+    <name>СКонтейнером</name>
+    <synonym>
+      <key>ru</key>
+      <value>С контейнером</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+  </resources>
+  <resources uuid="fd3f3055-1c49-4f65-a722-cfc1a85657c5">
+    <name>КоординатаX</name>
+    <synonym>
+      <key>ru</key>
+      <value>Координата X</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>15</precision>
+        <scale>3</scale>
+      </numberQualifiers>
+    </type>
+  </resources>
+  <resources uuid="afe984c4-91ac-494d-91b9-5997a103da1c">
+    <name>КоординатаY</name>
+    <synonym>
+      <key>ru</key>
+      <value>Координата Y</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>15</precision>
+        <scale>3</scale>
+      </numberQualifiers>
+    </type>
+  </resources>
+  <resources uuid="eb559a6c-05da-439d-9dca-98d4339fbfdb">
+    <name>СмещениеТележки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Смещение тележки</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>10</precision>
+        <scale>3</scale>
+      </numberQualifiers>
+    </type>
+  </resources>
+  <resources uuid="c4633f13-1d75-443a-be04-36e67fe50331">
+    <name>ДатаОбновления</name>
+    <synonym>
+      <key>ru</key>
+      <value>Дата обновления</value>
+    </synonym>
+    <type>
+      <types>Date</types>
+      <dateQualifiers/>
+    </type>
+  </resources>
+  <dimensions uuid="c5652675-2cc5-46a7-b776-248a10b04ac6">
+    <name>ИД</name>
+    <synonym>
+      <key>ru</key>
+      <value>ИД</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>50</length>
+      </stringQualifiers>
+    </type>
+    <fillChecking>ShowError</fillChecking>
+    <denyIncompleteValues>true</denyIncompleteValues>
+    <indexing>Index</indexing>
+    <fullTextSearch>Use</fullTextSearch>
+    <mainFilter>true</mainFilter>
+  </dimensions>
+</mdclass:InformationRegister>

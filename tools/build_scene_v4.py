@@ -1324,6 +1324,7 @@ def collect_cranes(
 ) -> dict[str, Any]:
     cranes: list[dict[str, Any]] = []
     crane_ids: set[str] = set()
+    ukt_ids: set[str] = set()
 
     for feature_index, feature in enumerate(
         feature_collection(portal_document, "portal_cranes_v4.geojson", validation)
@@ -1411,6 +1412,14 @@ def collect_cranes(
         validation.require(movement_axis in ("bays", "rows"), f"{location}.movementAxis", "must be bays or rows")
         validation.require(number(crane.get("positionM")), f"{location}.positionM", "must be a finite number")
         validation.require(valid_color(crane.get("color")), f"{location}.color", "must use #RRGGBB format")
+        ukt_id = trimmed_text(crane.get("uktId"))
+        upp_id = trimmed_text(crane.get("uppId"))
+        validation.require(bool(ukt_id), f"{location}.uktId", "uktId is required")
+        validation.require(bool(upp_id), f"{location}.uppId", "uppId is required")
+        if ukt_id in ukt_ids:
+            validation.add(f"{location}.uktId", f"duplicate uktId {ukt_id}")
+        elif ukt_id:
+            ukt_ids.add(ukt_id)
         if crane_type == "rmg":
             rail_inset = crane.get("railInsetM")
             validation.require(
@@ -1430,6 +1439,8 @@ def collect_cranes(
                 "id": crane_id,
                 "name": name,
                 "type": crane_type,
+                "uktId": ukt_id,
+                "uppId": upp_id,
                 "siteId": site_id,
                 "movementAxis": movement_axis,
                 "positionM": crane.get("positionM"),

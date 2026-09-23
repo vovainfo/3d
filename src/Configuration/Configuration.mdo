@@ -45,6 +45,7 @@
   <scheduledJobs>ScheduledJob.ПолучитьСудаEDS</scheduledJobs>
   <scheduledJobs>ScheduledJob.ПолучитьВагоныУПП</scheduledJobs>
   <scheduledJobs>ScheduledJob.ПолучитьНаполнениеПлощадокУКТ</scheduledJobs>
+  <scheduledJobs>ScheduledJob.ПолучитьПоложениеКрановRTG_RMG</scheduledJobs>
   <constants>Constant.ПолучениеРеальныхДанных</constants>
   <constants>Constant.ОтрисовкаПутейДляВагонов</constants>
   <constants>Constant.ТокенСкаут</constants>
@@ -57,4 +58,5 @@
   <dataProcessors>DataProcessor.Скаут</dataProcessors>
   <informationRegisters>InformationRegister.ПоложениеТехникиСкаут</informationRegisters>
   <informationRegisters>InformationRegister.СнимкиОнлайнДанныхТерминала</informationRegisters>
+  <informationRegisters>InformationRegister.ПоложениеRTG_RMG</informationRegisters>
 </mdclass:Configuration>

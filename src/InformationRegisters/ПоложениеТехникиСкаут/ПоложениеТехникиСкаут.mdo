@@ -235,6 +235,19 @@
       </stringQualifiers>
     </type>
   </resources>
+  <resources uuid="d80e00e6-37d2-4a86-bb08-2fd16b27296a">
+    <name>Телефон</name>
+    <synonym>
+      <key>ru</key>
+      <value>Телефон</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>20</length>
+      </stringQualifiers>
+    </type>
+  </resources>
   <dimensions uuid="ab442873-0c5b-483e-8857-11fefc128f50">
     <name>Идентификатор</name>
     <synonym>

@@ -465,6 +465,9 @@ function initTerminalPlan2D() {
             siteId: String(so.siteId || ''),
             movementAxis: String(so.movementAxis || ''),
             positionM: numberOr(so.positionM, 0),
+            trolleyOffsetM: numberOr(so.trolleyOffsetM, 0),
+            containerNo: String(so.containerNo || ''),
+            cellCode: String(so.cellCode || ''),
             railInsetM: numberOr(so.railInsetM, 0),
             leftWingM: numberOr(so.leftWingM, 0),
             rightWingM: numberOr(so.rightWingM, 0),
@@ -1681,12 +1684,16 @@ function initTerminalPlan2D() {
         var beam = Math.max(2, 1.4 * s);
         var beamX = left - rightWing;
         var beamW = span + leftWing + rightWing;
+        // Знак 1 совпадает с поперечной осью площадки; -1 разворачивает тележку.
+        var TROLLEY_OFFSET_SIGN = 1;
+        var tx = TROLLEY_OFFSET_SIGN * numberOr(obj.trolleyOffsetM, 0) * s;
 
         if (onRails) {
-            // Две поперечные балки с крыльями и продольная между ними.
+            // Две балки портала с крыльями остаются на месте.
+            // Перекладина между ними едет поперёк пролёта вместе с контейнером.
             strokeFillRect(beamX, -len / 2, beamW, beam);
             strokeFillRect(beamX, len / 2 - beam, beamW, beam);
-            strokeFillRect(-beam / 2, -len / 2 + beam, beam, len - beam * 2);
+            strokeFillRect(tx - beam / 2, -len / 2 + beam, beam, len - beam * 2);
         } else {
             strokeFillRect(left, -beam / 2, span, beam);
             ctx.strokeStyle = '#92400e';
@@ -1699,12 +1706,25 @@ function initTerminalPlan2D() {
             ctx.stroke();
         }
 
-        // Тележка + спредер.
+        // Тележка + спредер в той же точке, что и перекладина RMG.
         ctx.fillStyle = '#1f2937';
-        strokeFillRect(-beam * 1.6, -2.2 * s, beam * 3.2, 4.4 * s);
-        ctx.strokeStyle = color;
-        ctx.lineWidth = Math.max(1.5, s * 0.25);
-        ctx.strokeRect(beam * 1.2, -3.5 * s, Math.max(3, 2.2 * s), 7 * s);
+        strokeFillRect(tx - beam * 1.6, -2.2 * s, beam * 3.2, 4.4 * s);
+        // Спредер и контейнер — один прямоугольник 20 ft над ячейкой ряда.
+        // Пустой контур и залитый контейнер стоят в одной точке, и у RTG, и у RMG.
+        var containerL = 6.1 * s;
+        var containerW = 2.44 * s;
+        var boxX = tx - containerW / 2;
+        var boxY = -containerL / 2;
+        if (obj.withContainer) {
+            ctx.fillStyle = '#38bdf8';
+            ctx.strokeStyle = '#0c4a6e';
+            ctx.lineWidth = Math.max(1, s * 0.15);
+            strokeFillRect(boxX, boxY, containerW, containerL);
+        } else {
+            ctx.strokeStyle = '#38bdf8';
+            ctx.lineWidth = Math.max(1.25, s * 0.18);
+            ctx.strokeRect(boxX, boxY, containerW, containerL);
+        }
     }
 
     function drawRtgIcon(obj, s) {
@@ -3463,6 +3483,31 @@ function initTerminalPlan2D() {
         return target;
     }
 
+    function updateYardCranePositions(sourcePositions) {
+        if (!(sourcePositions instanceof Array)) {
+            throw new Error('Для обновления кранов ожидается массив положений.');
+        }
+        var index;
+        for (index = 0; index < sourcePositions.length; index++) {
+            var position = sourcePositions[index];
+            if (!position || !position.id) {
+                continue;
+            }
+            var crane = objectById[String(position.id)];
+            if (!crane || (crane.kind !== 'craneRtg' && crane.kind !== 'craneRmg')) {
+                continue;
+            }
+            crane.x = numberOr(position.x, crane.x);
+            crane.y = numberOr(position.y, crane.y);
+            crane.trolleyOffsetM = numberOr(position.trolleyOffsetM, 0);
+            crane.withContainer = Boolean(position.withContainer);
+            crane.containerNo = position.containerNo || '';
+            crane.cellCode = position.cellCode || '';
+        }
+        needsDraw = true;
+        return sourcePositions.length;
+    }
+
     function updateScoutVehicles(sourceVehicles) {
         if (!(sourceVehicles instanceof Array)) {
             throw new Error('Для обновления техники ожидается массив объектов.');
@@ -3651,6 +3696,9 @@ function initTerminalPlan2D() {
         if (command.op === 'updateScoutVehicles') {
             return updateScoutVehicles(command.objects);
         }
+        if (command.op === 'updateYardCranePositions') {
+            return updateYardCranePositions(command.objects);
+        }
         if (command.op === 'updateVessels') {
             return updateVessels(command.objects);
         }
@@ -3731,6 +3779,7 @@ function initTerminalPlan2D() {
         focusObject: focusObject,
         focusSiteLabel: focusSiteLabel,
         updateScoutVehicles: updateScoutVehicles,
+        updateYardCranePositions: updateYardCranePositions,
         getCell: function (id) { return cellById[String(id)] || null; },
         getPlacement: function (id) { return placementById[String(id)] || null; },
         getObject: function (id) {

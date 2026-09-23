@@ -2,8 +2,10 @@
   "schemaVersion": "4.0",
   "cranes": [
     {
-      "id": "RTG-77",
-      "name": "RTG 77",
+      "id": "RTG3-77",
+      "name": "RTG3 (77)",
+      "uktId": "000000003",
+      "uppId": "К77",
       "type": "rtg",
       "siteId": "kpB",
       "movementAxis": "bays",
@@ -11,8 +13,10 @@
       "color": "#F2C94C"
     },
     {
-      "id": "RTG-86",
-      "name": "RTG 86",
+      "id": "RTG2-86",
+      "name": "RTG2 (86)",
+      "uktId": "000000055",
+      "uppId": "К86",
       "type": "rtg",
       "siteId": "kpB",
       "movementAxis": "bays",
@@ -20,8 +24,10 @@
       "color": "#F2C94C"
     },
     {
-      "id": "RTG-74",
-      "name": "RTG 74",
+      "id": "RTG1-74",
+      "name": "RTG1 (74)",
+      "uktId": "000000002",
+      "uppId": "К74",
       "type": "rtg",
       "siteId": "kpB",
       "movementAxis": "bays",
@@ -29,8 +35,10 @@
       "color": "#F2C94C"
     },
     {
-      "id": "RTG-80",
-      "name": "RTG 80",
+      "id": "RTG6-80",
+      "name": "RTG6 (80)",
+      "uktId": "000000018",
+      "uppId": "К80",
       "type": "rtg",
       "siteId": "kpX",
       "movementAxis": "bays",
@@ -38,8 +46,10 @@
       "color": "#F2C94C"
     },
     {
-      "id": "RTG-82",
-      "name": "RTG 82",
+      "id": "RTG4-82",
+      "name": "RTG4 (82)",
+      "uktId": "000000036",
+      "uppId": "К82",
       "type": "rtg",
       "siteId": "kpX",
       "movementAxis": "bays",
@@ -47,8 +57,10 @@
       "color": "#F2C94C"
     },
     {
-      "id": "RTG-85",
-      "name": "RTG 85",
+      "id": "RTG5-85",
+      "name": "RTG5 (85)",
+      "uktId": "000000054",
+      "uppId": "К85",
       "type": "rtg",
       "siteId": "kpQ",
       "movementAxis": "bays",
@@ -56,8 +68,10 @@
       "color": "#F2C94C"
     },
     {
-      "id": "RTG-84",
-      "name": "RTG 84",
+      "id": "RTG7-84",
+      "name": "RTG7 (84)",
+      "uktId": "000000053",
+      "uppId": "К84",
       "type": "rtg",
       "siteId": "kpQ",
       "movementAxis": "bays",
@@ -65,8 +79,10 @@
       "color": "#F2C94C"
     },
     {
-      "id": "RMG-kpO-01",
-      "name": "RMG kpO 01",
+      "id": "RMG1-90",
+      "name": "RMG1 (90)",
+      "uktId": "000000091",
+      "uppId": "К90",
       "type": "rmg",
       "siteId": "kpO",
       "movementAxis": "bays",
@@ -77,8 +93,10 @@
       "color": "#E67E22"
     },
     {
-      "id": "RMG-kpO-02",
-      "name": "RMG kpO 02",
+      "id": "RMG2-91",
+      "name": "RMG2 (91)",
+      "uktId": "000000092",
+      "uppId": "К91",
       "type": "rmg",
       "siteId": "kpO",
       "movementAxis": "bays",

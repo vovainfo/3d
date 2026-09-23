@@ -4,6 +4,8 @@
     {
       "id": "RTG-example-01",
       "name": "RTG 01",
+      "uktId": "000000001",
+      "uppId": "К01",
       "type": "rtg",
       "siteId": "kpB",
       "movementAxis": "bays",
@@ -13,6 +15,8 @@
     {
       "id": "RMG-example-01",
       "name": "RMG 01",
+      "uktId": "000000002",
+      "uppId": "К02",
       "type": "rmg",
       "siteId": "kpAD",
       "movementAxis": "bays",
